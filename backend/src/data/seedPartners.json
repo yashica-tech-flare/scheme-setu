@@ -1,0 +1,350 @@
+[
+  {
+    "name": "Delhi SC/ST/OBC/Minorities Financial & Development Corp (DSFDC)",
+    "type": "SCA",
+    "location": { "lat": 28.6517, "lng": 77.2219 },
+    "address": "Ambedkar Bhawan, Sector 16, Rohini & Darya Ganj Zonal Office, Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "NSFDC Term Loan Scheme",
+      "Laghu Vyavsay Yojana (Small Business Scheme)",
+      "Voctech & Skill Development Loan"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 72,
+    "contact": "+91-11-23274291",
+    "email": "helpdesk@dsfdc.delhi.gov.in"
+  },
+  {
+    "name": "Punjab National Bank - Sansad Marg Lead District Office",
+    "type": "PSB",
+    "location": { "lat": 28.6258, "lng": 77.2144 },
+    "address": "7, Bhikhaji Cama Place & Parliament Street Branch, Connaught Place, New Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)",
+      "Green Business Scheme (GBS)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 64,
+    "contact": "+91-11-23715890",
+    "email": "leadbank.delhi@pnb.co.in"
+  },
+  {
+    "name": "State Bank of India - Specialized SME & Agri Hub",
+    "type": "PSB",
+    "location": { "lat": 28.6329, "lng": 77.2195 },
+    "address": "11, Parliament Street, SBI Central Secretariat Branch, New Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": [
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)",
+      "Green Business Scheme (GBS)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 78,
+    "contact": "+91-11-23374000",
+    "email": "sme.delhi@sbi.co.in"
+  },
+  {
+    "name": "Sarva Haryana Gramin Bank - Regional Financial Hub",
+    "type": "RRB",
+    "location": { "lat": 28.4595, "lng": 77.0266 },
+    "address": "Plot No. 1, Sector 32, Urban Estate, Gurugram NCR",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 58,
+    "contact": "+91-124-2223450",
+    "email": "credit@shgb.co.in"
+  },
+  {
+    "name": "Fusion Micro Finance Limited (Empanelled NBFC-MFI)",
+    "type": "NBFC-MFI",
+    "location": { "lat": 28.5355, "lng": 77.2610 },
+    "address": "Plot No. 86, Okhla Industrial Area Phase-III, New Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "Voctech & Skill Development Loan"
+    ],
+    "npaStatus": "medium",
+    "fundUtilizationPercent": 82,
+    "contact": "+91-11-46646600",
+    "email": "support@fusionmicrofinance.com"
+  },
+  {
+    "name": "Bank of Baroda - SC/ST Special Lending Branch",
+    "type": "PSB",
+    "location": { "lat": 28.6448, "lng": 77.2167 },
+    "address": "Asaf Ali Road Branch, Daryaganj, New Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": [
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 69,
+    "contact": "+91-11-23235612",
+    "email": "scst.cell@bankofbaroda.com"
+  },
+  {
+    "name": "Delhi Gramin Stressed Credit Branch (High NPA - Filter Test)",
+    "type": "RRB",
+    "location": { "lat": 28.6139, "lng": 77.2090 },
+    "address": "Najafgarh Road Extension, Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": ["NSFDC Micro Credit Finance (MCF)"],
+    "npaStatus": "high",
+    "fundUtilizationPercent": 85,
+    "contact": "+91-11-25550199",
+    "email": "stressed.branch@example.com"
+  },
+  {
+    "name": "Capital Exhausted MFI Agency (Over-Utilized - Filter Test)",
+    "type": "NBFC-MFI",
+    "location": { "lat": 28.6200, "lng": 77.2100 },
+    "address": "Laxmi Nagar Hub, Delhi",
+    "city": "Delhi",
+    "state": "Delhi",
+    "schemesHandled": ["Mahila Samriddhi Yojana (MSY)"],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 96,
+    "contact": "+91-11-22440011",
+    "email": "exhausted@example.com"
+  },
+  {
+    "name": "Uttar Pradesh SC Finance & Development Corp (UPSCFDC)",
+    "type": "SCA",
+    "location": { "lat": 26.8467, "lng": 80.9462 },
+    "address": "Bapu Bhawan, Vidhan Sabha Marg, Hazratganj, Lucknow",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "NSFDC Term Loan Scheme",
+      "Green Business Scheme (GBS)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)",
+      "Voctech & Skill Development Loan"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 75,
+    "contact": "+91-522-2238491",
+    "email": "md@upscfdc.up.gov.in"
+  },
+  {
+    "name": "Baroda UP Bank - Head Office & Priority Sector Cell",
+    "type": "RRB",
+    "location": { "lat": 26.8500, "lng": 80.9380 },
+    "address": "Buddh Vihar Commercial Complex, Taramandal & Hazratganj, Lucknow",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)",
+      "NSFDC Term Loan Scheme"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 61,
+    "contact": "+91-522-2615410",
+    "email": "priority.sector@barodauprrb.co.in"
+  },
+  {
+    "name": "Canara Bank - Lucknow Circle Social Banking Wing",
+    "type": "PSB",
+    "location": { "lat": 26.8621, "lng": 80.9288 },
+    "address": "Vipin Khand, Gomti Nagar, Lucknow",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "schemesHandled": [
+      "NSFDC Education Loan Scheme (ELS)",
+      "NSFDC Term Loan Scheme",
+      "Green Business Scheme (GBS)"
+    ],
+    "npaStatus": "medium",
+    "fundUtilizationPercent": 71,
+    "contact": "+91-522-2304910",
+    "email": "socialbanking.lko@canarabank.com"
+  },
+  {
+    "name": "Satin Creditcare Network - SC Women Micro Lending Center",
+    "type": "NBFC-MFI",
+    "location": { "lat": 26.8389, "lng": 80.9124 },
+    "address": "Charbagh Station Road, Lucknow",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 79,
+    "contact": "+91-522-4029188",
+    "email": "lucknow@satincreditcare.com"
+  },
+  {
+    "name": "Maharashtra State SC Commission & MPBCDC Corp",
+    "type": "SCA",
+    "location": { "lat": 18.9298, "lng": 72.8333 },
+    "address": "Juchandra Bhawan, Fort & Nariman Point Zonal Office, Mumbai",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)",
+      "Green Business Scheme (GBS)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 68,
+    "contact": "+91-22-22025184",
+    "email": "contact@mpbcdc.maharashtra.gov.in"
+  },
+  {
+    "name": "Union Bank of India - Mumbai SME Hub",
+    "type": "PSB",
+    "location": { "lat": 19.0178, "lng": 72.8478 },
+    "address": "Union Bank Bhavan, 239 Vidhan Bhavan Marg, Nariman Point, Mumbai",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "schemesHandled": [
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)",
+      "Green Business Scheme (GBS)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 74,
+    "contact": "+91-22-22892000",
+    "email": "smehub.mumbai@unionbankofindia.bank"
+  },
+  {
+    "name": "Muthoot Microfin - Dharavi & Kurla Branch",
+    "type": "NBFC-MFI",
+    "location": { "lat": 19.0434, "lng": 72.8567 },
+    "address": "90 Feet Road, Near Sion Station, Dharavi, Mumbai",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 84,
+    "contact": "+91-22-24018822",
+    "email": "dharavi.branch@muthootmicrofin.com"
+  },
+  {
+    "name": "Rajasthan SC/ST Finance & Development Corp (Anuja Nigam)",
+    "type": "SCA",
+    "location": { "lat": 26.8920, "lng": 75.8050 },
+    "address": "Nehru Sahkar Bhawan, 4th Floor, 22 Godam, Jaipur",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "NSFDC Term Loan Scheme",
+      "Laghu Vyavsay Yojana (Small Business Scheme)",
+      "Green Business Scheme (GBS)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 70,
+    "contact": "+91-141-2740280",
+    "email": "anujanigam@rajasthan.gov.in"
+  },
+  {
+    "name": "Baroda Rajasthan Kshetriya Gramin Bank - City Branch",
+    "type": "RRB",
+    "location": { "lat": 26.9124, "lng": 75.7873 },
+    "address": "Plot No. 17, City Palace Road, Johari Bazar, Jaipur",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 63,
+    "contact": "+91-141-2311200",
+    "email": "brkgb.jaipur@baroda.bank"
+  },
+  {
+    "name": "Madhya Pradesh State SC Development Corp",
+    "type": "SCA",
+    "location": { "lat": 23.2324, "lng": 77.4344 },
+    "address": "Rajiv Gandhi Bhawan, 35 Shyamla Hills, Bhopal",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 66,
+    "contact": "+91-755-2661520",
+    "email": "scdevelopment@mp.gov.in"
+  },
+  {
+    "name": "Madhya Pradesh Gramin Bank - MP Nagar Branch",
+    "type": "RRB",
+    "location": { "lat": 23.2350, "lng": 77.4280 },
+    "address": "Zone-II, Maharana Pratap Nagar, Bhopal",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "Laghu Vyavsay Yojana (Small Business Scheme)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 55,
+    "contact": "+91-755-2554190",
+    "email": "bhopal@mpgb.co.in"
+  },
+  {
+    "name": "Bihar State SC/ST Development Corporation",
+    "type": "SCA",
+    "location": { "lat": 25.6093, "lng": 85.1376 },
+    "address": "Sardar Patel Bhawan, Bailey Road, Patna",
+    "city": "Patna",
+    "state": "Bihar",
+    "schemesHandled": [
+      "NSFDC Micro Credit Finance (MCF)",
+      "Mahila Samriddhi Yojana (MSY)",
+      "NSFDC Term Loan Scheme",
+      "NSFDC Education Loan Scheme (ELS)"
+    ],
+    "npaStatus": "low",
+    "fundUtilizationPercent": 73,
+    "contact": "+91-612-2215688",
+    "email": "scstdcorp@bihar.gov.in"
+  }
+]
