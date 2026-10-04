@@ -118,30 +118,30 @@ export default function SchemeForm({ onRecommendationComplete }) {
   return (
     <div id="recommender" className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden transition-all">
       {/* Header */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 px-6 py-6 text-white border-b border-slate-800">
+      <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 px-5 py-4 text-white border-b border-slate-800">
         <div className="flex items-center gap-2 text-saffron-400 text-xs font-bold uppercase tracking-wider mb-1">
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-3.5 h-3.5" />
           Rule-Based Matching Engine
         </div>
-        <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+        <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
           {t('form.title')}
         </h3>
-        <p className="text-sm text-slate-300 mt-1">
+        <p className="text-xs text-slate-300 mt-0.5">
           {t('form.subtitle')}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-8">
+      <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
         {/* Error Alert if any */}
         {errorMessage && (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 text-red-700 text-sm">
-            <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5 text-red-600" />
+          <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5 text-red-700 text-xs sm:text-sm">
+            <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-600" />
             <div>{errorMessage}</div>
           </div>
         )}
 
         {/* 1. SC Category Confirmation */}
-        <div className="p-4 bg-amber-50/70 border border-amber-200/80 rounded-xl">
+        <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl">
           <label className="flex items-start gap-3 cursor-pointer">
             <input
               id="sc-checkbox"
@@ -163,11 +163,11 @@ export default function SchemeForm({ onRecommendationComplete }) {
         </div>
 
         {/* 2. Annual Family Income */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex justify-between items-baseline">
-            <label htmlFor="income-range" className="text-sm font-semibold text-slate-900 flex items-center gap-1.5">
+            <label htmlFor="income-range" className="text-xs sm:text-sm font-semibold text-slate-900 flex items-center gap-1.5">
               {t('form.incomeLabel')}
-              <span className="text-xs font-normal text-slate-500">(&le; ₹5,00,000)</span>
+              <span className="text-[11px] font-normal text-slate-500">(&le; ₹5,00,000)</span>
             </label>
             <span className={`text-base sm:text-lg font-bold px-3 py-1 rounded-lg border ${
               income > 500000
@@ -215,27 +215,27 @@ export default function SchemeForm({ onRecommendationComplete }) {
         </div>
 
         {/* 3. Loan Purpose: Business vs Education */}
-        <div className="space-y-3">
-          <label className="text-sm font-semibold text-slate-900 block">
+        <div className="space-y-2">
+          <label className="text-xs sm:text-sm font-semibold text-slate-900 block">
             {t('form.purposeType')}
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <button
               id="purpose-business-btn"
               type="button"
               onClick={() => handlePurposeChange(false)}
-              className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${
+              className={`flex items-center gap-2.5 p-3 rounded-xl border text-left transition-all ${
                 !isEducation
                   ? 'border-saffron-600 bg-saffron-50/50 shadow-sm ring-1 ring-saffron-600 text-slate-900'
                   : 'border-slate-200 bg-white hover:border-slate-300 text-slate-700'
               }`}
             >
-              <div className={`p-2.5 rounded-lg ${!isEducation ? 'bg-saffron-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
-                <Briefcase className="w-5 h-5" />
+              <div className={`p-2 rounded-lg ${!isEducation ? 'bg-saffron-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                <Briefcase className="w-4 h-4" />
               </div>
               <div>
-                <div className="font-semibold text-sm">{t('form.business')}</div>
-                <div className="text-xs text-slate-500">Retail, transport, green biz, manufacture</div>
+                <div className="font-semibold text-xs sm:text-sm">{t('form.business')}</div>
+                <div className="text-[11px] text-slate-500">Retail, trade, transport, MSME</div>
               </div>
             </button>
 
@@ -243,18 +243,18 @@ export default function SchemeForm({ onRecommendationComplete }) {
               id="purpose-education-btn"
               type="button"
               onClick={() => handlePurposeChange(true)}
-              className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${
+              className={`flex items-center gap-2.5 p-3 rounded-xl border text-left transition-all ${
                 isEducation
                   ? 'border-saffron-600 bg-saffron-50/50 shadow-sm ring-1 ring-saffron-600 text-slate-900'
                   : 'border-slate-200 bg-white hover:border-slate-300 text-slate-700'
               }`}
             >
-              <div className={`p-2.5 rounded-lg ${isEducation ? 'bg-saffron-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
-                <GraduationCap className="w-5 h-5" />
+              <div className={`p-2 rounded-lg ${isEducation ? 'bg-saffron-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                <GraduationCap className="w-4 h-4" />
               </div>
               <div>
-                <div className="font-semibold text-sm">{t('form.education')}</div>
-                <div className="text-xs text-slate-500">B.Tech, MBBS, MBA, Overseas degrees</div>
+                <div className="font-semibold text-xs sm:text-sm">{t('form.education')}</div>
+                <div className="text-[11px] text-slate-500">Degree, technical, vocational</div>
               </div>
             </button>
           </div>
@@ -308,12 +308,12 @@ export default function SchemeForm({ onRecommendationComplete }) {
         </div>
 
         {/* 6. Capital Need / Project Cost */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex justify-between items-baseline">
-            <label htmlFor="cost-range" className="text-sm font-semibold text-slate-900">
+            <label htmlFor="cost-range" className="text-xs sm:text-sm font-semibold text-slate-900">
               {t('form.costLabel')}
             </label>
-            <span className="text-base sm:text-lg font-bold px-3 py-1 bg-saffron-50 text-saffron-700 rounded-lg border border-saffron-200">
+            <span className="text-sm sm:text-base font-bold px-2.5 py-0.5 bg-saffron-50 text-saffron-700 rounded-lg border border-saffron-200">
               {formatRupee(projectCost)}
             </span>
           </div>
@@ -326,16 +326,16 @@ export default function SchemeForm({ onRecommendationComplete }) {
             step={isEducation ? 50000 : 10000}
             value={projectCost}
             onChange={(e) => setProjectCost(Number(e.target.value))}
-            className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-saffron-600"
+            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-saffron-600"
           />
 
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="flex flex-wrap gap-1.5 pt-0.5">
             {costPresets.map((preset) => (
               <button
                 key={preset.value}
                 type="button"
                 onClick={() => setProjectCost(preset.value)}
-                className={`px-3 py-1 text-xs rounded-lg font-medium transition-all ${
+                className={`px-2.5 py-0.5 text-xs rounded-lg font-medium transition-all ${
                   projectCost === preset.value
                     ? 'bg-saffron-700 text-white font-semibold'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -345,9 +345,6 @@ export default function SchemeForm({ onRecommendationComplete }) {
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-500">
-            {t('form.costHelp')}
-          </p>
         </div>
 
         {/* Submit Button */}
@@ -355,14 +352,14 @@ export default function SchemeForm({ onRecommendationComplete }) {
           id="submit-recommend-btn"
           type="submit"
           disabled={loading || income > 500000 || !isSC}
-          className="w-full py-4 px-6 rounded-xl font-bold text-white bg-gradient-to-r from-saffron-600 via-saffron-500 to-amber-600 hover:from-saffron-700 hover:to-amber-700 shadow-lg shadow-saffron-500/25 transition-all flex items-center justify-center gap-2 text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full py-3.5 px-6 rounded-xl font-bold text-white bg-gradient-to-r from-saffron-600 via-saffron-500 to-amber-600 hover:from-saffron-700 hover:to-amber-700 shadow-md shadow-saffron-500/25 transition-all flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
           {loading ? (
             <span>{t('form.submitting')}</span>
           ) : (
             <>
               <span>{t('form.submit')}</span>
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4" />
             </>
           )}
         </button>
