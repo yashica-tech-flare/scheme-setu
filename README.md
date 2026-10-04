@@ -69,5 +69,6 @@ npm run dev
 
 - **Live Web App**: [https://scheme-setu-beryl.vercel.app](https://scheme-setu-beryl.vercel.app)
 - **GitHub Repository**: [https://github.com/yashica-tech-flare/scheme-setu](https://github.com/yashica-tech-flare/scheme-setu)
-- **Backend API Target (Render)**: `https://scheme-setu-api.onrender.com`
+- **Backend Live API (Render)**: [https://scheme-setu-wccq.onrender.com](https://scheme-setu-wccq.onrender.com)
+- **API Health Check**: [https://scheme-setu-wccq.onrender.com/api/health](https://scheme-setu-wccq.onrender.com/api/health)
 
