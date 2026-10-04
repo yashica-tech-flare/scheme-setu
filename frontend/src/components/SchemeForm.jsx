@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { api } from '../api/client';
+import { recommendLocally } from '../utils/localRuleEngine';
 import {
   Sparkles,
   AlertTriangle,
@@ -108,8 +109,20 @@ export default function SchemeForm({ onRecommendationComplete }) {
         navigate('/results', { state: { results, input: payload } });
       }
     } catch (err) {
-      console.error('Failed to get recommendations:', err);
-      setErrorMessage('Could not connect to recommendation engine. Please verify server status.');
+      console.warn('Network recommendation issue, executing local rule engine fallback:', err);
+      try {
+        const localResults = recommendLocally(payload);
+        sessionStorage.setItem('scheme_setu_results', JSON.stringify(localResults));
+        sessionStorage.setItem('scheme_setu_input', JSON.stringify(payload));
+        if (onRecommendationComplete) {
+          onRecommendationComplete(localResults, payload);
+        } else {
+          navigate('/results', { state: { results: localResults, input: payload } });
+        }
+      } catch (localErr) {
+        console.error('Local fallback failed:', localErr);
+        setErrorMessage('Unable to process recommendations right now. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
