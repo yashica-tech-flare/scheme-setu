@@ -110,9 +110,8 @@ Every figure presented to the citizen is backed by official published corporatio
 
 ## Slide 8: Summary & Submission Access
 
-- **Public Repository:** [GitHub Repository / Workspace](file:///C:/Users/yashi/.gemini/antigravity-ide/scheme-setu)
-- **Local Development Ports:**
-  - Frontend: `http://localhost:5173`
-  - Backend API: `http://localhost:5000/api/health`
-- **Documentation:** [README.md](file:///C:/Users/yashi/.gemini/antigravity-ide/scheme-setu/README.md)
-- **Status:** 100% Tested & Complete (All 5 gaps closed).
+- **Live Web Application (Vercel)**: [https://scheme-setu-beryl.vercel.app](https://scheme-setu-beryl.vercel.app)
+- **Live Backend API (Render)**: [https://scheme-setu-wccq.onrender.com](https://scheme-setu-wccq.onrender.com)
+- **API Health Check**: [https://scheme-setu-wccq.onrender.com/api/health](https://scheme-setu-wccq.onrender.com/api/health)
+- **GitHub Repository**: [https://github.com/yashica-tech-flare/scheme-setu](https://github.com/yashica-tech-flare/scheme-setu)
+- **Status**: 100% Deployed, Verified & Live for Remote Evaluation.
