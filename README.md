@@ -62,3 +62,12 @@ cd ../frontend
 npm install
 npm run dev
 ```
+
+---
+
+## 🔗 Repository & Live Deployment
+
+- **GitHub Repository**: [https://github.com/yashica-tech-flare/scheme-setu](https://github.com/yashica-tech-flare/scheme-setu)
+- **Frontend Target (Vercel)**: `https://scheme-setu.vercel.app`
+- **Backend API Target (Render)**: `https://scheme-setu-api.onrender.com`
+
