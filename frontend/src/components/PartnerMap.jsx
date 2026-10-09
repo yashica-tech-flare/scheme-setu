@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -61,12 +61,30 @@ const createCustomIcon = (type) => {
   });
 };
 
+// Pulsating live user location pin
+const createUserLocationIcon = () => {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="36" height="36">
+      <circle cx="20" cy="20" r="18" fill="#3b82f6" fill-opacity="0.3"/>
+      <circle cx="20" cy="20" r="10" fill="#2563eb" stroke="#ffffff" stroke-width="2.5"/>
+      <circle cx="20" cy="20" r="3" fill="#ffffff"/>
+    </svg>
+  `;
+  return L.divIcon({
+    html: svg,
+    className: 'user-live-pin',
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -18]
+  });
+};
+
 // Component to dynamically re-center Leaflet map
 function MapUpdater({ center, zoom }) {
   const map = useMap();
   useEffect(() => {
     if (center && center[0] && center[1]) {
-      map.setView(center, zoom || 12, { animate: true });
+      map.setView(center, zoom || 11, { animate: true });
       setTimeout(() => map.invalidateSize(), 300);
     }
   }, [center, zoom, map]);
@@ -78,12 +96,14 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
   const isHindi = i18n.language === 'hi';
 
   // Map state
-  const [coords, setCoords] = useState({ lat: 28.63, lng: 77.22 }); // Default Delhi
-  const [activeCity, setActiveCity] = useState('Delhi');
-  const [cityList, setCityList] = useState(['Delhi', 'Lucknow', 'Mumbai', 'Jaipur', 'Bhopal', 'Patna']);
+  const [coords, setCoords] = useState({ lat: 11.1401, lng: 79.0786 }); // Default to central Tamil Nadu
+  const [zoomLevel, setZoomLevel] = useState(10);
+  const [userLivePos, setUserLivePos] = useState(null);
+  const [activeCity, setActiveCity] = useState('Ariyalur');
+  const [cityList, setCityList] = useState([]);
   const [partnerType, setPartnerType] = useState('');
   const [schemeFilter, setSchemeFilter] = useState(selectedSchemeName || '');
-  const [radiusKm, setRadiusKm] = useState(50);
+  const [radiusKm, setRadiusKm] = useState(150);
   const [isLocating, setIsLocating] = useState(false);
   const [locationStatus, setLocationStatus] = useState('');
 
@@ -96,15 +116,51 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
   const [loading, setLoading] = useState(true);
   const [activePartner, setActivePartner] = useState(null);
 
-  // Pre-configured city coordinates
+  // Pan-India city & state coordinates
   const cityCoordinates = {
-    'Delhi': { lat: 28.6315, lng: 77.2167 },
-    'Lucknow': { lat: 26.8467, lng: 80.9462 },
-    'Mumbai': { lat: 19.0760, lng: 72.8777 },
-    'Jaipur': { lat: 26.9124, lng: 75.7873 },
-    'Bhopal': { lat: 23.2599, lng: 77.4126 },
-    'Patna': { lat: 25.6093, lng: 85.1376 },
-    'Gurugram': { lat: 28.4595, lng: 77.0266 }
+    'All India': { lat: 22.5, lng: 79.5, zoom: 5 },
+    'Ahmedabad': { lat: 23.0225, lng: 72.5714, zoom: 12 },
+    'Ariyalur': { lat: 11.1401, lng: 79.0786, zoom: 11 },
+    'Bengaluru': { lat: 12.9716, lng: 77.5946, zoom: 12 },
+    'Bhopal': { lat: 23.2599, lng: 77.4126, zoom: 12 },
+    'Bhubaneswar': { lat: 20.2961, lng: 85.8245, zoom: 12 },
+    'Chandigarh': { lat: 30.7333, lng: 76.7794, zoom: 12 },
+    'Chennai': { lat: 13.0827, lng: 80.2707, zoom: 12 },
+    'Coimbatore': { lat: 11.0168, lng: 76.9558, zoom: 12 },
+    'Delhi': { lat: 28.6315, lng: 77.2167, zoom: 12 },
+    'Guwahati': { lat: 26.1445, lng: 91.7362, zoom: 12 },
+    'Hyderabad': { lat: 17.3850, lng: 78.4867, zoom: 12 },
+    'Jaipur': { lat: 26.9124, lng: 75.7873, zoom: 12 },
+    'Kochi': { lat: 9.9816, lng: 76.2999, zoom: 12 },
+    'Kolkata': { lat: 22.5726, lng: 88.3639, zoom: 12 },
+    'Lucknow': { lat: 26.8467, lng: 80.9462, zoom: 12 },
+    'Madurai': { lat: 9.9252, lng: 78.1198, zoom: 12 },
+    'Mumbai': { lat: 19.0760, lng: 72.8777, zoom: 12 },
+    'Patna': { lat: 25.6093, lng: 85.1376, zoom: 12 },
+    'Thiruvananthapuram': { lat: 8.5241, lng: 76.9366, zoom: 12 },
+    'Tiruchirappalli': { lat: 10.7905, lng: 78.7047, zoom: 12 },
+    'Vijayawada': { lat: 16.5062, lng: 80.6480, zoom: 12 },
+    'Ariyalur / Jayankondam (TN)': { lat: 11.1401, lng: 79.0786, zoom: 11 },
+    'Chennai (TN)': { lat: 13.0827, lng: 80.2707, zoom: 12 },
+    'Tiruchirappalli (TN)': { lat: 10.7905, lng: 78.7047, zoom: 12 },
+    'Madurai (TN)': { lat: 9.9252, lng: 78.1198, zoom: 12 },
+    'Coimbatore (TN)': { lat: 11.0168, lng: 76.9558, zoom: 12 },
+    'Bengaluru (KA)': { lat: 12.9716, lng: 77.5946, zoom: 12 },
+    'Hyderabad (TS)': { lat: 17.3850, lng: 78.4867, zoom: 12 },
+    'Vijayawada (AP)': { lat: 16.5062, lng: 80.6480, zoom: 12 },
+    'Kochi (KL)': { lat: 9.9816, lng: 76.2999, zoom: 12 },
+    'Thiruvananthapuram (KL)': { lat: 8.5241, lng: 76.9366, zoom: 12 },
+    'Mumbai (MH)': { lat: 19.0760, lng: 72.8777, zoom: 12 },
+    'Delhi NCR': { lat: 28.6315, lng: 77.2167, zoom: 12 },
+    'Lucknow (UP)': { lat: 26.8467, lng: 80.9462, zoom: 12 },
+    'Kolkata (WB)': { lat: 22.5726, lng: 88.3639, zoom: 12 },
+    'Ahmedabad (GJ)': { lat: 23.0225, lng: 72.5714, zoom: 12 },
+    'Jaipur (RJ)': { lat: 26.9124, lng: 75.7873, zoom: 12 },
+    'Bhopal (MP)': { lat: 23.2599, lng: 77.4126, zoom: 12 },
+    'Patna (BR)': { lat: 25.6093, lng: 85.1376, zoom: 12 },
+    'Chandigarh (PB)': { lat: 30.7333, lng: 76.7794, zoom: 12 },
+    'Bhubaneswar (OD)': { lat: 20.2961, lng: 85.8245, zoom: 12 },
+    'Guwahati (AS)': { lat: 26.1445, lng: 91.7362, zoom: 12 }
   };
 
   // Sync selectedSchemeName if passed from parent
@@ -197,32 +253,61 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
     }
 
     setIsLocating(true);
-    setLocationStatus('Detecting your GPS location...');
+    setLocationStatus('Detecting your live GPS coordinates...');
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLat = position.coords.latitude;
         const userLng = position.coords.longitude;
         setCoords({ lat: userLat, lng: userLng });
+        setUserLivePos({ lat: userLat, lng: userLng });
         setActiveCity('Current Location');
+        setZoomLevel(11);
+        setRadiusKm(150);
         setIsLocating(false);
-        setLocationStatus('Centered on your live location');
+        setLocationStatus(`📍 Detected your location (${userLat.toFixed(3)}°N, ${userLng.toFixed(3)}°E) - marked with blue pin`);
       },
       (error) => {
         console.warn('Geolocation error:', error.message);
         setIsLocating(false);
-        setLocationStatus('Location permission denied. Defaulted to city center.');
+        setLocationStatus('Location access denied or unavailable. Centered on state hub.');
       },
       { timeout: 10000, enableHighAccuracy: true }
     );
   };
 
+  // View Whole India
+  const handleViewWholeIndia = () => {
+    setActiveCity('All India');
+    setCoords({ lat: 22.5, lng: 79.5 });
+    setZoomLevel(5);
+    setRadiusKm(2500);
+    setPartnerType('');
+    setLocationStatus('Displaying authorized partner branches across Whole India (Pan-India View)');
+  };
+
   // City Selector Change
   const handleCityChange = (city) => {
     setActiveCity(city);
-    if (cityCoordinates[city]) {
-      setCoords(cityCoordinates[city]);
+    if (city === 'All India') {
+      setCoords({ lat: 22.5, lng: 79.5 });
+      setZoomLevel(5);
+      setRadiusKm(2500);
+      setLocationStatus('Viewing Pan-India Network');
+      return;
+    }
+    const target = cityCoordinates[city];
+    if (target) {
+      setCoords({ lat: target.lat, lng: target.lng });
+      setZoomLevel(target.zoom || 11);
       setLocationStatus(`Centered on ${city}`);
+    } else {
+      const match = partners.find((p) => p.city?.toLowerCase() === city?.toLowerCase());
+      if (match?.location?.lat && match?.location?.lng) {
+        setCoords({ lat: match.location.lat, lng: match.location.lng });
+        setZoomLevel(11);
+        setLocationStatus(`Centered on ${city}`);
+      }
     }
   };
 
@@ -249,17 +334,30 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
             </p>
           </div>
 
-          {/* Quick Geolocation CTA */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          {/* Quick Geolocation & Whole India CTAs */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              id="whole-india-btn"
+              type="button"
+              onClick={handleViewWholeIndia}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-1.5 cursor-pointer shadow-sm ${
+                activeCity === 'All India'
+                  ? 'bg-saffron-600 text-white border-saffron-500 shadow-saffron-600/30'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
+              }`}
+            >
+              <span>🇮🇳 View Whole India</span>
+            </button>
+
             <button
               id="geo-locate-btn"
               type="button"
               onClick={handleUseMyLocation}
               disabled={isLocating}
-              className="px-4 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-saffron-600/20 flex items-center justify-center gap-2 cursor-pointer"
+              className="px-3.5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-600/20 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Navigation className={`w-4 h-4 ${isLocating ? 'animate-spin' : ''}`} />
-              {t('locator.searchNearMe')}
+              <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin' : ''}`} />
+              <span>{isLocating ? 'Locating...' : 'Use My Live Location'}</span>
             </button>
 
             {/* City Quick Dropdown */}
@@ -267,8 +365,9 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
               id="city-select-dropdown"
               value={activeCity}
               onChange={(e) => handleCityChange(e.target.value)}
-              className="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs font-semibold text-white focus:outline-none focus:ring-2 focus:ring-saffron-500"
+              className="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs font-semibold text-white focus:outline-none focus:ring-2 focus:ring-saffron-500 max-w-[200px]"
             >
+              <option value="All India">🇮🇳 All India (Pan-India)</option>
               {cityList.map((c) => (
                 <option key={c} value={c}>
                   📍 {c}
@@ -389,9 +488,9 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
       </div>
 
       {/* Main Map & Partner List Split Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 h-[560px]">
+      <div className="flex flex-col lg:grid lg:grid-cols-12 lg:h-[580px]">
         {/* Left Col: Partner Cards Scrollable List */}
-        <div className="lg:col-span-5 h-full overflow-y-auto p-4 space-y-3 bg-slate-50/50 border-r border-slate-200">
+        <div className="order-2 lg:order-1 lg:col-span-5 overflow-y-auto p-4 space-y-3 bg-slate-50/50 border-t lg:border-t-0 lg:border-r border-slate-200 max-h-[380px] lg:max-h-none lg:h-full">
           {loading ? (
             <div className="h-full flex items-center justify-center text-slate-400 text-sm">
               Loading partner branches...
@@ -496,7 +595,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
         </div>
 
         {/* Right Col: Leaflet OpenStreetMap View */}
-        <div className="lg:col-span-7 h-full relative z-0">
+        <div className="order-1 lg:order-2 lg:col-span-7 relative z-0 h-[360px] sm:h-[420px] lg:h-full">
           <MapContainer
             center={[coords.lat, coords.lng]}
             zoom={11}
@@ -508,7 +607,24 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <MapUpdater center={[coords.lat, coords.lng]} zoom={12} />
+            <MapUpdater center={[coords.lat, coords.lng]} zoom={zoomLevel} />
+
+            {/* Live User Location Pin */}
+            {userLivePos && (
+              <Marker position={[userLivePos.lat, userLivePos.lng]} icon={createUserLocationIcon()}>
+                <Popup>
+                  <div className="p-1 font-sans text-center">
+                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 mb-1">
+                      📍 You Are Here
+                    </span>
+                    <p className="text-xs font-bold text-slate-900">Your Current Location</p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      {userLivePos.lat.toFixed(4)}°N, {userLivePos.lng.toFixed(4)}°E
+                    </p>
+                  </div>
+                </Popup>
+              </Marker>
+            )}
 
             {/* Partner Pins */}
             {displayedPartners.map((p) => {

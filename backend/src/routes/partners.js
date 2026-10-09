@@ -62,8 +62,14 @@ router.get('/', async (req, res) => {
     });
 
     // If max radius specified and coords provided, filter by radius
-    if (hasCoords && maxRadius) {
-      processed = processed.filter(p => p.distanceKm !== null && p.distanceKm <= maxRadius);
+    if (hasCoords && maxRadius && maxRadius < 2000) {
+      const withinRadius = processed.filter(p => p.distanceKm !== null && p.distanceKm <= maxRadius);
+      if (withinRadius.length > 0) {
+        processed = withinRadius;
+      } else {
+        // Fallback: keep closest 5 partners so user is never left with an empty map
+        processed = processed.slice(0, 5);
+      }
     }
 
     // Sort by distance ascending if coordinates provided

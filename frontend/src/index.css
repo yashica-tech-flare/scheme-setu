@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -59,4 +59,34 @@
 .leaflet-popup-content {
   margin: 0 !important;
   line-height: 1.5;
+}
+
+/* Leaflet mobile safeguard: ensure map always has at least 300px height */
+.leaflet-container {
+  min-height: 300px;
+}
+
+/* Prevent Leaflet tile flickering on repaint */
+.leaflet-tile-pane {
+  will-change: transform;
+}
+
+/* Custom marker styling fix */
+.custom-partner-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.user-live-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Animate fade-in for scheme result cards */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
 }

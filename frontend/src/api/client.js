@@ -1,13 +1,13 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 import fallbackSchemes from '../data/fallbackSchemes.json';
-import { recommendLocally, calculateEMILocally } from '../utils/localRuleEngine';
+import { recommendLocally, calculateEMILocally, getPartnersLocally } from '../utils/localRuleEngine';
 
 // Prefer explicit env var, then fallback to live Render URL in production
 const baseURL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://scheme-setu-wccq.onrender.com' : '');
 
 const client = axios.create({
   baseURL,
-  timeout: 15000,
+  timeout: 35000, // Render free-tier cold-start can take up to 30s
   headers: {
     'Content-Type': 'application/json'
   }
@@ -39,24 +39,76 @@ export const api = {
     }
   },
 
-  // Get filtered partners
+  // Get filtered partners with pan-India fallback
   getPartners: async (params = {}) => {
     try {
       const response = await client.get('/api/partners', { params });
-      return response.data;
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        return response.data;
+      }
+      return getPartnersLocally(params);
     } catch (err) {
       console.warn('[API Client] Partners API fallback triggered:', err.message);
-      return [];
+      return getPartnersLocally(params);
     }
   },
 
-  // Get cities list
+  // Get cities list across India
   getCities: async () => {
     try {
       const response = await client.get('/api/partners/cities');
-      return response.data;
+      if (Array.isArray(response.data) && response.data.length > 6) {
+        return response.data;
+      }
+      return [
+        'All India',
+        'Ariyalur / Jayankondam (TN)',
+        'Chennai (TN)',
+        'Tiruchirappalli (TN)',
+        'Madurai (TN)',
+        'Coimbatore (TN)',
+        'Bengaluru (KA)',
+        'Hyderabad (TS)',
+        'Vijayawada (AP)',
+        'Kochi (KL)',
+        'Thiruvananthapuram (KL)',
+        'Mumbai (MH)',
+        'Delhi NCR',
+        'Lucknow (UP)',
+        'Kolkata (WB)',
+        'Ahmedabad (GJ)',
+        'Jaipur (RJ)',
+        'Bhopal (MP)',
+        'Patna (BR)',
+        'Chandigarh (PB)',
+        'Bhubaneswar (OD)',
+        'Guwahati (AS)'
+      ];
     } catch (err) {
-      return ['Delhi', 'Mumbai', 'Lucknow', 'Jaipur', 'Bhopal', 'Patna'];
+      return [
+        'All India',
+        'Ariyalur / Jayankondam (TN)',
+        'Chennai (TN)',
+        'Tiruchirappalli (TN)',
+        'Madurai (TN)',
+        'Coimbatore (TN)',
+        'Bengaluru (KA)',
+        'Hyderabad (TS)',
+        'Vijayawada (AP)',
+        'Kochi (KL)',
+        'Thiruvananthapuram (KL)',
+        'Mumbai (MH)',
+        'Delhi NCR',
+        'Lucknow (UP)',
+        'Kolkata (WB)',
+        'Ahmedabad (GJ)',
+        'Jaipur (RJ)',
+        'Bhopal (MP)',
+        'Patna (BR)',
+        'Chandigarh (PB)',
+        'Bhubaneswar (OD)',
+        'Guwahati (AS)'
+      ];
     }
   },
 

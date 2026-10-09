@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "schemeName": "Mahila Samriddhi Yojana (MSY)",
     "name": "Mahila Samriddhi Yojana (MSY)",
@@ -57,7 +57,7 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Special 1.5% interest rebate on timely repayments and capital grant assistance under SCA component.",
-    "sourceUrl": "https://nsfdc.nic.in/en/mahila-samriddhi-yojana",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   },
   {
@@ -116,7 +116,7 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Direct capital subsidy of ₹10,000 or 10% of project cost whichever is lower under SCA component.",
-    "sourceUrl": "https://nsfdc.nic.in/en/micro-credit-finance",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   },
   {
@@ -177,7 +177,7 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Direct linkage with District SC Development Corporation capital subsidy (up to ₹50,000).",
-    "sourceUrl": "https://nsfdc.nic.in/en/laghu-vyavsay-yojana",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   },
   {
@@ -242,7 +242,7 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Finances up to 90% of total project cost; promoter margin requirement is only 10%.",
-    "sourceUrl": "https://nsfdc.nic.in/en/term-loan",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   },
   {
@@ -304,7 +304,7 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Special preferential interest rate (7.5% p.a.) with 90% capital expenditure coverage for certified green tech.",
-    "sourceUrl": "https://nsfdc.nic.in/en/green-business-scheme",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   },
   {
@@ -357,7 +357,7 @@
     "educationRequired": true,
     "costCoveragePercent": 90,
     "subsidyDetails": "0.5% interest rebate for female students. Repayment starts 1 year after course completion or 6 months after securing job.",
-    "sourceUrl": "https://nsfdc.nic.in/en/education-loan-scheme",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   },
   {
@@ -411,7 +411,7 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Covers 100% of course fee plus equipment tool-kit purchase directly upon course certification.",
-    "sourceUrl": "https://nsfdc.nic.in/en/vocational-education-loan",
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
     "lastVerified": "2026-10-03T00:00:00.000Z"
   }
 ]

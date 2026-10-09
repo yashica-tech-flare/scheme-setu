@@ -1,4 +1,5 @@
 import fallbackSchemes from '../data/fallbackSchemes.json';
+import fallbackPartners from '../data/fallbackPartners.json';
 
 function formatActivity(activity) {
   const map = {
@@ -161,4 +162,74 @@ export function calculateEMILocally(principal, annualRate, tenureMonths) {
       totalSavings
     }
   };
+}
+
+export function distanceKm(lat1, lng1, lat2, lng2) {
+  const nLat1 = Number(lat1);
+  const nLng1 = Number(lng1);
+  const nLat2 = Number(lat2);
+  const nLng2 = Number(lng2);
+
+  if (isNaN(nLat1) || isNaN(nLng1) || isNaN(nLat2) || isNaN(nLng2)) {
+    return null;
+  }
+
+  const R = 6371; // Earth radius km
+  const dLat = (nLat2 - nLat1) * Math.PI / 180;
+  const dLng = (nLng2 - nLng1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(nLat1 * Math.PI / 180) *
+      Math.cos(nLat2 * Math.PI / 180) *
+      Math.sin(dLng / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return Math.round(R * c * 10) / 10;
+}
+
+export function getPartnersLocally(params = {}) {
+  const { lat, lng, radiusKm, type, scheme, city } = params;
+  const hasCoords = lat !== undefined && lng !== undefined && lat !== '' && lng !== '';
+  const userLat = Number(lat);
+  const userLng = Number(lng);
+  const maxRadius = radiusKm ? Number(radiusKm) : null;
+
+  let list = fallbackPartners.filter(p => {
+    if (type && p.type !== type) return false;
+    if (city && city !== 'All India' && !p.city.toLowerCase().includes(city.toLowerCase()) && !p.state.toLowerCase().includes(city.toLowerCase())) {
+      return false;
+    }
+    if (scheme && Array.isArray(p.schemesHandled) && !p.schemesHandled.includes(scheme)) {
+      return false;
+    }
+    return true;
+  });
+
+  list = list.map(p => {
+    let dKm = null;
+    if (hasCoords && p.location?.lat && p.location?.lng) {
+      dKm = distanceKm(userLat, userLng, p.location.lat, p.location.lng);
+    }
+    return {
+      ...p,
+      _id: p._id || p.name,
+      distanceKm: dKm
+    };
+  });
+
+  if (hasCoords) {
+    list.sort((a, b) => {
+      if (a.distanceKm === null) return 1;
+      if (b.distanceKm === null) return -1;
+      return a.distanceKm - b.distanceKm;
+    });
+  }
+
+  if (hasCoords && maxRadius && maxRadius < 2000) {
+    const withinRadius = list.filter(p => p.distanceKm !== null && p.distanceKm <= maxRadius);
+    if (withinRadius.length > 0) return withinRadius;
+    // Always return closest partners even if beyond current radius slider, so user is never stranded
+    return list.slice(0, 5);
+  }
+
+  return list;
 }
