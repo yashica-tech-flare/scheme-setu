@@ -118,24 +118,56 @@
 }
 
 /* Global Language Font Adjustments */
-html[lang="hi"], html[lang="mr"] {
+html[lang="hi"], html[lang="mr"], html[lang="sa"], html[lang="kok"], html[lang="brx"], html[lang="doi"], html[lang="mai"], html[lang="ne"] {
   font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
 }
 
 html[lang="ta"] {
   font-family: 'Noto Sans Tamil', 'Inter', sans-serif;
+  line-height: 1.65;
 }
 
 html[lang="te"] {
   font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+  line-height: 1.65;
 }
 
-html[lang="bn"] {
+html[lang="bn"], html[lang="as"], html[lang="mni"] {
   font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+  line-height: 1.6;
 }
 
-html[lang="ur"] {
+html[lang="gu"] {
+  font-family: 'Noto Sans Gujarati', 'Inter', sans-serif;
+}
+
+html[lang="pa"] {
+  font-family: 'Noto Sans Gurmukhi', 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+html[lang="kn"] {
+  font-family: 'Noto Sans Kannada', 'Inter', sans-serif;
+  line-height: 1.65;
+}
+
+html[lang="ml"] {
+  font-family: 'Noto Sans Malayalam', 'Inter', sans-serif;
+  line-height: 1.65;
+}
+
+html[lang="or"] {
+  font-family: 'Noto Sans Oriya', 'Inter', sans-serif;
+  line-height: 1.65;
+}
+
+html[lang="ur"], html[lang="ks"], html[lang="sd"] {
   font-family: 'Noto Nastaliq Urdu', serif;
+  line-height: 2.1;
+}
+
+html[lang="sat"] {
+  font-family: 'Noto Sans Ol Chiki', 'Inter', sans-serif;
 }
 
 /* RTL Layout Direction Handling */

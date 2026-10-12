@@ -37,6 +37,19 @@ export default function LanguageSwitcher() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredLanguages = ACTIVE_LANGUAGES.filter((lang) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase().trim();
+    return (
+      lang.name.toLowerCase().includes(q) ||
+      lang.nativeName.toLowerCase().includes(q) ||
+      lang.code.toLowerCase().includes(q) ||
+      (lang.region && lang.region.toLowerCase().includes(q))
+    );
+  });
+
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       {/* Trigger Button */}
@@ -62,57 +75,75 @@ export default function LanguageSwitcher() {
       {dropdownOpen && (
         <div
           id="language-dropdown-menu"
-          className="absolute right-0 mt-2 w-64 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl py-2 z-50 animate-fadeIn"
+          className="absolute right-0 mt-2 w-72 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl py-2 z-50 animate-fadeIn"
           role="menu"
         >
           <div className="px-3 py-1.5 border-b border-slate-800 mb-1 flex items-center justify-between">
             <span className="text-[10px] font-bold uppercase tracking-wider text-saffron-400 flex items-center gap-1.5">
               <Globe className="w-3 h-3" />
-              Verified Regional Languages ({ACTIVE_LANGUAGES.length})
+              Constitutional Languages of India ({ACTIVE_LANGUAGES.length})
             </span>
           </div>
 
+          {/* Quick Search */}
+          <div className="px-2 py-1 border-b border-slate-800/80 mb-1">
+            <input
+              type="text"
+              placeholder="Search language / भाषा खोजें..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-400 focus:outline-none focus:border-saffron-500"
+              autoFocus
+            />
+          </div>
+
           <div className="max-h-72 overflow-y-auto space-y-0.5 px-1">
-            {ACTIVE_LANGUAGES.map((lang) => {
-              const isSelected = currentCode === lang.code;
-              return (
-                <button
-                  key={lang.code}
-                  id={`lang-select-${lang.code}`}
-                  type="button"
-                  onClick={() => handleSelectLanguage(lang.code)}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
-                    isSelected
-                      ? 'bg-saffron-600 text-white font-bold shadow-sm'
-                      : 'text-slate-200 hover:bg-slate-800 hover:text-white'
-                  }`}
-                  role="menuitem"
-                >
-                  <div className="space-y-0.5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold tracking-wide">
-                        {lang.nativeName}
-                      </span>
-                      <span className={`text-[10px] ${isSelected ? 'text-saffron-100' : 'text-slate-400'}`}>
-                        ({lang.name})
+            {filteredLanguages.length === 0 ? (
+              <div className="p-3 text-center text-xs text-slate-400">
+                No matching language found
+              </div>
+            ) : (
+              filteredLanguages.map((lang) => {
+                const isSelected = currentCode === lang.code;
+                return (
+                  <button
+                    key={lang.code}
+                    id={`lang-select-${lang.code}`}
+                    type="button"
+                    onClick={() => handleSelectLanguage(lang.code)}
+                    className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'bg-saffron-600 text-white font-bold shadow-sm'
+                        : 'text-slate-200 hover:bg-slate-800 hover:text-white'
+                    }`}
+                    role="menuitem"
+                  >
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold tracking-wide">
+                          {lang.nativeName}
+                        </span>
+                        <span className={`text-[10px] ${isSelected ? 'text-saffron-100' : 'text-slate-400'}`}>
+                          ({lang.name})
+                        </span>
+                      </div>
+                      <span className={`text-[10px] block ${isSelected ? 'text-saffron-200' : 'text-slate-500'}`}>
+                        {lang.region} {lang.rtl ? '• RTL' : ''}
                       </span>
                     </div>
-                    <span className={`text-[10px] block ${isSelected ? 'text-saffron-200' : 'text-slate-500'}`}>
-                      {lang.region} {lang.rtl ? '• RTL' : ''}
-                    </span>
-                  </div>
 
-                  {isSelected && (
-                    <Check className="w-4 h-4 text-white flex-shrink-0" />
-                  )}
-                </button>
-              );
-            })}
+                    {isSelected && (
+                      <Check className="w-4 h-4 text-white flex-shrink-0" />
+                    )}
+                  </button>
+                );
+              })
+            )}
           </div>
 
           {/* Phase Notice Footer */}
           <div className="mt-1 pt-1.5 px-3 border-t border-slate-800 text-[10px] text-slate-400 leading-tight">
-            Phase 1 verified rollout: Tamil, Telugu, Bengali, Marathi. Phase 2/3 planned.
+            22 Eighth Schedule Constitutional Languages of India + English
           </div>
         </div>
       )}

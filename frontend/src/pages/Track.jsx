@@ -182,12 +182,12 @@ export default function Track() {
   }
 
   const standardStages = [
-    { key: 'inquiry_submitted', label: `1. ${getStatusLabel('inquiry_submitted')}`, desc: 'Online inquiry registered with matched NSFDC scheme' },
-    { key: 'documents_pending', label: `2. ${getStatusLabel('documents_pending')}`, desc: 'Beneficiary assembling KYC, caste & income certificates' },
-    { key: 'submitted_to_partner', label: `3. ${getStatusLabel('submitted_to_partner')}`, desc: 'Application dossier lodged at authorized SCA/Bank branch' },
-    { key: 'under_appraisal', label: `4. ${getStatusLabel('under_appraisal')}`, desc: 'Technical & financial viability inspection by credit officer' },
-    { key: 'sanctioned', label: `5. ${getStatusLabel('sanctioned')}`, desc: 'Official sanction letter issued with concessional rate' },
-    { key: 'disbursed', label: `6. ${getStatusLabel('disbursed')}`, desc: 'Funds released directly to DBT bank account / machinery vendor' }
+    { key: 'inquiry_submitted', label: `1. ${getStatusLabel('inquiry_submitted')}`, desc: t('track.stages.inquiry_submitted_desc', 'Online inquiry registered with matched NSFDC scheme') },
+    { key: 'documents_pending', label: `2. ${getStatusLabel('documents_pending')}`, desc: t('track.stages.documents_pending_desc', 'Beneficiary assembling KYC, caste & income certificates') },
+    { key: 'submitted_to_partner', label: `3. ${getStatusLabel('submitted_to_partner')}`, desc: t('track.stages.submitted_to_partner_desc', 'Application dossier lodged at authorized SCA/Bank branch') },
+    { key: 'under_appraisal', label: `4. ${getStatusLabel('under_appraisal')}`, desc: t('track.stages.under_appraisal_desc', 'Technical & financial viability inspection by credit officer') },
+    { key: 'sanctioned', label: `5. ${getStatusLabel('sanctioned')}`, desc: t('track.stages.sanctioned_desc', 'Official sanction letter issued with concessional rate') },
+    { key: 'disbursed', label: `6. ${getStatusLabel('disbursed')}`, desc: t('track.stages.disbursed_desc', 'Funds released directly to DBT bank account / machinery vendor') }
   ];
 
   const currentStatus = application?.status || 'inquiry_submitted';
@@ -205,6 +205,17 @@ export default function Track() {
     'Bank Passbook / Cancelled Cheque (Direct Subsidy Credit)'
   ];
 
+  function getDocTitle(doc) {
+    if (!doc) return '';
+    if (doc.includes('Caste Certificate') || doc.includes('जाति')) return t('track.docs.caste', doc);
+    if (doc.includes('Income Certificate') || doc.includes('आय')) return t('track.docs.income', doc);
+    if (doc.includes('Aadhaar Card') || doc.includes('आधार')) return t('track.docs.aadhaar', doc);
+    if (doc.includes('Detailed Project Report') || doc.includes('DPR') || doc.includes('डीपीआर') || doc.includes('Project Report')) return t('track.docs.dpr', doc);
+    if (doc.includes('Equipment') || doc.includes('Machinery') || doc.includes('कोटेशन') || doc.includes('उपकरण') || doc.includes('Quotation')) return t('track.docs.quotation', doc);
+    if (doc.includes('Bank Passbook') || doc.includes('Cheque') || doc.includes('पासबुक') || doc.includes('बैंक')) return t('track.docs.bankPassbook', doc);
+    return doc;
+  }
+
   const availableDocs = application?.matchedScheme?.requiredDocuments?.length
     ? application.matchedScheme.requiredDocuments
     : defaultDocs;
@@ -217,7 +228,7 @@ export default function Track() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-saffron-50 text-saffron-800 border border-saffron-200 mb-2">
               <Clock className="w-3.5 h-3.5 text-saffron-600" />
-              Real-Time Beneficiary Tracking
+              {t('track.realTimeTracking', 'Real-Time Beneficiary Tracking')}
             </div>
             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
               {t('track.title', 'Track Loan Application Lifecycle')}
@@ -232,14 +243,14 @@ export default function Track() {
               to="/#recommender"
               className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all border border-slate-200 flex items-center gap-1.5"
             >
-              <span>New Loan Inquiry &rarr;</span>
+              <span>{t('track.newLoanInquiry', 'New Loan Inquiry')} &rarr;</span>
             </Link>
             <Link
               to="/guide"
               className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-1.5"
             >
               <FileCheck className="w-4 h-4 text-saffron-400" />
-              <span>Document Guide</span>
+              <span>{t('track.documentGuide', 'Document Guide')}</span>
             </Link>
           </div>
         </div>
@@ -252,7 +263,7 @@ export default function Track() {
               <input
                 id="track-ref-input"
                 type="text"
-                placeholder="Enter Reference ID (e.g. SETU-DEMO-2026 or SETU-XXXX-XXXX)"
+                placeholder={t('track.searchPlaceholder', 'Enter Reference ID (e.g. SETU-DEMO-2026 or SETU-XXXX-XXXX)')}
                 value={searchRef}
                 onChange={(e) => setSearchRef(e.target.value)}
                 className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-saffron-500 focus:bg-white uppercase tracking-wider"
@@ -267,23 +278,23 @@ export default function Track() {
               {loading ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Looking up...</span>
+                  <span>{t('track.lookingUp', 'Looking up...')}</span>
                 </>
               ) : (
-                <span>Lookup Application</span>
+                <span>{t('track.lookupBtn', 'Lookup Application')}</span>
               )}
             </button>
           </form>
 
           {/* Quick Demo Pre-fill & Recents */}
           <div className="flex flex-wrap items-center gap-2 text-xs pt-1">
-            <span className="text-slate-500 font-semibold">Quick Test:</span>
+            <span className="text-slate-500 font-semibold">{t('track.quickTest', 'Quick Test:')}</span>
             <button
               type="button"
               onClick={() => loadDemo('SETU-DEMO-2026')}
               className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold hover:bg-emerald-100 transition-colors"
             >
-              Load Verified Demo Application (SETU-DEMO-2026)
+              {t('track.loadDemo', 'Load Verified Demo Application (SETU-DEMO-2026)')}
             </button>
             {recentRefs.length > 0 && recentRefs[0] !== 'SETU-DEMO-2026' && (
               <button
@@ -291,7 +302,7 @@ export default function Track() {
                 onClick={() => loadDemo(recentRefs[0])}
                 className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 font-medium hover:bg-slate-200 transition-colors"
               >
-                Recent: {recentRefs[0]}
+                {t('track.recent', 'Recent:')} {recentRefs[0]}
               </button>
             )}
           </div>
@@ -302,7 +313,13 @@ export default function Track() {
       <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-3 shadow-2xs">
         <Info className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
         <div className="space-y-0.5 leading-relaxed">
-          <strong>Official Transparency Notice:</strong> Status updates reflect applicant-reported progress unless marked <span className="font-bold text-emerald-800 bg-emerald-100/80 px-1 py-0.5 rounded">Partner-confirmed</span>. Scheme Setu does not process or guarantee loan approvals. Statutory credit appraisal, loan sanction, and fund disbursement remain strictly within the statutory jurisdiction of the respective empanelled Channel Partner (State SC Corporation or Bank).
+          <strong>{t('track.disclaimerTitle', 'Official Transparency Notice:')}</strong>{' '}
+          {t('track.disclaimerP1', 'Status updates reflect applicant-reported progress unless marked')}{' '}
+          <span className="font-bold text-emerald-800 bg-emerald-100/80 px-1 py-0.5 rounded">
+            {t('track.partnerConfirmedPill', 'Partner-confirmed')}
+          </span>
+          .{' '}
+          {t('track.disclaimerP2', 'Scheme Setu does not process or guarantee loan approvals. Statutory credit appraisal, loan sanction, and fund disbursement remain strictly within the statutory jurisdiction of the respective empanelled Channel Partner (State SC Corporation or Bank).')}
         </div>
       </div>
 
@@ -326,7 +343,7 @@ export default function Track() {
       {loading && (
         <div className="p-16 text-center text-slate-500 bg-white rounded-2xl border border-slate-200 space-y-3">
           <RefreshCw className="w-8 h-8 animate-spin mx-auto text-saffron-600" />
-          <p className="text-sm font-semibold">Retrieving official application lifecycle & audit history...</p>
+          <p className="text-sm font-semibold">{t('track.retrievingApp', 'Retrieving official application lifecycle & audit history...')}</p>
         </div>
       )}
 
@@ -338,10 +355,10 @@ export default function Track() {
           </div>
           <div className="max-w-md mx-auto space-y-1">
             <h3 className="text-lg font-bold text-slate-900">
-              No Application Reference Entered
+              {t('track.noAppTitle', 'No Application Reference Entered')}
             </h3>
             <p className="text-xs text-slate-600">
-              Enter your reference number in the search bar above, or click below to inspect a sample verified inquiry.
+              {t('track.noAppDesc', 'Enter your reference number in the search bar above, or click below to inspect a sample verified inquiry.')}
             </p>
           </div>
           <button
@@ -349,7 +366,7 @@ export default function Track() {
             onClick={() => loadDemo('SETU-DEMO-2026')}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition-colors"
           >
-            <span>Load Sample Demo Case (SETU-DEMO-2026)</span>
+            <span>{t('track.loadSampleBtn', 'Load Sample Demo Case (SETU-DEMO-2026)')}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -383,7 +400,7 @@ export default function Track() {
 
                 {application.isOffline && (
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                    Saved Locally
+                    {t('track.savedLocally', 'Saved Locally')}
                   </span>
                 )}
               </div>
@@ -393,22 +410,22 @@ export default function Track() {
               </h2>
 
               <p className="text-xs text-slate-500">
-                Routed to: <strong className="text-slate-800">{application.routedPartner?.partnerName || 'Pending Channel Partner'}</strong>
-                {' '}• Created {new Date(application.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                {t('track.routedTo', 'Routed to:')} <strong className="text-slate-800">{application.routedPartner?.partnerName || t('track.pendingPartner', 'Pending Channel Partner')}</strong>
+                {' '}• {t('track.created', 'Created')} {new Date(application.createdAt).toLocaleDateString(i18n.language === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
               </p>
             </div>
 
             {/* Quick Metrics */}
             <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 flex-shrink-0">
               <div className="space-y-0.5">
-                <span className="text-[10px] uppercase font-bold text-slate-500">Project Need</span>
+                <span className="text-[10px] uppercase font-bold text-slate-500">{t('track.projectNeed', 'Project Need')}</span>
                 <p className="text-base font-bold text-slate-900">
                   ₹{Number(application.applicantProfile?.projectCost || application.projectCost || 0).toLocaleString('en-IN')}
                 </p>
               </div>
               <div className="w-px h-8 bg-slate-200"></div>
               <div className="space-y-0.5">
-                <span className="text-[10px] uppercase font-bold text-slate-500">Documents Marked</span>
+                <span className="text-[10px] uppercase font-bold text-slate-500">{t('track.documentsMarked', 'Documents Marked')}</span>
                 <p className="text-base font-bold text-emerald-700">
                   {(application.documentsSubmitted || []).length} / {availableDocs.length}
                 </p>
@@ -425,13 +442,13 @@ export default function Track() {
                   {t('track.stepperTitle', 'Loan Lifecycle Stepper')}
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Progress tracking according to official NSFDC processing milestones
+                  {t('track.stepperSubtitle', 'Progress tracking according to official NSFDC processing milestones')}
                 </p>
               </div>
 
               {isTerminalException && (
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-300">
-                  Application Terminated ({getStatusLabel(currentStatus)})
+                  {t('track.appTerminated', 'Application Terminated')} ({getStatusLabel(currentStatus)})
                 </span>
               )}
             </div>
@@ -494,7 +511,7 @@ export default function Track() {
                     {historyItem?.timestamp ? (
                       <div className="pt-2 border-t border-slate-200/60 text-[10px] text-slate-500 space-y-0.5">
                         <span className="font-semibold text-slate-700 block">
-                          {new Date(historyItem.timestamp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                          {new Date(historyItem.timestamp).toLocaleDateString(i18n.language === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short' })}
                         </span>
                         {historyItem.note && (
                           <p className="italic line-clamp-2 text-slate-600">
@@ -504,7 +521,7 @@ export default function Track() {
                       </div>
                     ) : (
                       <div className="pt-2 border-t border-slate-200/40 text-[10px] text-slate-400">
-                        Pending
+                        {t('track.pending', 'Pending')}
                       </div>
                     )}
                   </div>
@@ -522,7 +539,7 @@ export default function Track() {
                   {t('track.checklistTitle', 'Beneficiary Document Submission Checklist')}
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Mark items you have physically prepared or submitted. Connected to our official zero-rejection guidelines.
+                  {t('track.checklistSubtitle', 'Mark items you have physically prepared or submitted. Connected to our official zero-rejection guidelines.')}
                 </p>
               </div>
 
@@ -530,7 +547,7 @@ export default function Track() {
                 to={`/guide?scheme=${encodeURIComponent(application.matchedScheme?.schemeName || '')}`}
                 className="text-xs font-bold text-saffron-600 hover:text-saffron-700 flex items-center gap-1 hover:underline"
               >
-                <span>View Issuing Authorities in Guide &rarr;</span>
+                <span>{t('track.viewAuthorities', 'View Issuing Authorities in Guide')} &rarr;</span>
               </Link>
             </div>
 
@@ -555,10 +572,10 @@ export default function Track() {
                     />
                     <div className="flex-grow">
                       <span className="text-xs font-bold text-slate-900 block leading-snug">
-                        {doc}
+                        {getDocTitle(doc)}
                       </span>
                       <span className="text-[10px] text-slate-500 block mt-0.5">
-                        {isChecked ? 'Marked complete by applicant' : 'Pending applicant compilation'}
+                        {isChecked ? t('track.docCompleted', 'Marked complete by applicant') : t('track.docPending', 'Pending applicant compilation')}
                       </span>
                     </div>
                   </div>
@@ -574,17 +591,17 @@ export default function Track() {
                 <div>
                   <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-saffron-600" />
-                    Applicant Progress Actions & Status Reporting
+                    {t('track.progressActions', 'Applicant Progress Actions & Status Reporting')}
                   </h3>
                   <p className="text-xs text-slate-500">
-                    Self-report physical progress or switch to partner verification mode to test institutional milestone confirmation.
+                    {t('track.actionsSubtitle', 'Self-report physical progress or switch to partner verification mode to test institutional milestone confirmation.')}
                   </p>
                 </div>
 
                 {/* Partner Testing Mode Switch */}
                 <div className="flex items-center gap-2 p-2 bg-slate-100 rounded-xl border border-slate-200 text-xs">
                   <UserCheck className="w-4 h-4 text-emerald-600" />
-                  <span className="font-semibold text-slate-700">Channel Partner Mode:</span>
+                  <span className="font-semibold text-slate-700">{t('track.partnerModeLabel', 'Channel Partner Mode:')}</span>
                   <button
                     type="button"
                     onClick={() => setIsPartnerMode(!isPartnerMode)}
@@ -594,7 +611,7 @@ export default function Track() {
                         : 'bg-white text-slate-700 border border-slate-300'
                     }`}
                   >
-                    {isPartnerMode ? 'Active (Partner-Verified)' : 'Off (Applicant-Reported)'}
+                    {isPartnerMode ? t('track.partnerModeActive', 'Active (Partner-Verified)') : t('track.partnerModeOff', 'Off (Applicant-Reported)')}
                   </button>
                 </div>
               </div>
@@ -605,11 +622,11 @@ export default function Track() {
                   <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2 text-xs">
                     <span className="font-bold text-emerald-900 flex items-center gap-1.5">
                       <ShieldCheck className="w-4 h-4 text-emerald-700" />
-                      Channel Partner Verification Remarks (Mandatory for Institutional Milestones):
+                      {t('track.partnerRemarksTitle', 'Channel Partner Verification Remarks (Mandatory for Institutional Milestones):')}
                     </span>
                     <input
                       type="text"
-                      placeholder="e.g. Verified by TAHDCO District Officer / Sanction Order #TAHDCO-2026-8812"
+                      placeholder={t('track.partnerRemarksPlaceholder', 'e.g. Verified by TAHDCO District Officer / Sanction Order #TAHDCO-2026-8812')}
                       value={partnerNote}
                       onChange={(e) => setPartnerNote(e.target.value)}
                       className="w-full p-2.5 bg-white border border-emerald-300 rounded-lg text-xs font-semibold text-slate-900"
@@ -625,7 +642,7 @@ export default function Track() {
                       onClick={() => handleTransition('documents_pending', 'Applicant actively assembling required documents per checklist')}
                       className="px-5 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
                     >
-                      <span>1. Start Documents Preparation &rarr;</span>
+                      <span>{t('track.btnStartDocs', '1. Start Documents Preparation')} &rarr;</span>
                     </button>
                   )}
 
@@ -636,7 +653,7 @@ export default function Track() {
                       onClick={() => handleTransition('submitted_to_partner', 'Dossier physically submitted at authorized Channel Partner branch')}
                       className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
                     >
-                      <span>2. Self-Report: Submitted to Partner Counter &rarr;</span>
+                      <span>{t('track.btnSubmitPartner', '2. Self-Report: Submitted to Partner Counter')} &rarr;</span>
                     </button>
                   )}
 
@@ -647,7 +664,7 @@ export default function Track() {
                       onClick={() => handleTransition('under_appraisal', partnerNote || 'Dossier received by credit officer; technical appraisal underway')}
                       className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
                     >
-                      <span>3. Advance to Technical Appraisal &rarr;</span>
+                      <span>{t('track.btnAdvanceAppraisal', '3. Advance to Technical Appraisal')} &rarr;</span>
                     </button>
                   )}
 
@@ -658,7 +675,7 @@ export default function Track() {
                       onClick={() => handleTransition('sanctioned', partnerNote || (isPartnerMode ? 'Official Sanction Letter Approved' : 'Applicant self-reported sanction letter receipt'))}
                       className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
                     >
-                      <span>4. Mark Loan Sanctioned &rarr;</span>
+                      <span>{t('track.btnMarkSanctioned', '4. Mark Loan Sanctioned')} &rarr;</span>
                     </button>
                   )}
 
@@ -669,7 +686,7 @@ export default function Track() {
                       onClick={() => handleTransition('disbursed', partnerNote || (isPartnerMode ? 'Funds successfully credited to DBT account / dealer' : 'Applicant self-reported fund receipt'))}
                       className="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
                     >
-                      <span>5. Mark Capital Disbursed (Terminal Success) &rarr;</span>
+                      <span>{t('track.btnMarkDisbursed', '5. Mark Capital Disbursed (Terminal Success)')} &rarr;</span>
                     </button>
                   )}
 
@@ -679,7 +696,7 @@ export default function Track() {
                     onClick={() => setShowWithdrawConfirm(true)}
                     className="px-4 py-2.5 bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-700 text-xs font-bold rounded-xl border border-slate-200 transition-colors cursor-pointer ml-auto"
                   >
-                    Withdraw Application
+                    {t('track.withdrawApplication', 'Withdraw Application')}
                   </button>
                 </div>
               </div>
@@ -691,14 +708,14 @@ export default function Track() {
             <div className="p-5 rounded-2xl bg-red-50 border border-red-200 space-y-3">
               <h4 className="text-sm font-bold text-red-900 flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-red-600" />
-                Confirm Application Withdrawal
+                {t('track.confirmWithdrawTitle', 'Confirm Application Withdrawal')}
               </h4>
               <p className="text-xs text-red-800">
-                Withdrawing is a terminal action. Please provide a reason for records:
+                {t('track.confirmWithdrawDesc', 'Withdrawing is a terminal action. Please provide a reason for records:')}
               </p>
               <input
                 type="text"
-                placeholder="Reason for withdrawal (e.g. secured alternative finance / project deferred)"
+                placeholder={t('track.withdrawReasonPlaceholder', 'Reason for withdrawal (e.g. secured alternative finance / project deferred)')}
                 value={withdrawReason}
                 onChange={(e) => setWithdrawReason(e.target.value)}
                 className="w-full p-2.5 bg-white border border-red-300 rounded-lg text-xs font-semibold text-slate-900"
@@ -710,14 +727,14 @@ export default function Track() {
                   onClick={() => handleTransition('withdrawn', withdrawReason)}
                   className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50"
                 >
-                  Confirm Withdrawal
+                  {t('track.confirmWithdrawBtn', 'Confirm Withdrawal')}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowWithdrawConfirm(false)}
                   className="px-4 py-2 bg-white text-slate-700 rounded-lg text-xs font-bold border border-slate-300 cursor-pointer"
                 >
-                  Cancel
+                  {t('track.cancelBtn', 'Cancel')}
                 </button>
               </div>
             </div>
@@ -729,22 +746,22 @@ export default function Track() {
             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
               <div className="flex items-center gap-2 text-saffron-600 font-bold text-xs uppercase tracking-wider">
                 <Award className="w-4 h-4" />
-                Matched NSFDC Scheme
+                {t('track.matchedSchemeBadge', 'Matched NSFDC Scheme')}
               </div>
               <h4 className="text-lg font-bold text-slate-900">
                 {application.matchedScheme?.schemeName || 'Concessional Scheme'}
               </h4>
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <span className="text-slate-500 font-medium block">Interest Rate:</span>
+                  <span className="text-slate-500 font-medium block">{t('track.interestRateLabel', 'Interest Rate:')}</span>
                   <span className="font-extrabold text-slate-900 text-sm">
-                    {application.matchedScheme?.interestRate || 4}% p.a.
+                    {application.matchedScheme?.interestRate || 4}% {t('track.perAnnum', 'p.a.')}
                   </span>
                 </div>
                 <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <span className="text-slate-500 font-medium block">Moratorium Grace:</span>
+                  <span className="text-slate-500 font-medium block">{t('track.moratoriumLabel', 'Moratorium Grace:')}</span>
                   <span className="font-extrabold text-emerald-700 text-sm">
-                    {application.matchedScheme?.moratoriumMonths || 6} Months
+                    {application.matchedScheme?.moratoriumMonths || 6} {t('track.months', 'Months')}
                   </span>
                 </div>
               </div>
@@ -754,7 +771,7 @@ export default function Track() {
             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
               <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase tracking-wider">
                 <Building2 className="w-4 h-4" />
-                Assigned Channel Partner
+                {t('track.assignedPartnerBadge', 'Assigned Channel Partner')}
               </div>
               <h4 className="text-lg font-bold text-slate-900">
                 {application.routedPartner?.partnerName || 'District SC Corporation'}
@@ -777,7 +794,7 @@ export default function Track() {
                   className="font-bold text-saffron-600 hover:text-saffron-700 inline-flex items-center gap-1 hover:underline"
                 >
                   <MapPin className="w-3.5 h-3.5" />
-                  <span>View on Interactive Map &rarr;</span>
+                  <span>{t('track.viewMapBtn', 'View on Interactive Map')} &rarr;</span>
                 </Link>
               </div>
             </div>
@@ -787,7 +804,7 @@ export default function Track() {
           <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
             <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <Clock className="w-4 h-4 text-slate-500" />
-              Append-Only Audit History ({application.statusHistory?.length || 0} Events)
+              {t('track.auditHistoryTitle', 'Append-Only Audit History')} ({application.statusHistory?.length || 0} {t('track.eventsCount', 'Events')})
             </h4>
 
             <div className="space-y-3">
@@ -806,7 +823,7 @@ export default function Track() {
                           ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                           : 'bg-amber-100 text-amber-800 border border-amber-300'
                       }`}>
-                        {event.isPartnerConfirmed ? 'Partner-Confirmed' : 'Applicant-Reported'}
+                        {event.isPartnerConfirmed ? t('track.partnerConfirmedPill', 'Partner-Confirmed') : t('track.selfReportedPill', 'Applicant-Reported')}
                       </span>
                     </div>
                     {event.note && (
@@ -817,7 +834,7 @@ export default function Track() {
                   </div>
 
                   <span className="text-[11px] text-slate-400 font-mono flex-shrink-0">
-                    {new Date(event.timestamp).toLocaleString('en-IN', {
+                    {new Date(event.timestamp).toLocaleString(i18n.language === 'hi' ? 'hi-IN' : 'en-IN', {
                       dateStyle: 'medium',
                       timeStyle: 'short'
                     })}

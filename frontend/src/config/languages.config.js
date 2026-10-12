@@ -78,7 +78,7 @@ export const LANGUAGES = [
     region: 'Maharashtra (MPBCDC)'
   },
 
-  // RTL VALIDATION LANGUAGE (Phase 3 scheduled language with Perso-Arabic RTL script)
+  // RTL VALIDATION LANGUAGE
   {
     code: 'ur',
     name: 'Urdu',
@@ -86,12 +86,12 @@ export const LANGUAGES = [
     scriptFamily: 'Perso-Arabic',
     rtl: true,
     fontFamily: "'Noto Nastaliq Urdu', serif",
-    status: 'partial',
-    phase: 'Phase 3 (RTL Anchor)',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Pan-India (Northern & Deccan)'
   },
 
-  // PHASE 2 (Next 4 Scheduled Languages)
+  // Western & Southern Scheduled Languages
   {
     code: 'gu',
     name: 'Gujarati',
@@ -99,8 +99,8 @@ export const LANGUAGES = [
     scriptFamily: 'Gujarati',
     rtl: false,
     fontFamily: "'Noto Sans Gujarati', sans-serif",
-    status: 'planned',
-    phase: 'Phase 2',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Gujarat (GSCDC)'
   },
   {
@@ -110,8 +110,8 @@ export const LANGUAGES = [
     scriptFamily: 'Kannada',
     rtl: false,
     fontFamily: "'Noto Sans Kannada', sans-serif",
-    status: 'planned',
-    phase: 'Phase 2',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Karnataka (KSDC)'
   },
   {
@@ -121,8 +121,8 @@ export const LANGUAGES = [
     scriptFamily: 'Malayalam',
     rtl: false,
     fontFamily: "'Noto Sans Malayalam', sans-serif",
-    status: 'planned',
-    phase: 'Phase 2',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Kerala (KSCDC)'
   },
   {
@@ -132,12 +132,12 @@ export const LANGUAGES = [
     scriptFamily: 'Gurmukhi',
     rtl: false,
     fontFamily: "'Noto Sans Gurmukhi', sans-serif",
-    status: 'planned',
-    phase: 'Phase 2',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Punjab (PSCFC) & Haryana'
   },
 
-  // PHASE 3 (Remaining Constitutional Scheduled Languages)
+  // Eastern & Central Scheduled Languages
   {
     code: 'or',
     name: 'Odia',
@@ -145,8 +145,8 @@ export const LANGUAGES = [
     scriptFamily: 'Odia',
     rtl: false,
     fontFamily: "'Noto Sans Oriya', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Odisha (OSFDC)'
   },
   {
@@ -156,8 +156,8 @@ export const LANGUAGES = [
     scriptFamily: 'Bengali-Assamese',
     rtl: false,
     fontFamily: "'Noto Sans Bengali', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Assam SC Corporation'
   },
   {
@@ -167,9 +167,9 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
-    region: 'National Heritage'
+    status: 'complete',
+    phase: 'All-India',
+    region: 'National Classical Heritage'
   },
   {
     code: 'kok',
@@ -178,8 +178,8 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Goa & Coastal Karnataka'
   },
   {
@@ -189,8 +189,8 @@ export const LANGUAGES = [
     scriptFamily: 'Meetei Mayek / Bengali',
     rtl: false,
     fontFamily: "'Noto Sans Meetei Mayek', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Manipur'
   },
   {
@@ -200,8 +200,8 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Bodoland (Assam)'
   },
   {
@@ -211,8 +211,8 @@ export const LANGUAGES = [
     scriptFamily: 'Ol Chiki',
     rtl: false,
     fontFamily: "'Noto Sans Ol Chiki', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Jharkhand, Odisha, West Bengal'
   },
   {
@@ -222,8 +222,8 @@ export const LANGUAGES = [
     scriptFamily: 'Perso-Arabic',
     rtl: true,
     fontFamily: "'Noto Nastaliq Urdu', serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Jammu & Kashmir'
   },
   {
@@ -233,8 +233,8 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Sikkim & North Bengal'
   },
   {
@@ -244,8 +244,8 @@ export const LANGUAGES = [
     scriptFamily: 'Perso-Arabic',
     rtl: true,
     fontFamily: "'Noto Nastaliq Urdu', serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Western India'
   },
   {
@@ -255,8 +255,8 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Jammu'
   },
   {
@@ -266,15 +266,15 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'planned',
-    phase: 'Phase 3',
+    status: 'complete',
+    phase: 'All-India',
     region: 'Bihar & Mithila'
   }
 ];
 
 /**
  * Filtered list of languages active in the UI switcher.
- * Never includes 'planned' languages to ensure no broken English-fallback placeholders.
+ * All 22 Eighth Schedule languages of the Constitution of India + English.
  */
 export const ACTIVE_LANGUAGES = LANGUAGES.filter(
   (lang) => lang.status === 'complete' || lang.status === 'partial'
