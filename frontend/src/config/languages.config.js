@@ -269,12 +269,113 @@ export const LANGUAGES = [
     status: 'complete',
     phase: 'All-India',
     region: 'Bihar & Mithila'
+  },
+
+  // MAJOR REGIONAL & MOTHER TONGUE SPOKEN LANGUAGES (Grassroots Beneficiaries)
+  {
+    code: 'bho',
+    name: 'Bhojpuri',
+    nativeName: 'भोजपुरी',
+    scriptFamily: 'Devanagari',
+    rtl: false,
+    fontFamily: "'Noto Sans Devanagari', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Eastern UP, Bihar & Jharkhand (50M+ speakers)'
+  },
+  {
+    code: 'raj',
+    name: 'Rajasthani',
+    nativeName: 'राजस्थानी',
+    scriptFamily: 'Devanagari',
+    rtl: false,
+    fontFamily: "'Noto Sans Devanagari', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Rajasthan & Western MP (30M+ speakers)'
+  },
+  {
+    code: 'hne',
+    name: 'Chhattisgarhi',
+    nativeName: 'छत्तीसगढ़ी',
+    scriptFamily: 'Devanagari',
+    rtl: false,
+    fontFamily: "'Noto Sans Devanagari', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Chhattisgarh (18M+ speakers)'
+  },
+  {
+    code: 'bgc',
+    name: 'Haryanvi',
+    nativeName: 'हरियाणवी',
+    scriptFamily: 'Devanagari',
+    rtl: false,
+    fontFamily: "'Noto Sans Devanagari', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Haryana & Delhi NCR (10M+ speakers)'
+  },
+  {
+    code: 'mag',
+    name: 'Magahi',
+    nativeName: 'मगही',
+    scriptFamily: 'Devanagari',
+    rtl: false,
+    fontFamily: "'Noto Sans Devanagari', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Central Bihar & Magadh (13M+ speakers)'
+  },
+  {
+    code: 'tcy',
+    name: 'Tulu',
+    nativeName: 'ತುಳು',
+    scriptFamily: 'Kannada',
+    rtl: false,
+    fontFamily: "'Noto Sans Kannada', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Coastal Karnataka & Kasaragod (2M+ speakers)'
+  },
+  {
+    code: 'lus',
+    name: 'Mizo',
+    nativeName: 'Mizo ṭawng',
+    scriptFamily: 'Latin',
+    rtl: false,
+    fontFamily: 'Inter, sans-serif',
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Mizoram & North-East (1M+ speakers)'
+  },
+  {
+    code: 'kha',
+    name: 'Khasi',
+    nativeName: 'Ka Ktien Khasi',
+    scriptFamily: 'Latin',
+    rtl: false,
+    fontFamily: 'Inter, sans-serif',
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Meghalaya (1.5M+ speakers)'
+  },
+  {
+    code: 'gon',
+    name: 'Gondi',
+    nativeName: 'गोंडी',
+    scriptFamily: 'Devanagari',
+    rtl: false,
+    fontFamily: "'Noto Sans Devanagari', sans-serif",
+    status: 'complete',
+    phase: 'Grassroots Spoken',
+    region: 'Central India Tribal Belts (3M+ speakers)'
   }
 ];
 
 /**
  * Filtered list of languages active in the UI switcher.
- * All 22 Eighth Schedule languages of the Constitution of India + English.
+ * All 22 Constitutional Languages + English + 9 Grassroots Regional Mother Tongues (32 total).
  */
 export const ACTIVE_LANGUAGES = LANGUAGES.filter(
   (lang) => lang.status === 'complete' || lang.status === 'partial'

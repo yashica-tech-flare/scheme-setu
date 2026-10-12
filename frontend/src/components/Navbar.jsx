@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import VoiceAssistant from './VoiceAssistant';
 import { Landmark, Compass, MapPin, Calculator, FileCheck, PhoneCall, Menu, X, Clock } from 'lucide-react';
 
 export default function Navbar() {
@@ -80,8 +81,16 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Controls: Language Switcher + Mobile Toggle */}
-          <div className="flex items-center gap-3">
+          {/* Controls: Voice Guide + Language Switcher + Mobile Toggle */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Audio Voice Guide for illiterate / low-literacy users */}
+            <VoiceAssistant
+              variant="button"
+              textToRead={t('common.audioPortalOverview', 'योजना सेतु में आपका स्वागत है। यह भारत सरकार के तहत अनुसूचित जाति के उद्यमियों और छात्रों के लिए 4 से 9 प्रतिशत कम ब्याज दर पर सरकारी ऋण योजनाएं खोजने का आधिकारिक पोर्टल है।')}
+              label={t('common.audioGuideBtn', 'बोलकर सुनें')}
+              className="hidden sm:inline-flex"
+            />
+
             <LanguageSwitcher />
 
             <button
@@ -118,6 +127,15 @@ export default function Navbar() {
               </Link>
             );
           })}
+
+          <div className="pt-3 px-1 border-t border-slate-800/80">
+            <VoiceAssistant
+              variant="button"
+              textToRead={t('common.audioPortalOverview', 'योजना सेतु में आपका स्वागत है। यह भारत सरकार के तहत अनुसूचित जाति के उद्यमियों और छात्रों के लिए 4 से 9 प्रतिशत कम ब्याज दर पर सरकारी ऋण योजनाएं खोजने का आधिकारिक पोर्टल है।')}
+              label={t('common.audioGuideBtn', 'बोलकर सुनें (आवाज़ में)')}
+              className="w-full justify-center"
+            />
+          </div>
         </div>
       )}
     </header>

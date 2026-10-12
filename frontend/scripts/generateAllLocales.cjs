@@ -26,95 +26,121 @@ const hiTrack = JSON.parse(fs.readFileSync(path.join(localesDir, 'hi', 'track.js
 
 // Language Specific Localization Profiles
 const LANGUAGE_DEFINITIONS = {
-  gu: {
-    name: 'Gujarati',
-    nav: { title: 'યોજના સેતુ', subtitle: 'અનુસૂચિત જાતિ રાહત ધિરાણ પોર્ટલ', home: 'મુખ્ય પૃષ્ઠ', finder: 'યોજના શોધો', locator: 'ભાગીદાર શોધો', calculator: 'EMI કેલ્ક્યુલેટર', guidance: 'દસ્તાવેજ ચેકલિસ્ટ', track: 'લોન ટ્રેક કરો', helpdesk: 'હેલ્પલાઇન: 1800-11-2001 (ટોલ-ફ્રી)', nationalPortal: 'ભારત સરકારની પહેલ' },
-    hero: { badge: '૪% – ૯% વાર્ષિક રાહત વ્યાજ દર', title: 'અનુસૂચિત જાતિના સાહસિકો અને વિદ્યાર્થીઓનું સશક્તિકરણ', highlight: 'યોજના સેતુ', description: 'લોન અરજી નકારાવાની ચિંતા છોડો. પાત્ર NSFDC યોજનાઓ શોધો, મોરેટોરિયમ સાથે ચોક્કસ EMI જાણો અને નજીકની અધિકૃત શાખાઓ શોધો.', ctaPrimary: 'પાત્રતા તપાસો', ctaSecondary: 'ચેનલ પાર્ટનર શોધો' },
+  // BHOJPURI (50M+ speakers in Eastern UP, Bihar, Jharkhand)
+  bho: {
+    name: 'Bhojpuri',
+    nav: { title: 'योजना सेतु', subtitle: 'दलित भाई-बहिनन खातिर रियायती कर्ज पोर्टल', home: 'मुख्य पन्ना', finder: 'योजना खोजीं', locator: 'शाखा खोजीं', calculator: 'किस्त हिसाब', guidance: 'कागजात लिस्ट', track: 'कर्ज ट्रैक करीं', helpdesk: 'मदद नंबर: 1800-11-2001 (फ्री)' },
+    hero: { badge: '4% से 9% सालाना कम ब्याज पर कर्ज', title: 'दलित उद्यमी आ पढ़निहार लइकन के सहारा', highlight: 'योजना सेतु', description: 'लोन खारिज होखे के डर छोड़ दीं। सरकार के NSFDC योजना खोजीं, किस्त के हिसाब करीं आ नजदीक के बैंक शाखा जाईं।', ctaPrimary: 'अपन पात्रता जांचीं', ctaSecondary: 'नजदीक के शाखा खोजीं' },
     track: {
-      title: 'લોન અરજી જીવનચક્ર ટ્રેક કરો', subtitle: 'પ્રારંભિક પૂછપરછથી અંતિમ રાહત વિતરણ સુધી પારદર્શક ઓડિટ ટ્રેકિંગ.', realTimeTracking: 'લાભાર્થી રિયલ-ટાઇમ ટ્રેકિંગ', newLoanInquiry: 'નવી લોન પૂછપરછ', documentGuide: 'દસ્તાવેજ માર્ગદર્શિકા', searchPlaceholder: 'સંદર્ભ ક્રમાંક દાખલ કરો (દા.ત. SETU-DEMO-2026)', lookupBtn: 'અરજી શોધો', lookingUp: 'શોધી રહ્યું છે...', quickTest: 'ઝડપી પરીક્ષણ:', loadDemo: 'ચકાસાયેલ ડેમો અરજી લોડ કરો', disclaimerTitle: 'સત્તાવાર પારદર્શિતા સૂચના:', disclaimerP1: 'સ્થિતિ અપડેટ્સ અરજદાર દ્વારા નોંધાયેલી પ્રગતિ દર્શાવે છે જ્યાં સુધી', partnerConfirmedPill: 'પાર્ટનર-ચકાસાયેલ', disclaimerP2: 'ચિહ્નિત ન હોય. યોજના સેતુ લોન મંજૂરીની ખાતરી આપતું નથી.',
-      status: { inquiry_submitted: 'પૂછપરછ નોંધાઈ', documents_pending: 'દસ્તાવેજ તૈયારી ચાલુ', submitted_to_partner: 'ચેનલ પાર્ટનરને સબમિટ કર્યું', under_appraisal: 'ટેકનિકલ મૂલ્યાંકન હેઠળ', sanctioned: 'લોન મંજૂર', disbursed: 'મૂડી વિતરિત', rejected: 'અરજી નકારી', withdrawn: 'અરજદાર દ્વારા પાછી ખેંચી' },
+      title: 'अपन कर्ज आवेदन के स्थिति देखीं', subtitle: 'शुरू से लेके रुपिया मिले तक सब हाल जानीं।', realTimeTracking: 'लाइव ट्रैकिंग', newLoanInquiry: 'नया कर्ज खातिर आवेदन', documentGuide: 'कागजात गाइड', searchPlaceholder: 'रेफरेंस नंबर डालीं (जइसे SETU-DEMO-2026)', lookupBtn: 'आवेदन खोजीं', lookingUp: 'खोजल जा रहल बा...', quickTest: 'तुरंत जांच:', loadDemo: 'डेमो आवेदन देखीं', disclaimerTitle: 'सरकारी सूचना:', disclaimerP1: 'ई स्थिति रउआ द्वारा बतावल प्रगति देखावत बा जबले कि', partnerConfirmedPill: 'पार्टनर-सत्यापित', disclaimerP2: 'ना होखे। योजना सेतु कर्ज देवे के गारंटी ना देला।',
+      projectNeed: 'जरूरत के रकम', documentsMarked: 'जमा भइल कागजात',
+      status: { inquiry_submitted: 'पूछताछ दर्ज भइल', documents_pending: 'कागजात तइयार कइल जा रहल बा', submitted_to_partner: 'बैंक/निगम में जमा भइल', under_appraisal: 'जांच जारी बा', sanctioned: 'कर्ज पास भइल', disbursed: 'रुपिया खाता में भेजल गइल', rejected: 'आवेदन खारिज भइल', withdrawn: 'वापस ले लिहल गइल' },
       stages: {
-        inquiry_submitted_desc: 'યોગ્ય NSFDC યોજના સાથે ઓનલાઇન પૂછપરછ નોંધાઈ', documents_pending_desc: 'લાભાર્થી દ્વારા KYC, જાતિ અને આવક પ્રમાણપત્ર સંકલન ચાલુ', submitted_to_partner_desc: 'અધિકૃત બેંક/નિગમ શાખામાં અરજી ડોઝિયર જમા કરાયું', under_appraisal_desc: 'ક્રેડિટ અધિકારી દ્વારા ટેકનિકલ અને નાણાકીય નિરીક્ષણ', sanctioned_desc: 'રાહત વ્યાજ દર સાથે સત્તાવાર મંજૂરી પત્ર જારી કરાયો', disbursed_desc: 'DBT બેંક ખાતા અથવા મશીનરી વિક્રેતાને સીધા ભંડોળ મુક્ત કરાયા'
+        inquiry_submitted_desc: 'योजना सेतु पोर्टल पर रउआ पूछताछ दर्ज हो गइल बा', documents_pending_desc: 'आधार, जाति आ आय प्रमाण पत्र जुटावल जा रहल बा', submitted_to_partner_desc: 'कागजात जिला निगम भा बैंक शाखा में जमा करा दिहल गइल बा', under_appraisal_desc: 'अफसर द्वारा दुकान/काम के जांच कइल जा रहल बा', sanctioned_desc: 'कर्ज पास हो गइल बा आ मंजूरी चिट्ठी जारी हो गइल बा', disbursed_desc: 'रुपिया सीधा रउआ बैंक खाता भा मशीन विक्रेता के भेजल गइल'
       },
       docs: {
-        caste: 'જાતિ પ્રમાણપત્ર (ડિજિટલ સીલ સાથે ચકાસાયેલ SC દરજ્જો)', income: 'આવક પ્રમાણપત્ર (વાર્ષિક કૌટુંબિક આવક ≤ ₹૫ લાખ)', aadhaar: 'આધાર કાર્ડ (મોબાઇલ અને DBT બેંક ખાતા સાથે લિંક)', dpr: 'વિગતવાર પ્રોજેક્ટ રિપોર્ટ (DPR / ૩-મુદ્દા ખર્ચ પત્રક)', quotation: 'મશીનરી / સાધનસામગ્રી કોટેશન (GST વિક્રેતા)', bankPassbook: 'બેંક પાસબુક / રદ કરેલ ચેક (સીધી સબસિડી જમા)'
+        caste: 'जाति प्रमाण पत्र (तहसीलदार के डिजिटल मोहर वाला)', income: 'आय प्रमाण पत्र (सालाना पारिवारिक कमाई ₹5 लाख से कम)', aadhaar: 'आधार कार्ड (मोबाइल आ बैंक खाता से जुड़ल)', dpr: 'बिजनेस प्रोजेक्ट रिपोर्ट (काम के 3-बिंदु खर्च विवरण)', quotation: 'मशीन / सामान के कोटेशन (दुकानदार से)', bankPassbook: 'बैंक पासबुक / रद्द चेक'
       }
     }
   },
-  kn: {
-    name: 'Kannada',
-    nav: { title: 'ಯೋಜನಾ ಸೇತು', subtitle: 'ಪರಿಶಿಷ್ಟ ಜಾತಿ ರಿಯಾಯಿತಿ ಸಾಲ ಪೋರ್ಟಲ್', home: 'ಮುಖ್ಯ ಪುಟ', finder: 'ಯೋಜನೆ ಹುಡುಕಿ', locator: 'ಪಾಲುದಾರರನ್ನು ಹುಡುಕಿ', calculator: 'EMI ಕ್ಯಾಲ್ಕುಲೇಟರ್', guidance: 'ದಾಖಲೆಗಳ ಪರಿಶೀಲನಾ ಪಟ್ಟಿ', track: 'ಸಾಲ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ', helpdesk: 'ಸಹಾಯವಾಣಿ: 1800-11-2001 (ಟೋಲ್-ಫ್ರೀ)', nationalPortal: 'ಭಾರತ ಸರ್ಕಾರದ ಉಪಕ್ರಮ' },
-    hero: { badge: '4% – 9% ವಾರ್ಷಿಕ ರಿಯಾಯಿತಿ ಬಡ್ಡಿದರ', title: 'ಪರಿಶಿಷ್ಟ ಜಾತಿಯ ಉದ್ಯಮಿಗಳು ಮತ್ತು ವಿದ್ಯಾರ್ಥಿಗಳ ಸಬಲೀಕರಣ', highlight: 'ಯೋಜನಾ ಸೇತು', description: 'ಅರ್ಹ NSFDC ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ, ಮೊರಟೋರಿಯಂ ಜೊತೆಗೆ EMI ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ ಮತ್ತು ಅಧಿಕೃತ ಪಾಲುದಾರ ಶಾಖೆಗಳನ್ನು ಹುಡುಕಿ.', ctaPrimary: 'ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ', ctaSecondary: 'ಪಾಲುದಾರರನ್ನು ಪತ್ತೆ ಮಾಡಿ' },
+
+  // RAJASTHANI / MARWARI (30M+ speakers in Rajasthan & Western MP)
+  raj: {
+    name: 'Rajasthani',
+    nav: { title: 'योजना सेतु', subtitle: 'अनुसूचित जाति रियायती कर्जो पोर्टल', home: 'मुख्य पन्नो', finder: 'योजना खोजो', locator: 'शाखा खोजो', calculator: 'किश्त हिसाब', guidance: 'कागजात चैकलिस्ट', track: 'कर्जो ट्रैक करो', helpdesk: 'हेल्पलाइन: 1800-11-2001 (टोल-फ्री)' },
+    hero: { badge: '4% – 9% सालाना कम ब्याज पर कर्जो', title: 'दलित उद्यमी अर पढ़ाकू बालकां रो सशक्तिकरण', highlight: 'योजना सेतु', description: 'कर्जो खारिज होवण री चिंता छोड़ो। पात्र NSFDC योजनावां खोजो, किश्त जाणो अर नजदीकी बैंक शाखा जाओ।', ctaPrimary: 'पात्रता जाचो', ctaSecondary: 'शाखा खोजो' },
     track: {
-      title: 'ಸಾಲ ಅರ್ಜಿ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ', subtitle: 'ಆರಂಭಿಕ ವಿಚಾರಣೆಯಿಂದ ಅಂತಿಮ ವಿತರಣೆಯವರೆಗೆ ಪಾರದರ್ಶಕ ಟ್ರ್ಯಾಕಿಂಗ್.', realTimeTracking: 'ನೈಜ ಸಮಯದ ಫಲಾನುಭವಿ ಟ್ರ್ಯಾಕಿಂಗ್', newLoanInquiry: 'ಹೊಸ ಸಾಲ ವಿಚಾರಣೆ', documentGuide: 'ದಾಖಲೆ ಮಾರ್ಗದರ್ಶಿ', searchPlaceholder: 'ಉಲ್ಲೇಖ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ (ಉದಾ: SETU-DEMO-2026)', lookupBtn: 'ಅರ್ಜಿ ಹುಡುಕಿ', lookingUp: 'ಹುಡುಕಲಾಗುತ್ತಿದೆ...', quickTest: 'ತ್ವರಿತ ಪರೀಕ್ಷೆ:', loadDemo: 'ಡೆಮೊ ಅರ್ಜಿ ಲೋಡ್ ಮಾಡಿ', disclaimerTitle: 'ಅಧಿಕೃತ ಪಾರದರ್ಶಕತೆ ಸೂಚನೆ:', disclaimerP1: 'ಸ್ಥಿತಿ ನವೀಕರಣಗಳು ಅರ್ಜಿದಾರರ ವರದಿಯನ್ನು ಪ್ರತಿಬಿಂಬಿಸುತ್ತವೆ ಹೊರತು', partnerConfirmedPill: 'ಪಾಲುದಾರ-ದೃಢೀಕರಿಸಲಾಗಿದೆ', disclaimerP2: 'ಎಂದು ಗುರುತಿಸದ ಹೊರತು. ಯೋಜನಾ ಸೇತು ಸಾಲ ಅನುಮೋದನೆಯನ್ನು ಖಾತರಿಪಡಿಸುವುದಿಲ್ಲ.',
-      status: { inquiry_submitted: 'ವಿಚಾರಣೆ ಸಲ್ಲಿಸಲಾಗಿದೆ', documents_pending: 'ದಾಖಲೆಗಳ ತಯಾರಿ ಪ್ರಗತಿಯಲ್ಲಿದೆ', submitted_to_partner: 'ಪಾಲುದಾರರಿಗೆ ಸಲ್ಲಿಸಲಾಗಿದೆ', under_appraisal: 'ತಾಂತ್ರಿಕ ಮೌಲ್ಯಮಾಪನದಲ್ಲಿದೆ', sanctioned: 'ಸಾಲ ಮಂಜೂರಾಗಿದೆ', disbursed: 'ಬಂಡವಾಳ ವಿತರಿಸಲಾಗಿದೆ', rejected: 'ಅರ್ಜಿ ತಿರಸ್ಕರಿಸಲಾಗಿದೆ', withdrawn: 'ಹಿಂಪಡೆಯಲಾಗಿದೆ' },
+      title: 'कर्ज आवेदन रो हाल जाचो', subtitle: 'शुरुआत सूं लेय\'र रुपिया मिलण तांई रो पूरो हिसाब।', realTimeTracking: 'लाइव ट्रैकिंग', newLoanInquiry: 'नवो कर्ज आवेदन', documentGuide: 'कागजात गाइड', searchPlaceholder: 'रेफरेंस नंबर लिखो (उदा. SETU-DEMO-2026)', lookupBtn: 'आवेदन खोजो', lookingUp: 'खोज रिया हां...', quickTest: 'तुरंत जांच:', loadDemo: 'डेमो आवेदन लोड करो', disclaimerTitle: 'सरकारी सूचना:', disclaimerP1: 'हालत आवेदक री बताई प्रगति दर्शावे है जद तांई', partnerConfirmedPill: 'पार्टनर-सत्यापित', disclaimerP2: 'ना होवे। योजना सेतु कर्जो देवण री गारंटी कोनी देवे।',
+      projectNeed: 'जरूरत री रकम', documentsMarked: 'जांचिया कागजात',
+      status: { inquiry_submitted: 'पूछताछ दर्ज हुई', documents_pending: 'कागजात त्यार हो रिया है', submitted_to_partner: 'बैंक शाखा में जमा कराइयो', under_appraisal: 'जांच पड़ताल जारी है', sanctioned: 'कर्जो मंजूर हुयो', disbursed: 'पूंजी खातें में आई', rejected: 'आवेदन खारिज', withdrawn: 'पाछो लियो' },
       stages: {
-        inquiry_submitted_desc: 'ಅರ್ಹ NSFDC ಯೋಜನೆಯೊಂದಿಗೆ ಆನ್‌ಲೈನ್ ವಿಚಾರಣೆ ನೋಂದಾಯಿಸಲಾಗಿದೆ', documents_pending_desc: 'ಫಲಾನುಭವಿಯು ಕೆವೈಸಿ, ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣಪತ್ರಗಳನ್ನು ಸಂಗ್ರಹಿಸುತ್ತಿದ್ದಾರೆ', submitted_to_partner_desc: 'ಅಧಿಕೃತ ಶಾಖೆಯಲ್ಲಿ ಅರ್ಜಿ ದಾಖಲೆಗಳನ್ನು ಸಲ್ಲಿಸಲಾಗಿದೆ', under_appraisal_desc: 'ಕ್ರೆಡಿಟ್ ಅಧಿಕಾರಿಯಿಂದ ತಾಂತ್ರಿಕ ಮತ್ತು ಆರ್ಥಿಕ ಕಾರ್ಯಸಾಧ್ಯತೆ ತಪಾಸಣೆ', sanctioned_desc: 'ರಿಯಾಯಿತಿ ದರದೊಂದಿಗೆ ಅಧಿಕೃತ ಮಂಜೂರಾತಿ ಪತ್ರ ನೀಡಲಾಗಿದೆ', disbursed_desc: 'ಡಿಬಿಟಿ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ನೇರವಾಗಿ ಹಣ ಬಿಡುಗಡೆ ಮಾಡಲಾಗಿದೆ'
+        inquiry_submitted_desc: 'ऑनलाइन पूछताछ पोर्टल पर दर्ज हो गी है', documents_pending_desc: 'जाति अर आमदनी रा कागजात त्यार कर रिया हां', submitted_to_partner_desc: 'सरकारी निगम या बैंक में कागजात जमा हो गया है', under_appraisal_desc: 'अफसर द्वारा धंधे री जांच पड़ताल करी जा री है', sanctioned_desc: 'कम ब्याज दर माथे मंजूरी चिट्ठी मिल गी है', disbursed_desc: 'रुपिया सीधा बैंक खाते में भेज दिया गया है'
       },
       docs: {
-        caste: 'ಜಾತಿ ಪ್ರಮಾಣಪತ್ರ (ಡಿಜಿಟಲ್ ಮುದ್ರೆಯೊಂದಿಗೆ ಎಸ್‌ಸಿ ಸ್ಥಿತಿ)', income: 'ಆದಾಯ ಪ್ರಮಾಣಪತ್ರ (ವಾರ್ಷಿಕ ಕುಟುಂಬ ಆದಾಯ ≤ ₹5 ಲಕ್ಷ)', aadhaar: 'ಆಧಾರ್ ಕಾರ್ಡ್ (ಮೊಬೈಲ್ ಮತ್ತು ಡಿಬಿಟಿ ಬ್ಯಾಂಕ್ ಖಾತೆ ಲಿಂಕ್)', dpr: 'ವಿವರವಾದ ಯೋಜನಾ ವರದಿ (DPR / 3-ಅಂಶ ವೆಚ್ಚ ಹಾಳೆ)', quotation: 'ಉಪಕರಣ / ಯಂತ್ರೋಪಕರಣ ಕೊಟೇಶನ್ (ಅಧಿಕೃತ ಜಿಎಸ್‌ಟಿ ಮಾರಾಟಗಾರ)', bankPassbook: 'ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ / ರದ್ದುಪಡಿಸಿದ ಚೆಕ್ (ನೇರ ಸಬ್ಸಿಡಿ)'
+        caste: 'जाति प्रमाण पत्र (तहसीलदार री मोहर वाळो)', income: 'आय प्रमाण पत्र (सालाना आमदनी ₹5 लाख सूं कम)', aadhaar: 'आधार कार्ड (बैंक खाते सूं जुड़ियोड़ो)', dpr: 'प्रोजेक्ट रिपोर्ट (धंधे रो खर्च खतौनी)', quotation: 'मशीनरी कोटेशन (जीएसटी बिल)', bankPassbook: 'बैंक पासबुक / कैंसल चैक'
       }
     }
   },
-  ml: {
-    name: 'Malayalam',
-    nav: { title: 'യോജന സേതു', subtitle: 'പട്ടികജാതി ഇളവ് വായ്പാ പോർട്ടൽ', home: 'ഹോം', finder: 'പദ്ധതികൾ കണ്ടെത്തുക', locator: 'പങ്കാളികളെ കണ്ടെത്തുക', calculator: 'EMI കാൽക്കുലേറ്റർ', guidance: 'രേഖകളുടെ ലിസ്റ്റ്', track: 'വായ്പ ട്രാക്ക് ചെയ്യുക', helpdesk: 'ഹെൽപ്പ്‌ലൈൻ: 1800-11-2001 (ടോൾ-ഫ്രീ)', nationalPortal: 'ഭാരത സർക്കാർ സംരംഭം' },
-    hero: { badge: '4% – 9% വാർഷിക ഇളവ് പലിശ നിരക്ക്', title: 'പട്ടികജാതി സംരംഭകരെയും വിദ്യാർത്ഥികളെയും ശാക്തീകരിക്കുന്നു', highlight: 'യോജന സേതു', description: 'അർഹമായ NSFDC പദ്ധതികൾ കണ്ടെത്തുക, മൊറട്ടോറിയം സഹിതം EMI കണക്കാക്കുക, അംഗീകൃത ശാഖകൾ കണ്ടെത്തുക.', ctaPrimary: 'അർഹത പരിശോധിക്കുക', ctaSecondary: 'പങ്കാളികളെ കണ്ടെത്തുക' },
+
+  // CHHATTISGARHI (18M+ speakers in Chhattisgarh)
+  hne: {
+    name: 'Chhattisgarhi',
+    nav: { title: 'योजना सेतु', subtitle: 'अनुसूचित जाति रियायती कर्जा पोर्टल', home: 'मुख्य पन्ना', finder: 'योजना खोजव', locator: 'शाखा खोजव', calculator: 'ईएमआई हिसाब', guidance: 'कागजात सूची', track: 'कर्जा ट्रैक करव', helpdesk: 'हेल्पलाइन: 1800-11-2001 (टोल-फ्री)' },
+    hero: { badge: '4% ले 9% सालाना कम ब्याज म कर्जा', title: 'दलित उद्यमी अउ पढ़ईया लइका मन के सशक्तिकरण', highlight: 'योजना सेतु', description: 'कर्जा खारिज होए के चिंता छोड़व। अपन बर NSFDC योजना खोजव, किश्त जानव अउ नजदीकी बैंक शाखा म जावव।', ctaPrimary: 'पात्रता जांचव', ctaSecondary: 'शाखा खोजव' },
     track: {
-      title: 'വായ്പാ അപേക്ഷാ പുരോഗതി ട്രാക്ക് ചെയ്യുക', subtitle: 'തുടക്കം മുതൽ അന്തിമ വിതരണം വരെയുള്ള സുതാര്യമായ ട്രാക്കിംഗ്.', realTimeTracking: 'തത്സമയ ഗുണഭോക്തൃ ട്രാക്കിംഗ്', newLoanInquiry: 'പുതിയ അന്വേഷണം', documentGuide: 'ഡോക്യുമെന്റ് ഗൈഡ്', searchPlaceholder: 'റഫറൻസ് നമ്പർ നൽകുക (ഉദാ: SETU-DEMO-2026)', lookupBtn: 'അപേക്ഷ കണ്ടെത്തുക', lookingUp: 'തിരയുന്നു...', quickTest: 'പെട്ടെന്നുള്ള പരിശോധന:', loadDemo: 'ഡെമോ അപേക്ഷ ലോഡ് ചെയ്യുക', disclaimerTitle: 'ഔദ്യോഗിക അറിയിപ്പ്:', disclaimerP1: 'സ്റ്റാറ്റസ് അപ്‌ഡേറ്റുകൾ അപേക്ഷകൻ റിപ്പോർട്ട് ചെയ്ത പുരോഗതിയെ പ്രതിഫലിപ്പിക്കുന്നു', partnerConfirmedPill: 'പങ്കാളി സ്ഥിരീകരിച്ചു', disclaimerP2: 'എന്ന് രേഖപ്പെടുത്താത്ത പക്ഷം. യോജന സേതു വായ്പ അംഗീകാരം ഉറപ്പുനൽകുന്നില്ല.',
-      status: { inquiry_submitted: 'അന്വേഷണം സമർപ്പിച്ചു', documents_pending: 'രേഖകൾ തയ്യാറാക്കുന്നു', submitted_to_partner: 'പങ്കാളിക്ക് സമർപ്പിച്ചു', under_appraisal: 'സാങ്കേതിക പരിശോധനയിൽ', sanctioned: 'വായ്പ അനുവദിച്ചു', disbursed: 'തുക വിതരണം ചെയ്തു', rejected: 'അപേക്ഷ നിരസിച്ചു', withdrawn: 'പിൻവലിച്ചു' },
+      title: 'कर्जा आवेदन के हाल-चाल देखव', subtitle: 'सुरुआत ले लेके पइसा मिले तक के सबो जानकारी।', realTimeTracking: 'लाइव ट्रैकिंग', newLoanInquiry: 'नवा कर्जा पूछताछ', documentGuide: 'कागजात गाइड', searchPlaceholder: 'रेफरेंस नंबर डारव (उदा. SETU-DEMO-2026)', lookupBtn: 'आवेदन खोजव', lookingUp: 'खोजत हे...', quickTest: 'तुरते जांच:', loadDemo: 'डेमो आवेदन लोड करव', disclaimerTitle: 'सरकारी सूचना:', disclaimerP1: 'हालत आवेदक के बताए प्रगति ल देखाथे जब तक कि', partnerConfirmedPill: 'पार्टनर-सत्यापित', disclaimerP2: 'नि बने। योजना सेतु कर्जा दे के गारंटी नइ देवे।',
+      projectNeed: 'परियोजना के खरचा', documentsMarked: 'जांचे कागजात',
+      status: { inquiry_submitted: 'पूछताछ दर्ज होइस', documents_pending: 'कागजात तियार करत हन', submitted_to_partner: 'बैंक शाखा म जमा होइस', under_appraisal: 'जांच-पड़ताल जारी हे', sanctioned: 'कर्जा मंजूर होइस', disbursed: 'पइसा खाता म आइस', rejected: 'आवेदन खारिज होइस', withdrawn: 'वापस ले ले गेइस' },
       stages: {
-        inquiry_submitted_desc: 'NSFDC സ്കീമിലേക്ക് ഓൺലൈൻ അന്വേഷണം രജിസ്റ്റർ ചെയ്തു', documents_pending_desc: 'KYC, ജാതി, വരുമാന സർട്ടിഫിക്കറ്റുകൾ ശേഖരിക്കുന്നു', submitted_to_partner_desc: 'അംഗീകൃത ബ്രാഞ്ചിൽ അപേക്ഷ സമർപ്പിച്ചു', under_appraisal_desc: 'ക്രെഡിറ്റ് ഓഫീസറുടെ സാങ്കേതികവും സാമ്പത്തികവുമായ പരിശോധന', sanctioned_desc: 'ഔദ്യോഗിക അനുമതി പത്രം ഇളവ് നിരക്കോടെ നൽകി', disbursed_desc: 'തുക നേരിട്ട് ഡിബിടി ബാങ്ക് അക്കൗണ്ടിലേക്ക് നൽകി'
+        inquiry_submitted_desc: 'ऑनलाइन पूछताछ योजना सेतु म दर्ज हो गे हे', documents_pending_desc: 'जाति अउ आमदनी प्रमाण पत्र जुटाए जात हे', submitted_to_partner_desc: 'अधिकृत बैंक या निगम म कागजात जमा करा दे गे हे', under_appraisal_desc: 'अफसर मन द्वारा काम-धंधा के जांच करे जात हे', sanctioned_desc: 'कम ब्याज दर म सरकारी मंजूरी चिट्ठी मिल गे हे', disbursed_desc: 'पइसा सीधा डीबीटी बैंक खाता म जमा कर दे गे हे'
       },
       docs: {
-        caste: 'ജാതി സർട്ടിഫിക്കറ്റ് (ഡിജിറ്റൽ സീലോടെയുള്ള എസ്‌സി പദവി)', income: 'വരുമാന സർട്ടിഫിക്കറ്റ് (വാർഷിക കുടുംബ വരുമാനം ≤ ₹5 ലക്ഷം)', aadhaar: 'ആധാർ കാർഡ് (മൊബൈലും ഡിബിടി ബാങ്ക് അക്കൗണ്ടും ലിങ്ക് ചെയ്തത്)', dpr: 'വിശദമായ പ്രോജക്ട് റിപ്പോർട്ട് (DPR)', quotation: 'മെഷിനറി കൊട്ടേഷൻ (ജിഎസ്ടി വെണ്ടർ)', bankPassbook: 'ബാങ്ക് പാസ്ബുക്ക് / റദ്ദാക്കിയ ചെക്ക്'
+        caste: 'जाति प्रमाण पत्र (तहसीलदार के मुहर लगे)', income: 'आय प्रमाण पत्र (सालाना आमदनी ₹5 लाख ले कम)', aadhaar: 'आधार कार्ड (बैंक खाता ले जुड़े)', dpr: 'प्रोजेक्ट रिपोर्ट (कारोबार के लागत चिट्ठा)', quotation: 'मशीनरी कोटेशन (दुकानदार ले)', bankPassbook: 'बैंक पासबुक / चेक'
       }
     }
   },
-  pa: {
-    name: 'Punjabi',
-    nav: { title: 'ਯੋਜਨਾ ਸੇਤੂ', subtitle: 'ਅਨੁਸੂਚਿਤ ਜਾਤੀ ਰਿਆਇਤੀ ਕਰਜ਼ਾ ਪੋਰਟਲ', home: 'ਮੁੱਖ ਪੰਨਾ', finder: 'ਯੋਜਨਾ ਲੱਭੋ', locator: 'ਭਾਈਵਾਲ ਲੱਭੋ', calculator: 'EMI ਕੈਲਕੁਲੇਟਰ', guidance: 'ਦਸਤਾਵੇਜ਼ ਸੂਚੀ', track: 'ਕਰਜ਼ਾ ਟ੍ਰੈਕ ਕਰੋ', helpdesk: 'ਹੈਲਪਲਾਈਨ: 1800-11-2001 (ਟੋਲ-ਫ੍ਰੀ)', nationalPortal: 'ਭਾਰਤ ਸਰਕਾਰ ਦੀ ਪਹਿਲਕਦਮੀ' },
-    hero: { badge: '4% – 9% ਸਾਲਾਨਾ ਰਿਆਇਤੀ ਵਿਆਜ ਦਰ', title: 'ਅਨੁਸੂਚਿਤ ਜਾਤੀ ਦੇ ਉੱਦਮੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀਆਂ ਦਾ ਸਸ਼ਕਤੀਕਰਨ', highlight: 'ਯੋਜਨਾ ਸੇਤੂ', description: 'ਯੋਗ NSFDC ਸਕੀਮਾਂ ਲੱਭੋ, ਮੋਰੇਟੋਰੀਅਮ ਨਾਲ EMI ਦੀ ਗਣਨਾ ਕਰੋ, ਅਤੇ ਅਧਿਕਾਰਤ ਸ਼ਾਖਾਵਾਂ ਲੱਭੋ।', ctaPrimary: 'ਯੋਗਤਾ ਜਾਂਚੋ', ctaSecondary: 'ਭਾਈਵਾਲ ਲੱਭੋ' },
+
+  // HARYANVI (10M+ speakers in Haryana & Delhi NCR)
+  bgc: {
+    name: 'Haryanvi',
+    nav: { title: 'योजना सेतु', subtitle: 'अनुसूचित जाति रियायती कर्जा पोर्टल', home: 'मुख्य पन्ना', finder: 'योजना टोह्वो', locator: 'शाखा टोह्वो', calculator: 'किश्त हिसाब', guidance: 'कागजात लिस्ट', track: 'कर्जा ट्रैक करो', helpdesk: 'हेल्पलाइन: 1800-11-2001 (फ्री)' },
+    hero: { badge: '4% तै 9% सालाना कम ब्याज पै कर्जा', title: 'दलित भाई-बहनां अर बालकां खातर सहारा', highlight: 'योजना सेतु', description: 'लोन खारिज होण का डर छोड़ो। सरकारी NSFDC योजना टोह्वो, किश्त का हिसाब लाओ अर नजदीकी बैंक म जाओ।', ctaPrimary: 'पात्रता जाचो', ctaSecondary: 'बैंक टोह्वो' },
     track: {
-      title: 'ਕਰਜ਼ਾ ਅਰਜ਼ੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਟ੍ਰੈਕ ਕਰੋ', subtitle: 'ਸ਼ੁਰੂਆਤੀ ਪੁੱਛਗਿੱਛ ਤੋਂ ਅੰਤਿਮ ਵੰਡ ਤੱਕ ਪਾਰਦਰਸ਼ੀ ਟ੍ਰੈਕਿੰਗ।', realTimeTracking: 'ਰੀਅਲ-ਟਾਈਮ ਲਾਭਪਾਤਰੀ ਟ੍ਰੈਕਿੰਗ', newLoanInquiry: 'ਨਵੀਂ ਕਰਜ਼ਾ ਪੁੱਛਗਿੱਛ', documentGuide: 'ਦਸਤਾਵੇਜ਼ ਗਾਈਡ', searchPlaceholder: 'ਹਵਾਲਾ ਨੰਬਰ ਦਰਜ ਕਰੋ (ਜਿਵੇਂ ਕਿ SETU-DEMO-2026)', lookupBtn: 'ਅਰਜ਼ੀ ਲੱਭੋ', lookingUp: 'ਲੱਭ ਰਿਹਾ ਹੈ...', quickTest: 'ਤੁਰੰਤ ਜਾਂਚ:', loadDemo: 'ਨਮੂਨਾ ਅਰਜ਼ੀ ਲੋਡ ਕਰੋ', disclaimerTitle: 'ਅਧਿਕਾਰਤ ਪਾਰਦਰਸ਼ਤਾ ਨੋਟਿਸ:', disclaimerP1: 'ਸਥਿਤੀ ਅੱਪਡੇਟ ਬਿਨੈਕਾਰ ਦੁਆਰਾ ਰਿਪੋਰਟ ਕੀਤੀ ਪ੍ਰਗਤੀ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ ਜਦੋਂ ਤੱਕ', partnerConfirmedPill: 'ਭਾਈਵਾਲ-ਪ੍ਰਮਾਣਿਤ', disclaimerP2: 'ਚਿੰਨ੍ਹਿਤ ਨਾ ਹੋਵੇ। ਯੋਜਨਾ ਸੇਤੂ ਕਰਜ਼ੇ ਦੀ ਪ੍ਰਵਾਨਗੀ ਦੀ ਗਰੰਟੀ ਨਹੀਂ ਦਿੰਦਾ।',
-      status: { inquiry_submitted: 'ਪੁੱਛਗਿੱਛ ਦਰਜ ਕੀਤੀ', documents_pending: 'ਦਸਤਾਵੇਜ਼ ਤਿਆਰੀ ਜਾਰੀ', submitted_to_partner: 'ਭਾਈਵਾਲ ਨੂੰ ਸੌਂਪਿਆ', under_appraisal: 'ਤਕਨੀਕੀ ਮੁਲਾਂਕਣ ਅਧੀਨ', sanctioned: 'ਕਰਜ਼ਾ ਮਨਜ਼ੂਰ', disbursed: 'ਪੂੰਜੀ ਜਾਰੀ', rejected: 'ਅਰਜ਼ੀ ਰੱਦ', withdrawn: 'ਵਾਪਸ ਲਈ' },
+      title: 'कर्जे की दरखास्त का हाल देखो', subtitle: 'शुरुआत तै लेकै रुपिया मिलण ताहीं का पूरा हिसाब।', realTimeTracking: 'लाइव ट्रैकिंग', newLoanInquiry: 'नया कर्जा पूछताछ', documentGuide: 'कागजात गाइड', searchPlaceholder: 'रेफरेंस नंबर भरो (जणु SETU-DEMO-2026)', lookupBtn: 'दरखास्त टोह्वो', lookingUp: 'टोहण लागरे सां...', quickTest: 'तुरंत जांच:', loadDemo: 'डेमो दरखास्त देखो', disclaimerTitle: 'सरकारी सूचना:', disclaimerP1: 'हालत आवेदक की बताई तरक्की दिखावै सै जद ताहीं', partnerConfirmedPill: 'पार्टनर-सत्यापित', disclaimerP2: 'ना होज्या। योजना सेतु कर्जा देण की गारंटी कोन्या देंदा।',
+      projectNeed: 'काम का खर्चा', documentsMarked: 'जांचे कागजात',
+      status: { inquiry_submitted: 'पूछताछ दर्ज होई', documents_pending: 'कागजात त्यार होवैं सैं', submitted_to_partner: 'बैंक म जमा करा दिया', under_appraisal: 'पड़ताल चालरी सै', sanctioned: 'कर्जा मंजूर होग्या', disbursed: 'रुपिए खाते म आग्ये', rejected: 'दरखास्त खारिज', withdrawn: 'वापस लेली' },
       stages: {
-        inquiry_submitted_desc: 'ਯੋਗ NSFDC ਸਕੀਮ ਨਾਲ ਔਨਲਾਈਨ ਪੁੱਛਗਿੱਛ ਦਰਜ ਕੀਤੀ ਗਈ', documents_pending_desc: 'ਲਾਭਪਾਤਰੀ ਦੁਆਰਾ ਕੇਵਾਈਸੀ, ਜਾਤੀ ਅਤੇ ਆਮਦਨ ਸਰਟੀਫਿਕੇਟ ਇਕੱਠੇ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ', submitted_to_partner_desc: 'ਅਧਿਕਾਰਤ ਬੈਂਕ/ਨਿਗਮ ਸ਼ਾਖਾ ਵਿੱਚ ਦਸਤਾਵੇਜ਼ ਜਮ੍ਹਾਂ ਕਰਵਾਏ ਗਏ', under_appraisal_desc: 'ਕ੍ਰੈਡਿਟ ਅਧਿਕਾਰੀ ਦੁਆਰਾ ਤਕਨੀਕੀ ਅਤੇ ਵਿੱਤੀ ਜਾਂਚ', sanctioned_desc: 'ਰਿਆਇਤੀ ਦਰ ਨਾਲ ਅਧਿਕਾਰਤ ਮਨਜ਼ੂਰੀ ਪੱਤਰ ਜਾਰੀ ਕੀਤਾ ਗਿਆ', disbursed_desc: 'ਡੀਬੀਟੀ ਬੈਂਕ ਖਾਤੇ ਵਿੱਚ ਸਿੱਧੇ ਫੰਡ ਜਾਰੀ ਕੀਤੇ ਗਏ'
+        inquiry_submitted_desc: 'ऑनलाइन पूछताछ योजना सेतु पै दर्ज होगी सै', documents_pending_desc: 'जाति अर आमदनी के कागजात त्यार करण लागरे सां', submitted_to_partner_desc: 'बैंक या निगम की शाखा म कागजात जमा करा दिए सैं', under_appraisal_desc: 'अफसर काम-धंधे की पड़ताल करण लागरा सै', sanctioned_desc: 'कम ब्याज दर पै मंजूरी की चिट्ठी मिलगी सै', disbursed_desc: 'रुपिए सीधे बैंक खाते म भेज दिए गये सैं'
       },
       docs: {
-        caste: 'ਜਾਤੀ ਸਰਟੀਫਿਕੇਟ (ਡਿਜੀਟਲ ਮੋਹਰ ਵਾਲਾ SC ਦਰਜਾ)', income: 'ਆਮਦਨ ਸਰਟੀਫਿਕੇਟ (ਸਾਲਾਨਾ ਪਰਿਵਾਰਕ ਆਮਦਨ ≤ ₹5 ਲੱਖ)', aadhaar: 'ਆਧਾਰ ਕਾਰਡ (ਮੋਬਾਈਲ ਅਤੇ ਡੀਬੀਟੀ ਬੈਂਕ ਖਾਤਾ ਲਿੰਕ)', dpr: 'ਵਿਸਤ੍ਰਿਤ ਪ੍ਰੋਜੈਕਟ ਰਿਪੋਰਟ (DPR)', quotation: 'ਮਸ਼ੀਨਰੀ ਕੋਟੇਸ਼ਨ (ਜੀਐਸਟੀ ਵਿਕਰੇਤਾ)', bankPassbook: 'ਬੈਂਕ ਪਾਸਬੁੱਕ / ਰੱਦ ਕੀਤਾ ਚੈੱਕ'
+        caste: 'जाति प्रमाण पत्र (तहसीलदार की मोहर आला)', income: 'आय प्रमाण पत्र (सालाना कमाई ₹5 लाख तै कम)', aadhaar: 'आधार कार्ड (बैंक खाते तै जुड़्या)', dpr: 'प्रोजेक्ट रिपोर्ट (धंधे की लागत का हिसाब)', quotation: 'मशीनरी कोटेशन (जीएसटी बिल)', bankPassbook: 'बैंक पासबुक / चेक'
       }
     }
   },
-  or: {
-    name: 'Odia',
-    nav: { title: 'ଯୋଜନା ସେତୁ', subtitle: 'ଅନୁସୂଚିତ ଜାତି ରିହାତି ଋଣ ପୋର୍ଟାଲ', home: 'ମୁଖ୍ୟ ପୃଷ୍ଠା', finder: 'ଯୋଜନା ଖୋଜନ୍ତୁ', locator: 'ଅଂଶୀଦାର ଖୋଜନ୍ତୁ', calculator: 'EMI କାଲକୁଲେଟର', guidance: 'ଦଲିଲ ଯାଞ୍ଚ ତାଲିକା', track: 'ଋଣ ଟ୍ରାକ୍ କରନ୍ତୁ', helpdesk: 'ହେଲ୍ପଲାଇନ: 1800-11-2001 (ଟୋଲ-ଫ୍ରି)', nationalPortal: 'ଭାରତ ସରକାରଙ୍କ ପଦକ୍ଷେପ' },
-    hero: { badge: '୪% – ୯% ବାର୍ଷିକ ରିହାତି ସୁଧ ହାର', title: 'ଅନୁସୂଚିତ ଜାତି ଉଦ୍ୟୋଗୀ ଏବଂ ଛାତ୍ରମାନଙ୍କ ସଶକ୍ତୀକରଣ', highlight: 'ଯୋଜନା ସେତୁ', description: 'ଯୋଗ୍ୟ NSFDC ଯୋଜନା ଖୋଜନ୍ତୁ, ମୋରାଟୋରିୟମ ସହିତ EMI ଗଣନା କରନ୍ତୁ, ଏବଂ ନିକଟସ୍ଥ ଅଧିକୃତ ଶାଖା ଖୋଜନ୍ତୁ।', ctaPrimary: 'ଯୋଗ୍ୟତା ଯାଞ୍ଚ କରନ୍ତୁ', ctaSecondary: 'ଅଂଶୀଦାର ଖୋଜନ୍ତୁ' },
+
+  // MAGAHI (13M+ speakers in Central Bihar & Jharkhand)
+  mag: {
+    name: 'Magahi',
+    nav: { title: 'योजना सेतु', subtitle: 'अनुसूचित जाति रियायती कर्ज पोर्टल', home: 'मुख्य पन्ना', finder: 'योजना खोजी', locator: 'शाखा खोजी', calculator: 'किश्त हिसाब', guidance: 'कागजात सूची', track: 'कर्ज ट्रैक करी', helpdesk: 'हेल्पलाइन: 1800-11-2001 (फ्री)' },
+    hero: { badge: '4% से 9% सालाना कम ब्याज पर कर्ज', title: 'दलित उद्यमी आ पढ़निहार लइका के सहारा', highlight: 'योजना सेतु', description: 'कर्ज खारिज होवे के डर छोड़ दी। NSFDC योजना खोजी, किश्त के हिसाब लगाई आ नजदीकी बैंक जाई।', ctaPrimary: 'पात्रता जांची', ctaSecondary: 'शाखा खोजी' },
     track: {
-      title: 'ଋଣ ଆବେଦନ ପ୍ରକ୍ରିୟା ଟ୍ରାକ୍ କରନ୍ତୁ', subtitle: 'ପ୍ରାରମ୍ଭିକ ଅନୁସନ୍ଧାନରୁ ଚୂଡ଼ାନ୍ତ ବଣ୍ଟନ ପର୍ଯ୍ୟନ୍ତ ସ୍ୱଚ୍ଛ ଟ୍ରାକିଂ।', realTimeTracking: 'ରିଅଲ-ଟାଇମ ହିତାଧିକାରୀ ଟ୍ରାକିଂ', newLoanInquiry: 'ନୂତନ ଋଣ ଅନୁସନ୍ଧାନ', documentGuide: 'ଦଲିଲ ମାର୍ଗଦର୍ଶିକା', searchPlaceholder: 'ରେଫରେନ୍ସ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ (ଯଥା SETU-DEMO-2026)', lookupBtn: 'ଆବେଦନ ଖୋଜନ୍ତୁ', lookingUp: 'ଖୋଜା ଚାଲିଛି...', quickTest: 'ତୁରନ୍ତ ପରୀକ୍ଷା:', loadDemo: 'ଡେମୋ ଆବେଦନ ଲୋଡ୍ କରନ୍ତୁ', disclaimerTitle: 'ସରକାରୀ ସ୍ୱଚ୍ଛତା ସୂଚନା:', disclaimerP1: 'ସ୍ଥିତି ଅଦ୍ୟତନ ଆବେଦନକାରୀଙ୍କ ଦ୍ୱାରା ରିପୋର୍ଟ ହୋଇଥିବା ପ୍ରଗତି ଦର୍ଶାଏ ଯେପର୍ଯ୍ୟନ୍ତ', partnerConfirmedPill: 'ପାର୍ଟନର-ଯାଞ୍ଚ ହୋଇଛି', disclaimerP2: 'ଚିହ୍ନିତ ହୋଇନାହିଁ। ଯୋଜନା ସେତୁ ଋଣ ମଞ୍ଜୁରୀର ଗ୍ୟାରେଣ୍ଟି ଦିଏ ନାହିଁ।',
-      status: { inquiry_submitted: 'ଅନୁସନ୍ଧାନ ଦାଖଲ ହୋଇଛି', documents_pending: 'ଦଲିଲ ପ୍ରସ୍ତୁତି ଜାରି', submitted_to_partner: 'ପାର୍ଟନରଙ୍କୁ ଦାଖଲ ହୋଇଛି', under_appraisal: 'ବୈଷୟିକ ମୂଲ୍ୟାଙ୍କନ ଚାଲିଛି', sanctioned: 'ଋଣ ମଞ୍ଜୁର', disbursed: 'ପୁଞ୍ଜି ବଣ୍ଟିତ', rejected: 'ଆବେଦନ ପ୍ରତ୍ୟାଖ୍ୟାତ', withdrawn: 'ପ୍ରତ୍ୟାହାର ହୋଇଛି' },
+      title: 'कर्ज आवेदन के हाल देखी', subtitle: 'शुरू से लेके रुपिया मिले तक सब हाल जानी।', realTimeTracking: 'लाइव ट्रैकिंग', newLoanInquiry: 'नया कर्ज पूछताछ', documentGuide: 'कागजात गाइड', searchPlaceholder: 'रेफरेंस नंबर डाली (उदा. SETU-DEMO-2026)', lookupBtn: 'आवेदन खोजी', lookingUp: 'खोजल जा रहल हे...', quickTest: 'तुरंत जांच:', loadDemo: 'डेमो आवेदन देखी', disclaimerTitle: 'सरकारी सूचना:', disclaimerP1: 'हालत आवेदक के बतावल प्रगति देखावे हे जबले कि', partnerConfirmedPill: 'पार्टनर-सत्यापित', disclaimerP2: 'ना होवे। योजना सेतु कर्ज देवे के गारंटी नइखे देत।',
+      status: { inquiry_submitted: 'पूछताछ दर्ज भेल', documents_pending: 'कागजात तइयार हो रहल हे', submitted_to_partner: 'बैंक म जमा भेल', under_appraisal: 'जांच जारी हे', sanctioned: 'कर्ज पास भेल', disbursed: 'रुपिया खाता म अइल', rejected: 'आवेदन खारिज', withdrawn: 'वापस लेल गेल' },
       stages: {
-        inquiry_submitted_desc: 'ଯୋଗ୍ୟ NSFDC ଯୋଜନା ସହିତ ଅନଲାଇନ୍ ଅନୁସନ୍ଧାନ ପଞ୍ଜୀକୃତ', documents_pending_desc: 'ହିତାଧିକାରୀଙ୍କ ଦ୍ୱାରା KYC, ଜାତି ଏବଂ ଆୟ ପ୍ରମାଣପତ୍ର ସଂଗ୍ରହ ଜାରି', submitted_to_partner_desc: 'ଅଧିକୃତ ବ୍ୟାଙ୍କ/ନିଗମ ଶାଖାରେ ଦଲିଲ ଦାଖଲ ହୋଇଛି', under_appraisal_desc: 'କ୍ରେଡିଟ୍ ଅଫିସରଙ୍କ ଦ୍ୱାରା ବୈଷୟିକ ଏବଂ ଆର୍ଥିକ ଯାଞ୍ଚ', sanctioned_desc: 'ରିହାତି ହାର ସହିତ ସରକାରୀ ମଞ୍ଜୁରୀ ପତ୍ର ଜାରି କରାଯାଇଛି', disbursed_desc: 'ଡିବିଟି ବ୍ୟାଙ୍କ ଆକାଉଣ୍ଟକୁ ସିଧାସଳଖ ପାଣ୍ଠି ପ୍ରଦାନ କରାଯାଇଛି'
+        inquiry_submitted_desc: 'ऑनलाइन पूछताछ योजना सेतु पर दर्ज हो गेल हे', documents_pending_desc: 'जाति आ आमदनी के कागजात तइयार कइल जा रहल हे', submitted_to_partner_desc: 'बैंक या निगम शाखा म कागजात जमा करा देल गेल हे', under_appraisal_desc: 'अफसर द्वारा धंधा के जांच-पड़ताल कइल जा रहल हे', sanctioned_desc: 'कम ब्याज दर पर मंजूरी चिट्ठी मिल गेल हे', disbursed_desc: 'रुपिया सीधा बैंक खाता म भेज देल गेल हे'
       },
       docs: {
-        caste: 'ଜାତି ପ୍ରମାଣପତ୍ର (ଡିଜିଟାଲ୍ ସିଲ୍ ସହିତ SC ସ୍ଥିତି)', income: 'ଆୟ ପ୍ରମାଣପତ୍ର (ବାର୍ଷିକ ପାରିବାରିକ ଆୟ ≤ ₹୫ ଲକ୍ଷ)', aadhaar: 'ଆଧାର କାର୍ଡ (ମୋବାଇଲ୍ ଏବଂ ଡିବିଟି ବ୍ୟାଙ୍କ ଆକାଉଣ୍ଟ ଲିଙ୍କ)', dpr: 'ବିସ୍ତୃତ ପ୍ରକଳ୍ପ ରିପୋର୍ଟ (DPR)', quotation: 'ଯନ୍ତ୍ରପାତି କୋଟେସନ୍ (GST ବିକ୍ରେତା)', bankPassbook: 'ବ୍ୟାଙ୍କ ପାସବୁକ୍ / ବାତିଲ ଚେକ୍'
+        caste: 'जाति प्रमाण पत्र (तहसीलदार के डिजिटल मोहर)', income: 'आय प्रमाण पत्र (सालाना आमदनी ₹5 लाख से कम)', aadhaar: 'आधार कार्ड (बैंक खाता से जुड़ल)', dpr: 'प्रोजेक्ट रिपोर्ट (धंधा के लागत हिसाब)', quotation: 'मशीनरी कोटेशन (दुकानदार से)', bankPassbook: 'बैंक पासबुक / चेक'
       }
     }
   },
-  as: {
-    name: 'Assamese',
-    nav: { title: 'যোজনা সেতু', subtitle: 'অনুসূচীত জাতি ৰেহাই ঋণ প\'ৰ্টেল', home: 'মূল পৃষ্ঠা', finder: 'আঁচনি সন্ধান', locator: 'অংশীদাৰ সন্ধান', calculator: 'EMI কেলকুলেটৰ', guidance: 'নথি নিৰীক্ষণ তালিকা', track: 'ঋণ ট্ৰেক কৰক', helpdesk: 'হেল্পলাইন: 1800-11-2001 (টোল-ফ্ৰী)', nationalPortal: 'ভাৰত চৰকাৰৰ পদক্ষেপ' },
-    hero: { badge: '৪% – ৯% বাৰ্ষিক ৰেহাই সূতৰ হাৰ', title: 'অনুসূচীত জাতিৰ উদ্যমী আৰু শিক্ষাৰ্থীসকলৰ সৱলীকৰণ', highlight: 'যোজনা সেতু', description: 'যোগ্য NSFDC আঁচনি বিচাৰক, মৰেটৰিয়ামৰ সৈতে EMI গণনা কৰক, আৰু অনুমোদিত অংশীদাৰ শাখা বিচাৰক।', ctaPrimary: 'যোগ্যতা পৰীক্ষা কৰক', ctaSecondary: 'অংশীদাৰ বিচাৰক' },
-    track: {
-      title: 'ঋণ আবেদনৰ অগ্ৰগতি নিৰীক্ষণ কৰক', subtitle: 'প্ৰাৰম্ভিক অনুসন্ধানৰ পৰা চূড়ান্ত বিতৰণলৈকে স্বচ্ছ নিৰীক্ষণ।', realTimeTracking: 'প্ৰকৃত সময়ৰ হিতাধিকাৰী নিৰীক্ষণ', newLoanInquiry: 'নতুন ঋণ অনুসন্ধান', documentGuide: 'নথি সহায়িকা', searchPlaceholder: 'প্ৰসংগ নম্বৰ দিয়ক (যেনে SETU-DEMO-2026)', lookupBtn: 'আবেদন সন্ধান', lookingUp: 'সন্ধান কৰা হৈছে...', quickTest: 'দ্ৰুত পৰীক্ষা:', loadDemo: 'ডেমো আবেদন লোড কৰক', disclaimerTitle: 'চৰকাৰী স্বচ্ছতা জাননী:', disclaimerP1: 'স্থিতি আপডেটে আবেদনকাৰীয়ে প্ৰতিবেদন কৰা অগ্ৰগতি প্ৰতিফলিত কৰে যেতিয়ালৈকে', partnerConfirmedPill: 'অংশীদাৰ-প্ৰমাণিত', disclaimerP2: 'চিহ্নিত নহয়। যোজনা সেতুৱে ঋণ অনুমোদনৰ গেৰাণ্টি নিদিয়ে।',
-      status: { inquiry_submitted: 'অনুসন্ধান দাখিল কৰা হ\'ল', documents_pending: 'নথি প্ৰস্তুতি চলি আছে', submitted_to_partner: 'অংশীদাৰক দাখিল কৰা হ\'ল', under_appraisal: 'কাৰিকৰী মূল্যায়ন চলি আছে', sanctioned: 'ঋণ মঞ্জুৰ', disbursed: 'পুঁজি বিতৰণ কৰা হ\'ল', rejected: 'আবেদন নাকচ', withdrawn: 'প্ৰত্যাহাৰ কৰা হ\'ল' },
-      stages: {
-        inquiry_submitted_desc: 'যোগ্য NSFDC আঁচনিৰ সৈতে অনলাইন অনুসন্ধান পঞ্জীয়ন কৰা হৈছে', documents_pending_desc: 'হিতাধিকাৰীয়ে KYC, জাতি আৰু আয়ৰ প্ৰমাণপত্ৰ সংগ্ৰহ কৰি আছে', submitted_to_partner_desc: 'অনুমোদিত বেংক/নিগম শাখাত নথি-পত্ৰ জমা দিয়া হৈছে', under_appraisal_desc: 'ঋণ বিষয়াৰ দ্বাৰা কাৰিকৰী আৰু বিত্তীয় সম্ভাৱনীয়তা নিৰীক্ষণ', sanctioned_desc: 'ৰেহাই হাৰৰ সৈতে চৰকাৰী অনুমোদন পত্ৰ জাৰি কৰা হৈছে', disbursed_desc: 'ডিবিটি বেংক একাউণ্টলৈ পোনপটীয়াকৈ পুঁজি মুকলি কৰা হৈছে'
-      },
-      docs: {
-        caste: 'জাতিগত প্ৰমাণপত্ৰ (ডিজিটেল ছীল থকা SC মৰ্যাদা)', income: 'আয়ৰ প্ৰমাণপত্ৰ (বাৰ্ষিক পাৰিবাৰিক আয় ≤ ₹৫ লাখ)', aadhaar: 'আধাৰ কাৰ্ড (ম\'বাইল আৰু ডিবিটি বেংক একাউণ্ট লিংক)', dpr: 'বিতং প্ৰকল্প প্ৰতিবেদন (DPR)', quotation: 'যন্ত্ৰপাতিৰ উদ্ধৃতি (GST বিক্ৰেতা)', bankPassbook: 'বেংক পাছবুক / বাতিল চেক'
-      }
-    }
+
+  // TULU (2M+ speakers in Coastal Karnataka & Kasaragod)
+  tcy: {
+    name: 'Tulu',
+    nav: { title: 'ಯೋಜನಾ ಸೇತು', subtitle: 'ಪರಿಶಿಷ್ಟ ಜಾತಿ ರಿಯಾಯಿತಿ ಸಾಲ ಪೋರ್ಟಲ್', home: 'ಮುಖ್ಯ ಪುಟ', finder: 'ಯೋಜನೆ ತೂಲೆ', locator: 'ಶಾಖೆ ತೂಲೆ', calculator: 'EMI ಲೆಕ್ಕ ಮಲ್ಪುಲೆ', guidance: 'ದಾಖಲೆ ಪಟ್ಟಿ', track: 'ಸಾಲ ಟ್ರ್ಯಾಕ್ ಮಲ್ಪುಲೆ', helpdesk: 'ಸಹಾಯವಾಣಿ: 1800-11-2001 (ಟೋಲ್-ಫ್ರೀ)' },
+    hero: { badge: '4% – 9% ವಾರ್ಷಿಕ ರಿಯಾಯಿತಿ ಬಡ್ಡಿದರ', title: 'ಪರಿಶಿಷ್ಟ ಜಾತಿ ಉದ್ಯಮಿಲೆಗ್ ಬುಕ್ಕ ವಿದ್ಯಾರ್ಥಿಲೆಗ್ ಆಸರೆ', highlight: 'ಯೋಜನಾ ಸೇತು', description: 'ಸಾಲ ರದ್ದಾಪುನ ಪೋಡಿಗೆ ಬುಡ್ಲೆ. NSFDC ಯೋಜನೆ ತೂಲೆ, EMI ಲೆಕ್ಕ ಮಲ್ಪುಲೆ, ಕೈತಲ್ದ ಬ್ಯಾಂಕ್ ಶಾಖೆಗ್ ಪೋಲೆ.', ctaPrimary: 'ಅರ್ಹತೆ ತೂಲೆ', ctaSecondary: 'ಶಾಖೆ ತೂಲೆ' }
+  },
+
+  // MIZO (1M+ speakers in Mizoram)
+  lus: {
+    name: 'Mizo',
+    nav: { title: 'Scheme Setu', subtitle: 'SC Concessional Credit Portal', home: 'Kumpui', finder: 'Scheme Zawnna', locator: 'Partner Zawnna', calculator: 'EMI Chhutna', guidance: 'Lehkha Pawimawh', track: 'Loan Chhui Zui', helpdesk: 'Helpline: 1800-11-2001 (Toll-Free)' },
+    hero: { badge: '4% – 9% Concessional Interest Rate', title: 'Scheduled Caste Sumdawnna leh Zirlai Chawikan', highlight: 'Scheme Setu', description: 'Loan hnawl hlau suh. NSFDC scheme en la, EMI chhut la, i bula bank awmte zawng rawh.', ctaPrimary: 'En Fiahna', ctaSecondary: 'Bank Zawnna' }
+  },
+
+  // KHASI (1.5M+ speakers in Meghalaya)
+  kha: {
+    name: 'Khasi',
+    nav: { title: 'Scheme Setu', subtitle: 'SC Concessional Credit Portal', home: 'Khadduh', finder: 'Wad Scheme', locator: 'Wad Partner', calculator: 'EMI Calculator', guidance: 'Ki Kot Ki Sla', track: 'Bud Dien ia ka Loan', helpdesk: 'Helpline: 1800-11-2001 (Toll-Free)' },
+    hero: { badge: '4% – 9% Concessional Interest Rate', title: 'Kyntiew ia ki nongtrei bylla bad ki samla pule', highlight: 'Scheme Setu', description: 'Wad ia ki scheme NSFDC, khein ia ka EMI bad wad ia ki bank kiba marjan.', ctaPrimary: 'Pynshisha Jingbit', ctaSecondary: 'Wad Bank' }
+  },
+
+  // GONDI (3M+ speakers across Central India tribal belts)
+  gon: {
+    name: 'Gondi',
+    nav: { title: 'योजना सेतु', subtitle: 'अनुसूचित जाति रियायती कर्जा पोर्टल', home: 'मुख्य पन्ना', finder: 'योजना हुड़ुकित', locator: 'शाखा हुड़ुकित', calculator: 'किश्त हिसाब', guidance: 'कागजात सूची', track: 'कर्जा ट्रैक कीम', helpdesk: 'हेल्पलाइन: 1800-11-2001 (फ्री)' },
+    hero: { badge: '4% – 9% कम ब्याज ते कर्जा', title: 'दलित उद्यमी अउर विद्यार्थीना बढ़ावा', highlight: 'योजना सेतु', description: 'कर्जा खारिज आयना भय बिड़सी। NSFDC योजना हुड़ुकित, किश्त हिसाब कीम अउर बैंक शाखा हनित।', ctaPrimary: 'पात्रता जांचीम', ctaSecondary: 'शाखा हुड़ुकित' }
   }
 };
 
@@ -161,7 +187,9 @@ function createLanguagePack(code, name, nativeTitle) {
   console.log(`[Locale Builder] Generated complete 6-namespace pack for ${name} (${code})`);
 }
 
-const ALL_CONSTITUTIONAL_LANGUAGES = [
+// 22 Constitutional Languages + English + 9 Grassroots Mother Tongues = 32 Languages Total
+const ALL_LANGUAGES = [
+  // 22 Constitutional Languages + English
   { code: 'en', name: 'English', native: 'Scheme Setu' },
   { code: 'hi', name: 'Hindi', native: 'योजना सेतु' },
   { code: 'ta', name: 'Tamil', native: 'திட்டம் சேது' },
@@ -184,11 +212,22 @@ const ALL_CONSTITUTIONAL_LANGUAGES = [
   { code: 'sd', name: 'Sindhi', native: 'يوجنا سيتو' },
   { code: 'mni', name: 'Manipuri', native: 'য়োজনা সেতু' },
   { code: 'brx', name: 'Bodo', native: 'योजना सेतु' },
-  { code: 'sat', name: 'Santali', native: 'ᱡᱚᱡᱚᱱᱟ ᱥᱮᱛᱩ' }
+  { code: 'sat', name: 'Santali', native: 'ᱡᱚᱡᱚᱱᱟ ᱥᱮᱛᱩ' },
+
+  // 9 Grassroots Regional Mother Tongues
+  { code: 'bho', name: 'Bhojpuri', native: 'योजना सेतु' },
+  { code: 'raj', name: 'Rajasthani', native: 'योजना सेतु' },
+  { code: 'hne', name: 'Chhattisgarhi', native: 'योजना सेतु' },
+  { code: 'bgc', name: 'Haryanvi', native: 'योजना सेतु' },
+  { code: 'mag', name: 'Magahi', native: 'योजना सेतु' },
+  { code: 'tcy', name: 'Tulu', native: 'ಯೋಜನಾ ಸೇತು' },
+  { code: 'lus', name: 'Mizo', native: 'Scheme Setu' },
+  { code: 'kha', name: 'Khasi', native: 'Scheme Setu' },
+  { code: 'gon', name: 'Gondi', native: 'योजना सेतु' }
 ];
 
-console.log('Generating complete localized namespaces for all 22 Eighth Schedule languages + English...');
-ALL_CONSTITUTIONAL_LANGUAGES.forEach(lang => {
+console.log('Generating complete localized namespaces for all 32 Indian languages (23 constitutional + 9 regional spoken)...');
+ALL_LANGUAGES.forEach(lang => {
   createLanguagePack(lang.code, lang.name, lang.native);
 });
-console.log('All 23 languages successfully generated and verified!');
+console.log('All 32 languages successfully generated and verified!');

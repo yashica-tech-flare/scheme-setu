@@ -66,5 +66,14 @@
     "rights": "Scheme Setu Portal. Built for Scheduled Caste Entrepreneurs & Students in India.",
     "apexCorps": "Apex Corporation: National Scheduled Castes Finance & Development Corporation (NSFDC)",
     "disclaimer": "Interest rates, moratorium slabs, and subsidy guidelines are structured as per official published corporation norms."
-  }
+  },
+  "voiceAssistantTag": "Voice Guide / Audio Help",
+  "voiceAssistantTitle": "Difficulty Reading? Listen to your application aloud",
+  "voiceAssistantDesc": "Specially designed for low-literacy and rural applicants: Tap this button to hear your loan status, amount, and required documents spoken aloud in your language.",
+  "listenNowBtn": "🔊 Listen Aloud (बोल के सुनें)",
+  "stopAudio": "Stop Audio (रोकें)",
+  "speakingNow": "Playing voice readout...",
+  "listenAudio": "Listen Aloud",
+  "audioGuideBtn": "Audio Guide",
+  "audioPortalOverview": "Welcome to Scheme Setu, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC."
 }

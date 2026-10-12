@@ -25,6 +25,7 @@ import {
   Sparkles,
   UserCheck
 } from 'lucide-react';
+import VoiceAssistant from '../components/VoiceAssistant';
 
 export default function Track() {
   const { t, i18n } = useTranslation();
@@ -220,6 +221,23 @@ export default function Track() {
     ? application.matchedScheme.requiredDocuments
     : defaultDocs;
 
+  // Spoken narrative specifically structured for illiterate/semi-literate applicants
+  const getSpokenSummary = () => {
+    if (!application) return '';
+    const ref = application.refId || application.referenceId || '';
+    const scheme = application.matchedScheme?.schemeName || t('track.schemeDefault', 'NSFDC Concessional Loan Scheme');
+    const status = getStatusLabel(currentStatus);
+    const submittedCount = (application.documentsSubmitted || []).length;
+    const totalCount = availableDocs.length;
+    const pendingCount = Math.max(0, totalCount - submittedCount);
+
+    if (i18n.language === 'en') {
+      return `Hello. Your Scheme Setu loan application reference is ${ref}. Applied scheme is ${scheme}. Current status is: ${status}. You have marked ${submittedCount} out of ${totalCount} required documents. ${pendingCount > 0 ? `There are ${pendingCount} pending documents remaining.` : 'All required documents are prepared.'} Please coordinate with your nearest channel partner bank or state SC corporation branch for physical document submission.`;
+    }
+
+    return `नमस्ते! आपकी योजना सेतु ऋण अर्जी संख्या ${ref} है। आपकी योजना का नाम है: ${scheme}। वर्तमान स्थिति है: ${status}। आपने कुल ${totalCount} में से ${submittedCount} दस्तावेज़ तैयार कर लिए हैं। ${pendingCount > 0 ? `अभी ${pendingCount} दस्तावेज़ तैयार करने शेष हैं।` : 'सभी आवश्यक दस्तावेज़ तैयार हैं।'} कृपया अपने सभी कागजात लेकर नजदीकी बैंक शाखा या राज्य अनुसूचित जाति विकास निगम कार्यालय में संपर्क करें।`;
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Page Title & Search Header */}
@@ -374,7 +392,13 @@ export default function Track() {
 
       {/* Main Tracked Application Content */}
       {!loading && application && (
-        <div className="space-y-8 animate-fadeIn">
+        <div className="space-y-6 animate-fadeIn">
+          {/* Prominent Voice Assistant Banner for Illiterate & Low-Literacy Applicants */}
+          <VoiceAssistant
+            textToRead={getSpokenSummary()}
+            className="shadow-sm"
+          />
+
           {/* Application Header Card */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
@@ -578,6 +602,13 @@ export default function Track() {
                         {isChecked ? t('track.docCompleted', 'Marked complete by applicant') : t('track.docPending', 'Pending applicant compilation')}
                       </span>
                     </div>
+
+                    {/* Voice Read-Aloud for Illiterate Applicants */}
+                    <VoiceAssistant
+                      variant="mini"
+                      textToRead={`${getDocTitle(doc)}। यह सरकारी रियायती ऋण के लिए आवश्यक वैधानिक कागजात है।`}
+                      className="shrink-0"
+                    />
                   </div>
                 );
               })}
