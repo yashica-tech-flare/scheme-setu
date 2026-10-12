@@ -1,0 +1,18 @@
+{
+  "emi": {
+    "title": "Scheme-Aware EMI Calculator",
+    "subtitle": "Calculate monthly installment factoring in interest subsidies and moratorium grace periods",
+    "loanAmount": "Loan Principal Amount",
+    "annualRate": "Annual Interest Rate (%)",
+    "tenure": "Repayment Tenure",
+    "moratorium": "Moratorium Grace Period",
+    "moratoriumNote": "No principal payments required during moratorium period",
+    "monthlyEmi": "Monthly EMI",
+    "totalInterest": "Total Interest Payable",
+    "totalPayment": "Total Repayment",
+    "commercialComparison": "Comparison with Commercial Bank Loan (15% rate)",
+    "youSave": "Estimated Interest Saved with Scheme Setu:",
+    "commercialEmi": "Commercial Bank EMI",
+    "effectiveTenure": "Effective Repayment Months"
+  }
+}

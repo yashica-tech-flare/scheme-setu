@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { api } from '../api/client';
 import {
   Award,
   Percent,
@@ -17,7 +18,8 @@ import {
   ExternalLink,
   Sparkles,
   Building2,
-  BookmarkCheck
+  BookmarkCheck,
+  RefreshCw
 } from 'lucide-react';
 
 export default function ResultsCard({ scheme, onSelectForEMI }) {
@@ -25,6 +27,47 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
   const navigate = useNavigate();
   const [showDocs, setShowDocs] = useState(false);
   const [showReasons, setShowReasons] = useState(true); // Open by default to highlight match explanation
+  const [submittingInquiry, setSubmittingInquiry] = useState(false);
+
+  const handleTrackInquiry = async () => {
+    try {
+      setSubmittingInquiry(true);
+      const inputStr = sessionStorage.getItem('scheme_setu_input');
+      const input = inputStr ? JSON.parse(inputStr) : { income: 250000, projectCost: 140000, projectType: 'small_business' };
+
+      const payload = {
+        income: input.income,
+        projectCost: input.projectCost || scheme.maxLoanAmount || 140000,
+        projectType: input.projectType || 'small_business',
+        isEducation: Boolean(input.isEducation),
+        gender: input.gender || 'female',
+        isSC: true,
+        matchedScheme: {
+          schemeId: scheme._id || 'scheme',
+          schemeName: scheme.schemeName || scheme.name,
+          matchScore: scheme.matchScore || 95,
+          interestRate: scheme.interestRate || 4,
+          maxLoanAmount: scheme.maxLoanAmount || 140000,
+          moratoriumMonths: scheme.moratoriumMonths || 6
+        },
+        routedPartner: {
+          partnerName: scheme.channelizingAgencies?.[0] ? `${scheme.channelizingAgencies[0]} District Hub` : 'State Channelising Agency (SCA)',
+          partnerType: scheme.channelizingAgencies?.[0] || 'SCA'
+        }
+      };
+
+      const res = await api.submitApplication(payload);
+      if (res?.refId) {
+        navigate(`/track?ref=${encodeURIComponent(res.refId)}`);
+      } else {
+        navigate('/track');
+      }
+    } catch (err) {
+      navigate('/track');
+    } finally {
+      setSubmittingInquiry(false);
+    }
+  };
 
   const isHindi = i18n.language === 'hi';
   const displayName = isHindi && scheme.nameHi ? scheme.nameHi : (scheme.schemeName || scheme.name);
@@ -274,23 +317,39 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
       )}
 
       {/* Action Buttons */}
-      <div className="p-4 sm:p-6 bg-white flex flex-col sm:flex-row gap-3">
-        <button
-          type="button"
-          onClick={() => onSelectForEMI && onSelectForEMI(scheme)}
-          className="flex-1 py-3 px-4 rounded-xl text-sm font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-2 cursor-pointer"
-        >
-          <Calculator className="w-4 h-4 text-saffron-600" />
-          {t('results.exploreEmi')}
-        </button>
+      <div className="p-4 sm:p-6 bg-white space-y-2.5">
+        <div className="flex flex-col sm:flex-row gap-2.5">
+          <button
+            type="button"
+            onClick={() => onSelectForEMI && onSelectForEMI(scheme)}
+            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <Calculator className="w-4 h-4 text-saffron-600" />
+            {t('results.exploreEmi')}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleLocatePartners}
+            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold text-white bg-saffron-600 hover:bg-saffron-700 shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <MapPin className="w-4 h-4" />
+            {t('results.locatePartners')}
+          </button>
+        </div>
 
         <button
           type="button"
-          onClick={handleLocatePartners}
-          className="flex-1 py-3 px-4 rounded-xl text-sm font-semibold text-white bg-saffron-600 hover:bg-saffron-700 shadow-md shadow-saffron-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          onClick={handleTrackInquiry}
+          disabled={submittingInquiry}
+          className="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
-          <MapPin className="w-4 h-4" />
-          {t('results.locatePartners')}
+          {submittingInquiry ? (
+            <RefreshCw className="w-3.5 h-3.5 animate-spin text-saffron-400" />
+          ) : (
+            <Clock className="w-3.5 h-3.5 text-saffron-400" />
+          )}
+          <span>Register Inquiry & Track Loan Status &rarr;</span>
         </button>
       </div>
     </div>

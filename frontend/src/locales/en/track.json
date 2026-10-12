@@ -1,0 +1,29 @@
+{
+  "track": {
+    "title": "Track Loan Application Lifecycle",
+    "subtitle": "Real-time visibility from initial inquiry to final concessional disbursal",
+    "searchPlaceholder": "Enter Reference ID (e.g. SETU-XXXX-XXXX)",
+    "lookupBtn": "Lookup Application",
+    "lookingUp": "Looking up...",
+    "quickTest": "Quick Test",
+    "loadDemo": "Load Verified Demo Application",
+    "status": {
+      "inquiry_submitted": "Inquiry Submitted",
+      "documents_pending": "Documents Preparation",
+      "submitted_to_partner": "Submitted to Channel Partner",
+      "under_appraisal": "Under Technical Appraisal",
+      "sanctioned": "Loan Sanctioned",
+      "disbursed": "Capital Disbursed",
+      "rejected": "Application Rejected",
+      "withdrawn": "Withdrawn by Applicant"
+    },
+    "stepperTitle": "Loan Lifecycle Stepper",
+    "checklistTitle": "Beneficiary Document Submission Checklist",
+    "progressActions": "Applicant Progress Actions & Status Reporting",
+    "partnerMode": "Channel Partner Mode",
+    "partnerVerified": "Partner-Verified",
+    "selfReported": "Applicant-Reported",
+    "auditTrail": "Append-Only Audit History",
+    "disclaimer": "Status updates reflect applicant-reported progress unless marked 'Partner-confirmed.' Scheme Setu does not process or guarantee loan approval."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "form": {
+    "title": "Smart Scheme Eligibility Screener",
+    "subtitle": "Answer 3 quick questions to discover all central concessional schemes matched to your profile",
+    "step1": "Beneficiary Details",
+    "step2": "Purpose & Category",
+    "step3": "Capital Requirement",
+    "categoryLabel": "Social Category Verification",
+    "categoryHelp": "This portal exclusively serves Scheduled Caste (SC) beneficiaries under Ministry of Social Justice & Empowerment guidelines.",
+    "isSC": "I belong to Scheduled Caste (SC) category",
+    "incomeLabel": "Total Annual Family Income (from all sources)",
+    "incomeHelp": "Must be ₹5,00,000 or below to qualify for NSFDC subsidized lending.",
+    "incomeExceeded": "Family income exceeds ₹5,00,000 limit. Only families under ₹5 Lakh/year are eligible for concessional loans.",
+    "purposeType": "What is the purpose of this loan?",
+    "business": "Business / Self-Employment / Startup",
+    "education": "Higher Professional / Technical Education",
+    "projectTypeLabel": "Business / Enterprise Sector",
+    "types": {
+      "micro_project": "Micro Enterprise / Artisan / Petty Trade (≤ ₹1.4L)",
+      "small_business": "Small Business / Retail Store / Service Shop",
+      "manufacturing": "Manufacturing / Fabrication / Processing Unit",
+      "retail_services": "Retail Trade / Repair Services / Clinic",
+      "transport": "Commercial Vehicle / Goods Transport",
+      "agriculture": "Agri-Business / Dairy / Poultry / Processing",
+      "green_energy": "Green Business / Solar Energy / E-Rickshaw / Recycling",
+      "vocational": "Vocational Skill Training & Toolkits Setup",
+      "education": "Higher Education (B.Tech, MBBS, MBA, Overseas)"
+    },
+    "costLabel": "Total Project Cost / Fee Requirement",
+    "costHelp": "Concessional funding covers up to 90% of total project cost.",
+    "genderLabel": "Gender of Primary Beneficiary",
+    "male": "Male",
+    "female": "Female (Eligible for Mahila Samriddhi 4-5% & special rebates)",
+    "other": "Other",
+    "submit": "Find Matching Schemes",
+    "submitting": "Analyzing 7+ Concessional Schemes..."
+  }
+}

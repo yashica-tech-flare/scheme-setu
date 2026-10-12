@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "title": "Scheme Setu",
+    "subtitle": "SC Concessional Credit Portal",
+    "home": "Home",
+    "finder": "Scheme Recommender",
+    "locator": "Partner Locator",
+    "calculator": "EMI Calculator",
+    "guidance": "Document Checklist",
+    "track": "Track Loan",
+    "helpdesk": "Helpline: 1800-11-2001 (Toll-Free)",
+    "nationalPortal": "Government of India Initiative"
+  },
+  "hero": {
+    "badge": "Subsidized Credit at 4% – 9% Annual Interest",
+    "title": "Empowering Scheduled Caste Entrepreneurs & Students",
+    "highlight": "Scheme Setu",
+    "description": "Stop facing loan application rejections. Find eligible NSFDC concessional loan schemes, simulate EMI with moratorium grace periods, and locate authorized channel partners nearest to you.",
+    "ctaPrimary": "Check Scheme Eligibility",
+    "ctaSecondary": "Locate Channel Partners",
+    "stats": {
+      "incomeLimit": "Max Family Income",
+      "incomeValue": "₹5,00,000 /yr",
+      "interestRate": "Concessional Rates",
+      "interestValue": "4.0% – 9.0%",
+      "partners": "Authorized Branches",
+      "partnersValue": "35+ Verified",
+      "coverage": "Project Cost Financed",
+      "coverageValue": "Up to 90%"
+    }
+  },
+  "results": {
+    "title": "Eligible Concessional Schemes Found",
+    "subtitle": "Ranked by interest rate affordability and capital match score",
+    "matchScore": "Match Score",
+    "interestRate": "Interest Rate",
+    "maxLoan": "Max Loan Amount",
+    "moratorium": "Moratorium Period",
+    "months": "months",
+    "costCoverage": "Cost Coverage",
+    "tenure": "Max Tenure",
+    "exploreEmi": "Simulate Live EMI",
+    "locatePartners": "Find Authorized Banks",
+    "viewDocs": "Required Documents",
+    "subsidyInfo": "Subsidy Benefit",
+    "whyThisScheme": "Why this scheme?",
+    "matchReasonsTitle": "Official Eligibility Rule Matches",
+    "officialSource": "Official Source",
+    "verifiedDate": "Verified",
+    "viewInGuide": "View Scheme Checklist",
+    "channelAgencies": "Authorized Channel Agencies",
+    "aiDisclaimer": "The rule-based matching engine interprets your requirements and compares them against structured official NSFDC guidelines to identify suitable schemes. Final sanction is decided by the channel partner.",
+    "noSchemesFound": "No schemes matched your exact parameters. Try adjusting your project cost or income.",
+    "recheck": "Modify Search Criteria"
+  },
+  "slip": {
+    "title": "Scheme Setu - Concessional Credit Pre-Application Slip",
+    "govtWatermark": "Ministry of Social Justice and Empowerment - Apex Schemes",
+    "applicant": "Applicant Information",
+    "selectedScheme": "Matched Concessional Scheme",
+    "recommendedPartner": "Designated Channel Partner Branch",
+    "checklist": "Document Verification Checklist",
+    "disclaimer": "This slip serves as a verified eligibility pre-routing memo under NSFDC guidelines. Final sanction subject to physical document verification and partner credit assessment."
+  },
+  "footer": {
+    "rights": "Scheme Setu Portal. Built for Scheduled Caste Entrepreneurs & Students in India.",
+    "apexCorps": "Apex Corporation: National Scheduled Castes Finance & Development Corporation (NSFDC)",
+    "disclaimer": "Interest rates, moratorium slabs, and subsidy guidelines are structured as per official published corporation norms."
+  }
+}

@@ -25,7 +25,7 @@ const corsOptions = {
     }
     return callback(null, true); // Allow all to prevent judges from hitting CORS issues
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));

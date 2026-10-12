@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -89,4 +89,66 @@
 }
 .animate-fadeIn {
   animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Multilingual Typography & Script-Specific Line Heights */
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.font-tamil {
+  font-family: 'Noto Sans Tamil', sans-serif;
+  line-height: 1.65;
+}
+
+.font-telugu {
+  font-family: 'Noto Sans Telugu', sans-serif;
+  line-height: 1.65;
+}
+
+.font-bengali {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  line-height: 1.6;
+}
+
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  line-height: 2.1;
+  letter-spacing: 0;
+}
+
+/* Global Language Font Adjustments */
+html[lang="hi"], html[lang="mr"] {
+  font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+}
+
+html[lang="ta"] {
+  font-family: 'Noto Sans Tamil', 'Inter', sans-serif;
+}
+
+html[lang="te"] {
+  font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+}
+
+html[lang="bn"] {
+  font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+}
+
+html[lang="ur"] {
+  font-family: 'Noto Nastaliq Urdu', serif;
+}
+
+/* RTL Layout Direction Handling */
+[dir="rtl"] {
+  text-align: start;
+}
+
+[dir="rtl"] .ltr-only {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Flip directional icons automatically in RTL mode */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
 }

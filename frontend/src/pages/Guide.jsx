@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import GuidancePanel from '../components/GuidancePanel';
 import { api } from '../api/client';
@@ -14,7 +14,8 @@ import {
   FileCheck2,
   Briefcase,
   ExternalLink,
-  Layers
+  Layers,
+  Clock
 } from 'lucide-react';
 
 export default function Guide() {
@@ -128,6 +129,28 @@ export default function Guide() {
             </select>
           </div>
         </div>
+      </div>
+
+      {/* Track Application Discovery Card */}
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm border border-slate-700">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-saffron-400 border border-slate-700 flex-shrink-0">
+            <Clock className="w-5 h-5" />
+          </div>
+          <div>
+            <h4 className="text-sm font-bold">Have an active application reference?</h4>
+            <p className="text-xs text-slate-300">
+              Track your documents verification and institutional sanction status directly.
+            </p>
+          </div>
+        </div>
+
+        <Link
+          to="/track"
+          className="px-5 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-xl text-xs transition-colors self-start sm:self-auto flex items-center gap-1.5 shadow-md shadow-saffron-600/20"
+        >
+          <span>Track your application &rarr;</span>
+        </Link>
       </div>
 
       {/* Main Interactive Checklist Panel (Scheme-Specific or Generic) */}

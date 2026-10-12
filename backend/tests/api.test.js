@@ -115,3 +115,100 @@ test('GET /api/partners filters out high NPA and >90% fund utilization', async (
     }
   }
 });
+
+test('Applicant Loan Tracking Lifecycle: POST, GET, PATCH status, documents, timeline', async () => {
+  // 1. Submit Application Inquiry
+  const createRes = await fetch(`${baseUrl}/api/applications`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      income: 180000,
+      projectCost: 140000,
+      projectType: 'small_business',
+      gender: 'female',
+      isSC: true,
+      matchedScheme: {
+        schemeId: 'scheme_1',
+        schemeName: 'Mahila Samriddhi Yojana (MSY)',
+        matchScore: 98,
+        interestRate: 4
+      },
+      routedPartner: {
+        partnerId: 'partner_1',
+        partnerName: 'TAHDCO District Office, Ariyalur',
+        partnerType: 'SCA'
+      },
+      applicantName: 'Kavitha S.',
+      phone: '9840123456'
+    })
+  });
+
+  assert.strictEqual(createRes.status, 201);
+  const createdData = await createRes.json();
+  assert.ok(createdData.refId, 'Should generate refId');
+  assert.ok(createdData.refId.startsWith('SETU-'), 'RefId should match SETU- prefix');
+  const refId = createdData.refId;
+  assert.strictEqual(createdData.application.status, 'inquiry_submitted');
+  assert.strictEqual(createdData.application.statusHistory.length, 1);
+
+  // 2. Lookup Application by refId
+  const getRes = await fetch(`${baseUrl}/api/applications/${refId}`);
+  assert.strictEqual(getRes.status, 200);
+  const fetchedApp = await getRes.json();
+  assert.strictEqual(fetchedApp.refId, refId);
+  assert.strictEqual(fetchedApp.matchedScheme.schemeName, 'Mahila Samriddhi Yojana (MSY)');
+  assert.strictEqual(fetchedApp.routedPartner.partnerName, 'TAHDCO District Office, Ariyalur');
+
+  // 3. Update documents checklist
+  const docRes = await fetch(`${baseUrl}/api/applications/${refId}/documents`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      documentsSubmitted: ['Caste Certificate (Verified SC status)', 'Aadhaar DBT Linkage'],
+      advanceStatus: true
+    })
+  });
+  assert.strictEqual(docRes.status, 200);
+  const docData = await docRes.json();
+  assert.strictEqual(docData.application.documentsSubmitted.length, 2);
+  assert.strictEqual(docData.application.status, 'documents_pending');
+
+  // 4. Test State-Machine: Attempt illegal jump (documents_pending -> disbursed should fail)
+  const illegalRes = await fetch(`${baseUrl}/api/applications/${refId}/status`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      status: 'disbursed',
+      note: 'Attempting invalid jump directly to disbursed'
+    })
+  });
+  assert.strictEqual(illegalRes.status, 400);
+  const illegalData = await illegalRes.json();
+  assert.ok(illegalData.error.includes('Illegal status transition'));
+
+  // 5. Test State-Machine: Legal transition (documents_pending -> submitted_to_partner)
+  const legalRes = await fetch(`${baseUrl}/api/applications/${refId}/status`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      status: 'submitted_to_partner',
+      note: 'Dossier physically handed over at Ariyalur TAHDCO counter',
+      actor: 'applicant',
+      isPartnerConfirmed: false
+    })
+  });
+  assert.strictEqual(legalRes.status, 200);
+  const legalData = await legalRes.json();
+  assert.strictEqual(legalData.application.status, 'submitted_to_partner');
+
+  // 6. Test GET /api/applications/:refId/timeline
+  const timelineRes = await fetch(`${baseUrl}/api/applications/${refId}/timeline`);
+  assert.strictEqual(timelineRes.status, 200);
+  const timelineData = await timelineRes.json();
+  assert.strictEqual(timelineData.refId, refId);
+  assert.strictEqual(timelineData.currentStatus, 'submitted_to_partner');
+  assert.ok(Array.isArray(timelineData.stages));
+  assert.strictEqual(timelineData.stages.length, 6);
+  assert.ok(timelineData.disclaimer.includes('Scheme Setu does not process or guarantee loan approval'));
+});
+

@@ -1,0 +1,30 @@
+{
+  "locator": {
+    "title": "Geo-Spatial Channel Partner Locator",
+    "subtitle": "Locate verified SCAs, Public Sector Banks, RRBs, and NBFCs authorized for your scheme",
+    "searchNearMe": "Use My Live Location",
+    "selectCity": "Or Select Hub City",
+    "filterScheme": "Filter by Scheme",
+    "filterType": "Partner Type",
+    "allTypes": "All Partner Types",
+    "sca": "SCA (State Channelising Agency)",
+    "psb": "PSB (Public Sector Bank)",
+    "rrb": "RRB (Regional Rural Bank)",
+    "nbfc": "NBFC-MFI (Micro Finance)",
+    "radius": "Search Radius",
+    "healthBadge": "Partner Health Check",
+    "lowNpa": "Healthy (Low NPA)",
+    "fundAvailable": "Fund Availability",
+    "distance": "Distance",
+    "km": "km",
+    "schemesHandled": "Authorized Schemes",
+    "contact": "Contact",
+    "address": "Address",
+    "directions": "Get Google Maps Directions",
+    "applySlip": "Generate Pre-Application Slip",
+    "noPartnersFound": "No healthy partners found within this radius. Increase the search radius or choose another city.",
+    "filteredByScheme": "Filtered for authorized channel agencies of:",
+    "authorizedAgencyTypes": "Authorized Agency Types:",
+    "clearSchemeFilter": "Show All Partners"
+  }
+}
