@@ -36,7 +36,7 @@ export default function Home() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-              {t('hero.title')} via{' '}
+              {t('hero.title')}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-saffron-400 via-amber-300 to-emerald-400">
                 {t('hero.highlight')}
               </span>
@@ -89,7 +89,7 @@ export default function Home() {
             <div className="pt-4 text-[11px] text-slate-400 border-t border-slate-800/80 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1 flex-shrink-0"></span>
               <p className="leading-relaxed">
-                The AI-assisted matching engine interprets your requirements and compares them against structured official NSFDC eligibility rules to identify potentially suitable schemes. Final eligibility is determined by the relevant channelizing agency.
+                {t('results.aiDisclaimer', 'The AI-assisted matching engine interprets your requirements and compares them against structured official NSFDC eligibility rules to identify potentially suitable schemes. Final eligibility is determined by the relevant channelizing agency.')}
               </p>
             </div>
           </div>
@@ -105,13 +105,13 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <span className="text-xs font-bold uppercase tracking-wider text-saffron-600 bg-saffron-50 px-3 py-1 rounded-full border border-saffron-200">
-            Bridging the SC Credit Gap
+            {t('home.problemsBadge', 'Bridging the SC Credit Gap')}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-            Why Do SC Concessional Applications Fail Today?
+            {t('home.problemsTitle', 'Why Do SC Concessional Applications Fail Today?')}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
-            Beneficiaries with family income under ₹5L/year are legally entitled to subsidized capital, but face hurdles:
+            {t('home.problemsSubtitle', 'Beneficiaries with family income under ₹5L/year are legally entitled to subsidized capital, but face hurdles:')}
           </p>
         </div>
 
@@ -122,14 +122,14 @@ export default function Home() {
               1
             </div>
             <h3 className="text-base font-bold text-slate-900">
-              Scheme Mismatch
+              {t('home.problem1Title', 'Scheme Mismatch')}
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Applicants apply for Term Loans when their project fits Micro Finance (&le; ₹1.4L), or miss out on women schemes like Mahila Samriddhi at 5% rate.
+              {t('home.problem1Desc', 'Applicants apply for Term Loans when their project fits Micro Finance (≤ ₹1.4L), or miss out on women schemes like Mahila Samriddhi at 5% rate.')}
             </p>
             <div className="text-xs font-semibold text-emerald-700 flex items-center gap-1.5 pt-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              Solved: Automated rule engine ranks by exact eligibility.
+              {t('home.problem1Solved', 'Solved: Automated rule engine ranks by exact eligibility.')}
             </div>
           </div>
 
@@ -139,14 +139,14 @@ export default function Home() {
               2
             </div>
             <h3 className="text-base font-bold text-slate-900">
-              Wrong Channel Partner Routing
+              {t('home.problem2Title', 'Wrong Channel Partner Routing')}
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Submitting files to bank branches that don't handle NSFDC or have exhausted their annual allocation causes months of rejection delays.
+              {t('home.problem2Desc', "Submitting files to bank branches that don't handle NSFDC or have exhausted their annual allocation causes months of rejection delays.")}
             </p>
             <div className="text-xs font-semibold text-emerald-700 flex items-center gap-1.5 pt-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              Solved: Geo-spatial locator filters healthy partners with fund capacity.
+              {t('home.problem2Solved', 'Solved: Geo-spatial locator filters healthy partners with fund capacity.')}
             </div>
           </div>
 
@@ -156,14 +156,14 @@ export default function Home() {
               3
             </div>
             <h3 className="text-base font-bold text-slate-900">
-              Moratorium & EMI Misunderstanding
+              {t('home.problem3Title', 'Moratorium & EMI Misunderstanding')}
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Borrowers are unaware that concessional loans include 3-12 months grace periods where no principal is due while their business takes off.
+              {t('home.problem3Desc', 'Borrowers are unaware that concessional loans include 3-12 months grace periods where no principal is due while their business takes off.')}
             </p>
             <div className="text-xs font-semibold text-emerald-700 flex items-center gap-1.5 pt-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              Solved: Dynamic simulator shows exact savings vs commercial loans.
+              {t('home.problem3Solved', 'Solved: Dynamic simulator shows exact savings vs commercial loans.')}
             </div>
           </div>
         </div>
@@ -173,10 +173,10 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-8 space-y-2">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-            Interactive Concessional EMI Simulator
+            {t('home.simulatorTitle', 'Interactive Concessional EMI Simulator')}
           </h2>
           <p className="text-slate-600 text-sm">
-            Simulate your monthly installment with genuine NSFDC subsidized rates and moratorium relief:
+            {t('home.simulatorSubtitle', 'Simulate your monthly installment with genuine NSFDC subsidized rates and moratorium relief:')}
           </p>
         </div>
 

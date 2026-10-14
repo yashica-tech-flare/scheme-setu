@@ -167,7 +167,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'National Classical Heritage'
   },
@@ -178,7 +178,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Goa & Coastal Karnataka'
   },
@@ -189,7 +189,7 @@ export const LANGUAGES = [
     scriptFamily: 'Meetei Mayek / Bengali',
     rtl: false,
     fontFamily: "'Noto Sans Meetei Mayek', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Manipur'
   },
@@ -200,7 +200,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Bodoland (Assam)'
   },
@@ -211,7 +211,7 @@ export const LANGUAGES = [
     scriptFamily: 'Ol Chiki',
     rtl: false,
     fontFamily: "'Noto Sans Ol Chiki', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Jharkhand, Odisha, West Bengal'
   },
@@ -222,7 +222,7 @@ export const LANGUAGES = [
     scriptFamily: 'Perso-Arabic',
     rtl: true,
     fontFamily: "'Noto Nastaliq Urdu', serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Jammu & Kashmir'
   },
@@ -233,7 +233,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Sikkim & North Bengal'
   },
@@ -244,7 +244,7 @@ export const LANGUAGES = [
     scriptFamily: 'Perso-Arabic',
     rtl: true,
     fontFamily: "'Noto Nastaliq Urdu', serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Western India'
   },
@@ -255,7 +255,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Jammu'
   },
@@ -266,7 +266,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'All-India',
     region: 'Bihar & Mithila'
   },
@@ -279,7 +279,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Eastern UP, Bihar & Jharkhand (50M+ speakers)'
   },
@@ -290,7 +290,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Rajasthan & Western MP (30M+ speakers)'
   },
@@ -301,7 +301,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Chhattisgarh (18M+ speakers)'
   },
@@ -312,7 +312,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Haryana & Delhi NCR (10M+ speakers)'
   },
@@ -323,7 +323,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Central Bihar & Magadh (13M+ speakers)'
   },
@@ -334,7 +334,7 @@ export const LANGUAGES = [
     scriptFamily: 'Kannada',
     rtl: false,
     fontFamily: "'Noto Sans Kannada', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Coastal Karnataka & Kasaragod (2M+ speakers)'
   },
@@ -345,7 +345,7 @@ export const LANGUAGES = [
     scriptFamily: 'Latin',
     rtl: false,
     fontFamily: 'Inter, sans-serif',
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Mizoram & North-East (1M+ speakers)'
   },
@@ -356,7 +356,7 @@ export const LANGUAGES = [
     scriptFamily: 'Latin',
     rtl: false,
     fontFamily: 'Inter, sans-serif',
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Meghalaya (1.5M+ speakers)'
   },
@@ -367,7 +367,7 @@ export const LANGUAGES = [
     scriptFamily: 'Devanagari',
     rtl: false,
     fontFamily: "'Noto Sans Devanagari', sans-serif",
-    status: 'complete',
+    status: 'planned',
     phase: 'Grassroots Spoken',
     region: 'Central India Tribal Belts (3M+ speakers)'
   }

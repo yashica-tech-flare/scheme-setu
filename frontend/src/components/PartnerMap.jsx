@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -19,6 +19,7 @@ import {
   X,
   Sparkles
 } from 'lucide-react';
+import { localizeSchemeName } from '../utils/localizationHelper';
 
 // Fix Leaflet's default icon paths in bundlers
 delete L.Icon.Default.prototype._getIconUrl;
@@ -324,7 +325,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
           <div>
             <div className="flex items-center gap-2 text-saffron-400 text-xs font-bold uppercase tracking-wider mb-1">
               <MapPin className="w-4 h-4" />
-              Interactive Geo-Spatial Network
+              {t('locator.badge', 'Interactive Geo-Spatial Network')}
             </div>
             <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
               {t('locator.title')}
@@ -346,7 +347,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
               }`}
             >
-              <span>🇮🇳 View Whole India</span>
+              <span>🇮🇳 {t('locator.viewWholeIndia', 'View Whole India')}</span>
             </button>
 
             <button
@@ -357,7 +358,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
               className="px-3.5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-600/20 flex items-center justify-center gap-2 cursor-pointer"
             >
               <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin' : ''}`} />
-              <span>{isLocating ? 'Locating...' : 'Use My Live Location'}</span>
+              <span>{isLocating ? t('locator.locating', 'Locating...') : t('locator.useMyLocation', 'Use My Live Location')}</span>
             </button>
 
             {/* City Quick Dropdown */}
@@ -367,7 +368,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
               onChange={(e) => handleCityChange(e.target.value)}
               className="px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs font-semibold text-white focus:outline-none focus:ring-2 focus:ring-saffron-500 max-w-[200px]"
             >
-              <option value="All India">🇮🇳 All India (Pan-India)</option>
+              <option value="All India">🇮🇳 {t('locator.allIndiaOption', 'All India (Pan-India)')}</option>
               {cityList.map((c) => (
                 <option key={c} value={c}>
                   📍 {c}
@@ -394,7 +395,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
               {t('locator.filteredByScheme')}
             </span>
             <span className="font-extrabold text-saffron-900">
-              {isHindi && selectedSchemeRecord.nameHi ? selectedSchemeRecord.nameHi : (selectedSchemeRecord.schemeName || selectedSchemeRecord.name)}
+              {localizeSchemeName(selectedSchemeRecord, i18n.language)}
             </span>
             {authorizedAgencies.length > 0 && (
               <span className="text-slate-600">
@@ -446,10 +447,10 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
             onChange={(e) => setSchemeFilter(e.target.value)}
             className="w-full p-2 bg-white border border-slate-300 rounded-lg font-medium text-slate-800"
           >
-            <option value="">All Authorized Schemes</option>
+            <option value="">{t('locator.allAuthorizedSchemes', 'All Authorized Schemes')}</option>
             {allSchemes.map((s) => {
               const sName = s.schemeName || s.name;
-              const sDisplay = isHindi && s.nameHi ? s.nameHi : sName;
+              const sDisplay = localizeSchemeName(s, i18n.language);
               return (
                 <option key={s._id || sName} value={sName}>
                   {sDisplay}
@@ -482,7 +483,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
           <div className="px-3 py-2 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span className="font-bold text-slate-900">{displayedPartners.length}</span>
-            <span className="text-slate-500">Authorized Partners</span>
+            <span className="text-slate-500">{t('locator.authorizedPartners', 'Authorized Partners')}</span>
           </div>
         </div>
       </div>
@@ -493,7 +494,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
         <div className="order-2 lg:order-1 lg:col-span-5 overflow-y-auto p-4 space-y-3 bg-slate-50/50 border-t lg:border-t-0 lg:border-r border-slate-200 max-h-[380px] lg:max-h-none lg:h-full">
           {loading ? (
             <div className="h-full flex items-center justify-center text-slate-400 text-sm">
-              Loading partner branches...
+              {t('locator.loadingPartners', 'Loading partner branches...')}
             </div>
           ) : displayedPartners.length === 0 ? (
             <div className="p-8 text-center text-slate-500 space-y-2">
@@ -506,7 +507,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
                 onClick={() => setRadiusKm(150)}
                 className="mt-2 text-xs text-saffron-600 font-bold underline"
               >
-                Expand radius to 150 km
+                {t('locator.expandRadius', 'Expand radius to 150 km')}
               </button>
             </div>
           ) : (
@@ -552,7 +553,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
                     {partner.distanceKm !== null && (
                       <span className="font-bold text-saffron-700 flex items-center gap-1">
                         <Navigation className="w-3 h-3" />
-                        {partner.distanceKm} km away
+                        {partner.distanceKm} {t('locator.kmAway', 'km away')}
                       </span>
                     )}
 
@@ -562,7 +563,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
                     </span>
 
                     <span className="text-slate-600">
-                      Fund Cap: {partner.fundUtilizationPercent}%
+                      {t('locator.fundCap', 'Fund Cap')}: {partner.fundUtilizationPercent}%
                     </span>
                   </div>
 
@@ -584,7 +585,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
                       className="text-xs font-bold text-saffron-600 hover:text-saffron-700 flex items-center gap-1"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <span>Directions</span>
+                      <span>{t('locator.directions', 'Directions')}</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
@@ -611,13 +612,13 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
 
             {/* Live User Location Pin */}
             {userLivePos && (
-              <Marker position={[userLivePos.lat, userLivePos.lng]} icon={createUserLocationIcon()}>
+              <Marker key={`user-live-${i18n.language}`} position={[userLivePos.lat, userLivePos.lng]} icon={createUserLocationIcon()}>
                 <Popup>
                   <div className="p-1 font-sans text-center">
                     <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 mb-1">
-                      📍 You Are Here
+                      📍 {t('locator.youAreHere', 'You Are Here')}
                     </span>
-                    <p className="text-xs font-bold text-slate-900">Your Current Location</p>
+                    <p className="text-xs font-bold text-slate-900">{t('locator.yourCurrentLocation', 'Your Current Location')}</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">
                       {userLivePos.lat.toFixed(4)}°N, {userLivePos.lng.toFixed(4)}°E
                     </p>
@@ -631,7 +632,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
               if (!p.location?.lat || !p.location?.lng) return null;
               return (
                 <Marker
-                  key={p._id}
+                  key={`${p._id}-${i18n.language}`}
                   position={[p.location.lat, p.location.lng]}
                   icon={createCustomIcon(p.type)}
                 >
@@ -647,12 +648,12 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
 
                       <div className="bg-emerald-50 border border-emerald-200 p-1.5 rounded-lg text-emerald-800 font-medium text-[10px] mb-2 flex items-center gap-1">
                         <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                        Status: Healthy (Low NPA) • Fund: {p.fundUtilizationPercent}%
+                        {t('locator.statusHealthy', 'Status: Healthy (Low NPA)')} • {t('locator.fundCap', 'Fund')}: {p.fundUtilizationPercent}%
                       </div>
 
                       {p.distanceKm !== null && (
                         <p className="text-saffron-700 font-bold mb-1">
-                          📍 {p.distanceKm} km from selected center
+                          📍 {p.distanceKm} {t('locator.kmFromCenter', 'km from selected center')}
                         </p>
                       )}
 
@@ -662,7 +663,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
 
                       {p.schemesHandled && p.schemesHandled.length > 0 && (
                         <div className="pt-1 border-t border-slate-100 text-[10px] text-slate-500">
-                          <strong>Schemes:</strong> {p.schemesHandled.slice(0, 2).join(', ')}
+                          <strong>{t('locator.schemes', 'Schemes')}:</strong> {p.schemesHandled.slice(0, 2).map((s) => localizeSchemeName({ schemeName: s }, i18n.language)).join(', ')}
                           {p.schemesHandled.length > 2 && ` +${p.schemesHandled.length - 2} more`}
                         </div>
                       )}
@@ -673,7 +674,7 @@ export default function PartnerMap({ selectedSchemeName, onPartnerSelected }) {
                         rel="noopener noreferrer"
                         className="mt-2.5 block text-center py-1 px-2 bg-saffron-600 text-white rounded font-bold text-[11px] hover:bg-saffron-700"
                       >
-                        Navigate on Google Maps &rarr;
+                        {t('locator.navigateMaps', 'Navigate on Google Maps')} &rarr;
                       </a>
                     </div>
                   </Popup>

@@ -110,7 +110,7 @@ export default function Results() {
           </h1>
           <p className="text-sm text-slate-600 mt-1">
             {t('results.subtitle')}
-            {inputData && ` • Family Income: ₹${inputData.income?.toLocaleString('en-IN')} | Project Need: ₹${inputData.projectCost?.toLocaleString('en-IN')}`}
+            {inputData && ` • ${t('results.familyIncomeLabel', 'Family Income')}: ₹${inputData.income?.toLocaleString('en-IN')} | ${t('results.projectNeedLabel', 'Project Need')}: ₹${inputData.projectCost?.toLocaleString('en-IN')}`}
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function Results() {
       <div className="p-4 rounded-xl bg-slate-100 border border-slate-300/80 text-xs text-slate-700 flex items-start gap-3 shadow-2xs">
         <Info className="w-4 h-4 text-slate-600 flex-shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          <strong>Official Governance Note:</strong> {t('results.aiDisclaimer')}
+          <strong>{t('results.officialGovernanceNote', 'Official Governance Note')}:</strong> {t('results.aiDisclaimer')}
         </p>
       </div>
 
@@ -137,7 +137,7 @@ export default function Results() {
       {loading ? (
         <div className="py-16 text-center text-slate-500">
           <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-2 text-saffron-600" />
-          <p className="text-sm font-medium">Matching eligible concessional schemes against NSFDC rules...</p>
+          <p className="text-sm font-medium">{t('results.loadingMatching', 'Matching eligible concessional schemes against NSFDC rules...')}</p>
         </div>
       ) : results.length === 0 ? (
         <div className="p-12 text-center bg-white rounded-2xl border border-slate-200 shadow-sm space-y-4">
@@ -146,7 +146,7 @@ export default function Results() {
             {t('results.noSchemesFound')}
           </h3>
           <p className="text-sm text-slate-600 max-w-md mx-auto">
-            Please adjust your project cost or verify that family income is within the ₹5 Lakh threshold.
+            {t('results.noSchemesDesc', 'Please adjust your project cost or verify that family income is within the ₹5 Lakh threshold.')}
           </p>
           <Link
             to="/#recommender"

@@ -17,6 +17,7 @@ import {
   Layers,
   Clock
 } from 'lucide-react';
+import { localizeSchemeName } from '../utils/localizationHelper';
 
 export default function Guide() {
   const { t, i18n } = useTranslation();
@@ -94,13 +95,13 @@ export default function Guide() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-saffron-50 text-saffron-800 border border-saffron-200 mb-2">
               <FileText className="w-3.5 h-3.5 text-saffron-600" />
-              Official NSFDC Beneficiary Handbook
+              {t('guidance.officialHandbook', 'Official NSFDC Beneficiary Handbook')}
             </div>
             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
               {t('guidance.title')}
             </h1>
             <p className="text-sm text-slate-600 max-w-2xl mt-1">
-              Everything you need to navigate the concessional loan lifecycle—from qualifying criteria and document readiness to physical loan sanction without intermediaries.
+              {t('guidance.handbookDesc', 'Everything you need to navigate the concessional loan lifecycle—from qualifying criteria and document readiness to physical loan sanction without intermediaries.')}
             </p>
           </div>
 
@@ -119,7 +120,7 @@ export default function Guide() {
               <option value="">{t('guidance.allSchemesOption')}</option>
               {schemes.map((s) => {
                 const sName = s.schemeName || s.name;
-                const sDisplay = isHindi && s.nameHi ? s.nameHi : sName;
+                const sDisplay = localizeSchemeName(s, i18n.language);
                 return (
                   <option key={s._id || sName} value={sName}>
                     {sDisplay}
@@ -138,9 +139,9 @@ export default function Guide() {
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-bold">Have an active application reference?</h4>
+            <h4 className="text-sm font-bold">{t('guidance.haveActiveRef', 'Have an active application reference?')}</h4>
             <p className="text-xs text-slate-300">
-              Track your documents verification and institutional sanction status directly.
+              {t('guidance.trackDesc', 'Track your documents verification and institutional sanction status directly.')}
             </p>
           </div>
         </div>
@@ -149,7 +150,7 @@ export default function Guide() {
           to="/track"
           className="px-5 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-xl text-xs transition-colors self-start sm:self-auto flex items-center gap-1.5 shadow-md shadow-saffron-600/20"
         >
-          <span>Track your application &rarr;</span>
+          <span>{t('guidance.trackApplicationLink', 'Track your application')} &rarr;</span>
         </Link>
       </div>
 
@@ -164,35 +165,35 @@ export default function Guide() {
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900">
-              Detailed Project Report (DPR) Guidance
+              {t('guidance.dprGuidanceTitle', 'Detailed Project Report (DPR) Guidance')}
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
               {isTermLoanOrHighValue
-                ? 'For Term Loans & Capital Projects (> ₹2 Lakh), banks and State Channelising Agencies require a bankable DPR. Scheme Setu provides the standard 3-pillar template:'
-                : 'For Micro Credit & MSY (≤ ₹1.4 Lakh), a complex DPR is waived! A simple self-declaration and vendor invoice quotation suffices for instant sanction.'}
+                ? t('guidance.dprHighValueNote', 'For Term Loans & Capital Projects (> ₹2 Lakh), banks and State Channelising Agencies require a bankable DPR. Scheme Setu provides the standard 3-pillar template:')
+                : t('guidance.dprMicroNote', 'For Micro Credit & MSY (≤ ₹1.4 Lakh), a complex DPR is waived! A simple self-declaration and vendor invoice quotation suffices for instant sanction.')}
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-            <span className="font-bold text-slate-900 block">1. Business Profile & Promoter KYC</span>
+            <span className="font-bold text-slate-900 block">{t('guidance.dprStep1Title', '1. Business Profile & Promoter KYC')}</span>
             <p className="text-slate-600">
-              Background of applicant, artisanal or technical skill proof, SC caste certificate, and Aadhaar DBT linkage.
+              {t('guidance.dprStep1Desc', 'Background of applicant, artisanal or technical skill proof, SC caste certificate, and Aadhaar DBT linkage.')}
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-            <span className="font-bold text-slate-900 block">2. Fixed Capital & Machinery Cost</span>
+            <span className="font-bold text-slate-900 block">{t('guidance.dprStep2Title', '2. Fixed Capital & Machinery Cost')}</span>
             <p className="text-slate-600">
-              Verified tax invoice quotations from GST-registered vendors for equipment, furniture, electricals, or commercial vehicle.
+              {t('guidance.dprStep2Desc', 'Verified tax invoice quotations from GST-registered vendors for equipment, furniture, electricals, or commercial vehicle.')}
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-            <span className="font-bold text-slate-900 block">3. Working Capital & Cashflow Forecast</span>
+            <span className="font-bold text-slate-900 block">{t('guidance.dprStep3Title', '3. Working Capital & Cashflow Forecast')}</span>
             <p className="text-slate-600">
-              Projected monthly sales turnover, raw material expenditure, utility costs, and net monthly surplus for installment repayments.
+              {t('guidance.dprStep3Desc', 'Projected monthly sales turnover, raw material expenditure, utility costs, and net monthly surplus for installment repayments.')}
             </p>
           </div>
         </div>
@@ -203,11 +204,11 @@ export default function Guide() {
         <div className="space-y-1 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2 text-saffron-400 text-xs font-bold uppercase">
             <PhoneCall className="w-4 h-4" />
-            National SC Grievance & Helpdesk
+            {t('guidance.grievanceHelpdeskTitle', 'National SC Grievance & Helpdesk')}
           </div>
-          <h4 className="text-xl font-bold">Need assistance with channel partner branches?</h4>
+          <h4 className="text-xl font-bold">{t('guidance.grievanceHelpdeskHeading', 'Need assistance with channel partner branches?')}</h4>
           <p className="text-xs text-slate-300">
-            Toll-Free National Helpline: 1800-11-2001 | Email: helpdesk@nsfdc.nic.in | Portal: nsfdc.nic.in
+            {t('guidance.grievanceHelpdeskContact', 'Toll-Free National Helpline: 1800-11-2001 | Email: helpdesk@nsfdc.nic.in | Portal: nsfdc.nic.in')}
           </p>
         </div>
 
@@ -217,7 +218,7 @@ export default function Guide() {
           className="px-6 py-3 bg-saffron-600 hover:bg-saffron-700 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer flex-shrink-0"
         >
           <Printer className="w-4 h-4" />
-          Print Document Checklist
+          {t('guidance.printChecklist', 'Print Document Checklist')}
         </button>
       </div>
     </div>

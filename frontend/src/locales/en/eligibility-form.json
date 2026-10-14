@@ -33,6 +33,9 @@
     "female": "Female (Eligible for Mahila Samriddhi 4-5% & special rebates)",
     "other": "Other",
     "submit": "Find Matching Schemes",
-    "submitting": "Analyzing 7+ Concessional Schemes..."
+    "submitting": "Analyzing 7+ Concessional Schemes...",
+    "ruleEngineTag": "Rule-Based Matching Engine",
+    "businessSub": "Retail, trade, transport, MSME",
+    "educationSub": "Degree, technical, vocational"
   }
 }

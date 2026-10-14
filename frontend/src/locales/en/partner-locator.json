@@ -25,6 +25,23 @@
     "noPartnersFound": "No healthy partners found within this radius. Increase the search radius or choose another city.",
     "filteredByScheme": "Filtered for authorized channel agencies of:",
     "authorizedAgencyTypes": "Authorized Agency Types:",
-    "clearSchemeFilter": "Show All Partners"
+    "clearSchemeFilter": "Show All Partners",
+    "badge": "Interactive Geo-Spatial Network",
+    "viewWholeIndia": "View Whole India",
+    "locating": "Locating...",
+    "allIndiaOption": "All India (Pan-India)",
+    "allAuthorizedSchemes": "All Authorized Schemes",
+    "authorizedPartners": "Authorized Partners",
+    "loadingPartners": "Loading partner branches...",
+    "expandRadius": "Expand radius to 150 km",
+    "kmAway": "km away",
+    "fundCap": "Fund Cap",
+    "directions": "Directions",
+    "youAreHere": "You Are Here",
+    "yourCurrentLocation": "Your Current Location",
+    "statusHealthy": "Status: Healthy (Low NPA)",
+    "kmFromCenter": "km from selected center",
+    "schemes": "Schemes",
+    "navigateMaps": "Navigate on Google Maps"
   }
 }

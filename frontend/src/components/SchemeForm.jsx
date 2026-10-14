@@ -134,7 +134,7 @@ export default function SchemeForm({ onRecommendationComplete }) {
       <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 px-5 py-4 text-white border-b border-slate-800">
         <div className="flex items-center gap-2 text-saffron-400 text-xs font-bold uppercase tracking-wider mb-1">
           <Sparkles className="w-3.5 h-3.5" />
-          Rule-Based Matching Engine
+          {t('form.ruleEngineTag', 'Rule-Based Matching Engine')}
         </div>
         <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
           {t('form.title')}
@@ -248,7 +248,7 @@ export default function SchemeForm({ onRecommendationComplete }) {
               </div>
               <div>
                 <div className="font-semibold text-xs sm:text-sm">{t('form.business')}</div>
-                <div className="text-[11px] text-slate-500">Retail, trade, transport, MSME</div>
+                <div className="text-[11px] text-slate-500">{t('form.businessSub', 'Retail, trade, transport, MSME')}</div>
               </div>
             </button>
 
@@ -267,7 +267,7 @@ export default function SchemeForm({ onRecommendationComplete }) {
               </div>
               <div>
                 <div className="font-semibold text-xs sm:text-sm">{t('form.education')}</div>
-                <div className="text-[11px] text-slate-500">Degree, technical, vocational</div>
+                <div className="text-[11px] text-slate-500">{t('form.educationSub', 'Degree, technical, vocational')}</div>
               </div>
             </button>
           </div>

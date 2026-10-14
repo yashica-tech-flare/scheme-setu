@@ -51,7 +51,12 @@
     "channelAgencies": "Authorized Channel Agencies",
     "aiDisclaimer": "The rule-based matching engine interprets your requirements and compares them against structured official NSFDC guidelines to identify suitable schemes. Final sanction is decided by the channel partner.",
     "noSchemesFound": "No schemes matched your exact parameters. Try adjusting your project cost or income.",
-    "recheck": "Modify Search Criteria"
+    "recheck": "Modify Search Criteria",
+    "familyIncomeLabel": "Family Income",
+    "projectNeedLabel": "Project Need",
+    "officialGovernanceNote": "Official Governance Note",
+    "loadingMatching": "Matching eligible concessional schemes against NSFDC rules...",
+    "noSchemesDesc": "Please adjust your project cost or verify that family income is within the ₹5 Lakh threshold."
   },
   "slip": {
     "title": "Scheme Setu - Concessional Credit Pre-Application Slip",
@@ -75,5 +80,21 @@
   "speakingNow": "Playing voice readout...",
   "listenAudio": "Listen Aloud",
   "audioGuideBtn": "Audio Guide",
-  "audioPortalOverview": "Welcome to Scheme Setu, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC."
+  "audioPortalOverview": "Welcome to Scheme Setu, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
+  "home": {
+    "problemsBadge": "Bridging the SC Credit Gap",
+    "problemsTitle": "Why Do SC Concessional Applications Fail Today?",
+    "problemsSubtitle": "Beneficiaries with family income under ₹5L/year are legally entitled to subsidized capital, but face hurdles:",
+    "problem1Title": "Scheme Mismatch",
+    "problem1Desc": "Applicants apply for Term Loans when their project fits Micro Finance (≤ ₹1.4L), or miss out on women schemes like Mahila Samriddhi at 5% rate.",
+    "problem1Solved": "Solved: Automated rule engine ranks by exact eligibility.",
+    "problem2Title": "Wrong Channel Partner Routing",
+    "problem2Desc": "Submitting files to bank branches that don't handle NSFDC or have exhausted their annual allocation causes months of rejection delays.",
+    "problem2Solved": "Solved: Geo-spatial locator filters healthy partners with fund capacity.",
+    "problem3Title": "Moratorium & EMI Misunderstanding",
+    "problem3Desc": "Borrowers are unaware that concessional loans include 3-12 months grace periods where no principal is due while their business takes off.",
+    "problem3Solved": "Solved: Dynamic simulator shows exact savings vs commercial loans.",
+    "simulatorTitle": "Interactive Concessional EMI Simulator",
+    "simulatorSubtitle": "Simulate your monthly installment with genuine NSFDC subsidized rates and moratorium relief:"
+  }
 }

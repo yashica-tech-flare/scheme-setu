@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { api } from '../api/client';
+import { localizeSchemeName, localizeSchemeDesc, localizeMatchReason, localizeDocumentName } from '../utils/localizationHelper';
 import {
   Award,
   Percent,
@@ -69,9 +70,8 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
     }
   };
 
-  const isHindi = i18n.language === 'hi';
-  const displayName = isHindi && scheme.nameHi ? scheme.nameHi : (scheme.schemeName || scheme.name);
-  const displayDesc = isHindi && scheme.descriptionHi ? scheme.descriptionHi : (scheme.purpose || scheme.description);
+  const displayName = localizeSchemeName(scheme, i18n.language);
+  const displayDesc = localizeSchemeDesc(scheme, i18n.language);
 
   const formatRupee = (val) => {
     return new Intl.NumberFormat('en-IN', {
@@ -107,7 +107,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-saffron-100 text-saffron-800">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                NSFDC Concessional Scheme
+                {t('results.badgeConcessional', 'NSFDC Concessional Scheme')}
               </span>
 
               {scheme.category && (
@@ -118,7 +118,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
 
               {scheme.genderSpecific === 'women' && (
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-pink-100 text-pink-700 border border-pink-200">
-                  Women Only (MSY)
+                  {t('results.badgeWomenOnly', 'Women Only (MSY)')}
                 </span>
               )}
             </div>
@@ -151,7 +151,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 pt-2 border-t border-slate-100">
           <span className="flex items-center gap-1 font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            {t('results.officialSource')}: <strong className="text-slate-700">NSFDC Portal</strong>
+            {t('results.officialSource')}: <strong className="text-slate-700">{t('results.sourcePortal', 'NSFDC Portal')}</strong>
           </span>
           <span>&bull;</span>
           <span>
@@ -166,7 +166,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
                 rel="noopener noreferrer"
                 className="text-saffron-600 hover:text-saffron-700 font-semibold inline-flex items-center gap-1 hover:underline"
               >
-                <span>Verify Source</span>
+                <span>{t('results.verifySource', 'Verify Source')}</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </>
@@ -271,7 +271,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
               {scheme.matchReasons.map((reason, idx) => (
                 <div key={idx} className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="leading-snug">{reason}</span>
+                  <span className="leading-snug">{localizeMatchReason(reason, t, i18n.language)}</span>
                 </div>
               ))}
             </div>
@@ -299,7 +299,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
               {docs.map((doc, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <BookmarkCheck className="w-3.5 h-3.5 text-saffron-600 flex-shrink-0" />
-                  <span>{doc}</span>
+                  <span>{localizeDocumentName(doc, t)}</span>
                 </div>
               ))}
               <div className="pt-2 border-t border-slate-200">
@@ -349,7 +349,7 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
           ) : (
             <Clock className="w-3.5 h-3.5 text-saffron-400" />
           )}
-          <span>Register Inquiry & Track Loan Status &rarr;</span>
+          <span>{t('results.registerTrackBtn', 'Register Inquiry & Track Loan Status →')}</span>
         </button>
       </div>
     </div>

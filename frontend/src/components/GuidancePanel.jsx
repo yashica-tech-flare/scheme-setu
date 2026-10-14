@@ -17,6 +17,7 @@ import {
   Building2,
   Sparkles
 } from 'lucide-react';
+import { localizeSchemeName, localizeDocumentName } from '../utils/localizationHelper';
 
 export default function GuidancePanel({ scheme, partner }) {
   const { t, i18n } = useTranslation();
@@ -98,22 +99,15 @@ export default function GuidancePanel({ scheme, partner }) {
     }
   ];
 
-  const schemeDocsList = (scheme?.requiredDocuments || scheme?.documentsRequired || []).map((doc, idx) => ({
-    key: idx,
-    title: doc,
-    desc: getDocDescription(doc),
-    authority: getDocAuthority(doc)
-  }));
-
   function getDocDescription(docName) {
-    if (/caste/i.test(docName)) return 'Original certificate verifying Scheduled Caste status with digital barcoded seal.';
-    if (/income/i.test(docName)) return 'Current financial year revenue certificate confirming family income ≤ ₹5,00,000.';
-    if (/aadhaar/i.test(docName)) return 'Aadhaar linked with mobile and active bank account enabled for direct subsidy credit (DBT).';
-    if (/project report|dpr/i.test(docName)) return 'Standard 5-point project report outlining capital expenditure, working funds, and profit margins.';
-    if (/quotation|invoice|proforma/i.test(docName)) return 'Official tax invoice estimate with GSTIN number from authorized dealer or machinery manufacturer.';
-    if (/admission|marksheet|fee/i.test(docName)) return 'Confirmed institutional admission letter, official course fee schedule, and qualifying marksheets.';
-    if (/permit|license/i.test(docName)) return 'Commercial transport badge or municipal shop trade establishment license.';
-    return 'Official certified document required for physical sanction verification by the channel partner.';
+    if (/caste/i.test(docName)) return t('guidance.doc1Desc');
+    if (/income/i.test(docName)) return t('guidance.doc2Desc');
+    if (/aadhaar/i.test(docName)) return t('guidance.doc3Desc');
+    if (/project report|dpr/i.test(docName)) return t('guidance.doc4Desc');
+    if (/quotation|invoice|proforma/i.test(docName)) return t('guidance.doc5Desc');
+    if (/admission|marksheet|fee/i.test(docName)) return t('guidance.doc6Desc');
+    if (/permit|license/i.test(docName)) return t('guidance.docPermitDesc');
+    return t('guidance.docOfficialDesc');
   }
 
   function getDocAuthority(docName) {
@@ -126,6 +120,13 @@ export default function GuidancePanel({ scheme, partner }) {
     return 'Competent Regulatory Authority';
   }
 
+  const schemeDocsList = (scheme?.requiredDocuments || scheme?.documentsRequired || []).map((doc, idx) => ({
+    key: idx,
+    title: localizeDocumentName(doc, t),
+    desc: getDocDescription(doc),
+    authority: getDocAuthority(doc)
+  }));
+
   const activeDocs = scheme ? schemeDocsList : genericDocs;
 
   const handlePrint = () => {
@@ -133,7 +134,7 @@ export default function GuidancePanel({ scheme, partner }) {
   };
 
   const schemeNameDisplay = scheme
-    ? (isHindi && scheme.nameHi ? scheme.nameHi : (scheme.schemeName || scheme.name))
+    ? localizeSchemeName(scheme, i18n.language)
     : null;
 
   return (
@@ -144,9 +145,12 @@ export default function GuidancePanel({ scheme, partner }) {
           <Clock className="w-4 h-4 text-saffron-400" />
           <span>
             {activeRef ? (
-              <>Active Tracked Inquiry: <strong className="text-saffron-300 font-mono tracking-wider">{activeRef}</strong></>
+              <>
+                {t('guidance.activeTrackedInquiry')}{' '}
+                <strong className="text-saffron-300 font-mono tracking-wider">{activeRef}</strong>
+              </>
             ) : (
-              <>Have an active application inquiry reference? Track your loan verification in real-time.</>
+              <>{t('guidance.activeInquiryPrompt')}</>
             )}
           </span>
         </div>
@@ -154,7 +158,7 @@ export default function GuidancePanel({ scheme, partner }) {
           to={activeRef ? `/track?ref=${encodeURIComponent(activeRef)}` : '/track'}
           className="inline-flex items-center gap-1 font-bold text-saffron-400 hover:text-saffron-300 transition-colors self-start sm:self-auto"
         >
-          <span>Track your application &rarr;</span>
+          <span>{t('guidance.trackApplicationLink')} &rarr;</span>
         </Link>
       </div>
 
@@ -163,7 +167,7 @@ export default function GuidancePanel({ scheme, partner }) {
         <div>
           <div className="flex items-center gap-2 text-saffron-400 text-xs font-bold uppercase tracking-wider mb-1">
             <FileCheck className="w-4 h-4" />
-            Zero-Rejection Preparation
+            {t('guidance.zeroRejectionPrep')}
           </div>
           <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
             {scheme ? `${t('guidance.schemeSpecificDocs')}` : t('guidance.title')}
@@ -195,7 +199,7 @@ export default function GuidancePanel({ scheme, partner }) {
             </div>
             {scheme.eligibility && (
               <p className="text-slate-600 max-w-2xl leading-relaxed">
-                <strong>Eligibility Rule:</strong> {scheme.eligibility}
+                <strong>{t('guidance.eligibilityRule')}:</strong> {scheme.eligibility}
               </p>
             )}
           </div>
@@ -203,7 +207,7 @@ export default function GuidancePanel({ scheme, partner }) {
           <div className="flex flex-col sm:items-end gap-1.5 flex-shrink-0">
             {scheme.channelizingAgencies && scheme.channelizingAgencies.length > 0 && (
               <div className="flex items-center gap-1.5">
-                <span className="text-slate-600 font-medium">Channel Partners:</span>
+                <span className="text-slate-600 font-medium">{t('guidance.channelPartners')}:</span>
                 <span className="font-bold text-saffron-800">
                   {scheme.channelizingAgencies.join(', ')}
                 </span>
@@ -229,7 +233,7 @@ export default function GuidancePanel({ scheme, partner }) {
         <div>
           <h4 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-saffron-600"></span>
-            {scheme ? `${schemeNameDisplay} — Required Documents (${activeDocs.length})` : t('guidance.essentialDocs')}
+            {scheme ? `${schemeNameDisplay} — ${t('results.viewDocs')} (${activeDocs.length})` : t('guidance.essentialDocs')}
           </h4>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -260,7 +264,7 @@ export default function GuidancePanel({ scheme, partner }) {
                       {d.desc}
                     </p>
                     <span className="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-white border border-slate-200 text-slate-500">
-                      Issuer: {d.authority}
+                      {t('guidance.issuer')}: {d.authority}
                     </span>
                   </div>
                 </div>

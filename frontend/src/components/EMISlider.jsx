@@ -80,7 +80,7 @@ export default function EMISlider({ initialScheme }) {
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-white border-b border-slate-700">
         <div className="flex items-center gap-2 text-saffron-400 text-xs font-bold uppercase tracking-wider mb-1">
           <Calculator className="w-4 h-4" />
-          Concessional Repayment Simulator
+          {t('emi.simulatorBadge', 'Concessional Repayment Simulator')}
         </div>
         <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
           {t('emi.title')}
@@ -187,7 +187,7 @@ export default function EMISlider({ initialScheme }) {
                 {t('emi.moratorium')}
               </label>
               <span className="text-base font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-lg border border-emerald-300">
-                {moratoriumMonths} {t('results.months')} grace
+                {moratoriumMonths} {t('results.months')} {t('emi.graceLabel', 'grace')}
               </span>
             </div>
             <input
@@ -216,7 +216,7 @@ export default function EMISlider({ initialScheme }) {
               </span>
               <div className="text-3xl sm:text-4xl font-extrabold text-saffron-400">
                 {formatRupee(emiData?.monthlyEMI || 0)}
-                <span className="text-sm font-normal text-slate-400"> /month</span>
+                <span className="text-sm font-normal text-slate-400"> {t('emi.perMonth', '/month')}</span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
                 {t('emi.effectiveTenure')}: {emiData?.effectiveTenure || 0} {t('results.months')}
@@ -242,8 +242,8 @@ export default function EMISlider({ initialScheme }) {
             {/* Visual Ratio Bar */}
             <div className="space-y-1.5 pt-2">
               <div className="flex justify-between text-xs text-slate-400 font-medium">
-                <span>Principal ({principalRatio}%)</span>
-                <span>Interest ({interestRatio}%)</span>
+                <span>{t('emi.principalLabel', 'Principal')} ({principalRatio}%)</span>
+                <span>{t('emi.interestLabel', 'Interest')} ({interestRatio}%)</span>
               </div>
               <div className="h-3 w-full bg-slate-800 rounded-full overflow-hidden flex">
                 <div style={{ width: `${principalRatio}%` }} className="bg-saffron-500 h-full"></div>
@@ -262,7 +262,7 @@ export default function EMISlider({ initialScheme }) {
                   {formatRupee(emiData.commercialComparison.totalSavings)}
                 </div>
                 <p className="text-[11px] text-slate-400 leading-snug">
-                  Compared to paying ~15% at a commercial bank or non-concessional NBFC.
+                  {t('emi.commercialNote', 'Compared to paying ~15% at a commercial bank or non-concessional NBFC.')}
                 </p>
               </div>
             )}

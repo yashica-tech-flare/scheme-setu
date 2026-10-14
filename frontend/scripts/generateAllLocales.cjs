@@ -145,8 +145,8 @@ const LANGUAGE_DEFINITIONS = {
 };
 
 function createLanguagePack(code, name, nativeTitle) {
-  // If code is en or hi, keep original
-  if (code === 'en' || code === 'hi') {
+  // If code has authentic dedicated translations, keep original
+  if (['en', 'hi', 'te', 'ta', 'bn', 'mr', 'ur', 'kn', 'gu', 'ml', 'pa', 'or', 'as'].includes(code)) {
     return;
   }
 

@@ -25,6 +25,23 @@
     "noPartnersFound": "इस दायरे में कोई पात्र शाखा नहीं मिली। कृपया दायरा बढ़ाएं अथवा दूसरा शहर चुनें।",
     "filteredByScheme": "इस योजना के अधिकृत चैनल साझेदार:",
     "authorizedAgencyTypes": "अधिकृत एजेंसी श्रेणियां:",
-    "clearSchemeFilter": "सभी पार्टनर दिखाएं"
+    "clearSchemeFilter": "सभी पार्टनर दिखाएं",
+    "badge": "इंटरैक्टिव भू-स्थानिक नेटवर्क",
+    "viewWholeIndia": "संपूर्ण भारत देखें",
+    "locating": "स्थान खोजा जा रहा है...",
+    "allIndiaOption": "अखिल भारतीय (Pan-India)",
+    "allAuthorizedSchemes": "सभी अधिकृत योजनाएं",
+    "authorizedPartners": "अधिकृत साझेदार",
+    "loadingPartners": "साझेदार शाखाएं लोड हो रही हैं...",
+    "expandRadius": "दायरा बढ़ाकर 150 किमी करें",
+    "kmAway": "किमी दूर",
+    "fundCap": "फंड क्षमता",
+    "directions": "दिशा-निर्देश",
+    "youAreHere": "आप यहाँ हैं",
+    "yourCurrentLocation": "आपका वर्तमान स्थान",
+    "statusHealthy": "स्थिति: स्वस्थ (कम एनपीए)",
+    "kmFromCenter": "किमी चयनित केंद्र से",
+    "schemes": "योजनाएं",
+    "navigateMaps": "गूगल मैप्स पर नेविगेट करें"
   }
 }
