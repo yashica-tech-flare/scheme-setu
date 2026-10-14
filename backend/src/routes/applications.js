@@ -93,7 +93,7 @@ function normalizeApplicationDoc(app) {
         {
           status: 'inquiry_submitted',
           timestamp: raw.createdAt || new Date(),
-          note: 'Application inquiry registered on Scheme Setu portal',
+          note: 'Application inquiry registered on SchemeBridge portal',
           actor: 'system',
           isPartnerConfirmed: true
         }
@@ -463,7 +463,7 @@ router.get('/:refId/timeline', async (req, res) => {
       stages: timeline,
       rawHistory: normalized.statusHistory,
       allowedNextStatuses: ALLOWED_TRANSITIONS[currentStatus] || [],
-      disclaimer: "Status updates reflect applicant-reported progress unless marked 'Partner-confirmed.' Scheme Setu does not process or guarantee loan approval."
+      disclaimer: "Status updates reflect applicant-reported progress unless marked 'Partner-confirmed.' SchemeBridge does not process or guarantee loan approval."
     });
   } catch (err) {
     console.error('Error fetching application timeline:', err);

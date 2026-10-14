@@ -209,6 +209,6 @@ test('Applicant Loan Tracking Lifecycle: POST, GET, PATCH status, documents, tim
   assert.strictEqual(timelineData.currentStatus, 'submitted_to_partner');
   assert.ok(Array.isArray(timelineData.stages));
   assert.strictEqual(timelineData.stages.length, 6);
-  assert.ok(timelineData.disclaimer.includes('Scheme Setu does not process or guarantee loan approval'));
+  assert.ok(timelineData.disclaimer.includes('SchemeBridge does not process or guarantee loan approval'));
 });
 

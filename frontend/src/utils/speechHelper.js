@@ -1,5 +1,5 @@
 /**
- * Scheme Setu — Voice Assistant & Speech Synthesis Utility
+ * SchemeBridge — Voice Assistant & Speech Synthesis Utility
  * Designed specifically for illiterate and low-literacy beneficiaries across India.
  * Utilizes Web Speech API (SpeechSynthesis) with tailored rate, pitch, and BCP-47 language matching.
  */

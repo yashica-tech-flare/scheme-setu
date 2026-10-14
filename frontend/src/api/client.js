@@ -303,7 +303,7 @@ export const api = {
         statusLabel: app.status.replace(/_/g, ' ').toUpperCase(),
         stages,
         rawHistory: app.statusHistory,
-        disclaimer: "Status updates reflect applicant-reported progress unless marked 'Partner-confirmed.' Scheme Setu does not process or guarantee loan approval."
+        disclaimer: "Status updates reflect applicant-reported progress unless marked 'Partner-confirmed.' SchemeBridge does not process or guarantee loan approval."
       };
     }
   },
@@ -391,7 +391,7 @@ function getDemoApplication() {
       {
         status: "inquiry_submitted",
         timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-        note: "Online inquiry registered via Scheme Setu portal",
+        note: "Online inquiry registered via SchemeBridge portal",
         actor: "system",
         isPartnerConfirmed: true
       },

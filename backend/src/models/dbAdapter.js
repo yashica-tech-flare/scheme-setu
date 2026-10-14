@@ -227,7 +227,7 @@ const sampleDemoApp = {
     {
       status: "inquiry_submitted",
       timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-      note: "Online inquiry registered via Scheme Setu portal",
+      note: "Online inquiry registered via SchemeBridge portal",
       actor: "system",
       isPartnerConfirmed: true
     },

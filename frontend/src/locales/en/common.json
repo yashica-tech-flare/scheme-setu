@@ -1,6 +1,6 @@
 {
   "nav": {
-    "title": "Scheme Setu",
+    "title": "SchemeBridge",
     "subtitle": "SC Concessional Credit Portal",
     "home": "Home",
     "finder": "Scheme Recommender",
@@ -14,7 +14,7 @@
   "hero": {
     "badge": "Subsidized Credit at 4% – 9% Annual Interest",
     "title": "Empowering Scheduled Caste Entrepreneurs & Students",
-    "highlight": "Scheme Setu",
+    "highlight": "SchemeBridge",
     "description": "Stop facing loan application rejections. Find eligible NSFDC concessional loan schemes, simulate EMI with moratorium grace periods, and locate authorized channel partners nearest to you.",
     "ctaPrimary": "Check Scheme Eligibility",
     "ctaSecondary": "Locate Channel Partners",
@@ -59,7 +59,7 @@
     "noSchemesDesc": "Please adjust your project cost or verify that family income is within the ₹5 Lakh threshold."
   },
   "slip": {
-    "title": "Scheme Setu - Concessional Credit Pre-Application Slip",
+    "title": "SchemeBridge - Concessional Credit Pre-Application Slip",
     "govtWatermark": "Ministry of Social Justice and Empowerment - Apex Schemes",
     "applicant": "Applicant Information",
     "selectedScheme": "Matched Concessional Scheme",
@@ -68,7 +68,7 @@
     "disclaimer": "This slip serves as a verified eligibility pre-routing memo under NSFDC guidelines. Final sanction subject to physical document verification and partner credit assessment."
   },
   "footer": {
-    "rights": "Scheme Setu Portal. Built for Scheduled Caste Entrepreneurs & Students in India.",
+    "rights": "SchemeBridge Portal. Built for Scheduled Caste Entrepreneurs & Students in India.",
     "apexCorps": "Apex Corporation: National Scheduled Castes Finance & Development Corporation (NSFDC)",
     "disclaimer": "Interest rates, moratorium slabs, and subsidy guidelines are structured as per official published corporation norms."
   },
@@ -80,7 +80,7 @@
   "speakingNow": "Playing voice readout...",
   "listenAudio": "Listen Aloud",
   "audioGuideBtn": "Audio Guide",
-  "audioPortalOverview": "Welcome to Scheme Setu, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
+  "audioPortalOverview": "Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
   "home": {
     "problemsBadge": "Bridging the SC Credit Gap",
     "problemsTitle": "Why Do SC Concessional Applications Fail Today?",

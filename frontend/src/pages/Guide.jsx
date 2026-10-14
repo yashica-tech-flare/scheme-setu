@@ -169,7 +169,7 @@ export default function Guide() {
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
               {isTermLoanOrHighValue
-                ? t('guidance.dprHighValueNote', 'For Term Loans & Capital Projects (> ₹2 Lakh), banks and State Channelising Agencies require a bankable DPR. Scheme Setu provides the standard 3-pillar template:')
+                ? t('guidance.dprHighValueNote', 'For Term Loans & Capital Projects (> ₹2 Lakh), banks and State Channelising Agencies require a bankable DPR. SchemeBridge provides the standard 3-pillar template:')
                 : t('guidance.dprMicroNote', 'For Micro Credit & MSY (≤ ₹1.4 Lakh), a complex DPR is waived! A simple self-declaration and vendor invoice quotation suffices for instant sanction.')}
             </p>
           </div>

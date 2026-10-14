@@ -232,7 +232,7 @@ export default function Track() {
     const pendingCount = Math.max(0, totalCount - submittedCount);
 
     if (i18n.language === 'en') {
-      return `Hello. Your Scheme Setu loan application reference is ${ref}. Applied scheme is ${scheme}. Current status is: ${status}. You have marked ${submittedCount} out of ${totalCount} required documents. ${pendingCount > 0 ? `There are ${pendingCount} pending documents remaining.` : 'All required documents are prepared.'} Please coordinate with your nearest channel partner bank or state SC corporation branch for physical document submission.`;
+      return `Hello. Your SchemeBridge loan application reference is ${ref}. Applied scheme is ${scheme}. Current status is: ${status}. You have marked ${submittedCount} out of ${totalCount} required documents. ${pendingCount > 0 ? `There are ${pendingCount} pending documents remaining.` : 'All required documents are prepared.'} Please coordinate with your nearest channel partner bank or state SC corporation branch for physical document submission.`;
     }
 
     return `नमस्ते! आपकी योजना सेतु ऋण अर्जी संख्या ${ref} है। आपकी योजना का नाम है: ${scheme}। वर्तमान स्थिति है: ${status}। आपने कुल ${totalCount} में से ${submittedCount} दस्तावेज़ तैयार कर लिए हैं। ${pendingCount > 0 ? `अभी ${pendingCount} दस्तावेज़ तैयार करने शेष हैं।` : 'सभी आवश्यक दस्तावेज़ तैयार हैं।'} कृपया अपने सभी कागजात लेकर नजदीकी बैंक शाखा या राज्य अनुसूचित जाति विकास निगम कार्यालय में संपर्क करें।`;
@@ -337,7 +337,7 @@ export default function Track() {
             {t('track.partnerConfirmedPill', 'Partner-confirmed')}
           </span>
           .{' '}
-          {t('track.disclaimerP2', 'Scheme Setu does not process or guarantee loan approvals. Statutory credit appraisal, loan sanction, and fund disbursement remain strictly within the statutory jurisdiction of the respective empanelled Channel Partner (State SC Corporation or Bank).')}
+          {t('track.disclaimerP2', 'SchemeBridge does not process or guarantee loan approvals. Statutory credit appraisal, loan sanction, and fund disbursement remain strictly within the statutory jurisdiction of the respective empanelled Channel Partner (State SC Corporation or Bank).')}
         </div>
       </div>
 

@@ -49,7 +49,7 @@ async function migrateApplications() {
           {
             status: 'inquiry_submitted',
             timestamp: app.createdAt || new Date(),
-            note: 'Initial inquiry registered on Scheme Setu portal',
+            note: 'Initial inquiry registered on SchemeBridge portal',
             actor: 'system',
             isPartnerConfirmed: true
           }

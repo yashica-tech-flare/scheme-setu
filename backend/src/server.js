@@ -9,7 +9,7 @@ async function startServer() {
     await connectDB();
     const server = app.listen(PORT, () => {
       console.log(`=========================================`);
-      console.log(`Scheme Setu Backend running on port ${PORT}`);
+      console.log(`SchemeBridge Backend running on port ${PORT}`);
       console.log(`API URL: http://localhost:${PORT}/api/health`);
       console.log(`=========================================`);
     });

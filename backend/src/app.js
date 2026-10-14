@@ -35,7 +35,7 @@ app.use(express.json());
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
-    service: 'Scheme Setu API',
+    service: 'SchemeBridge API',
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });

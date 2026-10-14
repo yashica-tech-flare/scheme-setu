@@ -1,6 +1,6 @@
 {
   "nav": {
-    "title": "Scheme Setu",
+    "title": "SchemeBridge",
     "subtitle": "SC Concessional Credit Portal",
     "home": "Home",
     "finder": "Scheme Recommender",
@@ -13,7 +13,7 @@
   "hero": {
     "badge": "Subsidized Credit at 6.5% – 9% Annual Interest",
     "title": "Empowering Scheduled Caste Entrepreneurs & Students",
-    "highlight": "Scheme Setu",
+    "highlight": "SchemeBridge",
     "description": "Stop facing loan application rejections. Find eligible NSFDC concessional loan schemes, simulate EMI with moratorium grace periods, and locate authorized channel partners nearest to you.",
     "ctaPrimary": "Check Scheme Eligibility",
     "ctaSecondary": "Locate Channel Partners",
@@ -100,7 +100,7 @@
     "totalInterest": "Total Interest Payable",
     "totalPayment": "Total Repayment",
     "commercialComparison": "Comparison with Commercial Bank Loan (15% rate)",
-    "youSave": "Estimated Interest Saved with Scheme Setu:",
+    "youSave": "Estimated Interest Saved with SchemeBridge:",
     "commercialEmi": "Commercial Bank EMI",
     "effectiveTenure": "Effective Repayment Months"
   },
@@ -154,7 +154,7 @@
     "doc6Title": "Admission Letter (for Education Loans)",
     "doc6Desc": "Proof of admission, recognized college brochure, and official fee schedule breakdown.",
     "stepsTitle": "Step-by-Step Approval Process",
-    "step1": "1. Scheme Matching on Scheme Setu",
+    "step1": "1. Scheme Matching on SchemeBridge",
     "step2": "2. Document Compilation & DPR Verification",
     "step3": "3. Visit Authorized Channel Partner Branch",
     "step4": "4. Field Inspection & Corporation Sanction",
@@ -163,7 +163,7 @@
     "downloadGuideline": "Download Document Checklist PDF"
   },
   "slip": {
-    "title": "Scheme Setu - Concessional Credit Pre-Application Slip",
+    "title": "SchemeBridge - Concessional Credit Pre-Application Slip",
     "govtWatermark": "Ministry of Social Justice and Empowerment - Apex Schemes",
     "applicant": "Applicant Information",
     "selectedScheme": "Matched Concessional Scheme",
@@ -172,7 +172,7 @@
     "disclaimer": "This slip serves as a verified eligibility pre-routing memo under NSFDC guidelines. Final sanction subject to physical document verification and partner credit assessment."
   },
   "footer": {
-    "rights": "Scheme Setu Portal. Built for Scheduled Caste Entrepreneurs & Students in India.",
+    "rights": "SchemeBridge Portal. Built for Scheduled Caste Entrepreneurs & Students in India.",
     "apexCorps": "Apex Corporations: National Scheduled Castes Finance & Development Corporation (NSFDC) | NBCFDC",
     "disclaimer": "Interest rates, moratorium slabs, and subsidy guidelines are structured as per official published corporation norms."
   }

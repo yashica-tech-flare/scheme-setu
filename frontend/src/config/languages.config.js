@@ -1,5 +1,5 @@
 /**
- * Scheme Setu — Comprehensive 22 Scheduled Languages + English Manifest Configuration
+ * SchemeBridge — Comprehensive 22 Scheduled Languages + English Manifest Configuration
  * Controls active localization, font family mapping, RTL layout direction,
  * and phased rollout status ('complete' | 'partial' | 'planned').
  *
