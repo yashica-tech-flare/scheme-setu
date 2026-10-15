@@ -210,5 +210,20 @@ test('Applicant Loan Tracking Lifecycle: POST, GET, PATCH status, documents, tim
   assert.ok(Array.isArray(timelineData.stages));
   assert.strictEqual(timelineData.stages.length, 6);
   assert.ok(timelineData.disclaimer.includes('SchemeBridge does not process or guarantee loan approval'));
+
+  // 7. Test GET /api/applications (List for Partner/Admin portal)
+  const listRes = await fetch(`${baseUrl}/api/applications`);
+  assert.strictEqual(listRes.status, 200);
+  const listData = await listRes.json();
+  assert.strictEqual(listData.success, true);
+  assert.ok(Array.isArray(listData.applications));
+  assert.ok(listData.applications.length > 0);
+
+  // 8. Test GET /api/applications/:refId/stream (SSE stream headers)
+  const streamRes = await fetch(`${baseUrl}/api/applications/${refId}/stream`);
+  assert.strictEqual(streamRes.status, 200);
+  assert.ok(streamRes.headers.get('content-type').includes('text/event-stream'));
+  // Close connection
+  streamRes.body.cancel();
 });
 

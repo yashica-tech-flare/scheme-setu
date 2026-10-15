@@ -34,6 +34,10 @@ for (const filePath in localeModules) {
     if (ns === 'documents') {
       resources[lang]['guidance'] = content.guidance || content;
     }
+    if (content.voice_assistant) {
+      resources[lang]['voice_assistant'] = content.voice_assistant;
+      resources[lang]['voiceAssistant'] = content.voice_assistant;
+    }
 
     // Merge into default 'translation' namespace for backwards compatibility with un-prefixed keys
     if (typeof content === 'object' && content !== null) {
@@ -44,6 +48,11 @@ for (const filePath in localeModules) {
       if (content.locator) Object.assign(resources[lang].translation, content.locator);
       if (content.guidance) Object.assign(resources[lang].translation, content.guidance);
       if (content.track) Object.assign(resources[lang].translation, content.track);
+      if (content.voice_assistant) {
+        Object.assign(resources[lang].translation, content.voice_assistant);
+        resources[lang].translation.voice_assistant = content.voice_assistant;
+        resources[lang].translation.voiceAssistant = content.voice_assistant;
+      }
     }
   }
 }

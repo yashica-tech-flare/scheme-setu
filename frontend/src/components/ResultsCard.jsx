@@ -22,6 +22,7 @@ import {
   BookmarkCheck,
   RefreshCw
 } from 'lucide-react';
+import VoiceAssistant from './VoiceAssistant';
 
 export default function ResultsCard({ scheme, onSelectForEMI }) {
   const { t, i18n } = useTranslation();
@@ -98,6 +99,13 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
   const docs = scheme.requiredDocuments || scheme.documentsRequired || [];
   const agencies = scheme.channelizingAgencies || [];
 
+  const schemeVoiceText = t('voice_assistant.scheme_summary', {
+    schemeName: displayName,
+    maxAmount: (scheme.maxLoanAmount || 0).toLocaleString('en-IN'),
+    rate: scheme.interestRate || '4–9',
+    moratorium: scheme.moratoriumMonths || scheme.moratoriumPeriodMonths || 6
+  });
+
   return (
     <div className="bg-white rounded-2xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between">
       {/* Top Banner with Scheme Title, Verified Badge, and Match Score */}
@@ -123,9 +131,16 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
               )}
             </div>
 
-            <h3 className="text-xl font-bold text-slate-900 leading-snug">
-              {displayName}
-            </h3>
+            <div className="flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-900 leading-snug">
+                {displayName}
+              </h3>
+              <VoiceAssistant
+                variant="mini"
+                textToRead={schemeVoiceText}
+                className="flex-shrink-0"
+              />
+            </div>
           </div>
 
           {/* Match Score Badge */}

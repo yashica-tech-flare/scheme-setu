@@ -329,8 +329,41 @@ export const api = {
     } catch (err) {
       return fallbackSchemes.find(s => s._id === id || s.schemeName === id || s.name === id) || null;
     }
+  },
+
+  // List recent applications (for Officer Portal / Admin Track)
+  listApplications: async (limit = 20) => {
+    try {
+      const response = await client.get('/api/applications', { params: { limit } });
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        return response.data;
+      }
+    } catch (err) {
+      console.warn('[API Client] Remote listApplications failed, using local store:', err.message);
+    }
+    const local = JSON.parse(localStorage.getItem('scheme_setu_apps') || '[]');
+    const demo = getDemoApplication();
+    const hasDemo = local.some(a => a.refId === demo.refId);
+    return hasDemo ? local : [demo, ...local];
+  },
+
+  // Get real-time SSE stream URL for an application
+  getSseStreamUrl: (refId) => {
+    const cleanRef = (refId || '').trim().toUpperCase();
+    const base = baseURL || (typeof window !== 'undefined' ? window.location.origin : '');
+    return `${base}/api/applications/${encodeURIComponent(cleanRef)}/stream`;
   }
 };
+
+// Cross-tab broadcast channel for instant multi-tab sync
+let syncChannel = null;
+try {
+  if (typeof BroadcastChannel !== 'undefined') {
+    syncChannel = new BroadcastChannel('scheme_bridge_realtime');
+  }
+} catch {
+  // ignore
+}
 
 // Local storage helper functions
 function saveLocalApplication(app) {
@@ -344,6 +377,11 @@ function saveLocalApplication(app) {
     }
     localStorage.setItem('scheme_setu_apps', JSON.stringify(list.slice(0, 20)));
     localStorage.setItem('scheme_setu_last_ref', app.refId);
+
+    // Broadcast update across open browser tabs
+    if (syncChannel) {
+      syncChannel.postMessage({ type: 'APPLICATION_UPDATED', application: app });
+    }
   } catch (e) {
     // ignore localstorage errors
   }

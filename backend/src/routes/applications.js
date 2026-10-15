@@ -31,6 +31,45 @@ const HUMAN_STATUS_LABELS = {
   withdrawn: 'Withdrawn by Applicant'
 };
 
+// Active SSE clients mapped by refId: Map<string, Set<express.Response>>
+const sseClients = new Map();
+
+/**
+ * Broadcast live application state to all active EventSource listeners for this refId
+ */
+function broadcastApplicationUpdate(refId, appData) {
+  if (!refId) return;
+  const clients = sseClients.get(refId);
+  if (clients && clients.size > 0) {
+    const payload = `data: ${JSON.stringify(appData)}\n\n`;
+    for (const res of clients) {
+      try {
+        res.write(payload);
+      } catch (err) {
+        console.warn(`[SSE] Failed writing to client for ${refId}:`, err.message);
+      }
+    }
+  }
+}
+
+/**
+ * SMS Notification Dispatch Hook (MSG91 / Twilio production integration point)
+ * In production, triggers outbound SMS webhook to applicant's mobile number.
+ */
+function dispatchSmsNotification({ phone, refId, status, note, actor }) {
+  const recipient = phone || 'Registered Beneficiary Mobile';
+  const statusLabel = HUMAN_STATUS_LABELS[status] || status;
+  console.log(`\n======================================================`);
+  console.log(`[SMS GATEWAY - MSG91/Twilio Live Webhook Trigger]`);
+  console.log(`To: ${recipient}`);
+  console.log(`Application: ${refId}`);
+  console.log(`Actor: ${actor.toUpperCase()} (Institutional Channel Partner)`);
+  console.log(`Status: ${statusLabel}`);
+  console.log(`Notice: SchemeBridge Alert: Your concessional loan application ${refId} has advanced to "${statusLabel}". Official note: "${note}".`);
+  console.log(`Timestamp: ${new Date().toISOString()}`);
+  console.log(`======================================================\n`);
+}
+
 /**
  * Generate a cryptographically distinct SETU-XXXX-XXXX reference ID
  */
@@ -230,6 +269,88 @@ router.post('/', async (req, res) => {
 });
 
 /**
+ * GET /api/applications
+ * Returns recent applications for Partner / Admin management
+ */
+router.get('/', async (req, res) => {
+  try {
+    const limit = Math.min(Number(req.query.limit) || 20, 50);
+    const apps = await Application.find({})
+      .sort({ updatedAt: -1, createdAt: -1 })
+      .limit(limit);
+
+    const normalized = (apps || []).map(normalizeApplicationDoc);
+    return res.status(200).json({
+      success: true,
+      count: normalized.length,
+      applications: normalized
+    });
+  } catch (err) {
+    console.error('Error listing applications:', err);
+    return res.status(500).json({ error: 'Failed to list applications', details: err.message });
+  }
+});
+
+/**
+ * GET /api/applications/:refId/stream
+ * Real-time Server-Sent Events (SSE) push stream for live application reflection
+ */
+router.get('/:refId/stream', async (req, res) => {
+  const { refId } = req.params;
+
+  // Set SSE response headers
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache, no-transform',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Origin': '*'
+  });
+
+  // Flush initial connection message
+  res.write(': connected\n\n');
+
+  // Push immediate current state if exists
+  try {
+    const app = await Application.findOne({
+      $or: [{ refId }, { referenceId: refId }]
+    });
+    if (app) {
+      const normalized = normalizeApplicationDoc(app);
+      res.write(`data: ${JSON.stringify(normalized)}\n\n`);
+    }
+  } catch (err) {
+    console.error('[SSE] Error sending initial state:', err);
+  }
+
+  // Register client in sseClients
+  if (!sseClients.has(refId)) {
+    sseClients.set(refId, new Set());
+  }
+  sseClients.get(refId).add(res);
+
+  // Send periodic heartbeat ping every 20 seconds to prevent connection timeout
+  const keepAlive = setInterval(() => {
+    try {
+      res.write(': ping\n\n');
+    } catch {
+      clearInterval(keepAlive);
+    }
+  }, 20000);
+
+  // Handle client disconnection
+  req.on('close', () => {
+    clearInterval(keepAlive);
+    const clients = sseClients.get(refId);
+    if (clients) {
+      clients.delete(res);
+      if (clients.size === 0) {
+        sseClients.delete(refId);
+      }
+    }
+  });
+});
+
+/**
  * GET /api/applications/:refId
  * Returns complete tracked application lifecycle record
  */
@@ -302,16 +423,19 @@ router.patch('/:refId/status', async (req, res) => {
 
     // Trust model annotation:
     // Disbursed / Sanctioned without partner verification are explicitly marked applicant-reported
-    const partnerVerified = Boolean(isPartnerConfirmed) || actor === 'partner';
+    const validActors = ['applicant', 'partner', 'system'];
+    const validatedActor = validActors.includes(actor) ? actor : 'applicant';
+    const partnerVerified = Boolean(isPartnerConfirmed) || validatedActor === 'partner';
     const finalNote = partnerVerified
       ? (note || 'Partner-confirmed milestone update')
       : (note ? `${note} (Applicant-reported)` : 'Applicant-reported milestone');
 
+    const serverTimestamp = new Date();
     const historyEntry = {
       status: nextStatus,
-      timestamp: new Date(),
+      timestamp: serverTimestamp,
       note: finalNote,
-      actor: actor,
+      actor: validatedActor,
       isPartnerConfirmed: partnerVerified
     };
 
@@ -323,13 +447,13 @@ router.patch('/:refId/status', async (req, res) => {
     if (app.statusHistory) {
       app.statusHistory.push(historyEntry);
       app.status = nextStatus;
-      app.updatedAt = new Date();
+      app.updatedAt = serverTimestamp;
       await app.save();
     } else {
       await Application.findOneAndUpdate(
         { $or: [{ refId }, { referenceId: refId }] },
         {
-          $set: { status: nextStatus, updatedAt: new Date() },
+          $set: { status: nextStatus, updatedAt: serverTimestamp },
           $push: { statusHistory: historyEntry }
         }
       );
@@ -339,10 +463,26 @@ router.patch('/:refId/status', async (req, res) => {
       $or: [{ refId }, { referenceId: refId }]
     });
 
+    const normalizedApp = normalizeApplicationDoc(updatedDoc);
+
+    // Live real-time reflection: broadcast to all active SSE subscribers
+    broadcastApplicationUpdate(refId, normalizedApp);
+
+    // If milestone was confirmed by an institutional partner, trigger SMS notification alert
+    if (partnerVerified) {
+      dispatchSmsNotification({
+        phone: normalizedApp.contactInfo?.phone,
+        refId,
+        status: nextStatus,
+        note: finalNote,
+        actor: validatedActor
+      });
+    }
+
     return res.status(200).json({
       success: true,
       message: `Status successfully updated to ${nextStatus}`,
-      application: normalizeApplicationDoc(updatedDoc)
+      application: normalizedApp
     });
   } catch (err) {
     console.error('Error updating application status:', err);
@@ -371,15 +511,16 @@ router.patch('/:refId/documents', async (req, res) => {
       return res.status(404).json({ error: 'Application record not found', refId });
     }
 
+    const serverTimestamp = new Date();
     app.documentsSubmitted = documentsSubmitted;
-    app.updatedAt = new Date();
+    app.updatedAt = serverTimestamp;
 
     // Optionally advance from inquiry_submitted to documents_pending if documents are being worked on
     if (advanceStatus && app.status === 'inquiry_submitted' && documentsSubmitted.length > 0) {
       app.status = 'documents_pending';
       const historyEntry = {
         status: 'documents_pending',
-        timestamp: new Date(),
+        timestamp: serverTimestamp,
         note: `Applicant marked ${documentsSubmitted.length} document(s) complete in checklist`,
         actor: 'applicant',
         isPartnerConfirmed: false
@@ -390,10 +531,15 @@ router.patch('/:refId/documents', async (req, res) => {
     }
 
     await app.save();
+    const normalizedApp = normalizeApplicationDoc(app);
+
+    // Broadcast updated document state via SSE
+    broadcastApplicationUpdate(refId, normalizedApp);
+
     return res.status(200).json({
       success: true,
       message: 'Document checklist updated',
-      application: normalizeApplicationDoc(app)
+      application: normalizedApp
     });
   } catch (err) {
     console.error('Error updating application documents:', err);

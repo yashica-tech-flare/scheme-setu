@@ -159,13 +159,34 @@ class ApplicationEntity {
     return found;
   }
 
-  static async find(filter = {}) {
+  static find(filter = {}) {
     if (mongoose.connection.readyState === 1) {
       const MongooseApp = mongoose.models.Application || require('./Application');
       return MongooseApp.find(filter);
     }
-    const matched = memoryStore.applications.filter(a => matchFilter(a, filter));
-    return matched;
+    let matched = [...memoryStore.applications.filter(a => matchFilter(a, filter))];
+    const queryObj = {
+      sort(sortOptions) {
+        matched.sort((a, b) => {
+          const timeA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+          const timeB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+          return timeB - timeA;
+        });
+        return queryObj;
+      },
+      limit(n) {
+        const sliced = matched.slice(0, n);
+        return {
+          then(resolve) {
+            return resolve(sliced);
+          }
+        };
+      },
+      then(resolve) {
+        return resolve(matched);
+      }
+    };
+    return queryObj;
   }
 
   static async findOneAndUpdate(filter = {}, update = {}, options = {}) {

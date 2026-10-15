@@ -26,6 +26,7 @@ import {
   UserCheck
 } from 'lucide-react';
 import VoiceAssistant from '../components/VoiceAssistant';
+import { localizeSchemeName } from '../utils/localizationHelper';
 
 export default function Track() {
   const { t, i18n } = useTranslation();
@@ -42,6 +43,8 @@ export default function Track() {
   const [application, setApplication] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [actionMessage, setActionMessage] = useState('');
+  const [isLiveConnected, setIsLiveConnected] = useState(false);
+  const [liveFlash, setLiveFlash] = useState(false);
 
   // Partner simulation mode toggle (to showcase partner-confirmed vs applicant-reported)
   const [isPartnerMode, setIsPartnerMode] = useState(false);
@@ -98,6 +101,96 @@ export default function Track() {
 
     loadApplication();
   }, [activeRef]);
+
+  // Real-time synchronization via SSE, BroadcastChannel, and fallback polling
+  useEffect(() => {
+    if (!activeRef) {
+      setIsLiveConnected(false);
+      return;
+    }
+
+    let isMounted = true;
+    let eventSource = null;
+    let channel = null;
+
+    const applyRealtimeUpdate = (updatedApp) => {
+      if (!isMounted || !updatedApp) return;
+      const refMatches = (updatedApp.refId && updatedApp.refId.toUpperCase() === activeRef.toUpperCase()) ||
+                         (updatedApp.referenceId && updatedApp.referenceId.toUpperCase() === activeRef.toUpperCase());
+      if (refMatches) {
+        setApplication((prev) => {
+          if (!prev) return updatedApp;
+          if (prev.status !== updatedApp.status || (prev.documentsSubmitted?.length !== updatedApp.documentsSubmitted?.length)) {
+            const latestHistory = updatedApp.statusHistory?.[updatedApp.statusHistory.length - 1];
+            const actorLabel = latestHistory?.actor === 'partner' ? t('track.partnerConfirmedPill', 'Partner-confirmed') : (latestHistory?.actor || 'System');
+            setActionMessage(`⚡ Real-Time Update: Status changed to "${getStatusLabel(updatedApp.status)}" (${actorLabel})`);
+            setLiveFlash(true);
+            setTimeout(() => { if (isMounted) setLiveFlash(false); }, 3500);
+          }
+          return updatedApp;
+        });
+        setIsLiveConnected(true);
+      }
+    };
+
+    // 1. Establish SSE Connection to backend
+    try {
+      const streamUrl = api.getSseStreamUrl(activeRef);
+      eventSource = new EventSource(streamUrl);
+
+      eventSource.onopen = () => {
+        if (isMounted) setIsLiveConnected(true);
+      };
+
+      eventSource.addEventListener('application_update', (event) => {
+        try {
+          const parsed = JSON.parse(event.data);
+          applyRealtimeUpdate(parsed);
+        } catch (err) {
+          console.error('[Track SSE] Parse error:', err);
+        }
+      });
+
+      eventSource.onerror = () => {
+        if (isMounted) setIsLiveConnected(false);
+      };
+    } catch (err) {
+      console.warn('[Track SSE] EventSource unavailable:', err);
+    }
+
+    // 2. BroadcastChannel cross-tab listener (instant sync between open tabs)
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        channel = new BroadcastChannel('scheme_bridge_realtime');
+        channel.onmessage = (event) => {
+          if (event.data?.type === 'APPLICATION_UPDATED' && event.data?.application) {
+            applyRealtimeUpdate(event.data.application);
+          }
+        };
+      }
+    } catch {
+      // ignore
+    }
+
+    // 3. Fallback polling every 15 seconds
+    const interval = setInterval(async () => {
+      try {
+        const refreshed = await api.getApplication(activeRef);
+        if (refreshed && isMounted) {
+          applyRealtimeUpdate(refreshed);
+        }
+      } catch {
+        // ignore
+      }
+    }, 15000);
+
+    return () => {
+      isMounted = false;
+      if (eventSource) eventSource.close();
+      if (channel) channel.close();
+      clearInterval(interval);
+    };
+  }, [activeRef, t]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -221,21 +314,29 @@ export default function Track() {
     ? application.matchedScheme.requiredDocuments
     : defaultDocs;
 
-  // Spoken narrative specifically structured for illiterate/semi-literate applicants
+  // Spoken narrative specifically structured for illiterate/semi-literate applicants in all 13 languages
   const getSpokenSummary = () => {
     if (!application) return '';
     const ref = application.refId || application.referenceId || '';
-    const scheme = application.matchedScheme?.schemeName || t('track.schemeDefault', 'NSFDC Concessional Loan Scheme');
+    const rawScheme = application.matchedScheme;
+    const scheme = rawScheme ? localizeSchemeName(rawScheme, i18n.language) : t('track.schemeDefault', 'NSFDC Concessional Loan Scheme');
     const status = getStatusLabel(currentStatus);
     const submittedCount = (application.documentsSubmitted || []).length;
     const totalCount = availableDocs.length;
     const pendingCount = Math.max(0, totalCount - submittedCount);
 
-    if (i18n.language === 'en') {
-      return `Hello. Your SchemeBridge loan application reference is ${ref}. Applied scheme is ${scheme}. Current status is: ${status}. You have marked ${submittedCount} out of ${totalCount} required documents. ${pendingCount > 0 ? `There are ${pendingCount} pending documents remaining.` : 'All required documents are prepared.'} Please coordinate with your nearest channel partner bank or state SC corporation branch for physical document submission.`;
-    }
+    const pendingText = pendingCount > 0
+      ? t('voice_assistant.pending_remaining', { count: pendingCount })
+      : t('voice_assistant.all_docs_ready');
 
-    return `नमस्ते! आपकी योजना सेतु ऋण अर्जी संख्या ${ref} है। आपकी योजना का नाम है: ${scheme}। वर्तमान स्थिति है: ${status}। आपने कुल ${totalCount} में से ${submittedCount} दस्तावेज़ तैयार कर लिए हैं। ${pendingCount > 0 ? `अभी ${pendingCount} दस्तावेज़ तैयार करने शेष हैं।` : 'सभी आवश्यक दस्तावेज़ तैयार हैं।'} कृपया अपने सभी कागजात लेकर नजदीकी बैंक शाखा या राज्य अनुसूचित जाति विकास निगम कार्यालय में संपर्क करें।`;
+    return t('voice_assistant.track_summary', {
+      ref,
+      schemeName: scheme,
+      stage: status,
+      submittedCount,
+      totalCount,
+      pendingText
+    });
   };
 
   return (
@@ -400,7 +501,9 @@ export default function Track() {
           />
 
           {/* Application Header Card */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className={`bg-white rounded-2xl p-6 sm:p-8 border transition-all duration-500 ${
+            liveFlash ? 'border-emerald-500 shadow-xl ring-4 ring-emerald-400/30' : 'border-slate-200 shadow-md'
+          } flex flex-col md:flex-row md:items-center justify-between gap-6`}>
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-sm sm:text-base font-extrabold px-3 py-1 bg-slate-900 text-saffron-400 rounded-lg tracking-wider">
@@ -421,6 +524,28 @@ export default function Track() {
                 }`}>
                   {getStatusLabel(currentStatus)}
                 </span>
+
+                {/* Real-time SSE indicator */}
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
+                  isLiveConnected
+                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
+                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                }`}>
+                  <span className={`w-2 h-2 rounded-full ${
+                    isLiveConnected ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'
+                  }`} />
+                  <span>{isLiveConnected ? t('track.liveActive', 'Live Stream Active') : t('track.syncing', 'Syncing')}</span>
+                </span>
+
+                {/* Link to Officer Portal */}
+                <Link
+                  to={`/admin/track?ref=${encodeURIComponent(application.refId || application.referenceId)}`}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-saffron-50 text-saffron-800 border border-saffron-200 hover:bg-saffron-100 transition-colors"
+                  title="Open Partner/Bank Officer interface to advance application status in real-time"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-saffron-600" />
+                  <span>{t('track.officerPortalLink', 'Officer Portal')} &rarr;</span>
+                </Link>
 
                 {application.isOffline && (
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">

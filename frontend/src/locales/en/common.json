@@ -76,10 +76,10 @@
   "voiceAssistantTitle": "Difficulty Reading? Listen to your application aloud",
   "voiceAssistantDesc": "Specially designed for low-literacy and rural applicants: Tap this button to hear your loan status, amount, and required documents spoken aloud in your language.",
   "listenNowBtn": "🔊 Listen Aloud (बोल के सुनें)",
-  "stopAudio": "Stop Audio (रोकें)",
+  "stopAudio": "Stop Audio",
   "speakingNow": "Playing voice readout...",
   "listenAudio": "Listen Aloud",
-  "audioGuideBtn": "Audio Guide",
+  "audioGuideBtn": "Listen Aloud",
   "audioPortalOverview": "Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
   "home": {
     "problemsBadge": "Bridging the SC Credit Gap",
@@ -96,5 +96,17 @@
     "problem3Solved": "Solved: Dynamic simulator shows exact savings vs commercial loans.",
     "simulatorTitle": "Interactive Concessional EMI Simulator",
     "simulatorSubtitle": "Simulate your monthly installment with genuine NSFDC subsidized rates and moratorium relief:"
+  },
+  "voice_assistant": {
+    "listen_button": "Listen Aloud",
+    "stop_button": "Stop Audio",
+    "voice_tag": "Audio Guide / Voice Assistant",
+    "voice_unavailable": "Voice readout not available in this language on this device",
+    "portal_overview": "Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
+    "scheme_summary": "{{schemeName}} provides a concessional loan up to ₹{{maxAmount}} at {{rate}}% annual interest, with a {{moratorium}} month moratorium.",
+    "guide_summary": "For {{schemeName}}, you need {{docCount}} required documents: {{docList}}.",
+    "track_summary": "Your application {{ref}} for {{schemeName}} is currently at stage: {{stage}}. You have prepared {{submittedCount}} out of {{totalCount}} required documents. {{pendingText}}",
+    "pending_remaining": "There are {{count}} pending documents remaining.",
+    "all_docs_ready": "All required documents are prepared."
   }
 }

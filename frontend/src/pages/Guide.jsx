@@ -155,7 +155,7 @@ export default function Guide() {
       </div>
 
       {/* Main Interactive Checklist Panel (Scheme-Specific or Generic) */}
-      <GuidancePanel scheme={selectedScheme} />
+      <GuidancePanel scheme={selectedScheme} inGuidePage={true} />
 
       {/* DPR (Detailed Project Report) Advisory Section */}
       <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">

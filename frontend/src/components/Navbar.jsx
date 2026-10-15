@@ -86,8 +86,7 @@ export default function Navbar() {
             {/* Audio Voice Guide for illiterate / low-literacy users */}
             <VoiceAssistant
               variant="button"
-              textToRead={t('common.audioPortalOverview', 'योजना सेतु में आपका स्वागत है। यह भारत सरकार के तहत अनुसूचित जाति के उद्यमियों और छात्रों के लिए 4 से 9 प्रतिशत कम ब्याज दर पर सरकारी ऋण योजनाएं खोजने का आधिकारिक पोर्टल है।')}
-              label={t('common.audioGuideBtn', 'बोलकर सुनें')}
+              textToRead={t('voice_assistant.portal_overview', 'Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.')}
               className="hidden sm:inline-flex"
             />
 
@@ -131,8 +130,7 @@ export default function Navbar() {
           <div className="pt-3 px-1 border-t border-slate-800/80">
             <VoiceAssistant
               variant="button"
-              textToRead={t('common.audioPortalOverview', 'योजना सेतु में आपका स्वागत है। यह भारत सरकार के तहत अनुसूचित जाति के उद्यमियों और छात्रों के लिए 4 से 9 प्रतिशत कम ब्याज दर पर सरकारी ऋण योजनाएं खोजने का आधिकारिक पोर्टल है।')}
-              label={t('common.audioGuideBtn', 'बोलकर सुनें (आवाज़ में)')}
+              textToRead={t('voice_assistant.portal_overview', 'Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.')}
               className="w-full justify-center"
             />
           </div>

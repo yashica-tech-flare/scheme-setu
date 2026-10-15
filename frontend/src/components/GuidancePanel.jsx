@@ -18,8 +18,9 @@ import {
   Sparkles
 } from 'lucide-react';
 import { localizeSchemeName, localizeDocumentName } from '../utils/localizationHelper';
+import VoiceAssistant from './VoiceAssistant';
 
-export default function GuidancePanel({ scheme, partner }) {
+export default function GuidancePanel({ scheme, partner, inGuidePage = false }) {
   const { t, i18n } = useTranslation();
   const isHindi = i18n.language === 'hi';
 
@@ -137,30 +138,38 @@ export default function GuidancePanel({ scheme, partner }) {
     ? localizeSchemeName(scheme, i18n.language)
     : null;
 
+  const guideVoiceText = t('voice_assistant.guide_summary', {
+    schemeName: schemeNameDisplay || t('guidance.allSchemesOption', 'All Schemes'),
+    docCount: activeDocs.length,
+    docList: activeDocs.map((d, i) => `${i + 1}. ${d.title}`).join('. ')
+  });
+
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-      {/* Active Application Discovery Strip */}
-      <div className="bg-slate-950 text-white px-6 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-saffron-400" />
-          <span>
-            {activeRef ? (
-              <>
-                {t('guidance.activeTrackedInquiry')}{' '}
-                <strong className="text-saffron-300 font-mono tracking-wider">{activeRef}</strong>
-              </>
-            ) : (
-              <>{t('guidance.activeInquiryPrompt')}</>
-            )}
-          </span>
+      {/* Active Application Discovery Strip - only show if not already rendered on /guide */}
+      {!inGuidePage && (
+        <div className="bg-slate-950 text-white px-6 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs border-b border-slate-800">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-saffron-400" />
+            <span>
+              {activeRef ? (
+                <>
+                  {t('guidance.activeTrackedInquiry')}{' '}
+                  <strong className="text-saffron-300 font-mono tracking-wider">{activeRef}</strong>
+                </>
+              ) : (
+                <>{t('guidance.activeInquiryPrompt')}</>
+              )}
+            </span>
+          </div>
+          <Link
+            to={activeRef ? `/track?ref=${encodeURIComponent(activeRef)}` : '/track'}
+            className="inline-flex items-center gap-1 font-bold text-saffron-400 hover:text-saffron-300 transition-colors self-start sm:self-auto"
+          >
+            <span>{t('guidance.trackApplicationLink')} &rarr;</span>
+          </Link>
         </div>
-        <Link
-          to={activeRef ? `/track?ref=${encodeURIComponent(activeRef)}` : '/track'}
-          className="inline-flex items-center gap-1 font-bold text-saffron-400 hover:text-saffron-300 transition-colors self-start sm:self-auto"
-        >
-          <span>{t('guidance.trackApplicationLink')} &rarr;</span>
-        </Link>
-      </div>
+      )}
 
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-white border-b border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -170,7 +179,9 @@ export default function GuidancePanel({ scheme, partner }) {
             {t('guidance.zeroRejectionPrep')}
           </div>
           <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-            {scheme ? `${t('guidance.schemeSpecificDocs')}` : t('guidance.title')}
+            {inGuidePage
+              ? (scheme ? `${t('guidance.schemeSpecificDocs')}: ${schemeNameDisplay}` : t('guidance.essentialDocs', 'Mandatory Documents Checklist'))
+              : (scheme ? `${t('guidance.schemeSpecificDocs')}` : t('guidance.title'))}
           </h3>
           <p className="text-sm text-slate-300 mt-1">
             {scheme
@@ -179,14 +190,20 @@ export default function GuidancePanel({ scheme, partner }) {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={handlePrint}
-          className="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-xs font-bold text-white flex items-center gap-2 transition-all self-start sm:self-auto cursor-pointer"
-        >
-          <Printer className="w-4 h-4 text-saffron-400" />
-          {t('guidance.printSlip')}
-        </button>
+        <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+          <VoiceAssistant
+            variant="button"
+            textToRead={guideVoiceText}
+          />
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-xs font-bold text-white flex items-center gap-2 transition-all cursor-pointer"
+          >
+            <Printer className="w-4 h-4 text-saffron-400" />
+            {t('guidance.printSlip')}
+          </button>
+        </div>
       </div>
 
       {/* Scheme-Specific Provenance & Authorized Agencies Banner */}
@@ -256,10 +273,16 @@ export default function GuidancePanel({ scheme, partner }) {
                       <Square className="w-5 h-5 text-slate-400" />
                     )}
                   </div>
-                  <div>
-                    <span className="text-sm font-bold text-slate-900 block">
-                      {d.title}
-                    </span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-bold text-slate-900 block">
+                        {d.title}
+                      </span>
+                      <VoiceAssistant
+                        variant="mini"
+                        textToRead={`${d.title}. ${d.desc}. ${t('guidance.issuer', 'Issuer')}: ${d.authority}`}
+                      />
+                    </div>
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                       {d.desc}
                     </p>
