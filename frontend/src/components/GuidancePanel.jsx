@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   FileCheck,
@@ -9,7 +8,6 @@ import {
   FileText,
   AlertCircle,
   HelpCircle,
-  Clock,
   Landmark,
   ArrowRight,
   ExternalLink,
@@ -25,16 +23,6 @@ export default function GuidancePanel({ scheme, partner, inGuidePage = false }) 
   const isHindi = i18n.language === 'hi';
 
   const [checkedDocs, setCheckedDocs] = useState({});
-  const [activeRef, setActiveRef] = useState('');
-
-  useEffect(() => {
-    try {
-      const ref = localStorage.getItem('scheme_setu_last_ref');
-      if (ref) setActiveRef(ref);
-    } catch {
-      // ignore
-    }
-  }, []);
 
   // Reset checked docs state when scheme changes
   useEffect(() => {
@@ -146,31 +134,6 @@ export default function GuidancePanel({ scheme, partner, inGuidePage = false }) 
 
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-      {/* Active Application Discovery Strip - only show if not already rendered on /guide */}
-      {!inGuidePage && (
-        <div className="bg-slate-950 text-white px-6 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-saffron-400" />
-            <span>
-              {activeRef ? (
-                <>
-                  {t('guidance.activeTrackedInquiry')}{' '}
-                  <strong className="text-saffron-300 font-mono tracking-wider">{activeRef}</strong>
-                </>
-              ) : (
-                <>{t('guidance.activeInquiryPrompt')}</>
-              )}
-            </span>
-          </div>
-          <Link
-            to={activeRef ? `/track?ref=${encodeURIComponent(activeRef)}` : '/track'}
-            className="inline-flex items-center gap-1 font-bold text-saffron-400 hover:text-saffron-300 transition-colors self-start sm:self-auto"
-          >
-            <span>{t('guidance.trackApplicationLink')} &rarr;</span>
-          </Link>
-        </div>
-      )}
-
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-white border-b border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -193,6 +156,7 @@ export default function GuidancePanel({ scheme, partner, inGuidePage = false }) 
         <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
           <VoiceAssistant
             variant="button"
+            clipId={!scheme ? 'doc_guidance_intro' : undefined}
             textToRead={guideVoiceText}
           />
           <button

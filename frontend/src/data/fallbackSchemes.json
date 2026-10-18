@@ -57,8 +57,36 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Special 1.5% interest rebate on timely repayments and capital grant assistance under SCA component.",
-    "sourceUrl": "https://nsfdc.nic.in/en/mahila-samriddhi-yojana",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "both",
+    "applyUrl": "https://pmsuraj.dosje.gov.in",
+    "applyPortalName": "PM-SURAJ Portal (Ministry of Social Justice & Empowerment)",
+    "applyUrlVerified": "2026-10-18T00:00:00.000Z",
+    "applyNotes": "Register with Aadhaar-linked mobile number. Select NSFDC > Mahila Samriddhi Yojana.",
+    "stateApplyLinks": [
+      {
+        "state": "Gujarat",
+        "stateCode": "GJ",
+        "portalName": "e-Samaj Kalyan Portal (GSCDC)",
+        "url": "https://esamajkalyan.gujarat.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      },
+      {
+        "state": "Delhi",
+        "stateCode": "DL",
+        "portalName": "Delhi SC/ST Financial Development Portal (DSFDC)",
+        "url": "https://dsfdc.delhi.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      },
+      {
+        "state": "Odisha",
+        "stateCode": "OD",
+        "portalName": "ST & SC Development Department Portal (OSFDC)",
+        "url": "https://stsc.odisha.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      }
+    ]
   },
   {
     "schemeName": "NSFDC Micro Credit Finance (MCF)",
@@ -116,8 +144,29 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Direct capital subsidy of ₹10,000 or 10% of project cost whichever is lower under SCA component.",
-    "sourceUrl": "https://nsfdc.nic.in/en/micro-credit-finance",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "both",
+    "applyUrl": "https://pmsuraj.dosje.gov.in",
+    "applyPortalName": "PM-SURAJ Portal (Ministry of Social Justice & Empowerment)",
+    "applyUrlVerified": "2026-10-18T00:00:00.000Z",
+    "applyNotes": "Register with Aadhaar-linked mobile number. Select NSFDC > Micro Credit Finance.",
+    "stateApplyLinks": [
+      {
+        "state": "Gujarat",
+        "stateCode": "GJ",
+        "portalName": "e-Samaj Kalyan Portal (GSCDC)",
+        "url": "https://esamajkalyan.gujarat.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      },
+      {
+        "state": "Delhi",
+        "stateCode": "DL",
+        "portalName": "Delhi SC/ST Financial Development Portal (DSFDC)",
+        "url": "https://dsfdc.delhi.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      }
+    ]
   },
   {
     "schemeName": "Laghu Vyavsay Yojana (Small Business Scheme)",
@@ -177,8 +226,36 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Direct linkage with District SC Development Corporation capital subsidy (up to ₹50,000).",
-    "sourceUrl": "https://nsfdc.nic.in/en/laghu-vyavsay-yojana",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "both",
+    "applyUrl": "https://pmsuraj.dosje.gov.in",
+    "applyPortalName": "PM-SURAJ Portal (Ministry of Social Justice & Empowerment)",
+    "applyUrlVerified": "2026-10-18T00:00:00.000Z",
+    "applyNotes": "Requires basic project description and vendor quotation.",
+    "stateApplyLinks": [
+      {
+        "state": "Gujarat",
+        "stateCode": "GJ",
+        "portalName": "e-Samaj Kalyan Portal (GSCDC)",
+        "url": "https://esamajkalyan.gujarat.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      },
+      {
+        "state": "Delhi",
+        "stateCode": "DL",
+        "portalName": "Delhi SC/ST Financial Development Portal (DSFDC)",
+        "url": "https://dsfdc.delhi.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      },
+      {
+        "state": "Odisha",
+        "stateCode": "OD",
+        "portalName": "ST & SC Development Department Portal (OSFDC)",
+        "url": "https://stsc.odisha.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      }
+    ]
   },
   {
     "schemeName": "NSFDC Term Loan Scheme",
@@ -242,8 +319,29 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Finances up to 90% of total project cost; promoter margin requirement is only 10%.",
-    "sourceUrl": "https://nsfdc.nic.in/en/term-loan",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "both",
+    "applyUrl": "https://pmsuraj.dosje.gov.in",
+    "applyPortalName": "PM-SURAJ Portal (Ministry of Social Justice & Empowerment)",
+    "applyUrlVerified": "2026-10-18T00:00:00.000Z",
+    "applyNotes": "Requires Detailed Project Report (DPR) and vendor machinery quotations.",
+    "stateApplyLinks": [
+      {
+        "state": "Delhi",
+        "stateCode": "DL",
+        "portalName": "Delhi SC/ST Financial Development Portal (DSFDC)",
+        "url": "https://dsfdc.delhi.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      },
+      {
+        "state": "Odisha",
+        "stateCode": "OD",
+        "portalName": "ST & SC Development Department Portal (OSFDC)",
+        "url": "https://stsc.odisha.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      }
+    ]
   },
   {
     "schemeName": "Green Business Scheme (GBS)",
@@ -304,8 +402,22 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Special preferential interest rate (7.5% p.a.) with 90% capital expenditure coverage for certified green tech.",
-    "sourceUrl": "https://nsfdc.nic.in/en/green-business-scheme",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "both",
+    "applyUrl": "https://pmsuraj.dosje.gov.in",
+    "applyPortalName": "PM-SURAJ Portal (Ministry of Social Justice & Empowerment)",
+    "applyUrlVerified": "2026-10-18T00:00:00.000Z",
+    "applyNotes": "For battery e-rickshaw, solar units, or green micro-enterprises under NSFDC.",
+    "stateApplyLinks": [
+      {
+        "state": "Delhi",
+        "stateCode": "DL",
+        "portalName": "Delhi SC/ST Financial Development Portal (DSFDC)",
+        "url": "https://dsfdc.delhi.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      }
+    ]
   },
   {
     "schemeName": "NSFDC Education Loan Scheme (ELS)",
@@ -357,8 +469,22 @@
     "educationRequired": true,
     "costCoveragePercent": 90,
     "subsidyDetails": "0.5% interest rebate for female students. Repayment starts 1 year after course completion or 6 months after securing job.",
-    "sourceUrl": "https://nsfdc.nic.in/en/education-loan-scheme",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "both",
+    "applyUrl": "https://pmsuraj.dosje.gov.in",
+    "applyPortalName": "PM-SURAJ Portal (Ministry of Social Justice & Empowerment)",
+    "applyUrlVerified": "2026-10-18T00:00:00.000Z",
+    "applyNotes": "Requires recognized institution admission letter and approved fee schedule.",
+    "stateApplyLinks": [
+      {
+        "state": "Delhi",
+        "stateCode": "DL",
+        "portalName": "Delhi SC/ST Financial Development Portal (DSFDC)",
+        "url": "https://dsfdc.delhi.gov.in",
+        "verifiedOn": "2026-10-18T00:00:00.000Z"
+      }
+    ]
   },
   {
     "schemeName": "Voctech & Skill Development Loan",
@@ -411,7 +537,13 @@
     "educationRequired": false,
     "costCoveragePercent": 90,
     "subsidyDetails": "Covers 100% of course fee plus equipment tool-kit purchase directly upon course certification.",
-    "sourceUrl": "https://nsfdc.nic.in/en/vocational-education-loan",
-    "lastVerified": "2026-10-03T00:00:00.000Z"
+    "sourceUrl": "https://nsfdc.nic.in/scheme",
+    "lastVerified": "2026-10-03T00:00:00.000Z",
+    "applyMode": "offline",
+    "applyUrl": null,
+    "applyPortalName": null,
+    "applyUrlVerified": null,
+    "applyNotes": "Applied in-person at nearest State Channelising Agency (SCA) branch with course admission proof.",
+    "stateApplyLinks": []
   }
 ]

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import VoiceAssistant from './VoiceAssistant';
-import { Landmark, Compass, MapPin, Calculator, FileCheck, PhoneCall, Menu, X, Clock } from 'lucide-react';
+import { Landmark, Compass, MapPin, Calculator, FileCheck, PhoneCall, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const { t } = useTranslation();
@@ -15,7 +15,6 @@ export default function Navbar() {
     { to: '/#recommender', label: t('nav.finder'), icon: Compass },
     { to: '/partners', label: t('nav.locator'), icon: MapPin },
     { to: '/guide', label: t('nav.guidance'), icon: FileCheck },
-    { to: '/track', label: t('nav.track', 'Track Loan'), icon: Clock },
   ];
 
   return (
@@ -86,6 +85,7 @@ export default function Navbar() {
             {/* Audio Voice Guide for illiterate / low-literacy users */}
             <VoiceAssistant
               variant="button"
+              clipId="portal_welcome"
               textToRead={t('voice_assistant.portal_overview', 'Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.')}
               className="hidden sm:inline-flex"
             />
@@ -130,6 +130,7 @@ export default function Navbar() {
           <div className="pt-3 px-1 border-t border-slate-800/80">
             <VoiceAssistant
               variant="button"
+              clipId="portal_welcome"
               textToRead={t('voice_assistant.portal_overview', 'Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.')}
               className="w-full justify-center"
             />

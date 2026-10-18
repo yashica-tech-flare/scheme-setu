@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { SchemeModel: Scheme } = require('../models/dbAdapter');
+const { sanitizeSchemeApplyFields } = require('../utils/urlValidator');
 const RecommendationLog = require('../models/RecommendationLog');
 const { recommendScheme } = require('../services/ruleEngine');
 
@@ -75,9 +76,15 @@ router.post('/', async (req, res) => {
       subsidyDetails: s.subsidyDetails,
       sourceUrl: s.sourceUrl || 'https://nsfdc.nic.in',
       lastVerified: s.lastVerified || new Date(),
+      applyMode: s.applyMode || 'offline',
+      applyUrl: s.applyUrl || null,
+      applyPortalName: s.applyPortalName || null,
+      applyUrlVerified: s.applyUrlVerified || null,
+      applyNotes: s.applyNotes || null,
+      stateApplyLinks: s.stateApplyLinks || [],
       matchScore: s.matchScore,
       matchReasons: s.matchReasons || []
-    }));
+    })).map(item => sanitizeSchemeApplyFields(item));
 
     // Optional background analytics log (non-blocking)
     try {

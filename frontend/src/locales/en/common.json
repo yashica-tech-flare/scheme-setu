@@ -7,7 +7,6 @@
     "locator": "Partner Locator",
     "calculator": "EMI Calculator",
     "guidance": "Document Checklist",
-    "track": "Track Loan",
     "helpdesk": "Helpline: 1800-11-2001 (Toll-Free)",
     "nationalPortal": "Government of India Initiative"
   },
@@ -56,7 +55,24 @@
     "projectNeedLabel": "Project Need",
     "officialGovernanceNote": "Official Governance Note",
     "loadingMatching": "Matching eligible concessional schemes against NSFDC rules...",
-    "noSchemesDesc": "Please adjust your project cost or verify that family income is within the ₹5 Lakh threshold."
+    "noSchemesDesc": "Please adjust your project cost or verify that family income is within the ₹5 Lakh threshold.",
+    "applyOnline": "Apply Online",
+    "applyOnlineState": "Apply Online ({{state}} Portal)",
+    "applyOnlineNational": "Apply on National Portal (PM-SURAJ)",
+    "applyAtBranch": "Apply at a Branch",
+    "findNearestBranch": "Find Nearest Branch",
+    "printSlip": "Print Verification Slip",
+    "getDirections": "Get Directions",
+    "callBranch": "Call Branch",
+    "nearestBranchTitle": "Nearest Designated Channel Partner",
+    "offlineBranchExplanation": "This scheme is applied for in person at the agency branch.",
+    "statePortalsAvailable": "State Portals Available",
+    "filterByState": "Filter by State / UT",
+    "allIndia": "All India (National)",
+    "linkVerifiedOn": "Link last verified on",
+    "pmSurajPortal": "PM-SURAJ Official Portal",
+    "offlineOnlyTitle": "Branch Application Route",
+    "offlineRouteNotice": "This scheme is processed in-person at your nearest channel partner branch."
   },
   "slip": {
     "title": "SchemeBridge - Concessional Credit Pre-Application Slip",
@@ -105,8 +121,24 @@
     "portal_overview": "Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
     "scheme_summary": "{{schemeName}} provides a concessional loan up to ₹{{maxAmount}} at {{rate}}% annual interest, with a {{moratorium}} month moratorium.",
     "guide_summary": "For {{schemeName}}, you need {{docCount}} required documents: {{docList}}.",
-    "track_summary": "Your application {{ref}} for {{schemeName}} is currently at stage: {{stage}}. You have prepared {{submittedCount}} out of {{totalCount}} required documents. {{pendingText}}",
     "pending_remaining": "There are {{count}} pending documents remaining.",
-    "all_docs_ready": "All required documents are prepared."
+    "all_docs_ready": "All required documents are prepared.",
+    "apply_summary": "You are proceeding to {{portalName}}. Please keep your {{docsList}} ready. Applying is completely free of cost; avoid paying any agents or middlemen."
+  },
+  "applyModal": {
+    "securityVerified": "Official Government Redirect",
+    "leavingNotice": "You are leaving SchemeBridge and going to an official government portal.",
+    "listenBriefing": "Listen to pre-application checklist",
+    "destinationHeading": "Official Government Application Portal",
+    "forSchemeLabel": "Scheme",
+    "docsReadyTitle": "Checklist of Documents to Keep Ready",
+    "freeWarningTitle": "Zero Fee Guarantee — Beware of Fraud",
+    "freeWarning": "Applying through the official government portal is 100% free. Never pay money to agents, brokers, or middlemen.",
+    "disclaimerTitle": "Official Disclaimer",
+    "disclaimer": "SchemeBridge is an informational enablement platform. It does not submit your application or view credentials you enter on government portals. Final credit assessment and sanction are governed solely by the respective Channelising Agency.",
+    "cancel": "Cancel",
+    "continueToPortal": "Continue to Official Portal",
+    "invalidUrlAlert": "Security error: Invalid government portal URL.",
+    "defaultPortalName": "PM-SURAJ Official Portal"
   }
 }

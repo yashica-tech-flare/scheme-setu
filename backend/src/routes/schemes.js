@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { SchemeModel: Scheme } = require('../models/dbAdapter');
+const { sanitizeSchemeApplyFields } = require('../utils/urlValidator');
 
 /**
  * GET /api/schemes
@@ -8,8 +9,13 @@ const { SchemeModel: Scheme } = require('../models/dbAdapter');
  */
 router.get('/', async (req, res) => {
   try {
-    const schemes = await Scheme.find({});
-    return res.status(200).json(schemes);
+    const rawSchemes = await Scheme.find({});
+    const schemesList = Array.isArray(rawSchemes) ? rawSchemes : (rawSchemes.lean ? await rawSchemes.lean() : []);
+    const sanitized = schemesList.map(s => {
+      const plain = typeof s.toObject === 'function' ? s.toObject() : { ...s };
+      return sanitizeSchemeApplyFields(plain);
+    });
+    return res.status(200).json(sanitized);
   } catch (err) {
     console.error('Error fetching schemes:', err);
     return res.status(500).json({ error: 'Failed to fetch schemes', details: err.message });
@@ -50,7 +56,8 @@ router.get('/:id', async (req, res) => {
       return res.status(404).json({ error: `Scheme '${id}' not found` });
     }
 
-    return res.status(200).json(scheme);
+    const plain = typeof scheme.toObject === 'function' ? scheme.toObject() : { ...scheme };
+    return res.status(200).json(sanitizeSchemeApplyFields(plain));
   } catch (err) {
     console.error('Error fetching scheme by id:', err);
     return res.status(500).json({ error: 'Failed to fetch scheme record', details: err.message });

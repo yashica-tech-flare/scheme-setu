@@ -39,11 +39,11 @@ Scheme Setu replaces informal brokers with an end-to-end digital public infrastr
 
 1. **Smart Eligibility Screener (`/`):** Evaluates SC status, family income ($\le$ ₹5,00,000/yr), loan purpose, and gender in 60 seconds.
 2. **Rule-Based Matching Engine (`/results`):** Computes match scores and transparent, auditable match reasons.
-3. **Structured NSFDC Knowledge Base:** Every scheme links to verified official URLs (`nsfdc.nic.in`) with active audit dates.
+3. **Official "Apply Online" Gateway:** Direct routing to official government portals (PM-SURAJ under MoSJE) with domain allow-listing (`.gov.in`, `.nic.in`) and pre-departure document checklists.
 4. **Moratorium-Aware EMI Simulator:** Factors in 3–12 month grace periods and calculates interest saved vs commercial bank loans.
-5. **Scheme-Specific Document Guidance (`/guide`):** Dynamic checklist outlining exact certificate issuers and DPR 3-pillar templates.
+5. **Scheme-Specific Document Guidance (`/guide`):** Dynamic checklist outlining exact certificate issuers, DPR 3-pillar templates, and official application route.
 6. **Geo-Spatial Partner Locator (`/partners`):** Interactive OpenStreetMap / Leaflet visualizer filtering verified SCAs, PSBs, RRBs, and NBFC-MFIs.
-7. **Bilingual Inclusion:** Full native Hindi (हिन्दी) and English support across all interfaces.
+7. **Multilingual & Vernacular Inclusion:** 32 Indian languages, Web Speech assistance, and RTL layout support.
 
 ---
 

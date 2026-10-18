@@ -47,7 +47,6 @@ for (const filePath in localeModules) {
       if (content.emi) Object.assign(resources[lang].translation, content.emi);
       if (content.locator) Object.assign(resources[lang].translation, content.locator);
       if (content.guidance) Object.assign(resources[lang].translation, content.guidance);
-      if (content.track) Object.assign(resources[lang].translation, content.track);
       if (content.voice_assistant) {
         Object.assign(resources[lang].translation, content.voice_assistant);
         resources[lang].translation.voice_assistant = content.voice_assistant;
@@ -72,8 +71,7 @@ i18n
       'eligibility-form',
       'emi-simulator',
       'documents',
-      'partner-locator',
-      'track'
+      'partner-locator'
     ],
     ns: [
       'common',
@@ -85,7 +83,6 @@ i18n
       'guidance',
       'locator',
       'partner-locator',
-      'track',
       'translation'
     ],
     interpolation: {

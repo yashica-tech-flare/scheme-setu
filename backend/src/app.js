@@ -4,8 +4,9 @@ const cors = require('cors');
 const recommendRouter = require('./routes/recommend');
 const emiRouter = require('./routes/emi');
 const partnersRouter = require('./routes/partners');
-const applicationsRouter = require('./routes/applications');
 const schemesRouter = require('./routes/schemes');
+const analyticsRouter = require('./routes/analytics');
+const voiceRouter = require('./routes/voice');
 
 const app = express();
 
@@ -45,8 +46,9 @@ app.get('/api/health', (req, res) => {
 app.use('/api/recommend', recommendRouter);
 app.use('/api/emi', emiRouter);
 app.use('/api/partners', partnersRouter);
-app.use('/api/applications', applicationsRouter);
 app.use('/api/schemes', schemesRouter);
+app.use('/api/analytics', analyticsRouter);
+app.use('/api/voice', voiceRouter);
 
 // 404 Handler
 app.use((req, res) => {

@@ -26,12 +26,36 @@ export default function Results() {
   const [inputData, setInputData] = useState(null);
   const [selectedScheme, setSelectedScheme] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedState, setSelectedState] = useState('ALL');
+
+  const INDIAN_STATES = [
+    { code: 'ALL', name: t('results.allIndia', 'All India (National Routes)') },
+    { code: 'GJ', name: 'Gujarat (GSCDC Online Active)', portal: 'GSCDC' },
+    { code: 'DL', name: 'Delhi (DSFDC Online Active)', portal: 'DSFDC' },
+    { code: 'OD', name: 'Odisha (OSFDC Online Active)', portal: 'OSFDC' },
+    { code: 'TN', name: 'Tamil Nadu (TAHDCO Branch Route)' },
+    { code: 'KA', name: 'Karnataka' },
+    { code: 'TS', name: 'Telangana' },
+    { code: 'AP', name: 'Andhra Pradesh' },
+    { code: 'KL', name: 'Kerala' },
+    { code: 'UP', name: 'Uttar Pradesh' },
+    { code: 'MH', name: 'Maharashtra' },
+    { code: 'WB', name: 'West Bengal' },
+    { code: 'RJ', name: 'Rajasthan' },
+    { code: 'MP', name: 'Madhya Pradesh' },
+    { code: 'BR', name: 'Bihar' },
+    { code: 'PB', name: 'Punjab' },
+    { code: 'AS', name: 'Assam' }
+  ];
 
   useEffect(() => {
     // 1. Try to get results from React Router state
     if (location.state?.results) {
       setResults(location.state.results);
       setInputData(location.state.input);
+      if (location.state.input?.state) {
+        setSelectedState(location.state.input.state);
+      }
       if (location.state.results.length > 0) {
         setSelectedScheme(location.state.results[0]);
       }
@@ -48,6 +72,9 @@ export default function Results() {
         const parsedInput = JSON.parse(cachedInput);
         setResults(parsedResults);
         setInputData(parsedInput);
+        if (parsedInput?.state) {
+          setSelectedState(parsedInput.state);
+        }
         if (parsedResults.length > 0) {
           setSelectedScheme(parsedResults[0]);
         }
@@ -94,7 +121,7 @@ export default function Results() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
@@ -122,6 +149,47 @@ export default function Results() {
             <MapPin className="w-4 h-4 text-saffron-400" />
             {t('locator.title')}
           </Link>
+        </div>
+      </div>
+
+      {/* State & Route Selector Bar */}
+      <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-saffron-100 flex items-center justify-center flex-shrink-0 text-saffron-700">
+            <MapPin className="w-5 h-5" />
+          </div>
+          <div>
+            <label htmlFor="state-selector" className="text-xs font-bold uppercase tracking-wider text-slate-500 block">
+              {t('results.filterByState', 'Filter by State / UT')}
+            </label>
+            <span className="text-xs text-slate-600">
+              {selectedState === 'ALL'
+                ? t('results.allIndiaExpl', 'Showing pan-India national portals (PM-SURAJ) and all verified state SCAs')
+                : `Customized application links & nearest branches for ${INDIAN_STATES.find(s => s.code === selectedState)?.name || selectedState}`}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <select
+            id="state-selector"
+            value={selectedState}
+            onChange={(e) => setSelectedState(e.target.value)}
+            className="bg-slate-50 border border-slate-300 text-slate-900 text-xs font-semibold rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-saffron-500 focus:border-saffron-500 cursor-pointer shadow-xs min-w-[220px]"
+          >
+            {INDIAN_STATES.map((st) => (
+              <option key={st.code} value={st.code}>
+                {st.name}
+              </option>
+            ))}
+          </select>
+
+          {['GJ', 'DL', 'OD'].includes(selectedState) && (
+            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              Direct State SCA Online Portal
+            </span>
+          )}
         </div>
       </div>
 
@@ -161,6 +229,7 @@ export default function Results() {
             <ResultsCard
               key={scheme._id || idx}
               scheme={scheme}
+              selectedState={selectedState}
               onSelectForEMI={handleSchemeSelect}
             />
           ))}

@@ -325,7 +325,7 @@ export function localizeDocumentName(doc, t) {
     return t('guidance.doc6Title', 'Admission Letter & Fee Schedule');
   }
   if (d.includes('passbook') || d.includes('cheque') || d.includes('पासबुक') || d.includes('పాస్‌బుక్')) {
-    return t('track.docs.bankPassbook', 'Bank Passbook / Cancelled Cheque');
+    return t('guidance.docBankPassbook', 'Bank Passbook / Cancelled Cheque');
   }
   return doc;
 }

@@ -15,9 +15,12 @@ import {
   Briefcase,
   ExternalLink,
   Layers,
-  Clock
+  ArrowRight,
+  MapPin
 } from 'lucide-react';
 import { localizeSchemeName } from '../utils/localizationHelper';
+import { isValidGovernmentUrl } from '../utils/urlValidator';
+import ApplyConfirmModal from '../components/ApplyConfirmModal';
 
 export default function Guide() {
   const { t, i18n } = useTranslation();
@@ -29,6 +32,7 @@ export default function Guide() {
   const [selectedSchemeName, setSelectedSchemeName] = useState('');
   const [selectedScheme, setSelectedScheme] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   // Parse URL query parameter for ?scheme=...
   useEffect(() => {
@@ -132,27 +136,47 @@ export default function Guide() {
         </div>
       </div>
 
-      {/* Track Application Discovery Card */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm border border-slate-700">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-saffron-400 border border-slate-700 flex-shrink-0">
-            <Clock className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="text-sm font-bold">{t('guidance.haveActiveRef', 'Have an active application reference?')}</h4>
-            <p className="text-xs text-slate-300">
-              {t('guidance.trackDesc', 'Track your documents verification and institutional sanction status directly.')}
+      {/* Scheme Official Application Route Banner (replaces removed tracking banner) */}
+      {selectedScheme && (
+        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 rounded-2xl p-6 text-white shadow-lg border border-emerald-600/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>{t('guidance.officialApplicationRoute', 'Official Application Route')}</span>
+            </div>
+            <h3 className="text-xl font-bold text-white">
+              {localizeSchemeName(selectedScheme, i18n.language)}
+            </h3>
+            <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
+              {selectedScheme.applyMode !== 'offline' && selectedScheme.applyUrl && isValidGovernmentUrl(selectedScheme.applyUrl)
+                ? `${t('guidance.applyOnlineNotice', 'Apply directly on the official government portal')}: ${selectedScheme.applyPortalName || 'PM-SURAJ'}`
+                : (selectedScheme.applyNotes || t('guidance.applyOfflineNotice', 'This scheme is applied in-person at your nearest channel partner branch.'))}
             </p>
           </div>
-        </div>
 
-        <Link
-          to="/track"
-          className="px-5 py-2.5 bg-saffron-600 hover:bg-saffron-700 text-white font-bold rounded-xl text-xs transition-colors self-start sm:self-auto flex items-center gap-1.5 shadow-md shadow-saffron-600/20"
-        >
-          <span>{t('guidance.trackApplicationLink', 'Track your application')} &rarr;</span>
-        </Link>
-      </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            {selectedScheme.applyMode !== 'offline' && selectedScheme.applyUrl && isValidGovernmentUrl(selectedScheme.applyUrl) ? (
+              <button
+                type="button"
+                onClick={() => setIsApplyModalOpen(true)}
+                className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-xs font-extrabold shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <span>{t('guidance.applyOnlineBtn', 'Apply Online on Government Portal')}</span>
+                <ExternalLink className="w-4 h-4" />
+              </button>
+            ) : (
+              <Link
+                to={`/partners?scheme=${encodeURIComponent(selectedScheme.schemeName || selectedScheme.name)}`}
+                className="px-6 py-3 bg-saffron-600 hover:bg-saffron-700 text-white rounded-xl text-xs font-bold shadow-md transition-all flex items-center gap-2"
+              >
+                <MapPin className="w-4 h-4" />
+                <span>{t('guidance.locateBranchBtn', 'Locate Partner Branch')}</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Main Interactive Checklist Panel (Scheme-Specific or Generic) */}
       <GuidancePanel scheme={selectedScheme} inGuidePage={true} />
@@ -221,6 +245,13 @@ export default function Guide() {
           {t('guidance.printChecklist', 'Print Document Checklist')}
         </button>
       </div>
+
+      {/* Official Government Redirect Confirmation Modal */}
+      <ApplyConfirmModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        scheme={selectedScheme}
+      />
     </div>
   );
 }

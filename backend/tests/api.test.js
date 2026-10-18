@@ -116,114 +116,193 @@ test('GET /api/partners filters out high NPA and >90% fund utilization', async (
   }
 });
 
-test('Applicant Loan Tracking Lifecycle: POST, GET, PATCH status, documents, timeline', async () => {
-  // 1. Submit Application Inquiry
-  const createRes = await fetch(`${baseUrl}/api/applications`, {
+test('Security Validator: isValidGovernmentUrl allow-lists only HTTPS .gov.in and .nic.in', () => {
+  const { isValidGovernmentUrl, sanitizeSchemeApplyFields } = require('../src/utils/urlValidator');
+
+  // Valid official domains
+  assert.strictEqual(isValidGovernmentUrl('https://pmsuraj.dosje.gov.in'), true);
+  assert.strictEqual(isValidGovernmentUrl('https://nsfdc.nic.in/apply'), true);
+  assert.strictEqual(isValidGovernmentUrl('https://sub.portal.gov.in/register'), true);
+
+  // Rejected invalid domains & protocols
+  assert.strictEqual(isValidGovernmentUrl('http://pmsuraj.dosje.gov.in'), false, 'Non-HTTPS must be rejected');
+  assert.strictEqual(isValidGovernmentUrl('https://pmsuraj.com'), false, 'Non-government domain must be rejected');
+  assert.strictEqual(isValidGovernmentUrl('https://phishing-gov.in.fraud.com'), false, 'Phishing subdomain must be rejected');
+  assert.strictEqual(isValidGovernmentUrl('javascript:alert(1)'), false, 'XSS/malicious protocol must be rejected');
+  assert.strictEqual(isValidGovernmentUrl(''), false);
+  assert.strictEqual(isValidGovernmentUrl(null), false);
+
+  // Sanitation test
+  const tamperedScheme = {
+    schemeName: 'Malicious Test Scheme',
+    applyMode: 'online',
+    applyUrl: 'https://attacker-phishing.com/steal-creds'
+  };
+  const sanitized = sanitizeSchemeApplyFields(tamperedScheme);
+  assert.strictEqual(sanitized.applyMode, 'offline', 'Invalid URL must force applyMode to offline');
+  assert.strictEqual(sanitized.applyUrl, null, 'Invalid URL must be cleared to null');
+});
+
+test('GET /api/schemes returns schemes with sanitized apply fields and verified portals', async () => {
+  const res = await fetch(`${baseUrl}/api/schemes`);
+  assert.strictEqual(res.status, 200);
+  const schemes = await res.json();
+  assert.ok(Array.isArray(schemes) && schemes.length > 0);
+
+  schemes.forEach(s => {
+    assert.ok(['online', 'offline', 'both'].includes(s.applyMode), `Scheme ${s.schemeName} has valid applyMode`);
+    if (s.applyUrl) {
+      assert.ok(s.applyUrl.startsWith('https://'), `applyUrl must use HTTPS: ${s.applyUrl}`);
+      assert.ok(s.applyUrl.includes('.gov.in') || s.applyUrl.includes('.nic.in'), `applyUrl must be gov: ${s.applyUrl}`);
+      assert.ok(s.applyPortalName, `applyPortalName must be set for online scheme: ${s.schemeName}`);
+    }
+  });
+
+  // Verify at least one scheme has offline route (e.g. Voctech)
+  const hasOffline = schemes.some(s => s.applyMode === 'offline');
+  assert.strictEqual(hasOffline, true, 'At least one scheme must demonstrate offline/branch application');
+});
+
+test('POST /api/analytics/apply-redirect logs anonymous metric with no PII', async () => {
+  const res = await fetch(`${baseUrl}/api/analytics/apply-redirect`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      income: 180000,
-      projectCost: 140000,
-      projectType: 'small_business',
-      gender: 'female',
-      isSC: true,
-      matchedScheme: {
-        schemeId: 'scheme_1',
-        schemeName: 'Mahila Samriddhi Yojana (MSY)',
-        matchScore: 98,
-        interestRate: 4
-      },
-      routedPartner: {
-        partnerId: 'partner_1',
-        partnerName: 'TAHDCO District Office, Ariyalur',
-        partnerType: 'SCA'
-      },
-      applicantName: 'Kavitha S.',
-      phone: '9840123456'
+      schemeId: 'scheme_1',
+      languageCode: 'hi'
     })
   });
 
-  assert.strictEqual(createRes.status, 201);
-  const createdData = await createRes.json();
-  assert.ok(createdData.refId, 'Should generate refId');
-  assert.ok(createdData.refId.startsWith('SETU-'), 'RefId should match SETU- prefix');
-  const refId = createdData.refId;
-  assert.strictEqual(createdData.application.status, 'inquiry_submitted');
-  assert.strictEqual(createdData.application.statusHistory.length, 1);
-
-  // 2. Lookup Application by refId
-  const getRes = await fetch(`${baseUrl}/api/applications/${refId}`);
-  assert.strictEqual(getRes.status, 200);
-  const fetchedApp = await getRes.json();
-  assert.strictEqual(fetchedApp.refId, refId);
-  assert.strictEqual(fetchedApp.matchedScheme.schemeName, 'Mahila Samriddhi Yojana (MSY)');
-  assert.strictEqual(fetchedApp.routedPartner.partnerName, 'TAHDCO District Office, Ariyalur');
-
-  // 3. Update documents checklist
-  const docRes = await fetch(`${baseUrl}/api/applications/${refId}/documents`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      documentsSubmitted: ['Caste Certificate (Verified SC status)', 'Aadhaar DBT Linkage'],
-      advanceStatus: true
-    })
-  });
-  assert.strictEqual(docRes.status, 200);
-  const docData = await docRes.json();
-  assert.strictEqual(docData.application.documentsSubmitted.length, 2);
-  assert.strictEqual(docData.application.status, 'documents_pending');
-
-  // 4. Test State-Machine: Attempt illegal jump (documents_pending -> disbursed should fail)
-  const illegalRes = await fetch(`${baseUrl}/api/applications/${refId}/status`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      status: 'disbursed',
-      note: 'Attempting invalid jump directly to disbursed'
-    })
-  });
-  assert.strictEqual(illegalRes.status, 400);
-  const illegalData = await illegalRes.json();
-  assert.ok(illegalData.error.includes('Illegal status transition'));
-
-  // 5. Test State-Machine: Legal transition (documents_pending -> submitted_to_partner)
-  const legalRes = await fetch(`${baseUrl}/api/applications/${refId}/status`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      status: 'submitted_to_partner',
-      note: 'Dossier physically handed over at Ariyalur TAHDCO counter',
-      actor: 'applicant',
-      isPartnerConfirmed: false
-    })
-  });
-  assert.strictEqual(legalRes.status, 200);
-  const legalData = await legalRes.json();
-  assert.strictEqual(legalData.application.status, 'submitted_to_partner');
-
-  // 6. Test GET /api/applications/:refId/timeline
-  const timelineRes = await fetch(`${baseUrl}/api/applications/${refId}/timeline`);
-  assert.strictEqual(timelineRes.status, 200);
-  const timelineData = await timelineRes.json();
-  assert.strictEqual(timelineData.refId, refId);
-  assert.strictEqual(timelineData.currentStatus, 'submitted_to_partner');
-  assert.ok(Array.isArray(timelineData.stages));
-  assert.strictEqual(timelineData.stages.length, 6);
-  assert.ok(timelineData.disclaimer.includes('SchemeBridge does not process or guarantee loan approval'));
-
-  // 7. Test GET /api/applications (List for Partner/Admin portal)
-  const listRes = await fetch(`${baseUrl}/api/applications`);
-  assert.strictEqual(listRes.status, 200);
-  const listData = await listRes.json();
-  assert.strictEqual(listData.success, true);
-  assert.ok(Array.isArray(listData.applications));
-  assert.ok(listData.applications.length > 0);
-
-  // 8. Test GET /api/applications/:refId/stream (SSE stream headers)
-  const streamRes = await fetch(`${baseUrl}/api/applications/${refId}/stream`);
-  assert.strictEqual(streamRes.status, 200);
-  assert.ok(streamRes.headers.get('content-type').includes('text/event-stream'));
-  // Close connection
-  streamRes.body.cancel();
+  assert.strictEqual(res.status, 200);
+  const data = await res.json();
+  assert.strictEqual(data.success, true);
 });
+
+test('Data Consistency: seedSchemes.json and fallbackSchemes.json are 100% synchronized', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const { isValidGovernmentUrl } = require('../src/utils/urlValidator');
+
+  const seedPath = path.resolve(__dirname, '../src/data/seedSchemes.json');
+  const fallbackPath = path.resolve(__dirname, '../../frontend/src/data/fallbackSchemes.json');
+
+  assert.ok(fs.existsSync(seedPath), 'seedSchemes.json exists');
+  assert.ok(fs.existsSync(fallbackPath), 'fallbackSchemes.json exists');
+
+  const seedSchemes = JSON.parse(fs.readFileSync(seedPath, 'utf8').replace(/^\uFEFF/, ''));
+  const fallbackSchemes = JSON.parse(fs.readFileSync(fallbackPath, 'utf8').replace(/^\uFEFF/, ''));
+
+  assert.strictEqual(seedSchemes.length, fallbackSchemes.length, 'Both schemes datasets must have identical lengths');
+
+  seedSchemes.forEach((seed, idx) => {
+    const sName = seed.schemeName || seed.name;
+    const fallback = fallbackSchemes.find(f => (f.schemeName || f.name) === sName);
+    assert.ok(fallback, `Scheme '${sName}' must exist in fallbackSchemes.json`);
+
+    // Verify applyMode parity
+    assert.strictEqual(seed.applyMode, fallback.applyMode, `applyMode must match for ${sName}`);
+    assert.ok(['online', 'offline', 'both'].includes(seed.applyMode));
+
+    // Verify applyUrl parity
+    assert.strictEqual(seed.applyUrl, fallback.applyUrl, `applyUrl must match for ${sName}`);
+    if (seed.applyUrl) {
+      assert.strictEqual(isValidGovernmentUrl(seed.applyUrl), true, `applyUrl must pass gov validator for ${sName}`);
+    }
+
+    // Verify stateApplyLinks parity
+    const seedStateLinks = seed.stateApplyLinks || [];
+    const fallbackStateLinks = fallback.stateApplyLinks || [];
+    assert.strictEqual(seedStateLinks.length, fallbackStateLinks.length, `stateApplyLinks count must match for ${sName}`);
+
+    seedStateLinks.forEach((link, lIdx) => {
+      const fbLink = fallbackStateLinks[lIdx];
+      assert.strictEqual(link.state, fbLink.state, `state must match at index ${lIdx} for ${sName}`);
+      assert.strictEqual(link.url, fbLink.url, `url must match at index ${lIdx} for ${sName}`);
+      assert.strictEqual(isValidGovernmentUrl(link.url), true, `state portal url must pass gov validator: ${link.url}`);
+    });
+  });
+
+  // Specifically verify Voctech is offline
+  const voctech = seedSchemes.find(s => (s.schemeName || s.name).includes('Voctech'));
+  assert.ok(voctech, 'Voctech scheme must exist');
+  assert.strictEqual(voctech.applyMode, 'offline', 'Voctech must be strictly offline');
+  assert.strictEqual(voctech.applyUrl, null, 'Voctech applyUrl must be null');
+});
+
+test('GET /api/voice/status returns voice service status and supported languages', async () => {
+  const res = await fetch(`${baseUrl}/api/voice/status`);
+  assert.strictEqual(res.status, 200);
+  const data = await res.json();
+  assert.ok(data.provider, 'Should specify provider');
+  assert.ok(Array.isArray(data.supportedLanguages), 'Should return supportedLanguages array');
+  assert.ok(Array.isArray(data.disabledLanguages), 'Should return disabledLanguages array');
+  assert.ok(data.supportedCount >= 13, 'Should support at least 13 languages');
+  assert.ok(data.disabledCount >= 8, 'Should include 8 unsupported languages with engine none');
+});
+
+test('POST /api/voice/speak validates character length (<= 900 chars)', async () => {
+  const longText = 'A'.repeat(950);
+  const res = await fetch(`${baseUrl}/api/voice/speak`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      text: longText,
+      languageCode: 'en'
+    })
+  });
+  assert.strictEqual(res.status, 400);
+  const data = await res.json();
+  assert.strictEqual(data.error, 'text_too_long');
+});
+
+test('POST /api/voice/speak rejects unsupported language with engine: none', async () => {
+  const res = await fetch(`${baseUrl}/api/voice/speak`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      text: 'Testing unsupported language rejection',
+      languageCode: 'sa' // Sanskrit (engine: none)
+    })
+  });
+  assert.strictEqual(res.status, 400);
+  const data = await res.json();
+  assert.strictEqual(data.error, 'language_not_supported');
+  assert.strictEqual(data.engine, 'none');
+});
+
+test('POST /api/voice/speak enforces zero PII (rejects Aadhaar pattern)', async () => {
+  const res = await fetch(`${baseUrl}/api/voice/speak`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      text: 'Applicant Aadhaar number is 1234 5678 9012 for loan sanction.',
+      languageCode: 'en'
+    })
+  });
+  assert.strictEqual(res.status, 400);
+  const data = await res.json();
+  assert.strictEqual(data.error, 'pii_detected');
+});
+
+test('POST /api/voice/speak gracefully degrades or serves cache', async () => {
+  // Test valid scheme briefing text
+  const res = await fetch(`${baseUrl}/api/voice/speak`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      text: 'Mahila Samriddhi Yojana provides concessional micro credit.',
+      languageCode: 'en'
+    })
+  });
+
+  // Either 503 (no api key in test environment) or 200 (if cached/synthesized)
+  assert.ok([200, 503].includes(res.status), `Status should be 200 or 503, got ${res.status}`);
+  if (res.status === 503) {
+    const data = await res.json();
+    assert.strictEqual(data.fallback, 'speechSynthesis');
+  } else if (res.status === 200) {
+    assert.strictEqual(res.headers.get('content-type'), 'audio/mpeg');
+  }
+});
+
 

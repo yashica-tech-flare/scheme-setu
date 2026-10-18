@@ -16,7 +16,6 @@ const REMAINING_INDIC = {
         locator: "പങ്കാളികളെ കണ്ടെത്തുക",
         calculator: "EMI കാൽക്കുലേറ്റർ",
         guidance: "രേഖകളുടെ ചെക്ക്‌ലിസ്റ്റ്",
-        track: "വായ്പ ട്രാക്ക് ചെയ്യുക",
         helpdesk: "ഹെൽപ്പ്‌ലൈൻ: 1800-11-2001 (ടോൾ-ഫ്രീ)",
         nationalPortal: "ഭാരത സർക്കാർ സംരംഭം"
       },
@@ -271,98 +270,7 @@ const REMAINING_INDIC = {
       schemes: "പദ്ധതികൾ",
       navigateMaps: "ഗൂഗിൾ മാപ്പിൽ നാവിഗേറ്റ് ചെയ്യുക"
     },
-    track: {
-      title: "വായ്പാ അപേക്ഷ ട്രാക്ക് ചെയ്യുക",
-      subtitle: "ആദ്യ അന്വേഷണം മുതൽ തുക അക്കൗണ്ടിലെത്തുന്നതുവരെയുള്ള സുതാര്യമായ വിവരങ്ങൾ.",
-      realTimeTracking: "തത്സമയ ട്രാക്കിംഗ്",
-      newLoanInquiry: "പുതിയ വായ്പാ അന്വേഷണം",
-      documentGuide: "രേഖാ ഗൈഡ്",
-      searchPlaceholder: "റഫറൻസ് നമ്പർ നൽകുക (ഉദാ. SETU-DEMO-2026)",
-      lookupBtn: "അപേക്ഷ കണ്ടെത്തുക",
-      lookingUp: "തിരയുന്നു...",
-      quickTest: "പെട്ടെന്നുള്ള പരിശോധന:",
-      loadDemo: "മാതൃകാ അപേക്ഷ കാണുക",
-      recent: "അടുത്തിടെ:",
-      disclaimerTitle: "ഔദ്യോഗിക സുതാര്യതാ അറിയിപ്പ്:",
-      disclaimerP1: "അപേക്ഷകൻ റിപ്പോർട്ട് ചെയ്ത വിവരങ്ങളുടെ അടിസ്ഥാനത്തിലുള്ളതാണ് ഈ നില,",
-      partnerConfirmedPill: "പങ്കാളി-സ്ഥിരീകരിച്ചത്",
-      disclaimerP2: "എന്ന് കാണിക്കുന്നത് വരെ. യോജന സേതു വായ്പാ അനുമതിക്ക് ഗ്യാരണ്ടി നൽകുന്നില്ല.",
-      retrievingApp: "അപേക്ഷയുടെ ചരിത്രം ലഭ്യമാക്കുന്നു...",
-      noAppTitle: "റഫറൻസ് നമ്പർ നൽകിയിട്ടില്ല",
-      noAppDesc: "മുകളിലെ സെർച്ച് ബോക്സിൽ നിങ്ങളുടെ റഫറൻസ് നമ്പർ നൽകുക അല്ലെങ്കിൽ സാമ്പിൾ കാണാൻ താഴെ ക്ലിക്ക് ചെയ്യുക.",
-      loadSampleBtn: "സാമ്പിൾ അപേക്ഷ കാണുക (SETU-DEMO-2026)",
-      savedLocally: "തദ്ദേശീയമായി സംരക്ഷിച്ചു",
-      routedTo: "നിർദ്ദേശിച്ച പങ്കാളി:",
-      pendingPartner: "തീരുമാനമാകാത്ത ചാനൽ പങ്കാളി",
-      created: "രജിസ്റ്റർ ചെയ്ത തീയതി",
-      projectNeed: "പദ്ധതി ആവശ്യകത",
-      documentsMarked: "സമർപ്പിച്ച രേഖകൾ",
-      stepperTitle: "വായ്പാ പുരോഗതി ഘട്ടങ്ങൾ",
-      stepperSubtitle: "ഔദ്യോഗിക NSFDC നടപടിക്രമങ്ങൾ അനുസരിച്ചുള്ള പുരോഗതി",
-      appTerminated: "അപേക്ഷ പൂർത്തിയായി",
-      partnerVerified: "പങ്കാളി-പരിശോധിച്ചത്",
-      selfReported: "അപേക്ഷകൻ-റിപ്പോർട്ട് ചെയ്തത്",
-      pending: "തീരുമാനമായില്ല",
-      checklistTitle: "രേഖാ സമർപ്പണ പട്ടിക",
-      checklistSubtitle: "നിങ്ങൾ തയ്യാറാക്കിയ രേഖകൾ അടയാളപ്പെടുത്തുക. സീറോ-റിജക്ഷൻ മാർഗ്ഗനിർദ്ദേശങ്ങൾക്ക് അനുസൃതമായി.",
-      viewAuthorities: "രേഖകൾ നൽകുന്ന അതോറിറ്റികളെ കാണുക",
-      docCompleted: "പൂർത്തിയായി",
-      docPending: "തീരുമാനമായില്ല",
-      progressActions: "പുരോഗതി റിപ്പോർട്ടിംഗ് ഓപ്ഷനുകൾ",
-      actionsSubtitle: "നിങ്ങളുടെ പുരോഗതി സ്വയം രേഖപ്പെടുത്തുക അല്ലെങ്കിൽ പാർട്ണർ മോഡ് പരിശോധിക്കുക.",
-      partnerModeLabel: "ചാനൽ പാർട്ണർ മോഡ്:",
-      partnerModeActive: "സജീവം (സ്ഥിരീകരിച്ചത്)",
-      partnerModeOff: "ഓഫ് (സ്വയം രേഖപ്പെടുത്തിയത്)",
-      partnerRemarksTitle: "ചാനൽ പങ്കാളിയുടെ കുറിപ്പ്:",
-      partnerRemarksPlaceholder: "ഉദാ. ജില്ലാ ഉദ്യോഗസ്ഥൻ പരിശോധിച്ചു / അനുമതി നമ്പർ...",
-      btnStartDocs: "1. രേഖകൾ തയ്യാറാക്കാൻ തുടങ്ങുക",
-      btnSubmitPartner: "2. ബാങ്ക് കൗണ്ടറിൽ സമർപ്പിച്ചു",
-      btnAdvanceAppraisal: "3. സാങ്കേതിക പരിശോധനയ്ക്ക് അയച്ചു",
-      btnMarkSanctioned: "4. വായ്പ അനുവദിച്ചു",
-      btnMarkDisbursed: "5. തുക വിതരണം ചെയ്തു (വിജയം)",
-      withdrawApplication: "അപേക്ഷ പിൻവലിക്കുക",
-      confirmWithdrawTitle: "അപേക്ഷ പിൻവലിക്കുന്നത് സ്ഥിരീകരിക്കുക",
-      confirmWithdrawDesc: "അപേക്ഷ പിൻവലിക്കുന്നത് അന്തിമ നടപടിയാണ്. കാരണം വ്യക്തമാക്കുക:",
-      withdrawReasonPlaceholder: "പിൻവലിക്കാനുള്ള കാരണം...",
-      confirmWithdrawBtn: "സ്ഥിരീകരിക്കുക",
-      cancelBtn: "റദ്ദാക്കുക",
-      matchedSchemeBadge: "പൊരുത്തപ്പെട്ട NSFDC പദ്ധതി",
-      interestRateLabel: "ഇളവ് പലിശ നിരക്ക്:",
-      moratoriumLabel: "മൊറട്ടോറിയം:",
-      perAnnum: "പ്രതിവർഷം",
-      months: "മാസങ്ങൾ",
-      assignedPartnerBadge: "നിയുക്ത ചാനൽ പങ്കാളി",
-      viewMapBtn: "മാപ്പിൽ കാണുക",
-      auditHistoryTitle: "ഓഡിറ്റ് ചരിത്രം",
-      eventsCount: "ഇവന്റുകൾ",
-      status: {
-        inquiry_submitted: "അന്വേഷണം രേഖപ്പെടുത്തി",
-        documents_pending: "രേഖകൾ തയ്യാറാക്കുന്നു",
-        submitted_to_partner: "പങ്കാളിക്ക് സമർപ്പിച്ചു",
-        under_appraisal: "പരിശോധനയിൽ",
-        sanctioned: "വായ്പ അനുവദിച്ചു",
-        disbursed: "തുക വിതരണം ചെയ്തു",
-        rejected: "നിരസിച്ചു",
-        withdrawn: "പിൻവലിച്ചു"
-      },
-      stages: {
-        inquiry_submitted_desc: "യോജന സേതുവിൽ ഓൺലൈൻ രജിസ്ട്രേഷൻ പൂർത്തിയായി",
-        documents_pending_desc: "ജാതി, വരുമാന സർട്ടിഫിക്കറ്റുകൾ ശേഖരിക്കുന്നു",
-        submitted_to_partner_desc: "അംഗീകൃത ബാങ്ക് ശാഖയിൽ രേഖകൾ സമർപ്പിച്ചു",
-        under_appraisal_desc: "ഉദ്യോഗസ്ഥൻ പദ്ധതി പരിശോധന നടത്തുന്നു",
-        sanctioned_desc: "ഇളവ് നിരക്കിൽ വായ്പ അനുമതി പത്രം ലഭിച്ചു",
-        disbursed_desc: "തുക നേരിട്ട് ബാങ്ക് അക്കൗണ്ടിലേക്ക് നൽകി"
-      },
-      docs: {
-        caste: "ജാതി സർട്ടിഫിക്കറ്റ് (ഡിജിറ്റൽ ബാർകോഡ് ഉള്ളത്)",
-        income: "വരുമാന സർട്ടിഫിക്കറ്റ് (വാർഷിക വരുമാനം ₹5 ലക്ഷത്തിൽ താഴെ)",
-        aadhaar: "ആധാർ കാർഡ് (ബാങ്ക് അക്കൗണ്ടുമായി ബന്ധിപ്പിച്ചത്)",
-        dpr: "പ്രോജക്റ്റ് റിപ്പോർട്ട് (ചെലവ് വിവരങ്ങൾ)",
-        quotation: "മെഷിനറി കൊട്ടേഷൻ (ജിഎസ്ടി ബിൽ ഉള്ളത്)",
-        bankPassbook: "ബാങ്ക് പാസ്ബുക്ക് / ക്യാൻസൽ ചെയ്ത ചെക്ക്"
-      }
-    }
-  }
+    
 };
 
 // Write packs
@@ -375,7 +283,6 @@ for (const [code, pack] of Object.entries(REMAINING_INDIC)) {
   fs.writeFileSync(path.join(dir, 'emi-simulator.json'), JSON.stringify({ emi: pack.emi }, null, 2), 'utf8');
   fs.writeFileSync(path.join(dir, 'documents.json'), JSON.stringify(pack.documents, null, 2), 'utf8');
   fs.writeFileSync(path.join(dir, 'partner-locator.json'), JSON.stringify({ locator: pack.locator }, null, 2), 'utf8');
-  fs.writeFileSync(path.join(dir, 'track.json'), JSON.stringify({ track: pack.track }, null, 2), 'utf8');
 
   console.log(`Successfully generated 100% genuine Indic pack for ${code}`);
 }

@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Mic, Square, AlertCircle, Info } from 'lucide-react';
+import { Volume2, VolumeX, Mic, Square, AlertCircle, Info, Loader2, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { speak, stopSpeech, isSpeechSupported, checkVoiceAvailability, isSpeaking } from '../utils/speechHelper';
+import { speak, stopSpeech, isSpeechSupported, checkVoiceAvailability, isSpeaking, getActivePlaybackSource } from '../utils/speechHelper';
 
 /**
  * VoiceAssistant Component
  * Specially crafted for illiterate, low-literacy, and rural beneficiaries.
- * Reads out loan details, document checklists, and application status in spoken regional dialects.
+ * Hybrid ElevenLabs + Browser Speech Engine in 13 Indian languages.
  *
  * @param {string} textToRead - The full narrative text to speak aloud
+ * @param {string} clipId - Optional static clip identifier matching audio-manifest.json
  * @param {string} label - Optional button label override
  * @param {string} subtitle - Optional explanatory subtitle
  * @param {string} variant - 'banner' | 'button' | 'mini'
@@ -16,6 +17,7 @@ import { speak, stopSpeech, isSpeechSupported, checkVoiceAvailability, isSpeakin
  */
 export default function VoiceAssistant({
   textToRead,
+  clipId,
   label,
   subtitle,
   variant = 'banner',
@@ -24,13 +26,14 @@ export default function VoiceAssistant({
 }) {
   const { t, i18n } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isDebouncing, setIsDebouncing] = useState(false);
   const [supported, setSupported] = useState(true);
   const [voiceStatus, setVoiceStatus] = useState({ available: true, status: 'loading' });
 
   const activeLang = customLang || i18n.language || 'en';
 
-  // Synchronize voice availability on mount and when voices are loaded asynchronously
+  // Synchronize voice availability on mount and when voices change
   const updateVoiceStatus = () => {
     if (!isSpeechSupported()) {
       setSupported(false);
@@ -56,15 +59,16 @@ export default function VoiceAssistant({
     };
   }, [activeLang]);
 
-  // Stop if active language changes while speaking
+  // Stop immediately if active language changes while speaking
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying || isLoading) {
       stopSpeech();
       setIsPlaying(false);
+      setIsLoading(false);
     }
   }, [i18n.language, textToRead]);
 
-  // Keep isPlaying synchronized with browser's speechSynthesis state
+  // Keep isPlaying synchronized with active audio/speechSynthesis
   useEffect(() => {
     const interval = setInterval(() => {
       if (isPlaying && !isSpeaking()) {
@@ -84,9 +88,10 @@ export default function VoiceAssistant({
 
     if (isDebouncing) return;
 
-    if (isPlaying) {
+    if (isPlaying || isLoading) {
       stopSpeech();
       setIsPlaying(false);
+      setIsLoading(false);
       return;
     }
 
@@ -97,15 +102,22 @@ export default function VoiceAssistant({
     setIsDebouncing(true);
     setTimeout(() => setIsDebouncing(false), 300);
 
-    setIsPlaying(true);
     speak({
       text: textToRead,
+      clipId: clipId,
       langCode: activeLang,
-      rate: 0.88, // calm, slower pace for high comprehension
-      onStart: () => setIsPlaying(true),
-      onEnd: () => setIsPlaying(false),
+      onLoading: (loading) => setIsLoading(loading),
+      onStart: () => {
+        setIsLoading(false);
+        setIsPlaying(true);
+      },
+      onEnd: () => {
+        setIsLoading(false);
+        setIsPlaying(false);
+      },
       onError: (err) => {
         console.warn('Voice playback note:', err);
+        setIsLoading(false);
         setIsPlaying(false);
       }
     });
@@ -113,9 +125,11 @@ export default function VoiceAssistant({
 
   const listenLabel = label || t('voice_assistant.listen_button', t('common.audioGuideBtn', 'Listen Aloud'));
   const stopLabel = t('voice_assistant.stop_button', t('common.stopAudio', 'Stop Audio'));
-  const unavailableTooltip = t('voice_assistant.voice_unavailable', 'Voice not available in this language on your device');
+  const unavailableTooltip = t('voice_assistant.voice_unavailable', 'Voice readout not available in this language');
 
-  // 1. Mini icon-only button (e.g. for individual document checklist items)
+  const isElevenLabs = voiceStatus.engine === 'elevenlabs';
+
+  // 1. Mini icon-only button (e.g. for individual document checklist items or cards)
   if (variant === 'mini') {
     if (!voiceStatus.available) {
       return (
@@ -135,15 +149,19 @@ export default function VoiceAssistant({
       <button
         type="button"
         onClick={handleTogglePlay}
-        title={isPlaying ? stopLabel : (voiceStatus.isFallback ? `${listenLabel} (${voiceStatus.message})` : listenLabel)}
+        title={isPlaying ? stopLabel : `${listenLabel} (${voiceStatus.message})`}
         className={`p-1.5 rounded-lg transition-all focus:outline-none cursor-pointer ${
-          isPlaying
+          isLoading
+            ? 'bg-amber-100 text-amber-900 border border-amber-300'
+            : isPlaying
             ? 'bg-amber-600 text-white animate-pulse shadow-md scale-105'
             : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200 hover:shadow-xs'
         } ${className}`}
         aria-label={isPlaying ? stopLabel : listenLabel}
       >
-        {isPlaying ? (
+        {isLoading ? (
+          <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-700" />
+        ) : isPlaying ? (
           <Square className="w-3.5 h-3.5 fill-current" />
         ) : (
           <Volume2 className="w-3.5 h-3.5" />
@@ -174,7 +192,7 @@ export default function VoiceAssistant({
       <button
         type="button"
         onClick={handleTogglePlay}
-        title={voiceStatus.isFallback ? `${voiceStatus.message}` : undefined}
+        title={voiceStatus.message}
         className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm focus:outline-none cursor-pointer ${
           isPlaying
             ? 'bg-amber-600 text-white ring-2 ring-amber-300 animate-pulse'
@@ -182,7 +200,12 @@ export default function VoiceAssistant({
         } ${className}`}
         aria-label={isPlaying ? stopLabel : listenLabel}
       >
-        {isPlaying ? (
+        {isLoading ? (
+          <>
+            <Loader2 className="w-4 h-4 animate-spin text-white" />
+            <span>{t('voice_assistant.loading', 'Loading Audio...')}</span>
+          </>
+        ) : isPlaying ? (
           <>
             <Square className="w-4 h-4 fill-current" />
             <span>{stopLabel}</span>
@@ -202,7 +225,7 @@ export default function VoiceAssistant({
     );
   }
 
-  // 3. Full prominent banner variant (Ideal for illiterate / rural applicants on /track)
+  // 3. Full prominent banner variant (Ideal for illiterate / rural applicants)
   return (
     <div
       className={`relative overflow-hidden rounded-2xl border ${
@@ -223,7 +246,9 @@ export default function VoiceAssistant({
                 : 'bg-slate-300 text-slate-600'
             }`}
           >
-            {isPlaying ? (
+            {isLoading ? (
+              <Loader2 className="w-6 h-6 animate-spin" />
+            ) : isPlaying ? (
               <Volume2 className="w-6 h-6 animate-pulse" />
             ) : voiceStatus.available ? (
               <Mic className="w-6 h-6" />
@@ -232,10 +257,18 @@ export default function VoiceAssistant({
             )}
           </div>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-black uppercase tracking-wider text-amber-800 bg-amber-100/90 border border-amber-300/60 px-2 py-0.5 rounded-md">
                 {t('voice_assistant.voice_tag', t('common.voiceAssistantTag', 'Voice Guide'))}
               </span>
+
+              {isElevenLabs && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-300/60 px-2 py-0.5 rounded-md">
+                  <Sparkles className="w-3 h-3 text-emerald-600" />
+                  ElevenLabs Voice
+                </span>
+              )}
+
               {isPlaying && (
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-900 bg-amber-200/80 px-2 py-0.5 rounded-full animate-pulse">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-800"></span>
@@ -244,10 +277,10 @@ export default function VoiceAssistant({
               )}
             </div>
             <h4 className="text-base sm:text-lg font-bold text-slate-900 mt-1">
-              {t('common.voiceAssistantTitle', 'Difficulty Reading? Listen to your application aloud')}
+              {t('common.voiceAssistantTitle', 'Difficulty Reading? Listen aloud')}
             </h4>
             <p className="text-xs text-slate-600 mt-0.5 max-w-2xl leading-relaxed">
-              {subtitle || t('common.voiceAssistantDesc', 'Specially designed for low-literacy and rural applicants: Tap this button to hear your loan status, amount, and required documents spoken aloud in your language.')}
+              {subtitle || t('common.voiceAssistantDesc', 'Specially designed for low-literacy and rural applicants: Tap this button to hear scheme benefits and required documents spoken aloud in your language.')}
             </p>
             {!voiceStatus.available && (
               <div className="mt-2 text-[11px] font-semibold text-amber-900 flex items-center gap-1">
@@ -268,7 +301,7 @@ export default function VoiceAssistant({
         <div className="flex-shrink-0 self-end sm:self-center">
           <button
             type="button"
-            disabled={!voiceStatus.available}
+            disabled={!voiceStatus.available || isLoading}
             onClick={handleTogglePlay}
             className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md focus:outline-none ${
               !voiceStatus.available
@@ -278,7 +311,12 @@ export default function VoiceAssistant({
                 : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white hover:shadow-lg cursor-pointer'
             }`}
           >
-            {isPlaying ? (
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>{t('voice_assistant.loading', 'Loading Audio...')}</span>
+              </>
+            ) : isPlaying ? (
               <>
                 <Square className="w-4 h-4 fill-current" />
                 <span>{stopLabel}</span>

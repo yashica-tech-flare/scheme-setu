@@ -16,7 +16,6 @@ const PACKS = {
         locator: "ਸਹਿਯੋਗੀ ਲੱਭੋ",
         calculator: "EMI ਕੈਲਕੁਲੇਟਰ",
         guidance: "ਦਸਤਾਵੇਜ਼ ਸੂਚੀ",
-        track: "ਕਰਜ਼ਾ ਟਰੈਕ ਕਰੋ",
         helpdesk: "ਹੈਲਪਲਾਈਨ: 1800-11-2001 (ਟੋਲ-ਫ੍ਰੀ)",
         nationalPortal: "ਭਾਰਤ ਸਰਕਾਰ ਦੀ ਪਹਿਲਕਦਮੀ"
       },
@@ -271,98 +270,7 @@ const PACKS = {
       schemes: "ਯੋਜਨਾਵਾਂ",
       navigateMaps: "ਗੂਗਲ ਮੈਪਸ 'ਤੇ ਜਾਓ"
     },
-    track: {
-      title: "ਕਰਜ਼ਾ ਅਰਜ਼ੀ ਸਥਿਤੀ ਟਰੈਕ ਕਰੋ",
-      subtitle: "ਪੁੱਛਗਿੱਛ ਤੋਂ ਲੈ ਕੇ ਅੰਤਿਮ ਕਰਜ਼ਾ ਵੰਡ ਤੱਕ ਪਾਰਦਰਸ਼ੀ ਟਰੈਕਿੰਗ।",
-      realTimeTracking: "ਲਾਈਵ ਟਰੈਕਿੰਗ",
-      newLoanInquiry: "ਨਵੀਂ ਕਰਜ਼ਾ ਪੁੱਛਗਿੱਛ",
-      documentGuide: "ਦਸਤਾਵੇਜ਼ ਗਾਈਡ",
-      searchPlaceholder: "ਰੈਫਰੈਂਸ ਨੰਬਰ ਦਰਜ ਕਰੋ (ਜਿਵੇਂ SETU-DEMO-2026)",
-      lookupBtn: "ਅਰਜ਼ੀ ਲੱਭੋ",
-      lookingUp: "ਲੱਭ ਰਿਹਾ ਹੈ...",
-      quickTest: "ਤੁਰੰਤ ਜਾਂਚ:",
-      loadDemo: "ਨਮੂਨਾ ਅਰਜ਼ੀ ਲੋਡ ਕਰੋ",
-      recent: "ਹਾਲ ਹੀ ਵਿੱਚ:",
-      disclaimerTitle: "ਸਰਕਾਰੀ ਪਾਰਦਰਸ਼ਤਾ ਨੋਟਿਸ:",
-      disclaimerP1: "ਸਥਿਤੀ ਅਪਡੇਟ ਬਿਨੈਕਾਰ ਦੁਆਰਾ ਦੱਸੀ ਪ੍ਰਗਤੀ ਦਰਸਾਉਂਦੀ ਹੈ ਜਦੋਂ ਤੱਕ ਕਿ",
-      partnerConfirmedPill: "ਪਾਰਟਨਰ-ਤਸਦੀਕਸ਼ੁਦਾ",
-      disclaimerP2: "ਨਾ ਹੋਵੇ। ਯੋਜਨਾ ਸੇਤੂ ਕਰਜ਼ਾ ਮਨਜ਼ੂਰੀ ਦੀ ਗਾਰੰਟੀ ਨਹੀਂ ਦਿੰਦਾ।",
-      retrievingApp: "ਅਰਜ਼ੀ ਦਾ ਇਤਿਹਾਸ ਪ੍ਰਾਪਤ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
-      noAppTitle: "ਕੋਈ ਰੈਫਰੈਂਸ ਨੰਬਰ ਨਹੀਂ ਭਰਿਆ ਗਿਆ",
-      noAppDesc: "ਉੱਪਰ ਖੋਜ ਬਾਰ ਵਿੱਚ ਆਪਣਾ ਰੈਫਰੈਂਸ ਨੰਬਰ ਦਰਜ ਕਰੋ ਜਾਂ ਨਮੂਨਾ ਦੇਖਣ ਲਈ ਹੇਠਾਂ ਕਲਿੱਕ ਕਰੋ।",
-      loadSampleBtn: "ਨਮੂਨਾ ਅਰਜ਼ੀ ਦੇਖੋ (SETU-DEMO-2026)",
-      savedLocally: "ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਸੁਰੱਖਿਅਤ",
-      routedTo: "ਨਿਰਧਾਰਤ ਪਾਰਟਨਰ:",
-      pendingPartner: "ਉਡੀਕ ਅਧੀਨ ਚੈਨਲ ਪਾਰਟਨਰ",
-      created: "ਦਰਜ ਮਿਤੀ",
-      projectNeed: "ਪ੍ਰੋਜੈਕਟ ਲੋੜ",
-      documentsMarked: "ਮਾਰਕ ਕੀਤੇ ਦਸਤਾਵੇਜ਼",
-      stepperTitle: "ਕਰਜ਼ਾ ਜੀਵਨ ਚੱਕਰ ਪੜਾਅ",
-      stepperSubtitle: "ਅਧਿਕਾਰਤ NSFDC ਪ੍ਰੋਸੈਸਿੰਗ ਮੀਲ ਪੱਥਰਾਂ ਅਨੁਸਾਰ ਪ੍ਰਗਤੀ",
-      appTerminated: "ਅਰਜ਼ੀ ਸਮਾਪਤ",
-      partnerVerified: "ਪਾਰਟਨਰ-ਤਸਦੀਕਸ਼ੁਦਾ",
-      selfReported: "ਬਿਨੈਕਾਰ-ਰਿਪੋਰਟਡ",
-      pending: "ਬਕਾਇਆ",
-      checklistTitle: "ਦਸਤਾਵੇਜ਼ ਜਮ੍ਹਾਂ ਸੂਚੀ",
-      checklistSubtitle: "ਉਹਨਾਂ ਦਸਤਾਵੇਜ਼ਾਂ ਨੂੰ ਮਾਰਕ ਕਰੋ ਜੋ ਤੁਸੀਂ ਤਿਆਰ ਕੀਤੇ ਹਨ। ਸਾਡੇ ਜ਼ੀਰੋ-ਰੱਦ ਦਿਸ਼ਾ-ਨਿਰਦੇਸ਼ਾਂ ਅਨੁਸਾਰ।",
-      viewAuthorities: "ਗਾਈਡ ਵਿੱਚ ਜਾਰੀਕਰਤਾ ਅਧਿਕਾਰੀ ਦੇਖੋ",
-      docCompleted: "ਪੂਰਾ ਹੋਇਆ",
-      docPending: "ਉਡੀਕ ਅਧੀਨ",
-      progressActions: "ਤਰੱਕੀ ਰਿਪੋਰਟਿੰਗ ਵਿਕਲਪ",
-      actionsSubtitle: "ਆਪਣੀ ਪ੍ਰਗਤੀ ਦੀ ਖੁਦ ਰਿਪੋਰਟ ਕਰੋ ਜਾਂ ਪਾਰਟਨਰ ਮੋਡ ਵਿੱਚ ਟੈਸਟ ਕਰੋ।",
-      partnerModeLabel: "ਚੈਨਲ ਪਾਰਟਨਰ ਮੋਡ:",
-      partnerModeActive: "ਸਰਗਰਮ (ਤਸਦੀਕਸ਼ੁਦਾ)",
-      partnerModeOff: "ਬੰਦ (ਸਵੈ-ਰਿਪੋਰਟਡ)",
-      partnerRemarksTitle: "ਚੈਨਲ ਪਾਰਟਨਰ ਤਸਦੀਕ ਟਿੱਪਣੀ:",
-      partnerRemarksPlaceholder: "ਜਿਵੇਂ ਜ਼ਿਲ੍ਹਾ ਨਿਗਮ ਅਧਿਕਾਰੀ ਦੁਆਰਾ ਤਸਦੀਕ / ਮਨਜ਼ੂਰੀ ਹੁਕਮ ਨੰਬਰ...",
-      btnStartDocs: "੧. ਦਸਤਾਵੇਜ਼ ਤਿਆਰੀ ਸ਼ੁਰੂ ਕਰੋ",
-      btnSubmitPartner: "੨. ਬੈਂਕ ਕਾਊਂਟਰ 'ਤੇ ਜਮ੍ਹਾਂ ਕਰਵਾਇਆ",
-      btnAdvanceAppraisal: "੩. ਤਕਨੀਕੀ ਮੁਲਾਂਕਣ ਲਈ ਭੇਜੋ",
-      btnMarkSanctioned: "੪. ਕਰਜ਼ਾ ਮਨਜ਼ੂਰ ਮਾਰਕ ਕਰੋ",
-      btnMarkDisbursed: "੫. ਰਕਮ ਖਾਤੇ ਵਿੱਚ ਭੇਜੀ ਗਈ (ਸਫਲਤਾ)",
-      withdrawApplication: "ਅਰਜ਼ੀ ਵਾਪਸ ਲਵੋ",
-      confirmWithdrawTitle: "ਅਰਜ਼ੀ ਵਾਪਸੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
-      confirmWithdrawDesc: "ਅਰਜ਼ੀ ਵਾਪਸ ਲੈਣਾ ਅੰਤਿਮ ਕਾਰਵਾਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕਾਰਨ ਦੱਸੋ:",
-      withdrawReasonPlaceholder: "ਵਾਪਸੀ ਦਾ ਕਾਰਨ...",
-      confirmWithdrawBtn: "ਵਾਪਸੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
-      cancelBtn: "ਰੱਦ ਕਰੋ",
-      matchedSchemeBadge: "ਮੈਚ ਹੋਈ NSFDC ਯੋਜਨਾ",
-      interestRateLabel: "ਰਿਆਇਤੀ ਵਿਆਜ ਦਰ:",
-      moratoriumLabel: "ਮੋਰੇਟੋਰੀਅਮ ਛੋਟ:",
-      perAnnum: "ਸਾਲਾਨਾ",
-      months: "ਮਹੀਨੇ",
-      assignedPartnerBadge: "ਨਿਯੁਕਤ ਚੈਨਲ ਪਾਰਟਨਰ",
-      viewMapBtn: "ਨਕਸ਼ੇ 'ਤੇ ਦੇਖੋ",
-      auditHistoryTitle: "ਆਡਿਟ ਇਤਿਹਾਸ",
-      eventsCount: "ਘਟਨਾਵਾਂ",
-      status: {
-        inquiry_submitted: "ਪੁੱਛਗਿੱਛ ਦਰਜ ਹੋਈ",
-        documents_pending: "ਦਸਤਾਵੇਜ਼ ਤਿਆਰੀ ਜਾਰੀ",
-        submitted_to_partner: "ਪਾਰਟਨਰ ਨੂੰ ਸੌਂਪਿਆ ਗਿਆ",
-        under_appraisal: "ਤਕਨੀਕੀ ਜਾਂਚ ਅਧੀਨ",
-        sanctioned: "ਕਰਜ਼ਾ ਮਨਜ਼ੂਰ",
-        disbursed: "ਪੂੰਜੀ ਵੰਡੀ ਗਈ",
-        rejected: "ਅਰਜ਼ੀ ਰੱਦ",
-        withdrawn: "ਵਾਪਸ ਲਈ ਗਈ"
-      },
-      stages: {
-        inquiry_submitted_desc: "ਯੋਜਨਾ ਸੇਤੂ 'ਤੇ ਔਨਲਾਈਨ ਪੁੱਛਗਿੱਛ ਦਰਜ ਹੋਈ",
-        documents_pending_desc: "ਜਾਤੀ ਅਤੇ ਆਮਦਨ ਸਰਟੀਫਿਕੇਟ ਤਿਆਰ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ",
-        submitted_to_partner_desc: "ਅਧਿਕਾਰਤ ਬੈਂਕ ਸ਼ਾਖਾ ਵਿੱਚ ਦਸਤਾਵੇਜ਼ ਜਮ੍ਹਾਂ ਕਰਵਾਏ ਗਏ",
-        under_appraisal_desc: "ਅਧਿਕਾਰੀ ਦੁਆਰਾ ਕਾਰੋਬਾਰ ਦੀ ਪੜਤਾਲ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ",
-        sanctioned_desc: "ਰਿਆਇਤੀ ਵਿਆਜ ਦਰ 'ਤੇ ਮਨਜ਼ੂਰੀ ਪੱਤਰ ਜਾਰੀ ਹੋ ਗਿਆ ਹੈ",
-        disbursed_desc: "ਰਕਮ ਸਿੱਧੀ ਬੈਂਕ ਖਾਤੇ ਵਿੱਚ ਭੇਜ ਦਿੱਤੀ ਗਈ ਹੈ"
-      },
-      docs: {
-        caste: "ਜਾਤੀ ਸਰਟੀਫਿਕੇਟ (ਡਿਜੀਟਲ ਮੋਹਰ ਵਾਲਾ)",
-        income: "ਆਮਦਨ ਸਰਟੀਫਿਕੇਟ (ਸਾਲਾਨਾ ਆਮਦਨ ₹੫ ਲੱਖ ਤੋਂ ਘੱਟ)",
-        aadhaar: "ਆਧਾਰ ਕਾਰਡ (ਬੈਂਕ ਖਾਤੇ ਨਾਲ ਲਿੰਕ)",
-        dpr: "ਪ੍ਰੋਜੈਕਟ ਰਿਪੋਰਟ (ਲਾਗਤ ਦਾ ਹਿਸਾਬ-ਕਿਤਾਬ)",
-        quotation: "ਮਸ਼ੀਨਰੀ ਕੋਟੇਸ਼ਨ (ਜੀਐਸਟੀ ਬਿੱਲ)",
-        bankPassbook: "ਬੈਂਕ ਪਾਸਬੁੱਕ / ਰੱਦ ਕੀਤਾ ਚੈੱਕ"
-      }
-    }
-  }
+    
 };
 
 // Write packs
@@ -375,7 +283,6 @@ for (const [code, pack] of Object.entries(PACKS)) {
   fs.writeFileSync(path.join(dir, 'emi-simulator.json'), JSON.stringify({ emi: pack.emi }, null, 2), 'utf8');
   fs.writeFileSync(path.join(dir, 'documents.json'), JSON.stringify(pack.documents, null, 2), 'utf8');
   fs.writeFileSync(path.join(dir, 'partner-locator.json'), JSON.stringify({ locator: pack.locator }, null, 2), 'utf8');
-  fs.writeFileSync(path.join(dir, 'track.json'), JSON.stringify({ track: pack.track }, null, 2), 'utf8');
 
   console.log(`Successfully generated 100% genuine Indic pack for ${code}`);
 }

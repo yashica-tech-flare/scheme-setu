@@ -1,4 +1,4 @@
-﻿# Scheme Setu (योजना सेतु) — NSFDC Concessional Credit Portal
+# Scheme Setu (योजना सेतु) — NSFDC Concessional Credit Portal
 
 > **Live Web App**: [https://scheme-setu-beryl.vercel.app](https://scheme-setu-beryl.vercel.app)  
 > **Backend Live API**: [https://scheme-setu-wccq.onrender.com](https://scheme-setu-wccq.onrender.com)  
@@ -13,10 +13,11 @@
 
 The platform eliminates high application rejection rates and informational asymmetry by offering:
 1. **Rule-Based Eligibility Evaluation**: Deterministic matching with transparent, verifiable match reasons and zero hallucinations.
-2. **Moratorium-Aware Financial Simulator**: Precise EMI calculations factoring in principal repayment holidays (moratorium) versus market commercial bank rates (15% p.a.).
-3. **Application Guide & Document Checklist**: Step-by-step guidance, downloadable Detailed Project Report (DPR) formats, and a pre-formatted Application Slip.
-4. **Geo-Spatial Partner Locator**: Interactive OpenStreetMap locator displaying 35+ verified channel partners (State SC Corporations, Public Sector Banks, Regional Rural Banks, and empanelled NBFC-MFIs) across 21 Indian cities, filtering out high-NPA or exhausted-fund branches.
-5. **Full Bilingual Support**: Complete English and Hindi (हिन्दी) localization with instantaneous language toggling.
+2. **Official "Apply Online" Integration**: Direct routing to verified Government of India portals (such as **PM-SURAJ** under MoSJE) with strict domain allow-listing (`.gov.in`, `.nic.in`), pre-departure document readiness checklists, and anti-middleman safeguards.
+3. **Moratorium-Aware Financial Simulator**: Precise EMI calculations factoring in principal repayment holidays (moratorium) versus market commercial bank rates (15% p.a.).
+4. **Application Guide & Document Checklist**: Step-by-step guidance, downloadable Detailed Project Report (DPR) formats, and a pre-formatted Application Slip.
+5. **Geo-Spatial Partner Locator**: Interactive OpenStreetMap locator displaying 35+ verified channel partners (State SC Corporations, Public Sector Banks, Regional Rural Banks, and empanelled NBFC-MFIs) across 21 Indian cities, filtering out high-NPA or exhausted-fund branches.
+6. **Vernacular & Multilingual Inclusion**: 32 Indian languages with grassroots spoken dialects, Web Speech voice assistant, and seamless RTL support for Urdu.
 
 ---
 
@@ -95,8 +96,20 @@ cd frontend
 npm run build
 ```
 
+### 4. Admin Governance & Link Health Verification
+```bash
+# Verify all official government apply URLs and redirect chains
+node scripts/check-apply-links.js
+
+# Review and audit proposed scheme revisions with visual diff
+node scripts/refresh-schemes.js --diff updates.json
+
+# Apply verified scheme updates with audit timestamp
+node scripts/refresh-schemes.js --commit updates.json
+```
+
 ---
 
 ## 🛡️ Governance & Disclaimer
 
-Scheme Setu is designed as a public-good digital interface conforming to the official guidelines of the National Scheduled Castes Finance and Development Corporation (NSFDC). The platform assists applicants in discovering suitable credit schemes and nearest empanelled credit partners; sanction and disbursement remain the statutory domain of the respective channelizing agency or partner bank.
+Scheme Setu is designed as an affirmative public-good digital interface conforming to the official guidelines of the National Scheduled Castes Finance and Development Corporation (NSFDC) and PM-SURAJ portal under MoSJE. The platform assists applicants in discovering suitable credit schemes, preparing verified document dossiers, and finding nearest empanelled credit partners or official online portals; sanction and disbursement remain the statutory domain of the respective channelizing agency or partner bank. No personal data or credentials pass through Scheme Setu.

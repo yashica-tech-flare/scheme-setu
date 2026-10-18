@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { api } from '../api/client';
 import { localizeSchemeName, localizeSchemeDesc, localizeMatchReason, localizeDocumentName } from '../utils/localizationHelper';
+import { isValidGovernmentUrl } from '../utils/urlValidator';
+import ApplyConfirmModal from './ApplyConfirmModal';
+import fallbackPartners from '../data/fallbackPartners.json';
 import {
   Award,
   Percent,
@@ -20,56 +23,21 @@ import {
   Sparkles,
   Building2,
   BookmarkCheck,
-  RefreshCw
+  Send,
+  Info,
+  Phone,
+  Navigation,
+  Printer
 } from 'lucide-react';
 import VoiceAssistant from './VoiceAssistant';
 
-export default function ResultsCard({ scheme, onSelectForEMI }) {
+export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectForEMI }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [showDocs, setShowDocs] = useState(false);
   const [showReasons, setShowReasons] = useState(true); // Open by default to highlight match explanation
-  const [submittingInquiry, setSubmittingInquiry] = useState(false);
-
-  const handleTrackInquiry = async () => {
-    try {
-      setSubmittingInquiry(true);
-      const inputStr = sessionStorage.getItem('scheme_setu_input');
-      const input = inputStr ? JSON.parse(inputStr) : { income: 250000, projectCost: 140000, projectType: 'small_business' };
-
-      const payload = {
-        income: input.income,
-        projectCost: input.projectCost || scheme.maxLoanAmount || 140000,
-        projectType: input.projectType || 'small_business',
-        isEducation: Boolean(input.isEducation),
-        gender: input.gender || 'female',
-        isSC: true,
-        matchedScheme: {
-          schemeId: scheme._id || 'scheme',
-          schemeName: scheme.schemeName || scheme.name,
-          matchScore: scheme.matchScore || 95,
-          interestRate: scheme.interestRate || 4,
-          maxLoanAmount: scheme.maxLoanAmount || 140000,
-          moratoriumMonths: scheme.moratoriumMonths || 6
-        },
-        routedPartner: {
-          partnerName: scheme.channelizingAgencies?.[0] ? `${scheme.channelizingAgencies[0]} District Hub` : 'State Channelising Agency (SCA)',
-          partnerType: scheme.channelizingAgencies?.[0] || 'SCA'
-        }
-      };
-
-      const res = await api.submitApplication(payload);
-      if (res?.refId) {
-        navigate(`/track?ref=${encodeURIComponent(res.refId)}`);
-      } else {
-        navigate('/track');
-      }
-    } catch (err) {
-      navigate('/track');
-    } finally {
-      setSubmittingInquiry(false);
-    }
-  };
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [activeModalPortal, setActiveModalPortal] = useState(null);
 
   const displayName = localizeSchemeName(scheme, i18n.language);
   const displayDesc = localizeSchemeDesc(scheme, i18n.language);
@@ -331,42 +299,300 @@ export default function ResultsCard({ scheme, onSelectForEMI }) {
         </div>
       )}
 
-      {/* Action Buttons */}
-      <div className="p-4 sm:p-6 bg-white space-y-2.5">
-        <div className="flex flex-col sm:flex-row gap-2.5">
-          <button
-            type="button"
-            onClick={() => onSelectForEMI && onSelectForEMI(scheme)}
-            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-          >
-            <Calculator className="w-4 h-4 text-saffron-600" />
-            {t('results.exploreEmi')}
-          </button>
+      {/* Action Buttons & Official Application Route */}
+      <div className="p-4 sm:p-6 bg-white space-y-3 border-t border-slate-100">
+        {(() => {
+          const rawApplyMode = scheme.applyMode || 'offline';
+          const hasValidApplyUrl = scheme.applyUrl && isValidGovernmentUrl(scheme.applyUrl);
+          const effectiveApplyMode = (rawApplyMode === 'online' && !hasValidApplyUrl) ? 'offline' : rawApplyMode;
+          const canApplyOnline = (effectiveApplyMode === 'online' || effectiveApplyMode === 'both') && hasValidApplyUrl;
+          const canApplyBranch = effectiveApplyMode === 'offline' || effectiveApplyMode === 'both';
 
-          <button
-            type="button"
-            onClick={handleLocatePartners}
-            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold text-white bg-saffron-600 hover:bg-saffron-700 shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-          >
-            <MapPin className="w-4 h-4" />
-            {t('results.locatePartners')}
-          </button>
-        </div>
+          const verifiedApplyDate = scheme.applyUrlVerified
+            ? new Date(scheme.applyUrlVerified).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+            : formattedDate;
 
-        <button
-          type="button"
-          onClick={handleTrackInquiry}
-          disabled={submittingInquiry}
-          className="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
-        >
-          {submittingInquiry ? (
-            <RefreshCw className="w-3.5 h-3.5 animate-spin text-saffron-400" />
-          ) : (
-            <Clock className="w-3.5 h-3.5 text-saffron-400" />
-          )}
-          <span>{t('results.registerTrackBtn', 'Register Inquiry & Track Loan Status →')}</span>
-        </button>
+          const stateLinks = (scheme.stateApplyLinks || []).filter(l => isValidGovernmentUrl(l.url));
+
+          // Find state-specific link if state filter is active
+          const matchingStateLink = (selectedState && selectedState !== 'ALL')
+            ? stateLinks.find(l =>
+                l.stateCode === selectedState ||
+                l.state?.toLowerCase() === selectedState?.toLowerCase() ||
+                (selectedState === 'GJ' && l.state === 'Gujarat') ||
+                (selectedState === 'DL' && l.state === 'Delhi') ||
+                (selectedState === 'OD' && l.state === 'Odisha')
+              )
+            : null;
+
+          // Find nearest/relevant partner branch for offline block
+          const relevantPartner = (() => {
+            const sName = scheme.schemeName || scheme.name;
+            if (selectedState && selectedState !== 'ALL') {
+              const stateMatch = fallbackPartners.find(p =>
+                (p.state?.toLowerCase().includes(selectedState.toLowerCase()) ||
+                 p.city?.toLowerCase().includes(selectedState.toLowerCase())) &&
+                (p.schemesHandled?.includes(sName) || p.type === 'SCA')
+              ) || fallbackPartners.find(p =>
+                p.state?.toLowerCase().includes(selectedState.toLowerCase()) ||
+                p.city?.toLowerCase().includes(selectedState.toLowerCase())
+              );
+              if (stateMatch) return stateMatch;
+            }
+            return fallbackPartners.find(p => p.schemesHandled?.includes(sName) && p.type === 'SCA')
+              || fallbackPartners.find(p => p.schemesHandled?.includes(sName))
+              || fallbackPartners[0];
+          })();
+
+          const mapsUrl = relevantPartner
+            ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(relevantPartner.address || relevantPartner.name)}`
+            : null;
+
+          return (
+            <div className="space-y-3">
+              {canApplyOnline ? (
+                /* Online Route(s) */
+                <div className="space-y-2">
+                  {matchingStateLink ? (
+                    /* Specific State Portal Available for Selected State */
+                    <div className="space-y-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveModalPortal(matchingStateLink);
+                          setIsApplyModalOpen(true);
+                        }}
+                        className="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 hover:from-emerald-700 hover:to-teal-800 shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+                      >
+                        <ShieldCheck className="w-4 h-4" />
+                        <span>{t('results.applyOnlineState', { state: matchingStateLink.state })}</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </button>
+
+                      <div className="flex items-center justify-between text-[11px] text-slate-600 px-1">
+                        <span className="font-semibold text-emerald-800">
+                          {matchingStateLink.portalName}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setActiveModalPortal({ url: scheme.applyUrl, portalName: scheme.applyPortalName });
+                            setIsApplyModalOpen(true);
+                          }}
+                          className="text-saffron-700 hover:text-saffron-800 font-bold underline cursor-pointer"
+                        >
+                          {t('results.applyOnlineNational', 'Or apply on National PM-SURAJ')} &rarr;
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    /* National PM-SURAJ Route */
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveModalPortal({ url: scheme.applyUrl, portalName: scheme.applyPortalName });
+                          setIsApplyModalOpen(true);
+                        }}
+                        className="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 hover:from-emerald-700 hover:to-teal-800 shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+                      >
+                        <span>{t('results.applyOnline', 'Apply Online')}</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </button>
+
+                      {/* Under the button: Portal name, verification date, and notes */}
+                      <div className="mt-2 text-[11px] text-slate-500 space-y-1 px-1">
+                        <div className="flex flex-wrap items-center justify-between gap-1 text-slate-700">
+                          <span className="font-semibold text-emerald-800 flex items-center gap-1">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                            {scheme.applyPortalName || t('results.pmSurajPortal', 'PM-SURAJ Official Portal')}
+                          </span>
+                          <span className="text-slate-500">
+                            {t('results.linkVerifiedOn', 'Link last verified on')} <strong>{verifiedApplyDate}</strong>
+                          </span>
+                        </div>
+                        {scheme.applyNotes && (
+                          <p className="text-slate-600 italic">
+                            {scheme.applyNotes}
+                          </p>
+                        )}
+                        {/* State Portals Available Chips */}
+                        {stateLinks.length > 0 && selectedState === 'ALL' && (
+                          <div className="pt-1 flex flex-wrap items-center gap-1.5">
+                            <span className="text-[10px] uppercase font-bold text-slate-500">
+                              {t('results.statePortalsAvailable', 'State Portals')}:
+                            </span>
+                            {stateLinks.map((sl, sIdx) => (
+                              <button
+                                key={sIdx}
+                                type="button"
+                                onClick={() => {
+                                  setActiveModalPortal(sl);
+                                  setIsApplyModalOpen(true);
+                                }}
+                                className="inline-flex items-center gap-1 text-[10px] font-semibold bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-md cursor-pointer transition-colors"
+                              >
+                                <span>{sl.state}</span>
+                                <ExternalLink className="w-2.5 h-2.5" />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Secondary Branch and EMI Buttons for Online Schemes */}
+                  <div className="flex flex-col sm:flex-row gap-2 pt-1">
+                    {canApplyBranch && (
+                      <button
+                        type="button"
+                        onClick={handleLocatePartners}
+                        className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold text-saffron-800 bg-saffron-50 hover:bg-saffron-100 border border-saffron-200 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <MapPin className="w-4 h-4 text-saffron-600" />
+                        {t('results.applyAtBranch', 'Apply at a Branch')}
+                      </button>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => onSelectForEMI && onSelectForEMI(scheme)}
+                      className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <Calculator className="w-4 h-4 text-saffron-600" />
+                      {t('results.exploreEmi', 'Simulate Live EMI')}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* Rich Offline Branch Action Block */
+                <div className="space-y-3">
+                  <div className="p-4 bg-gradient-to-br from-amber-50/80 via-slate-50 to-orange-50/50 rounded-2xl border border-amber-200/90 shadow-2xs space-y-3">
+                    <div className="flex items-center justify-between gap-2 border-b border-amber-200/60 pb-2">
+                      <div className="flex items-center gap-1.5 font-bold text-amber-950 text-xs">
+                        <Building2 className="w-4 h-4 text-saffron-600 flex-shrink-0" />
+                        <span>{t('results.offlineOnlyTitle', 'Branch Application Route')}</span>
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                        In-Person Route
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-slate-700 leading-relaxed">
+                      {scheme.applyNotes || t('results.offlineBranchExplanation', 'This scheme is applied for in person at the agency branch with course admission proof.')}
+                    </p>
+
+                    {/* Nearest Partner Branch Card */}
+                    {relevantPartner && (
+                      <div className="p-3 bg-white rounded-xl border border-slate-200 space-y-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 leading-snug">
+                              {relevantPartner.name}
+                            </div>
+                            <div className="text-[11px] text-slate-500 mt-0.5">
+                              {relevantPartner.address}
+                            </div>
+                          </div>
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 flex-shrink-0">
+                            {relevantPartner.type || 'SCA'}
+                          </span>
+                        </div>
+
+                        {/* Partner Contact & Directions */}
+                        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100 text-xs">
+                          {relevantPartner.contact && (
+                            <a
+                              href={`tel:${relevantPartner.contact.replace(/[^\d+]/g, '')}`}
+                              className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg border border-emerald-200 transition-colors"
+                            >
+                              <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                              <span>{relevantPartner.contact}</span>
+                            </a>
+                          )}
+
+                          {mapsUrl && (
+                            <a
+                              href={mapsUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 font-bold text-blue-700 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg border border-blue-200 transition-colors"
+                            >
+                              <Navigation className="w-3.5 h-3.5 text-blue-600" />
+                              <span>{t('results.getDirections', 'Directions')}</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Required Documents Checklist Chips */}
+                    {docs.length > 0 && (
+                      <div className="space-y-1.5">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 block">
+                          {t('applyModal.docsReadyTitle', 'Carry these documents to the branch')}:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {docs.slice(0, 4).map((d, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center gap-1 text-[11px] font-medium bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded-md shadow-2xs"
+                            >
+                              <CheckCircle2 className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+                              {localizeDocumentName(d, t)}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Primary & Secondary Buttons for Offline Route */}
+                  <div className="space-y-2">
+                    <button
+                      type="button"
+                      onClick={handleLocatePartners}
+                      className="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-saffron-500 via-saffron-600 to-amber-600 hover:from-saffron-600 hover:to-amber-700 shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
+                    >
+                      <MapPin className="w-4 h-4" />
+                      <span>{t('results.findNearestBranch', 'Find Nearest Branch')}</span>
+                    </button>
+
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <button
+                        type="button"
+                        onClick={() => window.print()}
+                        className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <Printer className="w-3.5 h-3.5 text-slate-600" />
+                        <span>{t('results.printSlip', 'Print Verification Slip')}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => onSelectForEMI && onSelectForEMI(scheme)}
+                        className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                      >
+                        <Calculator className="w-3.5 h-3.5 text-saffron-600" />
+                        <span>{t('results.exploreEmi', 'Simulate Live EMI')}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
       </div>
+
+      {/* Confirmation Modal before leaving SchemeBridge */}
+      <ApplyConfirmModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        scheme={scheme}
+        targetPortal={activeModalPortal}
+      />
     </div>
   );
 }

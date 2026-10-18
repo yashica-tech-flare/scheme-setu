@@ -105,7 +105,35 @@ const schemeSchema = new mongoose.Schema({
   lastVerified: {
     type: Date,
     default: Date.now
-  }
+  },
+  applyMode: {
+    type: String,
+    enum: ['online', 'offline', 'both'],
+    default: 'offline'
+  },
+  applyUrl: {
+    type: String,
+    default: null
+  },
+  applyPortalName: {
+    type: String,
+    default: null
+  },
+  applyUrlVerified: {
+    type: Date,
+    default: null
+  },
+  applyNotes: {
+    type: String,
+    default: null
+  },
+  stateApplyLinks: [{
+    state: { type: String, required: true },
+    stateCode: { type: String },
+    portalName: { type: String, required: true },
+    url: { type: String, required: true },
+    verifiedOn: { type: Date, default: Date.now }
+  }]
 }, {
   timestamps: true
 });

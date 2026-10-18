@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Landmark, ShieldCheck, ExternalLink, Heart, Lock } from 'lucide-react';
+import { Landmark, ShieldCheck, ExternalLink, Heart } from 'lucide-react';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -53,15 +53,6 @@ export default function Footer() {
               <li><span className="hover:text-white transition-colors">Public Sector Banks (PSBs)</span></li>
               <li><span className="hover:text-white transition-colors">Regional Rural Banks (RRBs)</span></li>
               <li><span className="hover:text-white transition-colors">Empanelled NBFC-MFIs</span></li>
-              <li className="pt-2 border-t border-slate-800/80">
-                <Link
-                  to="/admin/track"
-                  className="text-xs font-bold text-saffron-400 hover:text-saffron-300 transition-colors inline-flex items-center gap-1.5"
-                >
-                  <Lock className="w-3 h-3" />
-                  <span>Partner Officer Portal &rarr;</span>
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

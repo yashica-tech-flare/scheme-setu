@@ -15,8 +15,11 @@ async function seed() {
     await Scheme.deleteMany({});
     await Partner.deleteMany({});
 
-    console.log(`Inserting ${seedSchemes.length} schemes...`);
-    await Scheme.insertMany(seedSchemes);
+    const { sanitizeSchemeApplyFields } = require('../utils/urlValidator');
+    const validatedSchemes = seedSchemes.map(s => sanitizeSchemeApplyFields(s));
+
+    console.log(`Inserting ${validatedSchemes.length} validated schemes...`);
+    await Scheme.insertMany(validatedSchemes);
 
     console.log(`Inserting ${seedPartners.length} partners...`);
     await Partner.insertMany(seedPartners);

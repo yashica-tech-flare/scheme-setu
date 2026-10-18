@@ -1,0 +1,286 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-10-18T14:39:11.205Z",
+  "provider": "ElevenLabs Multilingual v2",
+  "clips": {
+    "portal_welcome": {
+      "en": {
+        "path": "/audio/en/portal_welcome.mp3",
+        "text": "Welcome to SchemeBridge, the official concessional credit portal for Scheduled Caste entrepreneurs and students under NSFDC.",
+        "language": "English (Indian)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "hi": {
+        "path": "/audio/hi/portal_welcome.mp3",
+        "text": "योजना सेतु में आपका स्वागत है, एनएसएफडीसी के तहत अनुसूचित जाति के उद्यमियों और छात्रों के लिए आधिकारिक रियायती ऋण मंच।",
+        "language": "Hindi (हिन्दी)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ta": {
+        "path": "/audio/ta/portal_welcome.mp3",
+        "text": "என்.எஸ்.எஃப்.டி.சி கீழ் உள்ள எஸ்சி தொழில்முனைவோர் மற்றும் மாணவர்களுக்கான அதிகாரப்பூர்வ மானிய கடன் போர்ட்டலான திட்டம் சேதுவுக்கு உங்களை வரவேற்கிறோம்.",
+        "language": "Tamil (தமிழ்)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "te": {
+        "path": "/audio/te/portal_welcome.mp3",
+        "text": "ఎన్‌ఎస్‌ఎఫ్‌డిసి కింద షెడ్యూల్డ్ కులాల వ్యవస్థాపకులు మరియు విద్యార్థుల కోసం అధికారిక రాయితీ రుణ పోర్టల్ అయిన స్కీమ్ సేతుకు స్వాగతం.",
+        "language": "Telugu (తెలుగు)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "bn": {
+        "path": "/audio/bn/portal_welcome.mp3",
+        "text": "এনএসএফডিসি-র অধীনে তপশিলি জাতি উদ্যোক্তা এবং শিক্ষার্থীদের জন্য অফিসিয়াল রেয়াতি ঋণ পোর্টাল স্কিম সেতুতে আপনাকে স্বাগতম।",
+        "language": "Bengali (বাংলা)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "mr": {
+        "path": "/audio/mr/portal_welcome.mp3",
+        "text": "एनएसएफडीसी अंतर्गत अनुसूचित जातीच्या उद्योजकांसाठी आणि विद्यार्थ्यांसाठी अधिकृत सवलतीच्या कर्ज पोर्टल योजना सेतूमध्ये आपले स्वागत आहे.",
+        "language": "Marathi (मराठी)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ur": {
+        "path": "/audio/ur/portal_welcome.mp3",
+        "text": "این ایس ایف ڈی سی کے تحت درج فہرست ذات کے کاروباری افراد اور طلباء کے لیے سرکاری رعایتی قرض پورٹل اسکیم سیتو میں خوش آمدید۔",
+        "language": "Urdu (اردو)",
+        "voiceId": "pNInz6obpgDQGcFmaJgB",
+        "sizeBytes": 48
+      },
+      "gu": {
+        "path": "/audio/gu/portal_welcome.mp3",
+        "text": "એનએસએફડીસી હેઠળ અનુસૂચિત જાતિના સાહસિકો અને વિદ્યાર્થીઓ માટે સત્તાવાર રાહત લોન પોર્ટલ સ્કીમ સેતુમાં આપનું સ્વાગત છે.",
+        "language": "Gujarati (ગુજરાતી)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "kn": {
+        "path": "/audio/kn/portal_welcome.mp3",
+        "text": "ಎನ್‌ಎಸ್‌ಎಫ್‌ಡಿಸಿ ಅಡಿಯಲ್ಲಿ ಪರಿಶಿಷ್ಟ ಜಾತಿಯ ಉದ್ಯಮಿಗಳು ಮತ್ತು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಅಧಿಕೃತ ರಿಯಾಯಿತಿ ಸಾಲದ ಪೋರ್ಟಲ್ ಆದ ಸ್ಕೀಮ್ ಸೇತುಗೆ ಸುಸ್ವಾಗತ.",
+        "language": "Kannada (ಕನ್ನಡ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ml": {
+        "path": "/audio/ml/portal_welcome.mp3",
+        "text": "എൻ.എസ്.എഫ്.ഡി.സിക്ക് കീഴിലുള്ള പട്ടികജാതി സംരംഭകർക്കും വിദ്യാർത്ഥികൾക്കുമുള്ള ഔദ്യോഗിക ഇളവുള്ള വായ്പാ പോർട്ടലായ സ്കീം സേതുവിലേക്ക് സ്വാഗതം.",
+        "language": "Malayalam (മലയാളം)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "pa": {
+        "path": "/audio/pa/portal_welcome.mp3",
+        "text": "ਐਨ.ਐਸ.ਐਫ.ਡੀ.ਸੀ ਦੇ ਅਧੀਨ ਅਨੁਸੂਚਿਤ ਜਾਤੀ ਦੇ ਉੱਦਮੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਅਧਿਕਾਰਤ ਰਿਆਇਤੀ ਕਰਜ਼ਾ ਪੋਰਟਲ ਸਕੀਮ ਸੇਤੂ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ।",
+        "language": "Punjabi (ਪੰਜਾਬੀ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "or": {
+        "path": "/audio/or/portal_welcome.mp3",
+        "text": "ଏନଏସଏଫଡିସି ଅଧୀନରେ ଅନୁସୂଚିତ ଜାତି ଉଦ୍ୟୋଗୀ ଏବଂ ଛାତ୍ରମାନଙ୍କ ପାଇଁ ସରକାରୀ ରିହାତି ଋଣ ପୋର୍ଟାଲ୍ ସ୍କିମ୍ ସେତୁକୁ ସ୍ୱାଗତ।",
+        "language": "Odia (ଓଡ଼ିଆ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "as": {
+        "path": "/audio/as/portal_welcome.mp3",
+        "text": "এনএছএফডিচিৰ অধীনত অনুসূচীত জাতিৰ উদ্যোগী আৰু ছাত্ৰ-ছাত্ৰীসকলৰ বাবে অফিচিয়েল ৰেহাই ঋণ পৰ্টেল স্কিম সেতুলৈ স্বাগতম।",
+        "language": "Assamese (অসমীয়া)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      }
+    },
+    "apply_modal_warning": {
+      "en": {
+        "path": "/audio/en/apply_modal_warning.mp3",
+        "text": "Applying through the official government portal is completely free of cost. Never pay money to agents, brokers, or middlemen.",
+        "language": "English (Indian)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "hi": {
+        "path": "/audio/hi/apply_modal_warning.mp3",
+        "text": "आधिकारिक सरकारी पोर्टल के माध्यम से आवेदन पूरी तरह निःशुल्क है। किसी भी एजेंट या बिचौलिए को कभी पैसे न दें।",
+        "language": "Hindi (हिन्दी)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ta": {
+        "path": "/audio/ta/apply_modal_warning.mp3",
+        "text": "அதிகாரப்பூர்வ அரசு போர்ட்டல் மூலம் விண்ணப்பிப்பது முற்றிலும் இலவசம். முகவர்கள் அல்லது இடைத்தரகர்களுக்கு பணம் செலுத்த வேண்டாம்.",
+        "language": "Tamil (தமிழ்)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "te": {
+        "path": "/audio/te/apply_modal_warning.mp3",
+        "text": "అధికారిక ప్రభుత్వ పోర్టల్ ద్వారా దరఖాస్తు చేసుకోవడం పూర్తిగా ఉచితం. ఏజెంట్లకు లేదా దళారులకు ఎప్పుడూ డబ్బు చెల్లించవద్దు.",
+        "language": "Telugu (తెలుగు)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "bn": {
+        "path": "/audio/bn/apply_modal_warning.mp3",
+        "text": "অফিসিয়াল সরকারী পোর্টালের মাধ্যমে আবেদন সম্পূর্ণ বিনামূল্যে। দালাল বা মধ্যস্থতাকারীদের কখনও টাকা দেবেন না।",
+        "language": "Bengali (বাংলা)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "mr": {
+        "path": "/audio/mr/apply_modal_warning.mp3",
+        "text": "अधिकृत सरकारी पोर्टलद्वारे अर्ज करणे पूर्णपणे विनामूल्य आहे. कोणत्याही एजंट किंवा मध्यस्थांना कधीही पैसे देऊ नका.",
+        "language": "Marathi (मराठी)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ur": {
+        "path": "/audio/ur/apply_modal_warning.mp3",
+        "text": "سرکاری پورٹل کے ذریعے درخواست دینا بالکل مفت ہے۔ کسی بھی ایجنٹ یا دلال کو ہرگز پیسے نہ دیں۔",
+        "language": "Urdu (اردو)",
+        "voiceId": "pNInz6obpgDQGcFmaJgB",
+        "sizeBytes": 48
+      },
+      "gu": {
+        "path": "/audio/gu/apply_modal_warning.mp3",
+        "text": "સત્તાવાર સરકારી પોર્ટલ દ્વારા અરજી કરવી તદ્દન મફત છે. ક્યારેય કોઈ એજન્ટ કે વચેટિયાને નાણાં આપશો નહીં.",
+        "language": "Gujarati (ગુજરાતી)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "kn": {
+        "path": "/audio/kn/apply_modal_warning.mp3",
+        "text": "ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಪೋರ್ಟಲ್ ಮೂಲಕ ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು ಸಂಪೂರ್ಣ ಉಚಿತವಾಗಿದೆ. ದಲ್ಲಾಳಿಗಳಿಗೆ ಹಣ ನೀಡಬೇಡಿ.",
+        "language": "Kannada (ಕನ್ನಡ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ml": {
+        "path": "/audio/ml/apply_modal_warning.mp3",
+        "text": "ഔദ്യോഗിക സർക്കാർ പോർട്ടൽ വഴി അപേക്ഷിക്കുന്നത് പൂർണ്ണമായും സൗജന്യമാണ്. ഇടനിലക്കാർക്ക് പണം നൽകരുത്.",
+        "language": "Malayalam (മലയാളം)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "pa": {
+        "path": "/audio/pa/apply_modal_warning.mp3",
+        "text": "ਅਧਿਕਾਰਤ ਸਰਕਾਰੀ ਪੋਰਟਲ ਰਾਹੀਂ ਅਰਜ਼ੀ ਦੇਣਾ ਬਿਲਕੁਲ ਮੁਫ਼ਤ ਹੈ। ਕਦੇ ਵੀ ਵਿਚੋਲਿਆਂ ਨੂੰ ਪੈਸੇ ਨਾ ਦਿਓ।",
+        "language": "Punjabi (ਪੰਜਾਬੀ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "or": {
+        "path": "/audio/or/apply_modal_warning.mp3",
+        "text": "ସରକାରୀ ପୋର୍ଟାଲ ମାଧ୍ୟମରେ ଆବେଦନ ସମ୍ପୂର୍ଣ୍ଣ ମାଗଣା। କୌଣସି ଦଲାଲଙ୍କୁ ଟଙ୍କା ଦିଅନ୍ତୁ ନାହିଁ।",
+        "language": "Odia (ଓଡ଼ିଆ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "as": {
+        "path": "/audio/as/apply_modal_warning.mp3",
+        "text": "চৰকাৰী পৰ্টেলৰ জৰিয়তে আবেদন সম্পূৰ্ণ বিনামূলীয়া। কোনো মধ্যভোগীক পইচা নিদিব।",
+        "language": "Assamese (অসমীয়া)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      }
+    },
+    "doc_guidance_intro": {
+      "en": {
+        "path": "/audio/en/doc_guidance_intro.mp3",
+        "text": "Ensure zero rejections by preparing certified documentation before visiting the channel partner branch.",
+        "language": "English (Indian)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "hi": {
+        "path": "/audio/hi/doc_guidance_intro.mp3",
+        "text": "चैनल पार्टनर शाखा जाने से पहले प्रमाणित दस्तावेज तैयार करके शून्य अस्वीकृति सुनिश्चित करें।",
+        "language": "Hindi (हिन्दी)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ta": {
+        "path": "/audio/ta/doc_guidance_intro.mp3",
+        "text": "சேனல் பார்ட்னர் கிளைக்குச் செல்லும் முன் சான்றளிக்கப்பட்ட ஆவணங்களைத் தயாரிப்பதன் மூலம் பூஜ்ஜிய நிராகரிப்புகளை உறுதிப்படுத்தவும்.",
+        "language": "Tamil (தமிழ்)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "te": {
+        "path": "/audio/te/doc_guidance_intro.mp3",
+        "text": "ఛానల్ భాగస్వామి శాఖను సందర్శించే ముందు ధృవీకరించబడిన పత్రాలను సిద్ధం చేయడం ద్వారా తిరస్కరణలు లేకుండా చూసుకోండి.",
+        "language": "Telugu (తెలుగు)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "bn": {
+        "path": "/audio/bn/doc_guidance_intro.mp3",
+        "text": "চ্যানেল পার্টনার শাখায় যাওয়ার আগে প্রত্যয়িত কাগজপত্র প্রস্তুত করে শূন্য প্রত্যাখ্যান নিশ্চিত করুন।",
+        "language": "Bengali (বাংলা)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "mr": {
+        "path": "/audio/mr/doc_guidance_intro.mp3",
+        "text": "चॅनेल भागीदार शाखेला भेट देण्यापूर्वी प्रमाणित कागदपत्रे तयार करून शून्य नकार खात्री करा.",
+        "language": "Marathi (मराठी)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ur": {
+        "path": "/audio/ur/doc_guidance_intro.mp3",
+        "text": "چینل پارٹنر برانچ جانے سے پہلے تصدیق شدہ دستاویزات تیار کر کے مسترد ہونے سے بچیں۔",
+        "language": "Urdu (اردو)",
+        "voiceId": "pNInz6obpgDQGcFmaJgB",
+        "sizeBytes": 48
+      },
+      "gu": {
+        "path": "/audio/gu/doc_guidance_intro.mp3",
+        "text": "ચેનલ પાર્ટનર શાખાની મુલાકાત લેતા પહેલા પ્રમાણિત દસ્તાવેજો તૈયાર કરીને શૂન્ય અસ્વીકારની ખાતરી કરો.",
+        "language": "Gujarati (ગુજરાતી)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "kn": {
+        "path": "/audio/kn/doc_guidance_intro.mp3",
+        "text": "ಚಾನೆಲ್ ಪಾಲುದಾರ ಶಾಖೆಗೆ ಭೇಟಿ ನೀಡುವ ಮೊದಲು ಪ್ರಮಾಣೀಕೃತ ದಾಖಲೆಗಳನ್ನು ಸಿದ್ಧಪಡಿಸುವ ಮೂಲಕ ಶೂನ್ಯ ತಿರಸ್ಕರಣೆಯನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+        "language": "Kannada (ಕನ್ನಡ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "ml": {
+        "path": "/audio/ml/doc_guidance_intro.mp3",
+        "text": "ചാനൽ പങ്കാളി ശാഖ സന്ദർശിക്കുന്നതിന് മുമ്പ് സാക്ഷ്യപ്പെടുത്തിയ രേഖകൾ തയ്യാറാക്കി നിരസിക്കൽ ഒഴിവാക്കുക.",
+        "language": "Malayalam (മലയാളം)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "pa": {
+        "path": "/audio/pa/doc_guidance_intro.mp3",
+        "text": "ਚੈਨਲ ਪਾਰਟਨਰ ਬ੍ਰਾਂਚ ਜਾਣ ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਮਾਣਿਤ ਦਸਤਾਵੇਜ਼ ਤਿਆਰ ਕਰਕੇ ਰੱਦ ਹੋਣ ਤੋਂ ਬਚੋ।",
+        "language": "Punjabi (ਪੰਜਾਬੀ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "or": {
+        "path": "/audio/or/doc_guidance_intro.mp3",
+        "text": "ଚ୍ୟାନେଲ୍ ସହଯୋଗୀ ଶାଖା ପରିଦର୍ଶନ କରିବା ପୂର୍ବରୁ ପ୍ରମାଣିତ ଦସ୍ତାବିଜ ପ୍ରସ୍ତୁତ କରି ପ୍ରତ୍ୟାଖ୍ୟାନକୁ ଏଡ଼ାନ୍ତୁ।",
+        "language": "Odia (ଓଡ଼ିଆ)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      },
+      "as": {
+        "path": "/audio/as/doc_guidance_intro.mp3",
+        "text": "চেনেল অংশীদাৰৰ শাখাত যোৱাৰ পূৰ্বে প্ৰমাণিত নথি-পত্ৰ প্ৰস্তুত কৰি বাতিল হোৱাৰ পৰা ৰক্ষা পাওক।",
+        "language": "Assamese (অসমীয়া)",
+        "voiceId": "21m00Tcm4TlvDq8ikWAM",
+        "sizeBytes": 48
+      }
+    }
+  }
+}

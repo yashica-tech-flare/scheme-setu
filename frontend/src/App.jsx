@@ -7,8 +7,6 @@ import Home from './pages/Home';
 import Results from './pages/Results';
 import PartnerLocator from './pages/PartnerLocator';
 import Guide from './pages/Guide';
-import Track from './pages/Track';
-import AdminTrack from './pages/AdminTrack';
 
 export default function App() {
   const { i18n } = useTranslation();
@@ -30,8 +28,6 @@ export default function App() {
             <Route path="/results" element={<Results />} />
             <Route path="/partners" element={<PartnerLocator />} />
             <Route path="/guide" element={<Guide />} />
-            <Route path="/track" element={<Track />} />
-            <Route path="/admin/track" element={<AdminTrack />} />
           </Routes>
         </main>
         <Footer />
