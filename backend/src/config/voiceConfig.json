@@ -1,0 +1,114 @@
+{
+  "en": {
+    "name": "English (Indian)",
+    "provider": "elevenlabs",
+    "model": "eleven_multilingual_v2",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "en",
+    "status": "verified"
+  },
+  "hi": {
+    "name": "Hindi (हिन्दी)",
+    "provider": "elevenlabs",
+    "model": "eleven_multilingual_v2",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "hi",
+    "status": "verified"
+  },
+  "ta": {
+    "name": "Tamil (தமிழ்)",
+    "provider": "elevenlabs",
+    "model": "eleven_multilingual_v2",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "ta",
+    "status": "verified"
+  },
+  "mr": {
+    "name": "Marathi (मराठी)",
+    "provider": "elevenlabs",
+    "model": "eleven_multilingual_v2",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "mr",
+    "status": "verified"
+  },
+  "ur": {
+    "name": "Urdu (اردو)",
+    "provider": "elevenlabs",
+    "model": "eleven_multilingual_v2",
+    "voiceId": "IKne3meq5aSn9XLyUdCD",
+    "languageCode": "ur",
+    "status": "verified"
+  },
+  "te": {
+    "name": "Telugu (తెలుగు)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "te",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  },
+  "bn": {
+    "name": "Bengali (বাংলা)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "bn",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  },
+  "gu": {
+    "name": "Gujarati (ગુજરાતી)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "gu",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  },
+  "kn": {
+    "name": "Kannada (ಕನ್ನಡ)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "kn",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  },
+  "ml": {
+    "name": "Malayalam (മലയാളം)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "ml",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  },
+  "pa": {
+    "name": "Punjabi (ਪੰਜਾਬੀ)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "pa",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  },
+  "or": {
+    "name": "Odia (ଓଡ଼ିଆ)",
+    "provider": "none",
+    "model": "none",
+    "voiceId": "",
+    "languageCode": "or",
+    "status": "unavailable",
+    "reason": "Not supported by eleven_v3; SARVAM_API_KEY not configured"
+  },
+  "as": {
+    "name": "Assamese (অসমীয়া)",
+    "provider": "elevenlabs",
+    "model": "eleven_v3",
+    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "languageCode": "as",
+    "status": "unavailable",
+    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+  }
+}

@@ -4,9 +4,10 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-const { LANGUAGE_CONFIG, getVoiceConfig, isVoiceSupported } = require('../config/voiceConfig');
+const { LANGUAGE_CONFIG, FROZEN_LANGUAGES, BROKEN_LANGUAGES, getVoiceConfig, isVoiceSupported } = require('../config/voiceConfig');
 
-// Audio cache directory
+// Cache versioning and directory
+const CACHE_VERSION = 'v2';
 const CACHE_DIR = path.resolve(__dirname, '../../cache/audio');
 if (!fs.existsSync(CACHE_DIR)) {
   fs.mkdirSync(CACHE_DIR, { recursive: true });
@@ -180,7 +181,7 @@ function synthesizeWithElevenLabs(text, config, retryCount = 0) {
   const modelId = config.modelId || 'eleven_multilingual_v2';
   const startTime = Date.now();
 
-  const payload = JSON.stringify({
+  const payloadObj = {
     text: text,
     model_id: modelId,
     voice_settings: config.settings || {
@@ -189,7 +190,11 @@ function synthesizeWithElevenLabs(text, config, retryCount = 0) {
       style: 0.0,
       use_speaker_boost: true
     }
-  });
+  };
+  if (modelId === 'eleven_v3' && config.languageCode) {
+    payloadObj.language_code = config.languageCode;
+  }
+  const payload = JSON.stringify(payloadObj);
 
   return new Promise((resolve, reject) => {
     const options = {
@@ -278,6 +283,62 @@ function synthesizeWithElevenLabs(text, config, retryCount = 0) {
 }
 
 /**
+ * Calls Sarvam Text-to-Speech API (Bulbul v3) if SARVAM_API_KEY is configured.
+ */
+function synthesizeWithSarvam(text, config) {
+  const sarvamKey = process.env.SARVAM_API_KEY;
+  if (!sarvamKey) {
+    return Promise.reject(new Error('SARVAM_API_KEY environment variable not configured'));
+  }
+  const startTime = Date.now();
+  const sarvamLangMap = {
+    te: 'te-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN', ml: 'ml-IN', pa: 'pa-IN', or: 'od-IN', hi: 'hi-IN', ta: 'ta-IN'
+  };
+  const targetLang = sarvamLangMap[config.languageCode] || 'hi-IN';
+  const payload = JSON.stringify({
+    inputs: [text],
+    target_language_code: targetLang,
+    speaker: 'meera',
+    model: 'bulbul:v3'
+  });
+
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.sarvam.ai',
+      port: 443,
+      path: '/text-to-speech',
+      method: 'POST',
+      headers: {
+        'api-subscription-key': sarvamKey,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload)
+      },
+      timeout: 25000
+    };
+    const req = https.request(options, (res) => {
+      let chunks = [];
+      res.on('data', c => chunks.push(c));
+      res.on('end', () => {
+        const latencyMs = Date.now() - startTime;
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try {
+            const data = JSON.parse(Buffer.concat(chunks).toString());
+            if (data.audios && data.audios[0]) {
+              const audioBuffer = Buffer.from(data.audios[0], 'base64');
+              return resolve({ audioBuffer, latencyMs });
+            }
+          } catch (e) {}
+        }
+        reject(new Error(`Sarvam TTS error HTTP ${res.statusCode}`));
+      });
+    });
+    req.on('error', err => reject(err));
+    req.write(payload);
+    req.end();
+  });
+}
+
+/**
  * Safe logger for speech requests (never logs keys, headers, or raw text)
  */
 function logVoiceRequest({ lang, textLength, textHash, cache, status, latencyMs, errorCode }) {
@@ -296,7 +357,7 @@ function logVoiceRequest({ lang, textLength, textHash, cache, status, latencyMs,
 
 /**
  * POST /api/voice/speak
- * Synthesizes dynamic scheme text or guidance into audio using ElevenLabs.
+ * Synthesizes dynamic scheme text or guidance into audio using server-authoritative voice configuration.
  */
 router.post('/speak', async (req, res) => {
   const reqStartTime = Date.now();
@@ -345,22 +406,23 @@ router.post('/speak', async (req, res) => {
   }
 
   // 3. Language configuration & support check
-  const lang = String(languageCode || 'en').toLowerCase().trim();
+  const lang = String(languageCode || 'en').toLowerCase().trim().split(/[-_]/)[0];
   const config = getVoiceConfig(lang);
 
-  if (config.engine === 'none') {
+  if (config.status === 'unavailable' || config.engine === 'none') {
     return res.status(400).json({
-      error: 'language_not_supported',
-      code: 'voice_not_supported',
-      message: `Voice readout is not available for language '${lang}': ${config.reason || 'Unsupported language'}.`,
+      error: 'voice_unavailable',
+      code: 'voice_unavailable',
+      message: 'Voice is not available in this language yet',
+      status: 'unavailable',
       engine: 'none'
     });
   }
 
-  // 4. Check disk cache (ephemeral speed-up)
+  // 4. Check disk cache (ephemeral speed-up keyed by version + lang + model + voiceId + text)
   const cacheKey = crypto
     .createHash('sha256')
-    .update(`${lang}:${config.voiceId}:${cleanText}`)
+    .update(`${CACHE_VERSION}:${lang}:${config.model || config.modelId}:${config.voiceId}:${cleanText}`)
     .digest('hex');
   const cacheFilePath = path.join(CACHE_DIR, `${cacheKey}.mp3`);
 
@@ -377,34 +439,50 @@ router.post('/speak', async (req, res) => {
 
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('X-Voice-Cache', 'HIT');
+    res.setHeader('X-Voice-Model', config.model || config.modelId || 'none');
+    res.setHeader('X-Voice-Id', config.voiceId || 'none');
+    res.setHeader('X-Voice-Lang', lang);
+    res.setHeader('X-Voice-Status', config.status || 'verified');
     res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
     const stream = fs.createReadStream(cacheFilePath);
     return stream.pipe(res);
   }
 
-  // 5. Check if API key is configured
-  if (!process.env.ELEVENLABS_API_KEY) {
+  // 5. Check provider keys
+  if (config.provider === 'sarvam') {
+    if (!process.env.SARVAM_API_KEY) {
+      return res.status(503).json({
+        error: 'voice_key_missing',
+        code: 'voice_key_invalid',
+        message: 'Sarvam voice engine key not configured.'
+      });
+    }
+  } else if (!process.env.ELEVENLABS_API_KEY) {
     return res.status(503).json({
       error: 'voice_key_missing',
       code: 'voice_key_invalid',
-      fallback: 'speechSynthesis',
-      message: 'ElevenLabs voice engine is not active (missing backend API key). Use browser synthesis fallback.'
+      message: 'ElevenLabs voice engine is not active (missing backend API key).'
     });
   }
 
-  // 6. Character budget check (counts only live ElevenLabs network calls)
+  // 6. Character budget check (counts only live network calls)
   if (sessionCharactersSynthesized + cleanText.length > MAX_SESSION_CHARACTERS) {
     return res.status(503).json({
       error: 'budget_exceeded',
       code: 'voice_busy',
-      fallback: 'speechSynthesis',
-      message: 'Server voice synthesis character budget reached. Falling back to device speech.'
+      message: 'Server voice synthesis character budget reached.'
     });
   }
 
-  // 7. Live synthesis with ElevenLabs
+  // 7. Live synthesis with configured provider
   try {
-    const { audioBuffer, latencyMs } = await synthesizeWithElevenLabs(cleanText, config);
+    let result;
+    if (config.provider === 'sarvam') {
+      result = await synthesizeWithSarvam(cleanText, config);
+    } else {
+      result = await synthesizeWithElevenLabs(cleanText, config);
+    }
+    const { audioBuffer, latencyMs } = result;
     sessionCharactersSynthesized += cleanText.length;
 
     // Cache the output buffer
@@ -425,6 +503,10 @@ router.post('/speak', async (req, res) => {
 
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('X-Voice-Cache', 'MISS');
+    res.setHeader('X-Voice-Model', config.model || config.modelId || 'none');
+    res.setHeader('X-Voice-Id', config.voiceId || 'none');
+    res.setHeader('X-Voice-Lang', lang);
+    res.setHeader('X-Voice-Status', config.status || 'verified');
     res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
     return res.send(audioBuffer);
   } catch (err) {
@@ -442,10 +524,13 @@ router.post('/speak', async (req, res) => {
       errorCode: errCode
     });
 
+    const isFrozen = FROZEN_LANGUAGES.includes(lang);
+    const allowBrowserFallback = isFrozen && ['en', 'hi'].includes(lang);
+
     return res.status(statusCode).json({
       error: errCode,
       code: errCode,
-      fallback: 'speechSynthesis',
+      ...(allowBrowserFallback ? { fallback: 'speechSynthesis' } : {}),
       message: err.message
     });
   }
@@ -456,38 +541,32 @@ router.post('/speak', async (req, res) => {
  * Diagnostic endpoint with zero secrets.
  */
 router.get('/status', (req, res) => {
-  const supported = Object.entries(LANGUAGE_CONFIG)
-    .filter(([_, cfg]) => cfg.engine === 'elevenlabs')
-    .map(([code, cfg]) => ({ code, name: cfg.name, quality: cfg.quality }));
-
-  const disabled = Object.entries(LANGUAGE_CONFIG)
-    .filter(([_, cfg]) => cfg.engine === 'none')
-    .map(([code, cfg]) => ({ code, name: cfg.name, reason: cfg.reason }));
+  const languages = Object.entries(LANGUAGE_CONFIG).map(([code, cfg]) => ({
+    code,
+    name: cfg.name,
+    provider: cfg.provider,
+    model: cfg.model || cfg.modelId,
+    status: cfg.status,
+    engine: cfg.engine
+  }));
 
   let cachedClips = 0;
   try {
     cachedClips = fs.readdirSync(CACHE_DIR).filter(f => f.endsWith('.mp3')).length;
   } catch (_) {}
 
-  // Check if frontend manifest exists (monorepo root or local public)
   const manifestPath = path.resolve(__dirname, '../../../frontend/public/audio/audio-manifest.json');
   const manifestFound = fs.existsSync(manifestPath);
 
   res.json({
     keyConfigured: Boolean(process.env.ELEVENLABS_API_KEY),
-    provider: 'ElevenLabs (Multilingual v2)',
-    modelsInUse: ['eleven_multilingual_v2'],
+    sarvamConfigured: Boolean(process.env.SARVAM_API_KEY),
+    commitHash: process.env.RENDER_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || 'local-dev',
     manifestFound,
-    buildCommitHash: process.env.RENDER_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || 'local-dev',
     serverTime: new Date().toISOString(),
     cacheEntryCount: cachedClips,
     lastElevenLabs: lastElevenLabsDiagnostic,
-    supportedCount: supported.length,
-    supportedLanguages: supported,
-    disabledCount: disabled.length,
-    disabledLanguages: disabled,
-    sessionCharactersSynthesized,
-    characterBudgetRemaining: Math.max(0, MAX_SESSION_CHARACTERS - sessionCharactersSynthesized)
+    languages
   });
 });
 

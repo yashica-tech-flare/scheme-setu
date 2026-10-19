@@ -1,8 +1,15 @@
 /**
- * Voice Configuration for ElevenLabs Multilingual Voice Assistant
- * Supports 13 official Indian languages via ElevenLabs Multilingual v2 / Flash v2.5 models.
- * Explicitly disables unsupported languages with engine: "none".
+ * SchemeBridge — Server-Side Voice Configuration (Single Source of Truth)
+ * 
+ * Rules:
+ * - en, hi, ta, mr, ur: FROZEN in ElevenLabs Multilingual v2 with verified status.
+ * - te, bn, gu, kn, ml, pa, as: Configured for ElevenLabs eleven_v3. Status is "beta" when clips exist, or "unavailable" if quota exhausted.
+ * - or: Not supported by eleven_v3; status "unavailable" unless SARVAM_API_KEY is configured.
+ * - Zero API keys are ever stored in this file or returned to the client.
  */
+
+const fs = require('fs');
+const path = require('path');
 
 const VOICE_SETTINGS = {
   stability: 0.5,
@@ -12,249 +19,49 @@ const VOICE_SETTINGS = {
 };
 
 const DEFAULT_MODEL = 'eleven_multilingual_v2';
+const DEFAULT_FEMALE_VOICE = 'EXAVITQu4vr4xnSDxMaL'; // Sarah
+const DEFAULT_MALE_VOICE = 'IKne3meq5aSn9XLyUdCD';   // Charlie
 
-// Verified pre-made voice identifiers on ElevenLabs (accessible on all subscription tiers)
-// Sarah (mature, reassuring, confident, multilingual): EXAVITQu4vr4xnSDxMaL
-// Charlie (deep, confident, clear, energetic): IKne3meq5aSn9XLyUdCD
-// Alice (clear, engaging educator): Xb7hH8MSUJpSbSDYk0k2
-const DEFAULT_FEMALE_VOICE = 'EXAVITQu4vr4xnSDxMaL';
-const DEFAULT_MALE_VOICE = 'IKne3meq5aSn9XLyUdCD';
+const FROZEN_LANGUAGES = ['en', 'hi', 'ta', 'mr', 'ur'];
+const BROKEN_LANGUAGES = ['te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or', 'as'];
 
-const LANGUAGE_CONFIG = {
-  // 13 Supported Languages
-  en: {
-    name: 'English (Indian)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  hi: {
-    name: 'Hindi (हिन्दी)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  ta: {
-    name: 'Tamil (தமிழ்)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  te: {
-    name: 'Telugu (తెలుగు)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  bn: {
-    name: 'Bengali (বাংলা)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  mr: {
-    name: 'Marathi (मराठी)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  ur: {
-    name: 'Urdu (اردو)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_MALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  gu: {
-    name: 'Gujarati (ગુજરાતી)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  kn: {
-    name: 'Kannada (ಕನ್ನಡ)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  ml: {
-    name: 'Malayalam (മലയാളം)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  pa: {
-    name: 'Punjabi (ਪੰਜਾਬੀ)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  or: {
-    name: 'Odia (ଓଡ଼ିଆ)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  as: {
-    name: 'Assamese (অসমীয়া)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
+// Load authoritative configuration from voiceConfig.json
+const rawConfig = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, './voiceConfig.json'), 'utf8')
+);
 
-  // Regional Hindi-belt dialects (route through Hindi ElevenLabs model)
-  bho: {
-    name: 'Bhojpuri (भोजपुरी)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  raj: {
-    name: 'Rajasthani (राजस्थानी)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  mag: {
-    name: 'Magahi (मगही)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  hne: {
-    name: 'Chhattisgarhi (छत्तीसगढ़ी)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
-  bgc: {
-    name: 'Haryanvi (हरियाणवी)',
-    engine: 'elevenlabs',
-    modelId: DEFAULT_MODEL,
-    voiceId: DEFAULT_FEMALE_VOICE,
-    quality: 'verified',
-    settings: VOICE_SETTINGS
-  },
+// Format into runtime LANGUAGE_CONFIG with backward compatibility fields
+const LANGUAGE_CONFIG = {};
 
-  // 8 Unsupported Languages: Explicitly disabled with engine: "none"
-  sa: {
-    name: 'Sanskrit (संस्कृतम्)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs or standard browser speech synthesis.'
-  },
-  ks: {
-    name: 'Kashmiri (कॉशुर / کٲشُر)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  kok: {
-    name: 'Konkani (कोंकणी)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  brx: {
-    name: 'Bodo (बड़ो)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  sat: {
-    name: 'Santali (ᱥᱟᱱᱛᱟᱲᱤ)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  mai: {
-    name: 'Maithili (मैथिली)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  doi: {
-    name: 'Dogri (डोगरी)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  mni: {
-    name: 'Manipuri / Meitei (মৈতৈলোন্)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  lus: {
-    name: 'Mizo (Lushai)',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  kha: {
-    name: 'Khasi',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  gon: {
-    name: 'Gondi',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  tcy: {
-    name: 'Tulu',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  sd: {
-    name: 'Sindhi',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
-  },
-  ne: {
-    name: 'Nepali',
-    engine: 'none',
-    quality: 'unsupported',
-    reason: 'Not supported by ElevenLabs speech synthesis.'
+for (const [code, cfg] of Object.entries(rawConfig)) {
+  const engine = cfg.provider === 'elevenlabs' ? 'elevenlabs' : (cfg.provider === 'sarvam' ? 'sarvam' : 'none');
+  LANGUAGE_CONFIG[code] = {
+    ...cfg,
+    engine,
+    modelId: cfg.model,
+    quality: cfg.status,
+    settings: VOICE_SETTINGS
+  };
+}
+
+// 8 explicitly unsupported dialect/classical languages
+const UNSUPPORTED_CODES = ['sa', 'ks', 'kok', 'brx', 'sat', 'mai', 'doi', 'mni', 'lus', 'kha', 'gon', 'tcy', 'sd', 'ne', 'bho', 'raj', 'mag', 'hne', 'bgc'];
+for (const code of UNSUPPORTED_CODES) {
+  if (!LANGUAGE_CONFIG[code]) {
+    LANGUAGE_CONFIG[code] = {
+      name: code,
+      provider: 'none',
+      model: 'none',
+      modelId: 'none',
+      voiceId: '',
+      languageCode: code,
+      status: 'unavailable',
+      engine: 'none',
+      quality: 'unsupported',
+      reason: 'Voice readout is not available in this language yet.'
+    };
   }
-};
+}
 
 /**
  * Returns voice configuration for a given language code.
@@ -262,29 +69,42 @@ const LANGUAGE_CONFIG = {
  * @returns {Object}
  */
 function getVoiceConfig(langCode = 'en') {
-  const code = String(langCode || 'en').toLowerCase().trim();
+  if (!langCode || typeof langCode !== 'string') {
+    return LANGUAGE_CONFIG['en'];
+  }
+  const code = langCode.trim().toLowerCase().split(/[-_]/)[0];
   return LANGUAGE_CONFIG[code] || {
     name: 'Unknown',
+    provider: 'none',
+    model: 'none',
+    modelId: 'none',
+    voiceId: '',
+    languageCode: code,
+    status: 'unavailable',
     engine: 'none',
     quality: 'unsupported',
-    reason: 'Unknown language code'
+    reason: 'Voice readout is not available in this language yet.'
   };
 }
 
 /**
- * Checks if a language is supported for voice readout.
+ * Checks if a language is supported for active voice readout.
+ * Only returns true for verified or beta languages with an active engine.
  * @param {string} langCode
  * @returns {boolean}
  */
 function isVoiceSupported(langCode) {
   const config = getVoiceConfig(langCode);
-  return config.engine === 'elevenlabs';
+  return (config.status === 'verified' || config.status === 'beta') && config.engine !== 'none';
 }
 
 module.exports = {
+  rawConfig,
   LANGUAGE_CONFIG,
   DEFAULT_MODEL,
   VOICE_SETTINGS,
+  FROZEN_LANGUAGES,
+  BROKEN_LANGUAGES,
   getVoiceConfig,
   isVoiceSupported
 };
