@@ -198,35 +198,44 @@ export default function VoiceAssistant({
       );
     }
 
+    const buttonTitle = errorMessage
+      ? `${errorMessage} (${t('voice_assistant.tapToRetry', 'Tap to retry')})`
+      : isPlaying
+      ? stopLabel
+      : `${listenLabel} (${voiceStatus.status === 'beta' ? 'Beta' : 'Voice'})`;
+
     return (
       <div className="inline-flex items-center gap-1.5">
         <button
           type="button"
           onClick={handleTogglePlay}
-          title={errorMessage ? `${errorMessage} (Tap to retry)` : isPlaying ? stopLabel : `${listenLabel} (${voiceStatus.message})`}
-          className={`p-1.5 rounded-lg transition-all focus:outline-none cursor-pointer ${
+          title={buttonTitle}
+          className={`inline-flex items-center justify-center p-1.5 rounded-lg transition-all focus:outline-none cursor-pointer ${
             errorMessage
-              ? 'bg-rose-100 text-rose-800 border border-rose-300'
+              ? 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-300'
               : isLoading
               ? 'bg-amber-100 text-amber-900 border border-amber-300'
               : isPlaying
               ? 'bg-amber-600 text-white animate-pulse shadow-md scale-105'
               : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200 hover:shadow-xs'
           } ${className}`}
-          aria-label={isPlaying ? stopLabel : listenLabel}
+          aria-label={isPlaying ? stopLabel : `${listenLabel}: ${buttonTitle}`}
         >
           {isLoading ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-700" />
-          ) : errorMessage ? (
-            <RefreshCw className="w-3.5 h-3.5 text-rose-600" />
           ) : isPlaying ? (
             <Square className="w-3.5 h-3.5 fill-current" />
+          ) : errorMessage ? (
+            <div className="inline-flex items-center gap-1" title={buttonTitle}>
+              <Volume2 className="w-3.5 h-3.5 text-rose-600" />
+              <RefreshCw className="w-2.5 h-2.5 text-rose-500" />
+            </div>
           ) : (
-            <Volume2 className="w-3.5 h-3.5" />
+            <Volume2 className="w-3.5 h-3.5 text-amber-700" />
           )}
         </button>
         {isBeta && (
-          <span className="text-[9px] font-bold px-1 rounded bg-amber-200 text-amber-900 border border-amber-300">
+          <span className="text-[9px] font-bold px-1 rounded bg-amber-200 text-amber-900 border border-amber-300 select-none">
             Beta
           </span>
         )}

@@ -67,6 +67,15 @@ export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectFor
   const docs = scheme.requiredDocuments || scheme.documentsRequired || [];
   const agencies = scheme.channelizingAgencies || [];
 
+  const getSchemeClipId = (s) => {
+    const raw = (s.schemeName || s.name || s.id || '').toLowerCase();
+    if (raw.includes('mahila') || raw.includes('msy') || raw.includes('samriddhi')) return 'scheme_msy';
+    if (raw.includes('micro') || raw.includes('mcf')) return 'scheme_mcf';
+    if (raw.includes('term loan') || raw.includes('tls')) return 'scheme_tls';
+    return null;
+  };
+  const schemeClipId = getSchemeClipId(scheme);
+
   const schemeVoiceText = t('voice_assistant.scheme_summary', {
     schemeName: displayName,
     maxAmount: (scheme.maxLoanAmount || 0).toLocaleString('en-IN'),
@@ -99,13 +108,15 @@ export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectFor
               )}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
               <h3 className="text-xl font-bold text-slate-900 leading-snug">
                 {displayName}
               </h3>
               <VoiceAssistant
                 variant="mini"
+                clipId={schemeClipId}
                 textToRead={schemeVoiceText}
+                label={t('voice_assistant.listen_scheme', 'Listen to scheme summary')}
                 className="flex-shrink-0"
               />
             </div>
