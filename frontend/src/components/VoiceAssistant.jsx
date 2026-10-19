@@ -8,8 +8,7 @@ import {
   isSpeechSupported,
   checkVoiceAvailability,
   isSpeaking,
-  getActivePlaybackSource,
-  getLastVoiceDebugInfo
+  getActivePlaybackSource
 } from '../utils/speechHelper';
 
 const UNAVAILABLE_MESSAGES = {
@@ -104,6 +103,21 @@ export default function VoiceAssistant({
     }, 400);
     return () => clearInterval(interval);
   }, [isPlaying]);
+
+  // Console-only debug logging when ?voicedebug=1
+  useEffect(() => {
+    if (isVoiceDebug) {
+      console.debug('[VoiceDebug]', {
+        activeLang,
+        engine: voiceStatus.engine,
+        model: voiceStatus.model,
+        speaker: voiceStatus.speaker,
+        source: activeSource || (isLoading ? 'loading' : 'idle'),
+        status: voiceStatus.status,
+        error: errorMessage
+      });
+    }
+  }, [isVoiceDebug, activeLang, voiceStatus, activeSource, isLoading, errorMessage]);
 
   if (!supported) return null;
 
@@ -217,11 +231,6 @@ export default function VoiceAssistant({
             Beta
           </span>
         )}
-        {isVoiceDebug && activeSource && (
-          <span className="text-[9px] px-1 py-0.5 rounded bg-slate-900 text-saffron-300 font-mono">
-            {activeSource}
-          </span>
-        )}
       </div>
     );
   }
@@ -244,16 +253,14 @@ export default function VoiceAssistant({
       );
     }
 
-    return (
-      <div className="inline-flex flex-col items-start gap-1">
+    if (!errorMessage) {
+      return (
         <button
           type="button"
           onClick={handleTogglePlay}
-          title={errorMessage ? `${errorMessage} (Tap to retry)` : voiceStatus.message}
+          title={voiceStatus.message}
           className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm focus:outline-none cursor-pointer ${
-            errorMessage
-              ? 'bg-rose-600 hover:bg-rose-700 text-white'
-              : isPlaying
+            isPlaying
               ? 'bg-amber-600 text-white ring-2 ring-amber-300 animate-pulse'
               : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white hover:shadow-md'
           } ${className}`}
@@ -263,11 +270,6 @@ export default function VoiceAssistant({
             <>
               <Loader2 className="w-4 h-4 animate-spin text-white" />
               <span>{t('voice_assistant.preparing', 'Preparing voice...')}</span>
-            </>
-          ) : errorMessage ? (
-            <>
-              <RefreshCw className="w-4 h-4 text-white" />
-              <span>{t('voice_assistant.retry', 'Tap to Retry')}</span>
             </>
           ) : isPlaying ? (
             <>
@@ -291,18 +293,24 @@ export default function VoiceAssistant({
             </>
           )}
         </button>
+      );
+    }
 
-        {isVoiceDebug && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-saffron-300 font-mono">
-            [debug: lang={activeLang} provider={voiceStatus.engine || 'none'} model={voiceStatus.model || 'none'} speaker={voiceStatus.speaker || 'none'} source={activeSource || (isLoading ? 'loading' : 'idle')} status={voiceStatus.status}{errorMessage ? ` error=${errorMessage}` : ''}]
-          </span>
-        )}
-
-        {errorMessage && (
-          <span className="text-[10px] text-rose-600 font-medium">
-            {errorMessage}
-          </span>
-        )}
+    return (
+      <div className="inline-flex flex-col items-start gap-1">
+        <button
+          type="button"
+          onClick={handleTogglePlay}
+          title={`${errorMessage} (Tap to retry)`}
+          className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm focus:outline-none cursor-pointer bg-rose-600 hover:bg-rose-700 text-white ${className}`}
+          aria-label={isPlaying ? stopLabel : listenLabel}
+        >
+          <RefreshCw className="w-4 h-4 text-white" />
+          <span>{t('voice_assistant.retry', 'Tap to Retry')}</span>
+        </button>
+        <span className="text-[10px] text-rose-600 font-medium">
+          {errorMessage}
+        </span>
       </div>
     );
   }
@@ -370,12 +378,6 @@ export default function VoiceAssistant({
                 </span>
               )}
 
-              {isVoiceDebug && (
-                <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-saffron-300 font-mono">
-                  [Debug: {activeSource || (isLoading ? 'connecting' : 'idle')}]
-                </span>
-              )}
-
               {isPlaying && (
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-900 bg-amber-200/80 px-2 py-0.5 rounded-full animate-pulse">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-800"></span>
@@ -401,16 +403,6 @@ export default function VoiceAssistant({
               <div className="mt-2 text-[11px] font-semibold text-amber-900 flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5 text-amber-700" />
                 <span>{unavailableMessage}</span>
-              </div>
-            )}
-
-            {/* Step 6: ?voicedebug=1 panel shows: language, provider, model, speaker, source (clip/proxy), status, error */}
-            {isVoiceDebug && (
-              <div className="mt-2.5 p-2 rounded-lg bg-slate-950 text-emerald-400 font-mono text-[11px] border border-slate-800 shadow-inner break-all space-y-0.5">
-                <div><strong>[VoiceDebug]</strong> language: <code>{activeLang}</code> | provider: <code>{voiceStatus.engine || 'none'}</code> | model: <code>{voiceStatus.model || 'none'}</code> | speaker: <code>{voiceStatus.speaker || 'none'}</code></div>
-                <div>source: <code>{activeSource || 'idle'}</code> | status: <code>{voiceStatus.status}</code> {errorMessage ? `| error: ${errorMessage}` : ''}</div>
-                <div>target: <code>{getLastVoiceDebugInfo().clipUrlOrBody}</code></div>
-                <div>server: <code>{getLastVoiceDebugInfo().serverVoice}</code></div>
               </div>
             )}
           </div>

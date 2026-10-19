@@ -64,7 +64,7 @@ function getQueryParams() {
 function debugLog(...args) {
   const { isVoiceDebug } = getQueryParams();
   if (isVoiceDebug) {
-    console.info('[VoiceDebug]', ...args);
+    console.debug('[VoiceDebug]', ...args);
   }
 }
 
