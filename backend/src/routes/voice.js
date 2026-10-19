@@ -7,7 +7,7 @@ const https = require('https');
 const { LANGUAGE_CONFIG, FROZEN_LANGUAGES, BROKEN_LANGUAGES, getVoiceConfig, isVoiceSupported } = require('../config/voiceConfig');
 
 // Cache versioning and directory
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_DIR = path.resolve(__dirname, '../../cache/audio');
 if (!fs.existsSync(CACHE_DIR)) {
   fs.mkdirSync(CACHE_DIR, { recursive: true });
@@ -294,16 +294,14 @@ function callSingleSarvamTTS(text, config) {
   const sarvamLangMap = {
     te: 'te-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN', ml: 'ml-IN', pa: 'pa-IN', or: 'od-IN', hi: 'hi-IN', ta: 'ta-IN', mr: 'mr-IN', en: 'en-IN'
   };
-  const targetLang = sarvamLangMap[config.languageCode] || 'hi-IN';
+  const targetLang = sarvamLangMap[config.languageCode] || (config.languageCode && config.languageCode.includes('-') ? config.languageCode : 'hi-IN');
   const speaker = config.speaker || config.voiceId || 'shubh';
   const payload = JSON.stringify({
     text: text,
-    inputs: [text],
     language_code: targetLang,
-    target_language_code: targetLang,
     speaker: speaker,
     model: 'bulbul:v3',
-    target_audio_codec: 'mp3'
+    output_audio_codec: 'mp3'
   });
 
   return new Promise((resolve, reject) => {

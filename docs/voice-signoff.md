@@ -22,19 +22,22 @@ These 5 languages were confirmed working and signed off on the live site. Their 
 
 ## 2. Regional Languages (Target Languages Under Review)
 
-Until a row is signed below, the language remains **Beta** or **Unavailable**.
-*The Golden Rule: A wrong-language voice is worse than no voice. If unverified, the button is disabled.*
+These 7 languages have been synthesized using **Sarvam Bulbul v3** (`bulbul:v3`, speaker `shubh`) and verified via automated script purity (>=90%) and round-trip Speech-to-Text via Sarvam Saaras v4 (`saaras:v4`).
+Status is **Beta** awaiting native speaker audition.
+Assamese (`as`) remains **Unavailable** because Sarvam does not support it (Golden Rule: no unverified audio or English/Hindi fallback).
 
-| Language | Engine & Voice | Clip Target | Status | Speaks Right Language? (Y/N) | Pronunciation OK? (Y/N) | Blocker / Owner Action Required |
-|:---|:---|:---|:---|:---:|:---:|:---|
-| **Telugu (`te`)** | Sarvam Bulbul v3 (`te-IN`, Shubh) / ElevenLabs v3 (`te`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
-| **Bengali (`bn`)** | Sarvam Bulbul v3 (`bn-IN`, Shubh) / ElevenLabs v3 (`bn`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
-| **Gujarati (`gu`)** | Sarvam Bulbul v3 (`gu-IN`, Shubh) / ElevenLabs v3 (`gu`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
-| **Kannada (`kn`)** | Sarvam Bulbul v3 (`kn-IN`, Shubh) / ElevenLabs v3 (`kn`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
-| **Malayalam (`ml`)** | Sarvam Bulbul v3 (`ml-IN`, Shubh) / ElevenLabs v3 (`ml`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
-| **Punjabi (`pa`)** | Sarvam Bulbul v3 (`pa-IN`, Shubh) / ElevenLabs v3 (`pa`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
-| **Odia (`or`)** | Sarvam Bulbul v3 (`od-IN`, Shubh) | `portal_welcome` | unavailable | — | — | Not supported by ElevenLabs v3. Sarvam is the only route. Add `SARVAM_API_KEY` in Render dashboard. |
-| **Assamese (`as`)** | ElevenLabs v3 (`as`) | `portal_welcome` | unavailable | — | — | Not supported by Sarvam. ElevenLabs v3 quota exhausted. Upgrade ElevenLabs plan or add credits at elevenlabs.io. |
+> **Acoustic Notice:** Automation passes technical checks; pronunciation is **NOT VERIFIED** until a native speaker signs off below.
+
+| Language | Engine & Voice | Clip Target | Status | STT Script % | STT Word Match % | Speaks Right Language? (Y/N) | Pronunciation OK? (Y/N) | Native Auditor Sign-off |
+|:---|:---|:---|:---:|:---:|:---:|:---:|:---:|:---|
+| **Telugu (`te`)** | Sarvam Bulbul v3 (`te-IN`, Shubh) | `/audio/te/portal_welcome.*.mp3` | **Beta** | 100.0% | 77.8% | Pending | Pending | — |
+| **Bengali (`bn`)** | Sarvam Bulbul v3 (`bn-IN`, Shubh) | `/audio/bn/portal_welcome.*.mp3` | **Beta** | 100.0% | 100.0% | Pending | Pending | — |
+| **Gujarati (`gu`)** | Sarvam Bulbul v3 (`gu-IN`, Shubh) | `/audio/gu/portal_welcome.*.mp3` | **Beta** | 100.0% | 100.0% | Pending | Pending | — |
+| **Kannada (`kn`)** | Sarvam Bulbul v3 (`kn-IN`, Shubh) | `/audio/kn/portal_welcome.*.mp3` | **Beta** | 100.0% | 62.5% | Pending | Pending | — |
+| **Malayalam (`ml`)** | Sarvam Bulbul v3 (`ml-IN`, Shubh) | `/audio/ml/portal_welcome.*.mp3` | **Beta** | 100.0% | 83.3% | Pending | Pending | — |
+| **Punjabi (`pa`)** | Sarvam Bulbul v3 (`pa-IN`, Shubh) | `/audio/pa/portal_welcome.*.mp3` | **Beta** | 100.0% | 91.7% | Pending | Pending | — |
+| **Odia (`or`)** | Sarvam Bulbul v3 (`od-IN`, Shubh) | `/audio/or/portal_welcome.*.mp3` | **Beta** | 100.0% | 66.7% | Pending | Pending | — |
+| **Assamese (`as`)** | None (Sarvam does not list `as`) | (none) | **Unavailable** | N/A | N/A | N/A | N/A | Disabled (safe mode) |
 
 ---
 

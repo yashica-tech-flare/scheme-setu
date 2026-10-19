@@ -307,6 +307,8 @@ if (!fs.existsSync(distPath)) {
     : '';
   const match = envContent.match(/ELEVENLABS_API_KEY=([^\r\n]+)/);
   const keyPrefix = match && match[1].trim() ? match[1].trim().slice(0, 6) : null;
+  const sarvamMatch = envContent.match(/SARVAM_API_KEY=([^\r\n]+)/);
+  const sarvamKeyPrefix = sarvamMatch && sarvamMatch[1].trim() ? sarvamMatch[1].trim().slice(0, 8) : null;
 
   function scanDir(dir) {
     const files = fs.readdirSync(dir);
@@ -320,12 +322,20 @@ if (!fs.existsSync(distPath)) {
           console.error(`FAIL G5: Found forbidden string 'xi-api-key' in ${f}`);
           g5Passed = false;
         }
+        if (/api-subscription-key/i.test(content)) {
+          console.error(`FAIL G5: Found forbidden header 'api-subscription-key' in ${f}`);
+          g5Passed = false;
+        }
         if (/sk_[a-zA-Z0-9]{20,}/.test(content)) {
           console.error(`FAIL G5: Found suspicious secret prefix 'sk_' in ${f}`);
           g5Passed = false;
         }
         if (keyPrefix && content.includes(keyPrefix)) {
-          console.error(`FAIL G5: Found backend API key prefix in client bundle ${f}!`);
+          console.error(`FAIL G5: Found ElevenLabs API key prefix in client bundle ${f}!`);
+          g5Passed = false;
+        }
+        if (sarvamKeyPrefix && content.includes(sarvamKeyPrefix)) {
+          console.error(`FAIL G5: Found Sarvam API key prefix in client bundle ${f}!`);
           g5Passed = false;
         }
       }
