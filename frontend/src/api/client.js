@@ -172,7 +172,8 @@ export const api = {
       if (response.data && response.data.size > 2000) {
         return {
           blobUrl: URL.createObjectURL(response.data),
-          sizeBytes: response.data.size
+          sizeBytes: response.data.size,
+          headers: response.headers || {}
         };
       }
       return null;

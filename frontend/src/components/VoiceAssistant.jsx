@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Mic, Square, AlertCircle, Info, Loader2, Sparkles, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { speak, stopSpeech, isSpeechSupported, checkVoiceAvailability, isSpeaking, getActivePlaybackSource } from '../utils/speechHelper';
+import { normaliseVoiceLang } from '../config/voiceConfig';
+import {
+  speak,
+  stopSpeech,
+  isSpeechSupported,
+  checkVoiceAvailability,
+  isSpeaking,
+  getActivePlaybackSource,
+  getLastVoiceDebugInfo
+} from '../utils/speechHelper';
+
+const UNAVAILABLE_MESSAGES = {
+  en: 'Voice is not available in this language yet',
+  hi: 'इस भाषा में आवाज अभी उपलब्ध नहीं है',
+  ta: 'இந்த மொழியில் குரல் இன்னும் கிடைக்கவில்லை',
+  te: 'ఈ భాషలో వాయిస్ ఇంకా అందుబాటులో లేదు',
+  bn: 'এই ভাষায় ভয়েস এখনও উপলব্ধ নয়',
+  gu: 'આ ભાષામાં અવાજ હજી ઉપલબ્ધ નથી',
+  kn: 'ಈ ಭಾಷೆಯಲ್ಲಿ ಧ್ವನಿ ಇನ್ನೂ ಲಭ್ಯವಿಲ್ಲ',
+  ml: 'ഈ ഭാഷയിൽ ശബ്ദം ഇതുവരെ ലഭ്യമല്ല',
+  pa: 'ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਅਜੇ ਉਪਲਬਧ ਨਹੀਂ ਹੈ',
+  or: 'ଏହି ଭାଷାରେ ଭଏସ୍ ଏପର୍ଯ୍ୟନ୍ତ ଉପଲବ୍ଧ ନାହିଁ',
+  as: 'এই ভাষাত কণ্ঠ এতিয়াও উপলব্ধ নহয়',
+  mr: 'या भाषेत आवाज अजून उपलब्ध नाही',
+  ur: 'اس زبان میں آواز ابھی دستیاب نہیں ہے'
+};
 
 /**
  * VoiceAssistant Component
  * Specially crafted for illiterate, low-literacy, and rural beneficiaries.
- * Hybrid ElevenLabs + Browser Speech Engine in 13 Indian languages.
- *
- * @param {string} textToRead - The full narrative text to speak aloud
- * @param {string} clipId - Optional static clip identifier matching audio-manifest.json
- * @param {string} label - Optional button label override
- * @param {string} subtitle - Optional explanatory subtitle
- * @param {string} variant - 'banner' | 'button' | 'mini'
- * @param {string} customLang - Optional language code override (defaults to current i18n language)
+ * Server-authoritative Hybrid ElevenLabs Voice Engine with strict Golden Rule enforcement.
  */
 export default function VoiceAssistant({
   textToRead,
@@ -33,15 +51,16 @@ export default function VoiceAssistant({
   const [errorMessage, setErrorMessage] = useState(null);
   const [activeSource, setActiveSource] = useState(null);
 
-  const activeLang = customLang || i18n.language || 'en';
+  // Normalize selected language code (e.g., 'te-IN' -> 'te')
+  const activeLang = normaliseVoiceLang(customLang || i18n.language) || 'en';
 
   const isVoiceDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('voicedebug') === '1';
 
-  // Synchronize voice availability on mount and when voices change
+  // Synchronize voice availability on mount and when selected language changes
   const updateVoiceStatus = () => {
     if (!isSpeechSupported()) {
       setSupported(false);
-      setVoiceStatus({ available: false, status: 'unsupported' });
+      setVoiceStatus({ available: false, status: 'unavailable', message: 'Speech not supported' });
       return;
     }
     setSupported(true);
@@ -63,7 +82,7 @@ export default function VoiceAssistant({
     };
   }, [activeLang]);
 
-  // Stop immediately if active language changes while speaking
+  // Stop immediately if selected language or text changes while speaking
   useEffect(() => {
     if (isPlaying || isLoading) {
       stopSpeech();
@@ -73,7 +92,7 @@ export default function VoiceAssistant({
     setErrorMessage(null);
   }, [i18n.language, textToRead]);
 
-  // Keep isPlaying and activeSource synchronized with active audio/speechSynthesis
+  // Keep isPlaying and activeSource synchronized with active audio playback
   useEffect(() => {
     const interval = setInterval(() => {
       if (isPlaying && !isSpeaking()) {
@@ -104,7 +123,11 @@ export default function VoiceAssistant({
       return;
     }
 
-    if (!voiceStatus.available) {
+    // Read selected language directly at click time to prevent stale closures
+    const clickLang = normaliseVoiceLang(customLang || i18n.language) || 'en';
+    const clickStatus = checkVoiceAvailability(clickLang);
+
+    if (!clickStatus.available || clickStatus.status === 'unavailable') {
       return;
     }
 
@@ -115,7 +138,7 @@ export default function VoiceAssistant({
     speak({
       text: textToRead,
       clipId: clipId,
-      langCode: activeLang,
+      langCode: clickLang,
       onLoading: (loading) => setIsLoading(loading),
       onStart: () => {
         setIsLoading(false);
@@ -131,7 +154,7 @@ export default function VoiceAssistant({
         setIsLoading(false);
         setIsPlaying(false);
         setActiveSource(null);
-        const localizedFail = t('voice_assistant.playback_failed', 'Voice could not be played. Tap to try again.');
+        const localizedFail = UNAVAILABLE_MESSAGES[clickLang] || t('voice_assistant.playback_failed', 'Voice is not available in this language yet');
         setErrorMessage(err?.message || localizedFail);
       }
     });
@@ -139,20 +162,22 @@ export default function VoiceAssistant({
 
   const listenLabel = label || t('voice_assistant.listen_button', t('common.audioGuideBtn', 'Listen Aloud'));
   const stopLabel = t('voice_assistant.stop_button', t('common.stopAudio', 'Stop Audio'));
-  const unavailableTooltip = t('voice_assistant.voice_unavailable', 'Voice readout not available in this language');
+  const unavailableMessage = UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_unavailable', 'Voice is not available in this language yet');
 
   const isElevenLabs = voiceStatus.engine === 'elevenlabs';
+  const isBeta = voiceStatus.status === 'beta';
+  const isAvailable = voiceStatus.available && voiceStatus.status !== 'unavailable';
 
   // 1. Mini icon-only button (e.g. for individual document checklist items or cards)
   if (variant === 'mini') {
-    if (!voiceStatus.available) {
+    if (!isAvailable) {
       return (
         <button
           type="button"
           disabled
-          title={unavailableTooltip}
+          title={unavailableMessage}
           className={`p-1.5 rounded-lg opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border border-slate-200 ${className}`}
-          aria-label={unavailableTooltip}
+          aria-label={unavailableMessage}
         >
           <VolumeX className="w-3.5 h-3.5" />
         </button>
@@ -186,6 +211,11 @@ export default function VoiceAssistant({
             <Volume2 className="w-3.5 h-3.5" />
           )}
         </button>
+        {isBeta && (
+          <span className="text-[9px] font-bold px-1 rounded bg-amber-200 text-amber-900 border border-amber-300">
+            Beta
+          </span>
+        )}
         {isVoiceDebug && activeSource && (
           <span className="text-[9px] px-1 py-0.5 rounded bg-slate-900 text-saffron-300 font-mono">
             {activeSource}
@@ -197,18 +227,18 @@ export default function VoiceAssistant({
 
   // 2. Compact button variant (e.g. for header or card action)
   if (variant === 'button') {
-    if (!voiceStatus.available) {
+    if (!isAvailable) {
       return (
         <button
           type="button"
           disabled
-          title={unavailableTooltip}
+          title={unavailableMessage}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800/60 text-slate-400 border border-slate-700/60 opacity-60 cursor-not-allowed transition-all ${className}`}
-          aria-label={unavailableTooltip}
+          aria-label={unavailableMessage}
         >
           <VolumeX className="w-3.5 h-3.5 text-slate-400" />
           <span>{listenLabel}</span>
-          <span className="text-[10px] text-slate-400 hidden lg:inline">({t('voice_assistant.voice_unavailable_short', 'Voice N/A')})</span>
+          <span className="text-[10px] text-slate-400 hidden lg:inline">({unavailableMessage})</span>
         </button>
       );
     }
@@ -252,6 +282,11 @@ export default function VoiceAssistant({
             <>
               <Volume2 className="w-4 h-4" />
               <span>{listenLabel}</span>
+              {isBeta && (
+                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 border border-amber-300 ml-1">
+                  Beta
+                </span>
+              )}
             </>
           )}
         </button>
@@ -271,7 +306,7 @@ export default function VoiceAssistant({
     );
   }
 
-  // 3. Full prominent banner variant (Ideal for illiterate / rural applicants)
+  // 3. Full prominent banner variant
   return (
     <div
       className={`relative overflow-hidden rounded-2xl border ${
@@ -291,7 +326,7 @@ export default function VoiceAssistant({
                 ? 'bg-rose-600 text-white'
                 : isPlaying
                 ? 'bg-amber-600 text-white animate-pulse'
-                : voiceStatus.available
+                : isAvailable
                 ? 'bg-amber-500 text-white'
                 : 'bg-slate-300 text-slate-600'
             }`}
@@ -302,7 +337,7 @@ export default function VoiceAssistant({
               <RefreshCw className="w-6 h-6" />
             ) : isPlaying ? (
               <Volume2 className="w-6 h-6 animate-pulse" />
-            ) : voiceStatus.available ? (
+            ) : isAvailable ? (
               <Mic className="w-6 h-6" />
             ) : (
               <VolumeX className="w-6 h-6" />
@@ -318,6 +353,12 @@ export default function VoiceAssistant({
                 <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-300/60 px-2 py-0.5 rounded-md">
                   <Sparkles className="w-3 h-3 text-emerald-600" />
                   ElevenLabs Voice
+                </span>
+              )}
+
+              {isBeta && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-100/90 border border-amber-300/60 px-2 py-0.5 rounded-md">
+                  Beta
                 </span>
               )}
 
@@ -348,16 +389,20 @@ export default function VoiceAssistant({
               </div>
             )}
 
-            {!voiceStatus.available && (
+            {!isAvailable && (
               <div className="mt-2 text-[11px] font-semibold text-amber-900 flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5 text-amber-700" />
-                <span>{unavailableTooltip}</span>
+                <span>{unavailableMessage}</span>
               </div>
             )}
-            {voiceStatus.isFallback && (
-              <div className="mt-1 text-[10px] text-amber-700 flex items-center gap-1">
-                <Info className="w-3 h-3" />
-                <span>{voiceStatus.message}</span>
+
+            {/* Phase 1.3: Required ?voicedebug=1 panel line */}
+            {isVoiceDebug && (
+              <div className="mt-2.5 p-2 rounded-lg bg-slate-950 text-emerald-400 font-mono text-[11px] border border-slate-800 shadow-inner break-all space-y-0.5">
+                <div><strong>[VoiceDebug]</strong> i18n: <code>{i18n.language}</code> | norm: <code>{activeLang}</code> | status: <code>{voiceStatus.status}</code></div>
+                <div>target: <code>{getLastVoiceDebugInfo().clipUrlOrBody}</code></div>
+                <div>text: &quot;{(textToRead || '').slice(0, 40)}...&quot;</div>
+                <div>server: <code>{getLastVoiceDebugInfo().serverVoice}</code></div>
               </div>
             )}
           </div>
@@ -367,10 +412,10 @@ export default function VoiceAssistant({
         <div className="flex-shrink-0 self-end sm:self-center">
           <button
             type="button"
-            disabled={!voiceStatus.available || isLoading}
+            disabled={!isAvailable || isLoading}
             onClick={handleTogglePlay}
             className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md focus:outline-none ${
-              !voiceStatus.available
+              !isAvailable
                 ? 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-300'
                 : errorMessage
                 ? 'bg-rose-600 hover:bg-rose-700 text-white cursor-pointer'
@@ -403,6 +448,11 @@ export default function VoiceAssistant({
               <>
                 <Volume2 className="w-5 h-5" />
                 <span>{listenLabel}</span>
+                {isBeta && (
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 border border-amber-300 ml-1.5">
+                    Beta
+                  </span>
+                )}
               </>
             )}
           </button>

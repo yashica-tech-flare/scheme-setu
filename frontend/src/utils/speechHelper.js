@@ -1,42 +1,37 @@
 /**
  * SchemeBridge — Resilient Multilingual Voice Assistant Engine
  * 
- * Strict Pipeline:
+ * Strict Golden Rule:
+ * For the selected language, the voice must speak THAT language, in THAT script's words,
+ * or it must say nothing and show "Voice is not available in this language yet".
+ * Never fall back to English/Hindi audio or browser speechSynthesis for the 8 regional languages.
+ * 
+ * Pipeline:
  * 1. Pre-generated static clips (frontend/public/audio/<lang>/<clipId>.mp3 via audio-manifest.json)
- *    - Never trusts stubs: strictly checks sizeBytes >= 2048 and audio duration >= 0.5s.
- * 2. Dynamic runtime synthesis via backend ElevenLabs proxy (POST /api/voice/speak)
- *    - Real-time proxy with response verification and automatic blob lifecycle cleanup.
- * 3. Client Web Speech API (window.speechSynthesis) with Indic fallback
- *    - Disabled when &nofallback=1 query flag is present to allow pure ElevenLabs verification.
- * 4. User-visible feedback:
- *    - If all paths fail, returns actionable error message instead of failing silently.
- * 5. Debug Mode:
- *    - ?voicedebug=1 prints pipeline stages, HTTP statuses, and active playback sources to console.
+ *    - Strictly checks sizeBytes >= 2048 and audio duration >= 0.5s.
+ * 2. Dynamic runtime synthesis via backend proxy (POST /api/voice/speak)
+ * 3. Browser speechSynthesis ONLY for frozen languages (en, hi) when requested and available.
+ *    - Strictly BLOCKED for te, bn, gu, kn, ml, pa, or, as.
+ * 4. Debug Mode: ?voicedebug=1
  */
 
 import { api } from '../api/client';
-import { isVoiceSupported, getVoiceEngine, DISABLED_VOICE_LANGUAGES } from '../config/voiceConfig';
+import {
+  normaliseVoiceLang,
+  isVoiceSupported,
+  getVoiceStatus,
+  FROZEN_LANGUAGES,
+  BROKEN_LANGUAGES,
+  LANGUAGE_VOICE_MAP
+} from '../config/voiceConfig';
 
-// BCP-47 Language mapping for browser Web Speech API fallback
+// BCP-47 Language mapping for browser Web Speech API fallback (frozen English/Hindi only)
 export const LANG_VOICE_MAP = {
   en: ['en-IN', 'en-GB', 'en-US', 'en'],
   hi: ['hi-IN', 'hi'],
-  ta: ['ta-IN', 'ta-LK', 'ta'],
-  te: ['te-IN', 'te'],
-  bn: ['bn-IN', 'bn-BD', 'bn'],
+  ta: ['ta-IN', 'ta'],
   mr: ['mr-IN', 'mr'],
-  ur: ['ur-IN', 'ur-PK', 'ur'],
-  gu: ['gu-IN', 'gu'],
-  kn: ['kn-IN', 'kn'],
-  ml: ['ml-IN', 'ml'],
-  pa: ['pa-IN', 'pa'],
-  or: ['or-IN', 'od-IN', 'or'],
-  as: ['as-IN', 'as'],
-  bho: ['hi-IN', 'hi'],
-  raj: ['hi-IN', 'hi'],
-  mag: ['hi-IN', 'hi'],
-  hne: ['hi-IN', 'hi'],
-  bgc: ['hi-IN', 'hi']
+  ur: ['ur-IN', 'ur']
 };
 
 // Global audio element singleton across entire app session
@@ -45,6 +40,17 @@ let currentBlobUrl = null;
 let currentPlaybackSource = null; // 'manifest' | 'elevenlabs' | 'browser' | null
 let manifestCache = null;
 let isManifestLoading = false;
+
+// Last debug metrics for ?voicedebug=1 inspection
+let lastVoiceDebugInfo = {
+  i18nLang: 'en',
+  normLang: 'en',
+  clipUrlOrBody: 'idle',
+  text40: '',
+  serverVoice: 'none'
+};
+
+export const getLastVoiceDebugInfo = () => lastVoiceDebugInfo;
 
 function getQueryParams() {
   if (typeof window === 'undefined') return { isVoiceDebug: false, isNoFallback: false };
@@ -72,7 +78,7 @@ function getGlobalAudio() {
 }
 
 /**
- * Loads pre-generated audio manifest from public directory.
+ * Loads pre-generated audio manifest from public directory with no-cache header.
  */
 async function loadAudioManifest() {
   if (manifestCache) return manifestCache;
@@ -100,33 +106,46 @@ export const isSpeechSupported = () => {
 };
 
 /**
- * Checks voice availability for a target language on this device & engine.
+ * Checks voice availability for a target language.
  */
 export const checkVoiceAvailability = (langCode = 'en') => {
-  const code = String(langCode || 'en').toLowerCase().trim();
+  const code = normaliseVoiceLang(langCode);
 
-  // If language is in the explicit unsupported list
-  if (DISABLED_VOICE_LANGUAGES.includes(code)) {
+  if (!code) {
     return {
       available: false,
-      status: 'disabled',
+      status: 'unavailable',
       engine: 'none',
-      message: 'Voice readout is not available in this language'
+      message: 'Voice is not available in this language yet'
     };
   }
 
-  // If supported by ElevenLabs
-  if (isVoiceSupported(code)) {
+  const voiceStatus = getVoiceStatus(code);
+
+  // If status is unavailable
+  if (voiceStatus === 'unavailable') {
+    return {
+      available: false,
+      status: 'unavailable',
+      engine: 'none',
+      message: 'Voice is not available in this language yet'
+    };
+  }
+
+  // If verified or beta
+  if (voiceStatus === 'verified' || voiceStatus === 'beta') {
     return {
       available: true,
-      status: 'elevenlabs',
+      status: voiceStatus,
       engine: 'elevenlabs',
-      message: 'High-Fidelity Neural Voice (ElevenLabs Multilingual)'
+      message: voiceStatus === 'beta'
+        ? 'ElevenLabs v3 Neural Voice (Beta)'
+        : 'High-Fidelity Neural Voice (Verified)'
     };
   }
 
-  // Check browser synthesis voices
-  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+  // Device voice check strictly for frozen en/hi
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window && FROZEN_LANGUAGES.includes(code)) {
     const voices = window.speechSynthesis.getVoices() || [];
     const targetCodes = LANG_VOICE_MAP[code] || ['en-IN', 'en-US'];
     for (const c of targetCodes) {
@@ -141,26 +160,13 @@ export const checkVoiceAvailability = (langCode = 'en') => {
         };
       }
     }
-    // Hindi fallback for Indic
-    if (code !== 'en') {
-      const hi = voices.find(v => v.lang.toLowerCase().startsWith('hi'));
-      if (hi) {
-        return {
-          available: true,
-          voice: hi,
-          status: 'fallback',
-          engine: 'browser',
-          message: 'Indic fallback voice (hi-IN)'
-        };
-      }
-    }
   }
 
   return {
     available: false,
     status: 'unavailable',
     engine: 'none',
-    message: 'Voice readout not available in this language on this device'
+    message: 'Voice is not available in this language yet'
   };
 };
 
@@ -170,7 +176,6 @@ export const checkVoiceAvailability = (langCode = 'en') => {
 export const stopSpeech = () => {
   if (typeof window === 'undefined') return;
 
-  // 1. Stop HTMLAudioElement
   if (globalAudio) {
     try {
       globalAudio.pause();
@@ -181,7 +186,6 @@ export const stopSpeech = () => {
     } catch (_) {}
   }
 
-  // 2. Revoke active blob URL to prevent memory leaks
   if (currentBlobUrl) {
     try {
       URL.revokeObjectURL(currentBlobUrl);
@@ -189,7 +193,6 @@ export const stopSpeech = () => {
     currentBlobUrl = null;
   }
 
-  // 3. Cancel browser SpeechSynthesis
   if ('speechSynthesis' in window) {
     try {
       window.speechSynthesis.cancel();
@@ -200,9 +203,18 @@ export const stopSpeech = () => {
 };
 
 /**
- * Browser SpeechSynthesis fallback player
+ * Browser SpeechSynthesis player — ONLY for frozen languages (en/hi).
  */
 function playViaBrowserSpeech({ text, langCode, onStart, onEnd, onError }) {
+  const code = normaliseVoiceLang(langCode);
+
+  // Enforce Golden Rule
+  if (BROKEN_LANGUAGES.includes(code)) {
+    if (onError) onError(new Error('Voice is not available in this language yet'));
+    if (onEnd) onEnd();
+    return;
+  }
+
   const { isNoFallback } = getQueryParams();
   if (isNoFallback) {
     debugLog('Browser speech skipped because &nofallback=1 is active.');
@@ -235,12 +247,12 @@ function playViaBrowserSpeech({ text, langCode, onStart, onEnd, onError }) {
     utterance.rate = 0.88;
     utterance.pitch = 1.0;
 
-    const voiceCheck = checkVoiceAvailability(langCode);
+    const voiceCheck = checkVoiceAvailability(code);
     if (voiceCheck.voice) {
       utterance.voice = voiceCheck.voice;
       utterance.lang = voiceCheck.voice.lang;
     } else {
-      utterance.lang = LANG_VOICE_MAP[langCode]?.[0] || 'hi-IN';
+      utterance.lang = LANG_VOICE_MAP[code]?.[0] || 'en-IN';
     }
 
     currentPlaybackSource = 'browser';
@@ -269,7 +281,7 @@ function playViaBrowserSpeech({ text, langCode, onStart, onEnd, onError }) {
 
 /**
  * Hybrid Voice Speak Pipeline:
- * Manifest Clip -> ElevenLabs Backend Proxy -> Browser SpeechSynthesis -> Visible Error
+ * Manifest Clip -> ElevenLabs/Sarvam Backend Proxy -> Browser SpeechSynthesis (Frozen only) -> Visible Notice
  */
 export const speak = async ({
   text,
@@ -280,31 +292,37 @@ export const speak = async ({
   onError,
   onLoading
 }) => {
-  const code = String(langCode || 'en').toLowerCase().trim();
-  const { isVoiceDebug, isNoFallback } = getQueryParams();
+  const rawLang = String(langCode || 'en');
+  const code = normaliseVoiceLang(rawLang);
 
-  debugLog(`speak() requested for [${code}] clipId: ${clipId || 'none'}, text length: ${text?.length || 0}`);
+  lastVoiceDebugInfo = {
+    i18nLang: rawLang,
+    normLang: code || 'unsupported',
+    clipUrlOrBody: clipId ? `/audio/${code}/${clipId}.mp3` : `POST /api/voice/speak { lang: ${code} }`,
+    text40: (text || '').slice(0, 40),
+    serverVoice: 'pending'
+  };
 
-  // 0. Language check: If disabled language, trigger error immediately
-  if (DISABLED_VOICE_LANGUAGES.includes(code)) {
+  debugLog(`speak() requested for [${code}] (raw: ${rawLang}) clipId: ${clipId || 'none'}, text length: ${text?.length || 0}`);
+
+  // Stop any ongoing playback immediately (prevents overlapping)
+  stopSpeech();
+
+  if (!code) {
     if (onError) {
       onError({
-        code: 'unsupported_language',
-        message: 'Voice readout is not available in this language'
+        code: 'voice_unavailable',
+        message: 'Voice is not available in this language yet'
       });
     }
     if (onEnd) onEnd();
     return;
   }
 
-  // Stop any ongoing playback
-  stopSpeech();
-
   if (onLoading) onLoading(true);
 
   const audio = getGlobalAudio();
   if (audio) {
-    // Prime audio inside synchronous user gesture context to prevent mobile autoplay restrictions
     try {
       audio.load();
     } catch (_) {}
@@ -315,18 +333,17 @@ export const speak = async ({
     const manifest = await loadAudioManifest();
     const clipEntry = manifest?.clips?.[clipId]?.[code];
 
-    // Strictly verify clip size > 2048 bytes (never play 48-byte stubs)
     if (clipEntry && clipEntry.path && clipEntry.sizeBytes >= 2048) {
       debugLog(`Attempting manifest clip: ${clipEntry.path} (${clipEntry.sizeBytes} bytes)`);
       try {
         currentPlaybackSource = 'manifest';
-        audio.src = clipEntry.path;
+        lastVoiceDebugInfo.clipUrlOrBody = clipEntry.path;
+        lastVoiceDebugInfo.serverVoice = `${clipEntry.modelId || 'manifest'} / ${clipEntry.voiceId || 'clip'}`;
 
-        let playbackStarted = false;
+        audio.src = clipEntry.path;
 
         const playPromise = new Promise((resolve, reject) => {
           audio.onloadedmetadata = () => {
-            // If duration is suspiciously short (< 0.5s), reject stub
             if (audio.duration > 0 && audio.duration < 0.5) {
               debugLog(`Manifest clip duration too short (${audio.duration}s); rejecting stub.`);
               return reject(new Error('Audio clip duration too short'));
@@ -345,7 +362,6 @@ export const speak = async ({
 
           audio.play()
             .then(() => {
-              playbackStarted = true;
               debugLog(`Playing manifest clip successfully (${clipEntry.path})`);
               if (onLoading) onLoading(false);
               if (onStart) onStart();
@@ -358,110 +374,102 @@ export const speak = async ({
         return;
       } catch (manifestErr) {
         debugLog('Manifest playback failed, falling over to live proxy:', manifestErr.message);
-        // Fall through to Stage 2
       }
-    } else if (clipEntry) {
-      debugLog(`Manifest clip rejected: sizeBytes (${clipEntry.sizeBytes}) is under 2048 byte threshold.`);
     }
   }
 
-  // Helper for Stage 2 (Proxy) and Stage 3 (Browser)
-  async function attemptBackendOrBrowser() {
-    // 2. Pipeline Stage 2: ElevenLabs Backend Proxy
-    if (isVoiceSupported(code)) {
-      debugLog(`Calling live backend voice proxy POST /api/voice/speak for [${code}]...`);
-      try {
-        const result = await api.speakText(text, code);
-        if (result && result.blobUrl) {
-          currentBlobUrl = result.blobUrl;
-          currentPlaybackSource = 'elevenlabs';
-          audio.src = result.blobUrl;
+  // 2. Pipeline Stage 2: Backend Voice Proxy (POST /api/voice/speak)
+  if (isVoiceSupported(code)) {
+    debugLog(`Calling live backend voice proxy POST /api/voice/speak for [${code}]...`);
+    try {
+      const result = await api.speakText(text, code);
+      if (result && result.blobUrl) {
+        currentBlobUrl = result.blobUrl;
+        currentPlaybackSource = 'elevenlabs';
+        lastVoiceDebugInfo.serverVoice = `${result.headers['x-voice-model'] || 'eleven_v3'} / ${result.headers['x-voice-id'] || 'voice'}`;
 
-          const proxyPlayPromise = new Promise((resolve, reject) => {
-            audio.onended = () => {
-              currentPlaybackSource = null;
-              if (currentBlobUrl) {
-                URL.revokeObjectURL(currentBlobUrl);
-                currentBlobUrl = null;
-              }
-              if (onEnd) onEnd();
-            };
+        audio.src = result.blobUrl;
 
-            audio.onerror = (e) => {
-              if (currentBlobUrl) {
-                URL.revokeObjectURL(currentBlobUrl);
-                currentBlobUrl = null;
-              }
-              reject(new Error('Audio element error playing proxy stream'));
-            };
+        const proxyPlayPromise = new Promise((resolve, reject) => {
+          audio.onended = () => {
+            currentPlaybackSource = null;
+            if (currentBlobUrl) {
+              URL.revokeObjectURL(currentBlobUrl);
+              currentBlobUrl = null;
+            }
+            if (onEnd) onEnd();
+          };
 
-            audio.play()
-              .then(() => {
-                debugLog(`Playing live proxy audio stream successfully (${result.sizeBytes} bytes)`);
-                if (onLoading) onLoading(false);
-                if (onStart) onStart();
-                resolve(true);
-              })
-              .catch(err => reject(err));
-          });
+          audio.onerror = (e) => {
+            if (currentBlobUrl) {
+              URL.revokeObjectURL(currentBlobUrl);
+              currentBlobUrl = null;
+            }
+            reject(new Error('Audio element error playing proxy stream'));
+          };
 
-          await proxyPlayPromise;
-          return;
-        }
-      } catch (err) {
-        debugLog('Backend proxy synthesis failed:', err.code || err.message);
-      }
-    }
-
-    // 3. Pipeline Stage 3: Browser SpeechSynthesis Fallback
-    if (isNoFallback) {
-      debugLog('Pipeline stopped: &nofallback=1 is set, skipping device voice fallback.');
-      if (onLoading) onLoading(false);
-      if (onError) {
-        onError({
-          code: 'elevenlabs_failed',
-          message: 'Voice could not be synthesized via ElevenLabs (&nofallback=1 active).'
+          audio.play()
+            .then(() => {
+              debugLog(`Playing live proxy audio stream successfully (${result.sizeBytes} bytes)`);
+              if (onLoading) onLoading(false);
+              if (onStart) onStart();
+              resolve(true);
+            })
+            .catch(err => reject(err));
         });
+
+        await proxyPlayPromise;
+        return;
       }
-      if (onEnd) onEnd();
-      return;
+    } catch (err) {
+      debugLog('Backend proxy synthesis failed:', err.code || err.message);
     }
+  }
 
-    const browserCheck = checkVoiceAvailability(code);
-    if (browserCheck.available && browserCheck.engine === 'browser') {
-      debugLog('Attempting browser speech synthesis fallback...');
-      if (onLoading) onLoading(false);
-      playViaBrowserSpeech({ text, langCode: code, onStart, onEnd, onError });
-      return;
-    }
-
-    // 4. Pipeline Stage 4: Visible Failure Notice (Never fail silently)
-    debugLog(`All voice pipelines exhausted for [${code}]. Showing visible error notice.`);
+  // 3. Pipeline Stage 3: Browser Fallback (STRICTLY BLOCKED FOR 8 REGIONAL LANGUAGES)
+  if (BROKEN_LANGUAGES.includes(code)) {
+    debugLog(`Golden Rule enforced: Browser fallback blocked for [${code}].`);
     if (onLoading) onLoading(false);
     if (onError) {
       onError({
         code: 'voice_unavailable',
-        message: 'Voice could not be played. Tap to try again.'
+        message: 'Voice is not available in this language yet'
       });
     }
     if (onEnd) onEnd();
+    return;
   }
 
-  await attemptBackendOrBrowser();
+  // For frozen languages (en, hi) ONLY
+  const { isNoFallback } = getQueryParams();
+  if (!isNoFallback) {
+    const browserCheck = checkVoiceAvailability(code);
+    if (browserCheck.available && browserCheck.engine === 'browser') {
+      debugLog('Attempting browser speech synthesis fallback for frozen language...');
+      if (onLoading) onLoading(false);
+      playViaBrowserSpeech({ text, langCode: code, onStart, onEnd, onError });
+      return;
+    }
+  }
+
+  // 4. Pipeline Stage 4: Visible Failure Notice
+  debugLog(`All voice pipelines exhausted for [${code}].`);
+  if (onLoading) onLoading(false);
+  if (onError) {
+    onError({
+      code: 'voice_unavailable',
+      message: 'Voice is not available in this language yet'
+    });
+  }
+  if (onEnd) onEnd();
 };
 
-/**
- * Returns true if any audio is actively playing or speaking
- */
 export const isSpeaking = () => {
   const isAudioPlaying = Boolean(globalAudio && !globalAudio.paused && !globalAudio.ended);
   const isSynthSpeaking = typeof window !== 'undefined' && 'speechSynthesis' in window && window.speechSynthesis.speaking;
   return isAudioPlaying || isSynthSpeaking;
 };
 
-/**
- * Returns current playback source: 'manifest' | 'elevenlabs' | 'browser' | null
- */
 export const getActivePlaybackSource = () => {
   return currentPlaybackSource;
 };
