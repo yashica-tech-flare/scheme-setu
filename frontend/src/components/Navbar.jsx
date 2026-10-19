@@ -37,22 +37,22 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Brand */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-saffron-600 via-amber-500 to-emerald-600 p-0.5 shadow-glow flex items-center justify-center transition-transform group-hover:scale-105">
+          <Link to="/" className="flex items-center gap-3 group min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-saffron-600 via-amber-500 to-emerald-600 p-0.5 shadow-glow flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105">
               <div className="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
                 <Landmark className="w-5 h-5 sm:w-6 sm:h-6 text-saffron-400" />
               </div>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-saffron-400 transition-colors">
+            <div className="flex flex-col justify-center min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-saffron-400 transition-colors leading-snug">
                   {t('nav.title')}
                 </span>
-                <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full">
+                <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full flex-shrink-0">
                   SC Credit
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-400 font-medium leading-normal mt-0.5 truncate sm:whitespace-normal">
                 {t('nav.subtitle')}
               </p>
             </div>

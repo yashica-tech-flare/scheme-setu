@@ -158,49 +158,52 @@ export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectFor
       </div>
 
       {/* Metric Highlights Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-6 bg-slate-50/70 border-b border-slate-100 text-sm">
+      <div className="grid grid-cols-2 gap-4 p-5 sm:p-6 bg-slate-50/70 border-b border-slate-100 text-sm">
         {/* Interest Rate */}
-        <div className="space-y-1">
-          <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-            <Percent className="w-3.5 h-3.5 text-saffron-600" />
-            {t('results.interestRate')}
+        <div className="flex flex-col justify-start min-w-0 space-y-1">
+          <span className="text-xs font-medium text-slate-500 flex items-center gap-1.5 leading-normal break-words">
+            <Percent className="w-3.5 h-3.5 text-saffron-600 flex-shrink-0" />
+            <span className="break-words">{t('results.interestRate')}</span>
           </span>
-          <p className="text-lg font-bold text-slate-900">
-            {scheme.interestRate}% <span className="text-xs font-normal text-slate-500">p.a.</span>
-          </p>
+          <div className="flex items-baseline flex-wrap gap-1 text-slate-900">
+            <span className="text-lg font-bold leading-tight">{scheme.interestRate}%</span>
+            <span className="text-xs font-normal text-slate-500">{t('results.pa', 'p.a.')}</span>
+          </div>
         </div>
 
         {/* Max Loan Amount */}
-        <div className="space-y-1">
-          <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-            <IndianRupee className="w-3.5 h-3.5 text-saffron-600" />
-            {t('results.maxLoan')}
+        <div className="flex flex-col justify-start min-w-0 space-y-1">
+          <span className="text-xs font-medium text-slate-500 flex items-center gap-1.5 leading-normal break-words">
+            <IndianRupee className="w-3.5 h-3.5 text-saffron-600 flex-shrink-0" />
+            <span className="break-words">{t('results.maxLoan')}</span>
           </span>
-          <p className="text-lg font-bold text-slate-900">
-            {formatRupee(scheme.maxLoanAmount)}
-          </p>
+          <div className="flex items-baseline flex-wrap gap-1 text-slate-900">
+            <span className="text-lg font-bold leading-tight">{formatRupee(scheme.maxLoanAmount)}</span>
+          </div>
         </div>
 
         {/* Moratorium Grace */}
-        <div className="space-y-1">
-          <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-emerald-600" />
-            {t('results.moratorium')}
+        <div className="flex flex-col justify-start min-w-0 space-y-1">
+          <span className="text-xs font-medium text-slate-500 flex items-center gap-1.5 leading-normal break-words">
+            <Clock className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+            <span className="break-words">{t('results.moratorium')}</span>
           </span>
-          <p className="text-lg font-bold text-emerald-700">
-            {scheme.moratoriumMonths || 0} {t('results.months')}
-          </p>
+          <div className="flex items-baseline flex-wrap gap-1 text-emerald-700">
+            <span className="text-lg font-bold leading-tight">{scheme.moratoriumMonths || 0}</span>
+            <span className="text-xs font-medium text-emerald-600">{t('results.months')}</span>
+          </div>
         </div>
 
         {/* Tenure Months */}
-        <div className="space-y-1">
-          <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-            <Calendar className="w-3.5 h-3.5 text-blue-600" />
-            {t('results.tenure')}
+        <div className="flex flex-col justify-start min-w-0 space-y-1">
+          <span className="text-xs font-medium text-slate-500 flex items-center gap-1.5 leading-normal break-words">
+            <Calendar className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+            <span className="break-words">{t('results.tenure')}</span>
           </span>
-          <p className="text-lg font-bold text-slate-900">
-            {scheme.repaymentPeriodMonths || scheme.tenureMonthsMax || 60} {t('results.months')}
-          </p>
+          <div className="flex items-baseline flex-wrap gap-1 text-slate-900">
+            <span className="text-lg font-bold leading-tight">{scheme.repaymentPeriodMonths || scheme.tenureMonthsMax || 60}</span>
+            <span className="text-xs font-normal text-slate-500">{t('results.months')}</span>
+          </div>
         </div>
       </div>
 

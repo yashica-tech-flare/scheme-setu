@@ -117,9 +117,30 @@
   letter-spacing: 0;
 }
 
+/* Indic Script Typography Safeguards: prevent letter-spacing collisions and guarantee line-heights */
+html:not([lang="en"]) {
+  letter-spacing: normal;
+}
+
+html:not([lang="en"]) h1,
+html:not([lang="en"]) h2,
+html:not([lang="en"]) h3,
+html:not([lang="en"]) h4,
+html:not([lang="en"]) h5,
+html:not([lang="en"]) h6 {
+  letter-spacing: normal !important;
+  line-height: 1.35 !important;
+}
+
+html:not([lang="en"]) .tracking-tight,
+html:not([lang="en"]) .tracking-tighter {
+  letter-spacing: normal !important;
+}
+
 /* Global Language Font Adjustments */
 html[lang="hi"], html[lang="mr"], html[lang="sa"], html[lang="kok"], html[lang="brx"], html[lang="doi"], html[lang="mai"], html[lang="ne"] {
   font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+  line-height: 1.6;
 }
 
 html[lang="ta"] {
@@ -132,13 +153,14 @@ html[lang="te"] {
   line-height: 1.65;
 }
 
-html[lang="bn"], html[lang="as"], html[lang="mni"] {
+html[lang="bn"], html[lang="mni"] {
   font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
   line-height: 1.6;
 }
 
 html[lang="gu"] {
   font-family: 'Noto Sans Gujarati', 'Inter', sans-serif;
+  line-height: 1.6;
 }
 
 html[lang="pa"] {
@@ -164,6 +186,7 @@ html[lang="or"] {
 html[lang="ur"], html[lang="ks"], html[lang="sd"] {
   font-family: 'Noto Nastaliq Urdu', serif;
   line-height: 2.1;
+  letter-spacing: normal;
 }
 
 html[lang="sat"] {
