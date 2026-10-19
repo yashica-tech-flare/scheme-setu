@@ -220,6 +220,92 @@ const PROMPTS = {
 };
 
 /**
+ * Sarvam Bulbul v3 synthesis caller
+ */
+function callSarvamTTS(text, config) {
+  const sarvamKey = process.env.SARVAM_API_KEY;
+  if (!sarvamKey) {
+    return Promise.reject(new Error('CRITICAL: SARVAM_API_KEY environment variable is missing.'));
+  }
+
+  const sarvamLangMap = {
+    te: 'te-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN', ml: 'ml-IN', pa: 'pa-IN', or: 'od-IN', hi: 'hi-IN', ta: 'ta-IN', mr: 'mr-IN', en: 'en-IN'
+  };
+  const targetLang = sarvamLangMap[config.languageCode] || 'hi-IN';
+  const speaker = config.voiceId || 'shubh';
+
+  const payload = JSON.stringify({
+    text: text,
+    inputs: [text],
+    language_code: targetLang,
+    target_language_code: targetLang,
+    speaker: speaker,
+    model: 'bulbul:v3',
+    target_audio_codec: 'mp3'
+  });
+
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.sarvam.ai',
+      port: 443,
+      path: '/text-to-speech',
+      method: 'POST',
+      headers: {
+        'api-subscription-key': sarvamKey,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload)
+      },
+      timeout: 25000
+    };
+
+    const req = https.request(options, (res) => {
+      const chunks = [];
+      res.on('data', c => chunks.push(c));
+      res.on('end', () => {
+        const bodyBuf = Buffer.concat(chunks);
+        if (res.statusCode !== 200) {
+          let errMsg = `HTTP ${res.statusCode}`;
+          try {
+            const parsed = JSON.parse(bodyBuf.toString('utf8'));
+            errMsg += `: ${parsed.message || JSON.stringify(parsed)}`;
+          } catch (_) {
+            errMsg += `: ${bodyBuf.toString('utf8').slice(0, 150)}`;
+          }
+          return reject(new Error(errMsg));
+        }
+
+        try {
+          const data = JSON.parse(bodyBuf.toString('utf8'));
+          const b64 = data.audios?.[0] || data.audio_base64 || data.audio;
+          if (b64) {
+            const audioBuffer = Buffer.from(b64, 'base64');
+            if (audioBuffer.length < 2048) {
+              return reject(new Error(`Received small audio buffer (${audioBuffer.length} bytes < 2048 threshold)`));
+            }
+            if (!isValidMp3Header(audioBuffer)) {
+              return reject(new Error(`Invalid MP3 header from Sarvam (first bytes: ${audioBuffer.slice(0, 4).toString('hex')})`));
+            }
+            return resolve(audioBuffer);
+          }
+        } catch (e) {
+          return reject(new Error(`Failed to parse Sarvam audio: ${e.message}`));
+        }
+        reject(new Error('No valid audio stream received from Sarvam TTS'));
+      });
+    });
+
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Sarvam TTS request timed out after 25s'));
+    });
+
+    req.on('error', err => reject(err));
+    req.write(payload);
+    req.end();
+  });
+}
+
+/**
  * ElevenLabs synthesis caller
  */
 function callElevenLabsTTS(text, config, retryCount = 0) {
@@ -389,9 +475,11 @@ async function run() {
         fs.mkdirSync(langDir, { recursive: true });
       }
 
-      process.stdout.write(`[\x1b[33mSYNTH\x1b[0m] [${langCode}] ${clipId} (${config.model || config.modelId})... `);
+      process.stdout.write(`[\x1b[33mSYNTH\x1b[0m] [${langCode}] ${clipId} (${config.provider || 'elevenlabs'}:${config.model || config.modelId})... `);
       try {
-        const audioData = await callElevenLabsTTS(text, config);
+        const audioData = config.provider === 'sarvam'
+          ? await callSarvamTTS(text, config)
+          : await callElevenLabsTTS(text, config);
         const hash8 = sha256Hex(audioData).slice(0, 8);
         const hashedFileName = `${clipId}.${hash8}.mp3`;
         const filePath = path.join(langDir, hashedFileName);

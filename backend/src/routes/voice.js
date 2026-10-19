@@ -292,14 +292,18 @@ function synthesizeWithSarvam(text, config) {
   }
   const startTime = Date.now();
   const sarvamLangMap = {
-    te: 'te-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN', ml: 'ml-IN', pa: 'pa-IN', or: 'od-IN', hi: 'hi-IN', ta: 'ta-IN'
+    te: 'te-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN', ml: 'ml-IN', pa: 'pa-IN', or: 'od-IN', hi: 'hi-IN', ta: 'ta-IN', mr: 'mr-IN', en: 'en-IN'
   };
   const targetLang = sarvamLangMap[config.languageCode] || 'hi-IN';
+  const speaker = config.voiceId || 'shubh';
   const payload = JSON.stringify({
+    text: text,
     inputs: [text],
+    language_code: targetLang,
     target_language_code: targetLang,
-    speaker: 'meera',
-    model: 'bulbul:v3'
+    speaker: speaker,
+    model: 'bulbul:v3',
+    target_audio_codec: 'mp3'
   });
 
   return new Promise((resolve, reject) => {
@@ -323,8 +327,9 @@ function synthesizeWithSarvam(text, config) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           try {
             const data = JSON.parse(Buffer.concat(chunks).toString());
-            if (data.audios && data.audios[0]) {
-              const audioBuffer = Buffer.from(data.audios[0], 'base64');
+            const b64 = data.audios?.[0] || data.audio_base64 || data.audio;
+            if (b64) {
+              const audioBuffer = Buffer.from(b64, 'base64');
               return resolve({ audioBuffer, latencyMs });
             }
           } catch (e) {}
@@ -411,7 +416,7 @@ router.post('/speak', async (req, res) => {
 
   if (config.status === 'unavailable' || config.engine === 'none') {
     return res.status(400).json({
-      error: 'voice_unavailable',
+      error: 'language_not_supported',
       code: 'voice_unavailable',
       message: 'Voice is not available in this language yet',
       status: 'unavailable',
@@ -458,9 +463,12 @@ router.post('/speak', async (req, res) => {
       });
     }
   } else if (!process.env.ELEVENLABS_API_KEY) {
+    const isFrozen = FROZEN_LANGUAGES.includes(lang);
+    const allowBrowserFallback = isFrozen && ['en', 'hi'].includes(lang);
     return res.status(503).json({
       error: 'voice_key_missing',
       code: 'voice_key_invalid',
+      ...(allowBrowserFallback ? { fallback: 'speechSynthesis' } : {}),
       message: 'ElevenLabs voice engine is not active (missing backend API key).'
     });
   }
@@ -558,9 +566,25 @@ router.get('/status', (req, res) => {
   const manifestPath = path.resolve(__dirname, '../../../frontend/public/audio/audio-manifest.json');
   const manifestFound = fs.existsSync(manifestPath);
 
+  const supportedLanguages = Object.entries(LANGUAGE_CONFIG)
+    .filter(([code]) => ['en', 'hi', 'ta', 'te', 'bn', 'mr', 'ur', 'gu', 'kn', 'ml', 'pa', 'or', 'as', 'bho', 'raj', 'mag', 'hne', 'bgc'].includes(code))
+    .map(([code, cfg]) => ({ code, name: cfg.name, quality: cfg.status, provider: cfg.provider }));
+
+  const disabledLanguages = Object.entries(LANGUAGE_CONFIG)
+    .filter(([code]) => !['en', 'hi', 'ta', 'te', 'bn', 'mr', 'ur', 'gu', 'kn', 'ml', 'pa', 'or', 'as', 'bho', 'raj', 'mag', 'hne', 'bgc'].includes(code))
+    .map(([code, cfg]) => ({ code, name: cfg.name, reason: cfg.reason || 'Not supported by ElevenLabs speech synthesis.' }));
+
   res.json({
+    enabled: true,
+    provider: 'ElevenLabs / Sarvam AI Hybrid Engine',
+    supportedCount: supportedLanguages.length,
+    supportedLanguages,
+    disabledCount: disabledLanguages.length,
+    disabledLanguages,
     keyConfigured: Boolean(process.env.ELEVENLABS_API_KEY),
     sarvamConfigured: Boolean(process.env.SARVAM_API_KEY),
+    elevenKeyConfigured: Boolean(process.env.ELEVENLABS_API_KEY),
+    sarvamKeyConfigured: Boolean(process.env.SARVAM_API_KEY),
     commitHash: process.env.RENDER_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || 'local-dev',
     manifestFound,
     serverTime: new Date().toISOString(),

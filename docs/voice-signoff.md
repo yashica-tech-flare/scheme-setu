@@ -25,16 +25,16 @@ These 5 languages were confirmed working and signed off on the live site. Their 
 Until a row is signed below, the language remains **Beta** or **Unavailable**.
 *The Golden Rule: A wrong-language voice is worse than no voice. If unverified, the button is disabled.*
 
-| Language | Model & Config | Spoken Text in Native Script | Native Speaker Name | Speaks Right Language? (Y/N) | Pronunciation OK? (Y/N) | Notes & Date |
+| Language | Engine & Voice | Clip Target | Status | Speaks Right Language? (Y/N) | Pronunciation OK? (Y/N) | Blocker / Owner Action Required |
 |:---|:---|:---|:---|:---:|:---:|:---|
-| **Telugu (`te`)** | ElevenLabs v3 (`te`) | షెడ్యూల్డ్ కులాల వ్యవస్థాపకుల కోసం స్కీమ్‌బ్రిడ్జ్ రాయితీ రుణ పోర్టల్‌కు స్వాగతం. | | | | |
-| **Bengali (`bn`)** | ElevenLabs v3 (`bn`) | তপশিলি জাতি উদ্যোক্তাদের জন্য স্কিমব্রিজ রেয়াতি ঋণ পোর্টালে স্বাগতম। | | | | |
-| **Gujarati (`gu`)** | ElevenLabs v3 (`gu`) | અનુસૂચિત જાતિના સાહસિકો માટે સ્કીમબ્રિજ રાહત લોન પોર્ટલ પર આપનું સ્વાગત છે. | | | | |
-| **Kannada (`kn`)** | ElevenLabs v3 (`kn`) | ಪರಿಶಿಷ್ಟ ಜಾತಿಯ ಉದ್ಯಮಿಗಳಿಗಾಗಿ ಸ್ಕೀಮ್‌ಬ್ರಿಡ್ಜ್ ರಿಯಾಯಿತಿ ಸಾಲದ ಪೋರ್ಟಲ್‌ಗೆ ಸುಸ್ವಾಗತ. | | | | |
-| **Malayalam (`ml`)** | ElevenLabs v3 (`ml`) | പട്ടികജാതി സംരംഭകർക്കായുള്ള സ്കീംബ്രിഡ്ജ് വായ്പാ പോർട്ടലിലേക്ക് സ്വാഗതം. | | | | |
-| **Punjabi (`pa`)** | ElevenLabs v3 (`pa`) | ਅਨੁਸੂਚਿਤ ਜਾਤੀ ਦੇ ਉੱਦਮੀਆਂ ਲਈ ਸਕੀਮਬ੍ਰਿਜ ਰਿਆਇਤੀ ਕਰਜ਼ਾ ਪੋਰਟਲ ਵਿੱਚ ਸੁਆਗਤ ਹੈ। | | | | |
-| **Odia (`or`)** | Sarvam Bulbul v3 / Pending | ଅନୁସୂଚିତ ଜାତି ଉଦ୍ୟୋଗୀଙ୍କ ପାଇଁ ସ୍କିମ୍‌ବ୍ରିଜ୍ ରିହାତି ଋଣ ପୋର୍ଟାଲ୍‌କୁ ସ୍ୱାଗତ। | | | | Unlisted in ElevenLabs v3; requires Sarvam key |
-| **Assamese (`as`)** | ElevenLabs v3 (`as`) | অনুসূচীত জাতিৰ উদ্যোগীসকলৰ বাবে স্কিমব্ৰিজ ৰেহাই ঋণ পৰ্টেললৈ স্বাগতম। | | | | |
+| **Telugu (`te`)** | Sarvam Bulbul v3 (`te-IN`, Shubh) / ElevenLabs v3 (`te`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
+| **Bengali (`bn`)** | Sarvam Bulbul v3 (`bn-IN`, Shubh) / ElevenLabs v3 (`bn`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
+| **Gujarati (`gu`)** | Sarvam Bulbul v3 (`gu-IN`, Shubh) / ElevenLabs v3 (`gu`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
+| **Kannada (`kn`)** | Sarvam Bulbul v3 (`kn-IN`, Shubh) / ElevenLabs v3 (`kn`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
+| **Malayalam (`ml`)** | Sarvam Bulbul v3 (`ml-IN`, Shubh) / ElevenLabs v3 (`ml`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
+| **Punjabi (`pa`)** | Sarvam Bulbul v3 (`pa-IN`, Shubh) / ElevenLabs v3 (`pa`) | `portal_welcome` | unavailable | — | — | ElevenLabs quota exhausted (3 credits left). Add `SARVAM_API_KEY` to Render dashboard or add ElevenLabs credits. |
+| **Odia (`or`)** | Sarvam Bulbul v3 (`od-IN`, Shubh) | `portal_welcome` | unavailable | — | — | Not supported by ElevenLabs v3. Sarvam is the only route. Add `SARVAM_API_KEY` in Render dashboard. |
+| **Assamese (`as`)** | ElevenLabs v3 (`as`) | `portal_welcome` | unavailable | — | — | Not supported by Sarvam. ElevenLabs v3 quota exhausted. Upgrade ElevenLabs plan or add credits at elevenlabs.io. |
 
 ---
 
