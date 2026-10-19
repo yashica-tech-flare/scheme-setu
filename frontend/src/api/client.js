@@ -14,6 +14,11 @@ const client = axios.create({
 });
 
 export const api = {
+  // Wake up backend instance on page load to mitigate cold starts
+  wakeUpBackend: () => {
+    client.get('/api/health').catch(() => {});
+  },
+
   // Recommend schemes with seamless local fallback
   getRecommendations: async (payload) => {
     try {
@@ -135,7 +140,7 @@ export const api = {
     }
   },
 
-  // Optional anonymous apply click metric (Part A step 9)
+  // Optional anonymous apply click metric
   logApplyClick: async (payload) => {
     try {
       await client.post('/api/analytics/apply-click', payload);
@@ -150,15 +155,42 @@ export const api = {
       const response = await client.post(
         '/api/voice/speak',
         { text, languageCode },
-        { responseType: 'blob', timeout: 20000 }
+        { responseType: 'blob', timeout: 25000 }
       );
-      if (response.data && response.data.size > 0) {
-        return URL.createObjectURL(response.data);
+
+      // Verify that response is audio
+      const contentType = response.headers['content-type'] || '';
+      if (contentType.includes('application/json')) {
+        const textData = await response.data.text();
+        const json = JSON.parse(textData);
+        const err = new Error(json.message || json.error || 'Voice synthesis error');
+        err.code = json.code || json.error || 'voice_error';
+        err.statusCode = response.status;
+        throw err;
+      }
+
+      if (response.data && response.data.size > 2000) {
+        return {
+          blobUrl: URL.createObjectURL(response.data),
+          sizeBytes: response.data.size
+        };
       }
       return null;
     } catch (err) {
-      // Graceful fallback to client speech synthesis
-      return null;
+      // Decode blob if server returned JSON error under responseType: 'blob'
+      if (err.response?.data instanceof Blob) {
+        try {
+          const errText = await err.response.data.text();
+          const errJson = JSON.parse(errText);
+          const customErr = new Error(errJson.message || errJson.error || err.message);
+          customErr.code = errJson.code || errJson.error || 'voice_error';
+          customErr.statusCode = err.response.status;
+          throw customErr;
+        } catch (parseErr) {
+          if (parseErr.code) throw parseErr;
+        }
+      }
+      throw err;
     }
   },
 

@@ -13,12 +13,12 @@ const VOICE_SETTINGS = {
 
 const DEFAULT_MODEL = 'eleven_multilingual_v2';
 
-// Standard high-clarity voice identifiers on ElevenLabs
-// Rachel (female, calm, clear): 21m00Tcm4TlvDq8ikWAM
-// Adam (male, authoritative, deep): pNInz6obpgDQGcFmaJgB
-// Charlie (conversational, natural): IKne3meq5aSn9XLyUdCD
-const DEFAULT_FEMALE_VOICE = '21m00Tcm4TlvDq8ikWAM';
-const DEFAULT_MALE_VOICE = 'pNInz6obpgDQGcFmaJgB';
+// Verified pre-made voice identifiers on ElevenLabs (accessible on all subscription tiers)
+// Sarah (mature, reassuring, confident, multilingual): EXAVITQu4vr4xnSDxMaL
+// Charlie (deep, confident, clear, energetic): IKne3meq5aSn9XLyUdCD
+// Alice (clear, engaging educator): Xb7hH8MSUJpSbSDYk0k2
+const DEFAULT_FEMALE_VOICE = 'EXAVITQu4vr4xnSDxMaL';
+const DEFAULT_MALE_VOICE = 'IKne3meq5aSn9XLyUdCD';
 
 const LANGUAGE_CONFIG = {
   // 13 Supported Languages

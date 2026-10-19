@@ -21,6 +21,21 @@ const MAX_REQUESTS_PER_WINDOW = 20;
 const MAX_SESSION_CHARACTERS = 200000;
 let sessionCharactersSynthesized = 0;
 
+// Diagnostic state for GET /api/voice/status (no secrets stored)
+let lastElevenLabsDiagnostic = {
+  timestamp: null,
+  statusCode: null,
+  statusMessage: null,
+  latencyMs: null
+};
+
+// Institutional whitelisted numbers (government national helplines, not personal PII)
+const WHITELISTED_PATTERNS = [
+  /1800[- ]?11[- ]?2001/g, // National SC/ST Helpline
+  /1800[- ]?180[- ]?1551/g, // Kisan/Welfare Helpline
+  /1800[- ]?\d{2,3}[- ]?\d{3,4}/g // General toll-free prefixes
+];
+
 /**
  * Checks in-memory IP rate limiter.
  * @param {string} ip
@@ -48,33 +63,40 @@ function checkRateLimit(ip) {
 
 /**
  * Audits text for personal identifiable information (PII).
- * Throws an error if phone numbers, Aadhaar, PAN, or account numbers are detected.
+ * Whitelists institutional helplines and loan amounts.
+ * Flags personal mobile numbers, Aadhaar, and PAN.
  * @param {string} text
  * @returns {boolean} true if clean
  */
 function assertNoPii(text) {
   if (!text) return true;
 
-  // 12-digit Aadhaar pattern
-  if (/\b\d{4}\s?\d{4}\s?\d{4}\b/.test(text)) {
-    throw new Error('PII violation: 12-digit identifier detected.');
+  // Mask whitelisted institutional numbers before PII inspection
+  let sanitized = text;
+  WHITELISTED_PATTERNS.forEach(pat => {
+    sanitized = sanitized.replace(pat, ' INSTITUTIONAL_HELPLINE ');
+  });
+
+  // 12-digit Aadhaar pattern (institutional helplines like 1800 are already masked above)
+  if (/\b\d{4}[ -]?\d{4}[ -]?\d{4}\b/.test(sanitized)) {
+    throw new Error('PII violation: 12-digit Aadhaar-like identifier detected.');
   }
 
-  // 10-character PAN pattern
-  if (/\b[A-Z]{5}[0-9]{4}[A-Z]{1}\b/.test(text)) {
+  // 10-character PAN pattern (5 uppercase letters, 4 digits, 1 uppercase letter)
+  if (/\b[A-Z]{5}[0-9]{4}[A-Z]\b/i.test(sanitized)) {
     throw new Error('PII violation: Permanent Account Number (PAN) detected.');
   }
 
-  // 10-digit Indian Mobile pattern
-  if (/\b[6-9]\d{9}\b/.test(text)) {
-    throw new Error('PII violation: Mobile phone number detected.');
+  // 10-digit Indian Mobile pattern (starts with 6-9, optional +91 prefix)
+  if (/\b(?:\+?91[ -]?)?[6-9]\d{9}\b/.test(sanitized)) {
+    throw new Error('PII violation: Personal mobile phone number detected.');
   }
 
   return true;
 }
 
 /**
- * Normalizes numbers and currency for natural TTS pronunciation.
+ * Normalizes numbers and currency for natural Indic TTS pronunciation.
  * E.g., ₹1,40,000 -> 140000 rupees.
  * @param {string} text
  * @returns {string}
@@ -89,19 +111,74 @@ function cleanTextForTTS(text) {
 }
 
 /**
- * Calls ElevenLabs Text-to-Speech API.
+ * Sleep helper for retry backoff
+ */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Maps upstream ElevenLabs HTTP status to stable error codes
+ */
+function mapElevenLabsError(status, message) {
+  if (status === 401) {
+    return {
+      statusCode: 401,
+      code: 'voice_key_invalid',
+      message: 'ElevenLabs API key is missing, unauthorized, or invalid.'
+    };
+  }
+  if (status === 402 || status === 403) {
+    return {
+      statusCode: 403,
+      code: 'voice_plan_or_voice_not_allowed',
+      message: 'ElevenLabs plan quota exceeded or requested voice is not permitted on this account tier.'
+    };
+  }
+  if (status === 422) {
+    return {
+      statusCode: 422,
+      code: 'voice_bad_model_or_voice',
+      message: 'Invalid voice ID or model ID passed to ElevenLabs synthesis.'
+    };
+  }
+  if (status === 429) {
+    return {
+      statusCode: 429,
+      code: 'voice_busy',
+      message: 'ElevenLabs voice service is busy with high concurrent traffic. Please retry in a few moments.'
+    };
+  }
+  if (status === 504 || message?.includes('timed out')) {
+    return {
+      statusCode: 504,
+      code: 'voice_timeout',
+      message: 'Voice synthesis request timed out after 25 seconds.'
+    };
+  }
+  return {
+    statusCode: 502,
+    code: 'elevenlabs_error',
+    message: message || 'Upstream ElevenLabs speech synthesis error.'
+  };
+}
+
+/**
+ * Calls ElevenLabs Text-to-Speech API with retry on 429.
  * @param {string} text
  * @param {Object} config
- * @returns {Promise<Buffer>}
+ * @param {number} retryCount
+ * @returns {Promise<{ audioBuffer: Buffer, latencyMs: number }>}
  */
-function synthesizeWithElevenLabs(text, config) {
+function synthesizeWithElevenLabs(text, config, retryCount = 0) {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) {
-    return Promise.reject(new Error('ELEVENLABS_API_KEY not configured'));
+    return Promise.reject(mapElevenLabsError(401, 'ELEVENLABS_API_KEY environment variable not configured'));
   }
 
   const voiceId = config.voiceId;
   const modelId = config.modelId || 'eleven_multilingual_v2';
+  const startTime = Date.now();
 
   const payload = JSON.stringify({
     text: text,
@@ -132,30 +209,89 @@ function synthesizeWithElevenLabs(text, config) {
     const req = https.request(options, (res) => {
       const chunks = [];
       res.on('data', chunk => chunks.push(chunk));
-      res.on('end', () => {
-        const body = Buffer.concat(chunks);
+      res.on('end', async () => {
+        const latencyMs = Date.now() - startTime;
+        const bodyBuf = Buffer.concat(chunks);
+
+        lastElevenLabsDiagnostic = {
+          timestamp: new Date().toISOString(),
+          statusCode: res.statusCode,
+          statusMessage: res.statusMessage,
+          latencyMs
+        };
+
+        // Retry once on 429 rate limit
+        if (res.statusCode === 429 && retryCount < 1) {
+          console.warn('[Voice API] Upstream 429 received, applying 1.5s backoff retry...');
+          await sleep(1500);
+          try {
+            const retried = await synthesizeWithElevenLabs(text, config, retryCount + 1);
+            return resolve(retried);
+          } catch (retryErr) {
+            return reject(retryErr);
+          }
+        }
+
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(body);
+          const contentType = res.headers['content-type'] || '';
+          if (!contentType.includes('audio')) {
+            return reject(mapElevenLabsError(502, `Unexpected Content-Type: ${contentType}`));
+          }
+          resolve({ audioBuffer: bodyBuf, latencyMs });
         } else {
           let errMsg = `ElevenLabs API error HTTP ${res.statusCode}`;
           try {
-            const parsed = JSON.parse(body.toString());
+            const parsed = JSON.parse(bodyBuf.toString());
             errMsg = parsed.detail?.message || parsed.message || errMsg;
           } catch (_) {}
-          reject(new Error(errMsg));
+          reject(mapElevenLabsError(res.statusCode, errMsg));
         }
       });
     });
 
     req.on('timeout', () => {
       req.destroy();
-      reject(new Error('ElevenLabs API request timed out after 25s'));
+      const latencyMs = Date.now() - startTime;
+      lastElevenLabsDiagnostic = {
+        timestamp: new Date().toISOString(),
+        statusCode: 504,
+        statusMessage: 'Gateway Timeout',
+        latencyMs
+      };
+      reject(mapElevenLabsError(504, 'Request timed out after 25s'));
     });
 
-    req.on('error', err => reject(err));
+    req.on('error', err => {
+      const latencyMs = Date.now() - startTime;
+      lastElevenLabsDiagnostic = {
+        timestamp: new Date().toISOString(),
+        statusCode: 502,
+        statusMessage: err.message,
+        latencyMs
+      };
+      reject(mapElevenLabsError(502, err.message));
+    });
+
     req.write(payload);
     req.end();
   });
+}
+
+/**
+ * Safe logger for speech requests (never logs keys, headers, or raw text)
+ */
+function logVoiceRequest({ lang, textLength, textHash, cache, status, latencyMs, errorCode }) {
+  console.log(JSON.stringify({
+    event: 'voice_speak_request',
+    time: new Date().toISOString(),
+    lang,
+    textLength,
+    textHash,
+    cache,
+    status,
+    latencyMs,
+    ...(errorCode ? { errorCode } : {})
+  }));
 }
 
 /**
@@ -163,12 +299,14 @@ function synthesizeWithElevenLabs(text, config) {
  * Synthesizes dynamic scheme text or guidance into audio using ElevenLabs.
  */
 router.post('/speak', async (req, res) => {
+  const reqStartTime = Date.now();
   const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
 
-  // Rate limit check
+  // 1. In-memory Rate Limiting Check
   if (!checkRateLimit(clientIp)) {
     return res.status(429).json({
       error: 'rate_limit_exceeded',
+      code: 'voice_busy',
       message: 'Too many voice requests. Please wait a minute before requesting audio again.'
     });
   }
@@ -176,50 +314,67 @@ router.post('/speak', async (req, res) => {
   const { text, languageCode } = req.body || {};
 
   if (!text || typeof text !== 'string' || !text.trim()) {
-    return res.status(400).json({ error: 'text_required', message: 'text field is required' });
+    return res.status(400).json({
+      error: 'text_required',
+      code: 'text_required',
+      message: 'The text field is required for synthesis.'
+    });
   }
 
   const cleanText = cleanTextForTTS(text);
+  const textHash = crypto.createHash('sha256').update(cleanText).digest('hex').slice(0, 16);
 
   if (cleanText.length > 900) {
     return res.status(400).json({
       error: 'text_too_long',
+      code: 'text_too_long',
       message: 'Text exceeds maximum limit of 900 characters.',
       length: cleanText.length
     });
   }
 
-  // Enforce zero PII
+  // 2. Enforce zero PII
   try {
     assertNoPii(cleanText);
   } catch (piiErr) {
     return res.status(400).json({
       error: 'pii_detected',
+      code: 'pii_detected',
       message: piiErr.message
     });
   }
 
-  // Check language configuration
+  // 3. Language configuration & support check
   const lang = String(languageCode || 'en').toLowerCase().trim();
   const config = getVoiceConfig(lang);
 
   if (config.engine === 'none') {
     return res.status(400).json({
       error: 'language_not_supported',
+      code: 'voice_not_supported',
       message: `Voice readout is not available for language '${lang}': ${config.reason || 'Unsupported language'}.`,
       engine: 'none'
     });
   }
 
-  // Generate SHA-256 cache key
+  // 4. Check disk cache (ephemeral speed-up)
   const cacheKey = crypto
     .createHash('sha256')
     .update(`${lang}:${config.voiceId}:${cleanText}`)
     .digest('hex');
   const cacheFilePath = path.join(CACHE_DIR, `${cacheKey}.mp3`);
 
-  // Check disk cache
   if (fs.existsSync(cacheFilePath)) {
+    const latencyMs = Date.now() - reqStartTime;
+    logVoiceRequest({
+      lang,
+      textLength: cleanText.length,
+      textHash,
+      cache: 'HIT',
+      status: 200,
+      latencyMs
+    });
+
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('X-Voice-Cache', 'HIT');
     res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
@@ -227,43 +382,69 @@ router.post('/speak', async (req, res) => {
     return stream.pipe(res);
   }
 
-  // Check if API key is configured
+  // 5. Check if API key is configured
   if (!process.env.ELEVENLABS_API_KEY) {
     return res.status(503).json({
-      error: 'voice_service_unavailable',
+      error: 'voice_key_missing',
+      code: 'voice_key_invalid',
       fallback: 'speechSynthesis',
       message: 'ElevenLabs voice engine is not active (missing backend API key). Use browser synthesis fallback.'
     });
   }
 
-  // Character budget check
+  // 6. Character budget check (counts only live ElevenLabs network calls)
   if (sessionCharactersSynthesized + cleanText.length > MAX_SESSION_CHARACTERS) {
     return res.status(503).json({
       error: 'budget_exceeded',
+      code: 'voice_busy',
       fallback: 'speechSynthesis',
       message: 'Server voice synthesis character budget reached. Falling back to device speech.'
     });
   }
 
+  // 7. Live synthesis with ElevenLabs
   try {
-    const audioBuffer = await synthesizeWithElevenLabs(cleanText, config);
+    const { audioBuffer, latencyMs } = await synthesizeWithElevenLabs(cleanText, config);
     sessionCharactersSynthesized += cleanText.length;
 
-    // Write to disk cache
+    // Cache the output buffer
     try {
       fs.writeFileSync(cacheFilePath, audioBuffer);
     } catch (writeErr) {
       console.warn('[Voice Cache] Failed writing audio cache file:', writeErr.message);
     }
 
+    logVoiceRequest({
+      lang,
+      textLength: cleanText.length,
+      textHash,
+      cache: 'MISS',
+      status: 200,
+      latencyMs
+    });
+
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('X-Voice-Cache', 'MISS');
     res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
     return res.send(audioBuffer);
   } catch (err) {
-    console.error('[Voice Error] ElevenLabs synthesis failed:', err.message);
-    return res.status(502).json({
-      error: 'elevenlabs_error',
+    const latencyMs = Date.now() - reqStartTime;
+    const statusCode = err.statusCode || 502;
+    const errCode = err.code || 'elevenlabs_error';
+
+    logVoiceRequest({
+      lang,
+      textLength: cleanText.length,
+      textHash,
+      cache: 'MISS',
+      status: statusCode,
+      latencyMs,
+      errorCode: errCode
+    });
+
+    return res.status(statusCode).json({
+      error: errCode,
+      code: errCode,
       fallback: 'speechSynthesis',
       message: err.message
     });
@@ -272,7 +453,7 @@ router.post('/speak', async (req, res) => {
 
 /**
  * GET /api/voice/status
- * Returns operational status, supported languages, and cache metrics.
+ * Diagnostic endpoint with zero secrets.
  */
 router.get('/status', (req, res) => {
   const supported = Object.entries(LANGUAGE_CONFIG)
@@ -288,14 +469,23 @@ router.get('/status', (req, res) => {
     cachedClips = fs.readdirSync(CACHE_DIR).filter(f => f.endsWith('.mp3')).length;
   } catch (_) {}
 
+  // Check if frontend manifest exists (monorepo root or local public)
+  const manifestPath = path.resolve(__dirname, '../../../frontend/public/audio/audio-manifest.json');
+  const manifestFound = fs.existsSync(manifestPath);
+
   res.json({
-    enabled: Boolean(process.env.ELEVENLABS_API_KEY),
+    keyConfigured: Boolean(process.env.ELEVENLABS_API_KEY),
     provider: 'ElevenLabs (Multilingual v2)',
+    modelsInUse: ['eleven_multilingual_v2'],
+    manifestFound,
+    buildCommitHash: process.env.RENDER_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || 'local-dev',
+    serverTime: new Date().toISOString(),
+    cacheEntryCount: cachedClips,
+    lastElevenLabs: lastElevenLabsDiagnostic,
     supportedCount: supported.length,
     supportedLanguages: supported,
     disabledCount: disabled.length,
     disabledLanguages: disabled,
-    cachedClips,
     sessionCharactersSynthesized,
     characterBudgetRemaining: Math.max(0, MAX_SESSION_CHARACTERS - sessionCharactersSynthesized)
   });

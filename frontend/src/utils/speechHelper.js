@@ -1,16 +1,17 @@
 /**
- * SchemeBridge — Hybrid Multilingual Voice Assistant Engine
+ * SchemeBridge — Resilient Multilingual Voice Assistant Engine
  * 
- * Playback Order:
+ * Strict Pipeline:
  * 1. Pre-generated static clips (frontend/public/audio/<lang>/<clipId>.mp3 via audio-manifest.json)
+ *    - Never trusts stubs: strictly checks sizeBytes >= 2048 and audio duration >= 0.5s.
  * 2. Dynamic runtime synthesis via backend ElevenLabs proxy (POST /api/voice/speak)
+ *    - Real-time proxy with response verification and automatic blob lifecycle cleanup.
  * 3. Client Web Speech API (window.speechSynthesis) with Indic fallback
- * 4. Graceful disabled state for 8 unsupported languages with engine: "none"
- *
- * Lifecycle & Resource Guarantees:
- * - Single HTMLAudioElement singleton across entire session (zero overlapping audio)
- * - Immediate stop & reset on language change
- * - Zero PII transmission
+ *    - Disabled when &nofallback=1 query flag is present to allow pure ElevenLabs verification.
+ * 4. User-visible feedback:
+ *    - If all paths fail, returns actionable error message instead of failing silently.
+ * 5. Debug Mode:
+ *    - ?voicedebug=1 prints pipeline stages, HTTP statuses, and active playback sources to console.
  */
 
 import { api } from '../api/client';
@@ -38,12 +39,28 @@ export const LANG_VOICE_MAP = {
   bgc: ['hi-IN', 'hi']
 };
 
-// Global audio element singleton
+// Global audio element singleton across entire app session
 let globalAudio = null;
 let currentBlobUrl = null;
 let currentPlaybackSource = null; // 'manifest' | 'elevenlabs' | 'browser' | null
 let manifestCache = null;
 let isManifestLoading = false;
+
+function getQueryParams() {
+  if (typeof window === 'undefined') return { isVoiceDebug: false, isNoFallback: false };
+  const params = new URLSearchParams(window.location.search);
+  return {
+    isVoiceDebug: params.get('voicedebug') === '1',
+    isNoFallback: params.get('nofallback') === '1'
+  };
+}
+
+function debugLog(...args) {
+  const { isVoiceDebug } = getQueryParams();
+  if (isVoiceDebug) {
+    console.info('[VoiceDebug]', ...args);
+  }
+}
 
 function getGlobalAudio() {
   if (typeof window === 'undefined') return null;
@@ -62,12 +79,16 @@ async function loadAudioManifest() {
   if (isManifestLoading) return null;
   isManifestLoading = true;
   try {
-    const res = await fetch('/audio/audio-manifest.json');
+    const res = await fetch('/audio/audio-manifest.json', { cache: 'no-cache' });
     if (res.ok) {
-      manifestCache = await res.json();
+      const data = await res.json();
+      if (data && data.clips) {
+        manifestCache = data;
+        debugLog('Loaded audio manifest with clips:', Object.keys(data.clips));
+      }
     }
   } catch (e) {
-    console.warn('[Voice Assistant] Audio manifest not found, using live proxy.');
+    debugLog('Audio manifest fetch failed:', e.message);
   } finally {
     isManifestLoading = false;
   }
@@ -182,8 +203,16 @@ export const stopSpeech = () => {
  * Browser SpeechSynthesis fallback player
  */
 function playViaBrowserSpeech({ text, langCode, onStart, onEnd, onError }) {
+  const { isNoFallback } = getQueryParams();
+  if (isNoFallback) {
+    debugLog('Browser speech skipped because &nofallback=1 is active.');
+    if (onError) onError(new Error('Browser fallback disabled via &nofallback=1'));
+    if (onEnd) onEnd();
+    return;
+  }
+
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-    if (onError) onError(new Error('Speech synthesis not supported'));
+    if (onError) onError(new Error('Speech synthesis not supported on this device'));
     if (onEnd) onEnd();
     return;
   }
@@ -215,6 +244,8 @@ function playViaBrowserSpeech({ text, langCode, onStart, onEnd, onError }) {
     }
 
     currentPlaybackSource = 'browser';
+    debugLog(`Speaking via browser SpeechSynthesis (${utterance.lang})`);
+
     if (onStart) utterance.onstart = onStart;
     utterance.onend = () => {
       currentPlaybackSource = null;
@@ -237,8 +268,8 @@ function playViaBrowserSpeech({ text, langCode, onStart, onEnd, onError }) {
 }
 
 /**
- * Hybrid Voice Speak:
- * Pipeline: Manifest Clip -> ElevenLabs Backend Proxy -> Browser SpeechSynthesis -> Disabled
+ * Hybrid Voice Speak Pipeline:
+ * Manifest Clip -> ElevenLabs Backend Proxy -> Browser SpeechSynthesis -> Visible Error
  */
 export const speak = async ({
   text,
@@ -250,6 +281,9 @@ export const speak = async ({
   onLoading
 }) => {
   const code = String(langCode || 'en').toLowerCase().trim();
+  const { isVoiceDebug, isNoFallback } = getQueryParams();
+
+  debugLog(`speak() requested for [${code}] clipId: ${clipId || 'none'}, text length: ${text?.length || 0}`);
 
   // 0. Language check: If disabled language, trigger error immediately
   if (DISABLED_VOICE_LANGUAGES.includes(code)) {
@@ -269,75 +303,148 @@ export const speak = async ({
   if (onLoading) onLoading(true);
 
   const audio = getGlobalAudio();
+  if (audio) {
+    // Prime audio inside synchronous user gesture context to prevent mobile autoplay restrictions
+    try {
+      audio.load();
+    } catch (_) {}
+  }
 
-  // 1. Check pre-generated audio manifest
+  // 1. Pipeline Stage 1: Pre-generated Audio Manifest Clip
   if (clipId) {
     const manifest = await loadAudioManifest();
     const clipEntry = manifest?.clips?.[clipId]?.[code];
-    if (clipEntry && clipEntry.path) {
+
+    // Strictly verify clip size > 2048 bytes (never play 48-byte stubs)
+    if (clipEntry && clipEntry.path && clipEntry.sizeBytes >= 2048) {
+      debugLog(`Attempting manifest clip: ${clipEntry.path} (${clipEntry.sizeBytes} bytes)`);
       try {
         currentPlaybackSource = 'manifest';
         audio.src = clipEntry.path;
-        audio.onended = () => {
-          currentPlaybackSource = null;
-          if (onEnd) onEnd();
-        };
-        audio.onerror = () => {
-          // If manifest clip fails to load (e.g. stub), proceed to next pipeline step
-          attemptBackendOrBrowser();
-        };
 
-        await audio.play();
-        if (onLoading) onLoading(false);
-        if (onStart) onStart();
-        return;
-      } catch (_) {
-        // Fall through to live synthesis
-      }
-    }
-  }
+        let playbackStarted = false;
 
-  // Helper for Steps 2 & 3
-  async function attemptBackendOrBrowser() {
-    // 2. Try ElevenLabs Backend Proxy
-    if (isVoiceSupported(code)) {
-      try {
-        const blobUrl = await api.speakText(text, code);
-        if (blobUrl) {
-          currentBlobUrl = blobUrl;
-          currentPlaybackSource = 'elevenlabs';
-          audio.src = blobUrl;
+        const playPromise = new Promise((resolve, reject) => {
+          audio.onloadedmetadata = () => {
+            // If duration is suspiciously short (< 0.5s), reject stub
+            if (audio.duration > 0 && audio.duration < 0.5) {
+              debugLog(`Manifest clip duration too short (${audio.duration}s); rejecting stub.`);
+              return reject(new Error('Audio clip duration too short'));
+            }
+          };
 
           audio.onended = () => {
             currentPlaybackSource = null;
-            if (currentBlobUrl) {
-              URL.revokeObjectURL(currentBlobUrl);
-              currentBlobUrl = null;
-            }
             if (onEnd) onEnd();
           };
 
-          audio.onerror = () => {
-            if (currentBlobUrl) {
-              URL.revokeObjectURL(currentBlobUrl);
-              currentBlobUrl = null;
-            }
-            playViaBrowserSpeech({ text, langCode: code, onStart, onEnd, onError });
+          audio.onerror = (e) => {
+            debugLog('Audio element error during manifest clip playback:', e);
+            reject(new Error('Manifest audio playback error'));
           };
 
-          await audio.play();
-          if (onLoading) onLoading(false);
-          if (onStart) onStart();
+          audio.play()
+            .then(() => {
+              playbackStarted = true;
+              debugLog(`Playing manifest clip successfully (${clipEntry.path})`);
+              if (onLoading) onLoading(false);
+              if (onStart) onStart();
+              resolve(true);
+            })
+            .catch(err => reject(err));
+        });
+
+        await playPromise;
+        return;
+      } catch (manifestErr) {
+        debugLog('Manifest playback failed, falling over to live proxy:', manifestErr.message);
+        // Fall through to Stage 2
+      }
+    } else if (clipEntry) {
+      debugLog(`Manifest clip rejected: sizeBytes (${clipEntry.sizeBytes}) is under 2048 byte threshold.`);
+    }
+  }
+
+  // Helper for Stage 2 (Proxy) and Stage 3 (Browser)
+  async function attemptBackendOrBrowser() {
+    // 2. Pipeline Stage 2: ElevenLabs Backend Proxy
+    if (isVoiceSupported(code)) {
+      debugLog(`Calling live backend voice proxy POST /api/voice/speak for [${code}]...`);
+      try {
+        const result = await api.speakText(text, code);
+        if (result && result.blobUrl) {
+          currentBlobUrl = result.blobUrl;
+          currentPlaybackSource = 'elevenlabs';
+          audio.src = result.blobUrl;
+
+          const proxyPlayPromise = new Promise((resolve, reject) => {
+            audio.onended = () => {
+              currentPlaybackSource = null;
+              if (currentBlobUrl) {
+                URL.revokeObjectURL(currentBlobUrl);
+                currentBlobUrl = null;
+              }
+              if (onEnd) onEnd();
+            };
+
+            audio.onerror = (e) => {
+              if (currentBlobUrl) {
+                URL.revokeObjectURL(currentBlobUrl);
+                currentBlobUrl = null;
+              }
+              reject(new Error('Audio element error playing proxy stream'));
+            };
+
+            audio.play()
+              .then(() => {
+                debugLog(`Playing live proxy audio stream successfully (${result.sizeBytes} bytes)`);
+                if (onLoading) onLoading(false);
+                if (onStart) onStart();
+                resolve(true);
+              })
+              .catch(err => reject(err));
+          });
+
+          await proxyPlayPromise;
           return;
         }
       } catch (err) {
-        console.warn('[Voice Assistant] Proxy failed, falling back to browser:', err.message);
+        debugLog('Backend proxy synthesis failed:', err.code || err.message);
       }
     }
 
-    // 3. Browser SpeechSynthesis fallback
+    // 3. Pipeline Stage 3: Browser SpeechSynthesis Fallback
+    if (isNoFallback) {
+      debugLog('Pipeline stopped: &nofallback=1 is set, skipping device voice fallback.');
+      if (onLoading) onLoading(false);
+      if (onError) {
+        onError({
+          code: 'elevenlabs_failed',
+          message: 'Voice could not be synthesized via ElevenLabs (&nofallback=1 active).'
+        });
+      }
+      if (onEnd) onEnd();
+      return;
+    }
+
+    const browserCheck = checkVoiceAvailability(code);
+    if (browserCheck.available && browserCheck.engine === 'browser') {
+      debugLog('Attempting browser speech synthesis fallback...');
+      if (onLoading) onLoading(false);
+      playViaBrowserSpeech({ text, langCode: code, onStart, onEnd, onError });
+      return;
+    }
+
+    // 4. Pipeline Stage 4: Visible Failure Notice (Never fail silently)
+    debugLog(`All voice pipelines exhausted for [${code}]. Showing visible error notice.`);
     if (onLoading) onLoading(false);
-    playViaBrowserSpeech({ text, langCode: code, onStart, onEnd, onError });
+    if (onError) {
+      onError({
+        code: 'voice_unavailable',
+        message: 'Voice could not be played. Tap to try again.'
+      });
+    }
+    if (onEnd) onEnd();
   }
 
   await attemptBackendOrBrowser();

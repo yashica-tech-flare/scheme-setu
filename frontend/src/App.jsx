@@ -7,9 +7,15 @@ import Home from './pages/Home';
 import Results from './pages/Results';
 import PartnerLocator from './pages/PartnerLocator';
 import Guide from './pages/Guide';
+import { api } from './api/client';
 
 export default function App() {
   const { i18n } = useTranslation();
+
+  // Wake up backend instance immediately on page load to mitigate Render cold starts
+  useEffect(() => {
+    api.wakeUpBackend();
+  }, []);
 
   // Sync document direction (RTL/LTR) and html lang attribute dynamically
   useEffect(() => {
