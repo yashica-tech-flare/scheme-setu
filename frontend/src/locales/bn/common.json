@@ -67,7 +67,17 @@
     "offlineBranchExplanation": "এই প্রকল্পের জন্য এজেন্সির শাখায় সশরীরে আবেদন করতে হবে।",
     "statePortalsAvailable": "উপলব্ধ রাজ্য পোর্টাল",
     "filterByState": "রাজ্য / কেন্দ্রশাসিত অঞ্চল নির্বাচন করুন",
-    "allIndia": "সর্বভারতীয় (জাতীয়)"
+    "allIndia": "সর্বভারতীয় (জাতীয়)",
+    "badgeConcessional": "NSFDC সুবিধাযুক্ত প্রকল্প",
+    "badgeWomenOnly": "শুধুমাত্র মহিলাদের জন্য (MSY)",
+    "category_micro": "ক্ষুদ্র ঋণ",
+    "category_term": "মেয়াদী ঋণ",
+    "category_business": "ক্ষুদ্র ব্যবসা",
+    "category_education": "শিক্ষা ঋণ",
+    "sourcePortal": "NSFDC পোর্টাল",
+    "verifySource": "উৎস যাচাই করুন",
+    "viewOfficialPortal": "অফিসিয়াল পোর্টাল দেখুন",
+    "pa": "বার্ষিক"
   },
   "slip": {
     "title": "স্কিম সেতু - রেয়াতযোগ্য ঋণ প্রাক-আবেদন স্লিপ",

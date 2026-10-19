@@ -67,7 +67,17 @@
     "offlineBranchExplanation": "اس اسکیم کے لیے ایجنسی برانچ میں ذاتی طور پر درخواست دی جاتی ہے۔",
     "statePortalsAvailable": "دستیاب ریاستی پورٹلز",
     "filterByState": "ریاست / یو ٹی کا انتخاب کریں",
-    "allIndia": "آل انڈیا (قومی)"
+    "allIndia": "آل انڈیا (قومی)",
+    "badgeConcessional": "NSFDC رعایتی اسکیم",
+    "badgeWomenOnly": "صرف خواتین کے لیے (MSY)",
+    "category_micro": "مائیکرو فنانس",
+    "category_term": "ٹرم لون",
+    "category_business": "چھوٹا کاروبار",
+    "category_education": "تعلیمی قرض",
+    "sourcePortal": "NSFDC پورٹل",
+    "verifySource": "سرکاری ماخذ کی تصدیق کریں",
+    "viewOfficialPortal": "سرکاری پورٹل دیکھیں",
+    "pa": "سالانہ"
   },
   "slip": {
     "title": "اسکیم سیتو - رعایتی قرض قبل از درخواست پرچی",

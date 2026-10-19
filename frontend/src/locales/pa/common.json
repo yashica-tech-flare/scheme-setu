@@ -88,7 +88,17 @@
     "offlineBranchExplanation": "ਇਸ ਸਕੀਮ ਲਈ ਏਜੰਸੀ ਬ੍ਰਾਂਚ ਵਿੱਚ ਨਿੱਜੀ ਤੌਰ 'ਤੇ ਅਰਜ਼ੀ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।",
     "statePortalsAvailable": "ਉਪਲਬਧ ਰਾਜ ਪੋਰਟਲ",
     "filterByState": "ਰਾਜ / ਕੇਂਦਰ ਸ਼ਾਸਤ ਪ੍ਰਦੇਸ਼ ਚੁਣੋ",
-    "allIndia": "ਅਖਿਲ ਭਾਰਤੀ (ਰਾਸ਼ਟਰੀ)"
+    "allIndia": "ਅਖਿਲ ਭਾਰਤੀ (ਰਾਸ਼ਟਰੀ)",
+    "badgeConcessional": "NSFDC ਰਿਆਇਤੀ ਸਕੀਮ",
+    "badgeWomenOnly": "ਸਿਰਫ਼ ਔਰਤਾਂ ਲਈ (MSY)",
+    "category_micro": "ਮਾਈਕ੍ਰੋ ਫਾਈਨਾਂਸ",
+    "category_term": "ਟਰਮ ਕਰਜ਼ਾ",
+    "category_business": "ਛੋਟਾ ਕਾਰੋਬਾਰ",
+    "category_education": "ਸਿੱਖਿਆ ਕਰਜ਼ਾ",
+    "sourcePortal": "NSFDC ਪੋਰਟਲ",
+    "verifySource": "ਅਧਿਕਾਰਤ ਸਰੋਤ ਦੀ ਜਾਂਚ ਕਰੋ",
+    "viewOfficialPortal": "ਸਰਕਾਰੀ ਪੋਰਟਲ ਵੇਖੋ",
+    "pa": "ਸਾਲਾਨਾ"
   },
   "slip": {
     "title": "ਯੋਜਨਾ ਸੇਤੂ - ਰਿਆਇਤੀ ਕਰਜ਼ਾ ਪ੍ਰੀ-ਐਪਲੀਕੇਸ਼ਨ ਸਲਿੱਪ",

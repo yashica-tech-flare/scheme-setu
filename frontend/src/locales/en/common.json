@@ -72,7 +72,17 @@
     "linkVerifiedOn": "Link last verified on",
     "pmSurajPortal": "PM-SURAJ Official Portal",
     "offlineOnlyTitle": "Branch Application Route",
-    "offlineRouteNotice": "This scheme is processed in-person at your nearest channel partner branch."
+    "offlineRouteNotice": "This scheme is processed in-person at your nearest channel partner branch.",
+    "badgeConcessional": "NSFDC Concessional Scheme",
+    "badgeWomenOnly": "Women Only (MSY)",
+    "category_micro": "Micro Finance",
+    "category_term": "Term Loan",
+    "category_business": "Small Business",
+    "category_education": "Education Loan",
+    "sourcePortal": "NSFDC Portal",
+    "verifySource": "Verify Source",
+    "viewOfficialPortal": "View Official Portal",
+    "pa": "p.a."
   },
   "slip": {
     "title": "SchemeBridge - Concessional Credit Pre-Application Slip",

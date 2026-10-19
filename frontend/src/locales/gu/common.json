@@ -88,7 +88,17 @@
     "offlineBranchExplanation": "આ યોજના માટે એજન્સી શાખામાં રૂબરૂ અરજી કરવાની રહેશે.",
     "statePortalsAvailable": "ઉપલબ્ધ રાજ્ય પોર્ટલ",
     "filterByState": "રાજ્ય / કેન્દ્રશાસિત પ્રદેશ પસંદ કરો",
-    "allIndia": "અખિલ ભારત (રાષ્ટ્રીય)"
+    "allIndia": "અખિલ ભારત (રાષ્ટ્રીય)",
+    "badgeConcessional": "NSFDC રાહત દરે યોજના",
+    "badgeWomenOnly": "માત્ર મહિલાઓ માટે (MSY)",
+    "category_micro": "સૂક્ષ્મ ધિરાણ",
+    "category_term": "ટર્મ લોન",
+    "category_business": "નાનો વ્યવસાય",
+    "category_education": "શિક્ષણ લોન",
+    "sourcePortal": "NSFDC પોર્ટલ",
+    "verifySource": "સત્તાવાર સ્ત્રોત ચકાસો",
+    "viewOfficialPortal": "સત્તાવાર પોર્ટલ જુઓ",
+    "pa": "વાર્ષિક"
   },
   "slip": {
     "title": "યોજના સેતુ - રાહત ધિરાણ પૂર્વ-અરજી સ્લિપ",

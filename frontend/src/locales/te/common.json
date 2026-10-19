@@ -72,7 +72,17 @@
     "offlineBranchExplanation": "ఈ పథకానికి ఏజెన్సీ శాఖలో వ్యక్తిగతంగా దరఖాస్తు చేసుకోవాలి.",
     "statePortalsAvailable": "అందుబాటులో ఉన్న రాష్ట్ర పోర్టల్స్",
     "filterByState": "రాష్ట్రం / యుటి వారీగా ఫిల్టర్ చేయండి",
-    "allIndia": "అఖిల భారత (జాతీయ)"
+    "allIndia": "అఖిల భారత (జాతీయ)",
+    "badgeConcessional": "NSFDC రాయితీ పథకం",
+    "badgeWomenOnly": "మహిళలకు మాత్రమే (MSY)",
+    "category_micro": "సూక్ష్మ రుణాలు",
+    "category_term": "టర్మ్ లోన్",
+    "category_business": "చిన్న వ్యాపారం",
+    "category_education": "విద్యా రుణం",
+    "sourcePortal": "NSFDC పోర్టల్",
+    "verifySource": "మూలాన్ని ధృవీకరించండి",
+    "viewOfficialPortal": "అధికారిక పోర్టల్ చూడండి",
+    "pa": "సంవత్సరానికి"
   },
   "slip": {
     "title": "పథకం సేతు - రాయితీ రుణ ప్రీ-అప్లికేషన్ స్లిప్",

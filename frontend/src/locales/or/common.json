@@ -88,7 +88,17 @@
     "offlineBranchExplanation": "ଏହି ଯୋଜନା ପାଇଁ ଏଜେନ୍ସି ଶାଖାରେ ସ୍ୱୟଂ ଉପସ୍ଥିତ ରହି ଆବେଦନ କରିବାକୁ ପଡିବ।",
     "statePortalsAvailable": "ଉପଲବ୍ଧ ରାଜ୍ୟ ପୋର୍ଟାଲ୍",
     "filterByState": "ରାଜ୍ୟ / କେନ୍ଦ୍ରଶାସିତ ଅଞ୍ଚଳ ବାଛନ୍ତୁ",
-    "allIndia": "ସର୍ବଭାରତୀୟ (ଜାତୀୟ)"
+    "allIndia": "ସର୍ବଭାରତୀୟ (ଜାତୀୟ)",
+    "badgeConcessional": "NSFDC ରିହାତି ଯୋଜନା",
+    "badgeWomenOnly": "କେବଳ ମହିଳାମାନଙ୍କ ପାଇଁ (MSY)",
+    "category_micro": "କ୍ଷୁଦ୍ର ଋଣ",
+    "category_term": "ଟର୍ମ ଋଣ",
+    "category_business": "କ୍ଷୁଦ୍ର ବ୍ୟବସାୟ",
+    "category_education": "ଶିକ୍ଷା ଋଣ",
+    "sourcePortal": "NSFDC ପୋର୍ଟାଲ୍",
+    "verifySource": "ଅଫିସିଆଲ୍ ଉତ୍ସ ଯାଞ୍ଚ କରନ୍ତୁ",
+    "viewOfficialPortal": "ସରକାରୀ ପୋର୍ଟାଲ୍ ଦେଖନ୍ତୁ",
+    "pa": "ବାର୍ଷିକ"
   },
   "slip": {
     "title": "ଯୋଜନା ସେତୁ - ରିହାତି ଋଣ ପୂର୍ବ-ଆବେଦନ ସ୍ଲିପ",

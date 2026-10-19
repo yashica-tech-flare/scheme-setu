@@ -72,7 +72,17 @@
     "offlineBranchExplanation": "इस योजना के लिए एजेंसी शाखा में व्यक्तिगत रूप से आवेदन किया जाता है।",
     "statePortalsAvailable": "उपलब्ध राज्य पोर्टल",
     "filterByState": "राज्य / केंद्र शासित प्रदेश चुनें",
-    "allIndia": "अखिल भारतीय (राष्ट्रीय)"
+    "allIndia": "अखिल भारतीय (राष्ट्रीय)",
+    "badgeConcessional": "एनएसएफडीसी रियायती योजना",
+    "badgeWomenOnly": "केवल महिलाओं के लिए (एमएसवाई)",
+    "category_micro": "सूक्ष्म वित्त",
+    "category_term": "टर्म ऋण",
+    "category_business": "लघु व्यवसाय",
+    "category_education": "शिक्षा ऋण",
+    "sourcePortal": "एनएसएफडीसी पोर्टल",
+    "verifySource": "आधिकारिक स्रोत सत्यापित करें",
+    "viewOfficialPortal": "आधिकारिक पोर्टल देखें",
+    "pa": "प्रति वर्ष"
   },
   "slip": {
     "title": "योजना सेतु - रियायती ऋण पूर्व-आवेदन पर्ची",

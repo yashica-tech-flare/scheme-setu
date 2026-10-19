@@ -67,7 +67,17 @@
     "offlineBranchExplanation": "இந்த திட்டத்திற்கு முகமை கிளையில் நேரில் விண்ணப்பிக்க வேண்டும்.",
     "statePortalsAvailable": "கிடைக்கும் மாநில போர்ட்டல்கள்",
     "filterByState": "மாநிலம் / யூனியன் பிரதேசம் மூலம் வடிகட்டவும்",
-    "allIndia": "அனைத்து இந்தியா (தேசிய)"
+    "allIndia": "அனைத்து இந்தியா (தேசிய)",
+    "badgeConcessional": "NSFDC சலுகைத் திட்டம்",
+    "badgeWomenOnly": "மகளிர் மட்டும் (MSY)",
+    "category_micro": "நுண்கடன்",
+    "category_term": "டேர்ம் லோன்",
+    "category_business": "சிறு வணிகம்",
+    "category_education": "கல்விக் கடன்",
+    "sourcePortal": "NSFDC தளம்",
+    "verifySource": "ஆதாரத்தை சரிபார்க்கவும்",
+    "viewOfficialPortal": "அதிகாரப்பூர்வ தளத்தைக் காண்க",
+    "pa": "ஆண்டுக்கு"
   },
   "slip": {
     "title": "திட்டம் சேது - சலுகைக் கடன் முன்-விண்ணப்ப சீட்டு",

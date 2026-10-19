@@ -88,7 +88,17 @@
     "offlineBranchExplanation": "ಈ ಯೋಜನೆಗಾಗಿ ಏಜೆನ್ಸಿ ಶಾಖೆಯಲ್ಲಿ ಖುದ್ದಾಗಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಬೇಕು.",
     "statePortalsAvailable": "ಲಭ್ಯವಿರುವ ರಾಜ್ಯ ಪೋರ್ಟಲ್‌ಗಳು",
     "filterByState": "ರಾಜ್ಯ / ಕೇಂದ್ರಾಡಳಿತ ಪ್ರದೇಶ ಆಯ್ಕೆಮಾಡಿ",
-    "allIndia": "ಅಖಿಲ ಭಾರತ (ರಾಷ್ಟ್ರೀಯ)"
+    "allIndia": "ಅಖಿಲ ಭಾರತ (ರಾಷ್ಟ್ರೀಯ)",
+    "badgeConcessional": "NSFDC ರಿಯಾಯಿತಿ ಯೋಜನೆ",
+    "badgeWomenOnly": "ಮಹಿಳೆಯರಿಗೆ ಮಾತ್ರ (MSY)",
+    "category_micro": "ಕಿರು ಸಾಲ",
+    "category_term": "ಟರ್ಮ್ ಲೋನ್",
+    "category_business": "ಸಣ್ಣ ವ್ಯಾಪಾರ",
+    "category_education": "ಶಿಕ್ಷಣ ಸಾಲ",
+    "sourcePortal": "NSFDC ಪೋರ್ಟಲ್",
+    "verifySource": "ಮೂಲವನ್ನು ಪರಿಶೀಲಿಸಿ",
+    "viewOfficialPortal": "ಅಧಿಕೃತ ಪೋರ್ಟಲ್ ವೀಕ್ಷಿಸಿ",
+    "pa": "ವಾರ್ಷಿಕ"
   },
   "slip": {
     "title": "ಯೋಜನಾ ಸೇತು - ರಿಯಾಯಿತಿ ಸಾಲ ಪೂರ್ವ-ಅರ್ಜಿ ಸ್ಲಿಪ್",

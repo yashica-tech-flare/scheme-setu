@@ -97,7 +97,7 @@ export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectFor
 
               {scheme.category && (
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
-                  {scheme.category}
+                  {t(`results.category_${scheme.category.toLowerCase()}`, scheme.category)}
                 </span>
               )}
 

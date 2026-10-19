@@ -88,7 +88,17 @@
     "offlineBranchExplanation": "ഈ പദ്ധതിക്കായി ഏജൻസി ശാഖയിൽ നേരിട്ടെത്തി അപേക്ഷിക്കേണ്ടതാണ്.",
     "statePortalsAvailable": "ലഭ്യമായ സംസ്ഥാന പോർട്ടലുകൾ",
     "filterByState": "സംസ്ഥാനം / കേന്ദ്രഭരണ പ്രദേശം തിരഞ്ഞെടുക്കുക",
-    "allIndia": "അഖിലേന്ത്യാ (ദേശീയ)"
+    "allIndia": "അഖിലേന്ത്യാ (ദേശീയ)",
+    "badgeConcessional": "NSFDC ഇളവ് പദ്ധതി",
+    "badgeWomenOnly": "വനിതകൾക്ക് മാത്രം (MSY)",
+    "category_micro": "മൈക്രോ ഫിനാൻസ്",
+    "category_term": "ടേം ലോൺ",
+    "category_business": "ചെറുകിട ബിസിനസ്സ്",
+    "category_education": "വിദ്യാഭ്യാസ വായ്പ",
+    "sourcePortal": "NSFDC പോർട്ടൽ",
+    "verifySource": "ഉറവിടം പരിശോധിക്കുക",
+    "viewOfficialPortal": "ഔദ്യോഗിക പോർട്ടൽ കാണുക",
+    "pa": "പ്രതിവർഷം"
   },
   "slip": {
     "title": "യോജന സേതു - ഇളവ് വായ്പ പ്രീ-അപ്ലിക്കേഷൻ സ്ലിപ്പ്",

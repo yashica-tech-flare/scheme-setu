@@ -67,7 +67,17 @@
     "offlineBranchExplanation": "या योजनेसाठी एजन्सी शाखेत प्रत्यक्ष जाऊन अर्ज करावा लागतो.",
     "statePortalsAvailable": "उपलब्ध राज्य पोर्टल्स",
     "filterByState": "राज्य / केंद्रशासित प्रदेश निवडा",
-    "allIndia": "अखिल भारतीय (राष्ट्रीय)"
+    "allIndia": "अखिल भारतीय (राष्ट्रीय)",
+    "badgeConcessional": "NSFDC सवलतीची योजना",
+    "badgeWomenOnly": "फक्त महिलांसाठी (MSY)",
+    "category_micro": "सूक्ष्म वित्त",
+    "category_term": "मुदत कर्ज",
+    "category_business": "लघु व्यवसाय",
+    "category_education": "शैक्षणिक कर्ज",
+    "sourcePortal": "NSFDC पोर्टल",
+    "verifySource": "अधिकृत स्रोत तपासा",
+    "viewOfficialPortal": "अधिकृत पोर्टल पहा",
+    "pa": "प्रति वर्ष"
   },
   "slip": {
     "title": "योजना सेतू - सवलतीचे कर्ज पूर्व-अर्ज स्लिप",
