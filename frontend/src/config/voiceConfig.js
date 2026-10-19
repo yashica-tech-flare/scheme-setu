@@ -15,16 +15,15 @@ export const LANGUAGE_VOICE_MAP = {
   mr: { name: 'Marathi (मराठी)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
   ur: { name: 'Urdu (اردو)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
 
-  // 8 Target regional languages (ElevenLabs v3 / Sarvam)
-  // Status is "unavailable" unless valid audio clips exist or server reports active beta
-  te: { name: 'Telugu (తెలుగు)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
-  bn: { name: 'Bengali (বাংলা)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
-  gu: { name: 'Gujarati (ગુજરાતી)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
-  kn: { name: 'Kannada (ಕನ್ನಡ)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
-  ml: { name: 'Malayalam (മലയാളം)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
-  pa: { name: 'Punjabi (ਪੰਜਾਬੀ)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
-  or: { name: 'Odia (ଓଡ଼ିଆ)', engine: 'none', model: 'none', status: 'unavailable' },
-  as: { name: 'Assamese (অসমীয়া)', engine: 'none', model: 'eleven_v3', status: 'unavailable' },
+  // 7 Sarvam Bulbul v3 regional languages (Beta)
+  te: { name: 'Telugu (తెలుగు)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  bn: { name: 'Bengali (বাংলা)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  gu: { name: 'Gujarati (ગુજરાતી)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  kn: { name: 'Kannada (ಕನ್ನಡ)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  ml: { name: 'Malayalam (മലയാളം)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  pa: { name: 'Punjabi (ਪੰਜਾਬੀ)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  or: { name: 'Odia (ଓଡ଼ିଆ)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
+  as: { name: 'Assamese (অসমীয়া)', engine: 'none', model: 'none', speaker: '', status: 'unavailable' },
 
   // Dialects and unsupported languages
   bho: { name: 'Bhojpuri', engine: 'none', model: 'none', status: 'unavailable' },

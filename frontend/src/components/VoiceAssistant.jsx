@@ -165,6 +165,7 @@ export default function VoiceAssistant({
   const unavailableMessage = UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_unavailable', 'Voice is not available in this language yet');
 
   const isElevenLabs = voiceStatus.engine === 'elevenlabs';
+  const isSarvam = voiceStatus.engine === 'sarvam';
   const isBeta = voiceStatus.status === 'beta';
   const isAvailable = voiceStatus.available && voiceStatus.status !== 'unavailable';
 
@@ -293,7 +294,7 @@ export default function VoiceAssistant({
 
         {isVoiceDebug && (
           <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-saffron-300 font-mono">
-            debug: {activeSource || (isLoading ? 'loading' : 'idle')}
+            [debug: lang={activeLang} provider={voiceStatus.engine || 'none'} model={voiceStatus.model || 'none'} speaker={voiceStatus.speaker || 'none'} source={activeSource || (isLoading ? 'loading' : 'idle')} status={voiceStatus.status}{errorMessage ? ` error=${errorMessage}` : ''}]
           </span>
         )}
 
@@ -356,6 +357,13 @@ export default function VoiceAssistant({
                 </span>
               )}
 
+              {isSarvam && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-orange-800 bg-orange-100/90 border border-orange-300/60 px-2 py-0.5 rounded-md">
+                  <Sparkles className="w-3 h-3 text-orange-600" />
+                  Sarvam AI
+                </span>
+              )}
+
               {isBeta && (
                 <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-100/90 border border-amber-300/60 px-2 py-0.5 rounded-md">
                   Beta
@@ -396,12 +404,12 @@ export default function VoiceAssistant({
               </div>
             )}
 
-            {/* Phase 1.3: Required ?voicedebug=1 panel line */}
+            {/* Step 6: ?voicedebug=1 panel shows: language, provider, model, speaker, source (clip/proxy), status, error */}
             {isVoiceDebug && (
               <div className="mt-2.5 p-2 rounded-lg bg-slate-950 text-emerald-400 font-mono text-[11px] border border-slate-800 shadow-inner break-all space-y-0.5">
-                <div><strong>[VoiceDebug]</strong> i18n: <code>{i18n.language}</code> | norm: <code>{activeLang}</code> | status: <code>{voiceStatus.status}</code></div>
+                <div><strong>[VoiceDebug]</strong> language: <code>{activeLang}</code> | provider: <code>{voiceStatus.engine || 'none'}</code> | model: <code>{voiceStatus.model || 'none'}</code> | speaker: <code>{voiceStatus.speaker || 'none'}</code></div>
+                <div>source: <code>{activeSource || 'idle'}</code> | status: <code>{voiceStatus.status}</code> {errorMessage ? `| error: ${errorMessage}` : ''}</div>
                 <div>target: <code>{getLastVoiceDebugInfo().clipUrlOrBody}</code></div>
-                <div>text: &quot;{(textToRead || '').slice(0, 40)}...&quot;</div>
                 <div>server: <code>{getLastVoiceDebugInfo().serverVoice}</code></div>
               </div>
             )}

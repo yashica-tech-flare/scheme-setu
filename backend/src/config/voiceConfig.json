@@ -41,74 +41,75 @@
   },
   "te": {
     "name": "Telugu (తెలుగు)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
-    "languageCode": "te",
-    "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "te-IN",
+    "status": "beta"
   },
   "bn": {
     "name": "Bengali (বাংলা)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
-    "languageCode": "bn",
-    "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "bn-IN",
+    "status": "beta"
   },
   "gu": {
     "name": "Gujarati (ગુજરાતી)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
-    "languageCode": "gu",
-    "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "gu-IN",
+    "status": "beta"
   },
   "kn": {
     "name": "Kannada (ಕನ್ನಡ)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
-    "languageCode": "kn",
-    "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "kn-IN",
+    "status": "beta"
   },
   "ml": {
     "name": "Malayalam (മലയാളം)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
-    "languageCode": "ml",
-    "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "ml-IN",
+    "status": "beta"
   },
   "pa": {
     "name": "Punjabi (ਪੰਜਾਬੀ)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
-    "languageCode": "pa",
-    "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "pa-IN",
+    "status": "beta"
   },
   "or": {
     "name": "Odia (ଓଡ଼ିଆ)",
-    "provider": "none",
-    "model": "none",
-    "voiceId": "",
-    "languageCode": "or",
-    "status": "unavailable",
-    "reason": "Not supported by eleven_v3; SARVAM_API_KEY not configured"
+    "provider": "sarvam",
+    "model": "bulbul:v3",
+    "speaker": "shubh",
+    "voiceId": "shubh",
+    "languageCode": "od-IN",
+    "status": "beta"
   },
   "as": {
     "name": "Assamese (অসমীয়া)",
-    "provider": "elevenlabs",
-    "model": "eleven_v3",
-    "voiceId": "EXAVITQu4vr4xnSDxMaL",
+    "provider": "none",
+    "model": "none",
+    "speaker": "",
+    "voiceId": "",
     "languageCode": "as",
     "status": "unavailable",
-    "reason": "ElevenLabs quota exhausted; waiting for plan credit refresh or SARVAM_API_KEY"
+    "reason": "Sarvam does not list Assamese; kept unavailable with localized message."
   }
 }

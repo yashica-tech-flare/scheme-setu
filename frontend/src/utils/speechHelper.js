@@ -134,12 +134,15 @@ export const checkVoiceAvailability = (langCode = 'en') => {
 
   // If verified or beta
   if (voiceStatus === 'verified' || voiceStatus === 'beta') {
+    const langEntry = LANGUAGE_VOICE_MAP[code] || {};
     return {
       available: true,
       status: voiceStatus,
-      engine: 'elevenlabs',
+      engine: langEntry.engine || (voiceStatus === 'beta' ? 'sarvam' : 'elevenlabs'),
+      model: langEntry.model || (voiceStatus === 'beta' ? 'bulbul:v3' : 'eleven_multilingual_v2'),
+      speaker: langEntry.speaker || (voiceStatus === 'beta' ? 'shubh' : 'Sarah'),
       message: voiceStatus === 'beta'
-        ? 'ElevenLabs v3 Neural Voice (Beta)'
+        ? 'Sarvam Bulbul v3 Neural Voice (Beta)'
         : 'High-Fidelity Neural Voice (Verified)'
     };
   }
@@ -336,7 +339,7 @@ export const speak = async ({
     if (clipEntry && clipEntry.path && clipEntry.sizeBytes >= 2048) {
       debugLog(`Attempting manifest clip: ${clipEntry.path} (${clipEntry.sizeBytes} bytes)`);
       try {
-        currentPlaybackSource = 'manifest';
+        currentPlaybackSource = 'clip';
         lastVoiceDebugInfo.clipUrlOrBody = clipEntry.path;
         lastVoiceDebugInfo.serverVoice = `${clipEntry.modelId || 'manifest'} / ${clipEntry.voiceId || 'clip'}`;
 
@@ -385,8 +388,8 @@ export const speak = async ({
       const result = await api.speakText(text, code);
       if (result && result.blobUrl) {
         currentBlobUrl = result.blobUrl;
-        currentPlaybackSource = 'elevenlabs';
-        lastVoiceDebugInfo.serverVoice = `${result.headers['x-voice-model'] || 'eleven_v3'} / ${result.headers['x-voice-id'] || 'voice'}`;
+        currentPlaybackSource = 'proxy';
+        lastVoiceDebugInfo.serverVoice = `${result.headers['x-voice-provider'] || 'sarvam'} / ${result.headers['x-voice-model'] || 'bulbul:v3'}`;
 
         audio.src = result.blobUrl;
 

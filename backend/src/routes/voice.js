@@ -283,9 +283,9 @@ function synthesizeWithElevenLabs(text, config, retryCount = 0) {
 }
 
 /**
- * Calls Sarvam Text-to-Speech API (Bulbul v3) if SARVAM_API_KEY is configured.
+ * Calls Sarvam Text-to-Speech API (Bulbul v3) for a single chunk of text.
  */
-function synthesizeWithSarvam(text, config) {
+function callSingleSarvamTTS(text, config) {
   const sarvamKey = process.env.SARVAM_API_KEY;
   if (!sarvamKey) {
     return Promise.reject(new Error('SARVAM_API_KEY environment variable not configured'));
@@ -295,7 +295,7 @@ function synthesizeWithSarvam(text, config) {
     te: 'te-IN', bn: 'bn-IN', gu: 'gu-IN', kn: 'kn-IN', ml: 'ml-IN', pa: 'pa-IN', or: 'od-IN', hi: 'hi-IN', ta: 'ta-IN', mr: 'mr-IN', en: 'en-IN'
   };
   const targetLang = sarvamLangMap[config.languageCode] || 'hi-IN';
-  const speaker = config.voiceId || 'shubh';
+  const speaker = config.speaker || config.voiceId || 'shubh';
   const payload = JSON.stringify({
     text: text,
     inputs: [text],
@@ -341,6 +341,36 @@ function synthesizeWithSarvam(text, config) {
     req.write(payload);
     req.end();
   });
+}
+
+/**
+ * Synthesizes text with Sarvam, chunking long text below Sarvam limit (2500 chars).
+ */
+async function synthesizeWithSarvam(text, config) {
+  if (text.length > 2000) {
+    const sentences = text.match(/[^.!?।\n]+[.!?।\n]+/g) || [text];
+    const chunks = [];
+    let current = '';
+    for (const s of sentences) {
+      if ((current + s).length > 2000) {
+        if (current) chunks.push(current.trim());
+        current = s;
+      } else {
+        current += s;
+      }
+    }
+    if (current.trim()) chunks.push(current.trim());
+
+    const buffers = [];
+    let totalLatency = 0;
+    for (const chunk of chunks) {
+      const res = await callSingleSarvamTTS(chunk, config);
+      buffers.push(res.audioBuffer);
+      totalLatency += res.latencyMs;
+    }
+    return { audioBuffer: Buffer.concat(buffers), latencyMs: totalLatency };
+  }
+  return callSingleSarvamTTS(text, config);
 }
 
 /**
@@ -424,10 +454,10 @@ router.post('/speak', async (req, res) => {
     });
   }
 
-  // 4. Check disk cache (ephemeral speed-up keyed by version + lang + model + voiceId + text)
+  // 4. Check disk cache keyed by sha256(lang + provider + model + speaker + text)
   const cacheKey = crypto
     .createHash('sha256')
-    .update(`${CACHE_VERSION}:${lang}:${config.model || config.modelId}:${config.voiceId}:${cleanText}`)
+    .update(`${CACHE_VERSION}:${lang}:${config.provider || 'none'}:${config.model || config.modelId || 'none'}:${config.speaker || config.voiceId || 'none'}:${cleanText}`)
     .digest('hex');
   const cacheFilePath = path.join(CACHE_DIR, `${cacheKey}.mp3`);
 
@@ -444,8 +474,9 @@ router.post('/speak', async (req, res) => {
 
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('X-Voice-Cache', 'HIT');
+    res.setHeader('X-Voice-Provider', config.provider || 'none');
     res.setHeader('X-Voice-Model', config.model || config.modelId || 'none');
-    res.setHeader('X-Voice-Id', config.voiceId || 'none');
+    res.setHeader('X-Voice-Id', config.speaker || config.voiceId || 'none');
     res.setHeader('X-Voice-Lang', lang);
     res.setHeader('X-Voice-Status', config.status || 'verified');
     res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
@@ -511,8 +542,9 @@ router.post('/speak', async (req, res) => {
 
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('X-Voice-Cache', 'MISS');
+    res.setHeader('X-Voice-Provider', config.provider || 'none');
     res.setHeader('X-Voice-Model', config.model || config.modelId || 'none');
-    res.setHeader('X-Voice-Id', config.voiceId || 'none');
+    res.setHeader('X-Voice-Id', config.speaker || config.voiceId || 'none');
     res.setHeader('X-Voice-Lang', lang);
     res.setHeader('X-Voice-Status', config.status || 'verified');
     res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
