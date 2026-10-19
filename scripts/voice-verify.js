@@ -77,7 +77,6 @@ console.log('--- GATE G2: Unicode Script Purity Check (>= 90%) ---');
 const UNICODE_RANGES = {
   te: [0x0c00, 0x0c7f],
   bn: [0x0980, 0x09ff],
-  as: [0x0980, 0x09ff],
   gu: [0x0a80, 0x0aff],
   kn: [0x0c80, 0x0cff],
   ml: [0x0d00, 0x0d7f],
@@ -193,7 +192,7 @@ if (g3Errors === 0 && g3Checked > 0) {
 console.log('--- GATE G4: Real Audio Speech-to-Text (STT) Round-Trip Verification ---');
 console.log('NOTICE: Automated STT/Round-Trip is a partial check; pronunciation is NOT VERIFIED until a native speaker signs off.\n');
 
-const REGIONAL_CODES = ['te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or', 'as'];
+const REGIONAL_CODES = ['te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or'];
 const regionalClips = [];
 
 if (fs.existsSync(manifestPath)) {

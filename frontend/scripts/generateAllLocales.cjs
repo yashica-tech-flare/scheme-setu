@@ -84,7 +84,6 @@ const ALL_LANGUAGES = [
   { code: 'ml', name: 'Malayalam', native: 'യോജന സേതു' },
   { code: 'pa', name: 'Punjabi', native: 'ਯੋਜਨਾ ਸੇਤੂ' },
   { code: 'or', name: 'Odia', native: 'ଯୋଜନା ସେତୁ' },
-  { code: 'as', name: 'Assamese', native: 'যোজনা সেতু' },
   { code: 'sa', name: 'Sanskrit', native: 'योजनासेतुः' },
   { code: 'kok', name: 'Konkani', native: 'योजना सेतू' },
   { code: 'mai', name: 'Maithili', native: 'योजना सेतु' },

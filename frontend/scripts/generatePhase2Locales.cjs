@@ -3,7 +3,7 @@ const path = require('path');
 
 const localesDir = path.join(__dirname, '..', 'src', 'locales');
 
-// Comprehensive dictionary for Gujarati, Kannada, Malayalam, Punjabi, Odia, Assamese
+// Comprehensive dictionary for Gujarati, Kannada, Malayalam, Punjabi, Odia
 const PHASE2_LANGUAGES = {
   gu: {
     name: 'Gujarati',

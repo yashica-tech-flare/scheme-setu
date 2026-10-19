@@ -24,8 +24,7 @@ const langs = [
   { code: 'kn', name: 'Kannada' },
   { code: 'ml', name: 'Malayalam' },
   { code: 'pa', name: 'Punjabi' },
-  { code: 'or', name: 'Odia' },
-  { code: 'as', name: 'Assamese' }
+  { code: 'or', name: 'Odia' }
 ];
 
 const req = https.request({

@@ -36,8 +36,7 @@ const SUPPORTED_LANGUAGES = [
   { code: 'kn', name: 'Kannada', text: 'ಸ್ಕೀಮ್ ಸೇತುಗೆ ಸುಸ್ವಾಗತ.' },
   { code: 'ml', name: 'Malayalam', text: 'സ്കീം സേതുവിലേക്ക് സ്വാഗതം.' },
   { code: 'pa', name: 'Punjabi', text: 'ਸਕੀਮ ਸੇਤੂ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ।' },
-  { code: 'or', name: 'Odia', text: 'ସ୍କିମ୍ ସେତୁକୁ ସ୍ୱାଗତ।' },
-  { code: 'as', name: 'Assamese', text: 'স্কিম সেতুলৈ স্বাগতম।' }
+  { code: 'or', name: 'Odia', text: 'ସ୍କିମ୍ ସେତୁକୁ ସ୍ୱାଗତ।' }
 ];
 
 const UNSUPPORTED_LANGUAGES = [
@@ -142,7 +141,7 @@ async function runSmokeTest() {
     failedTests++;
   }
 
-  // 2. Static Clips on Frontend (13 Languages)
+  // 2. Static Clips on Frontend (12 Languages)
   console.log('\n2. Testing Static Frontend Audio Clips (/audio/<lang>/portal_welcome.mp3):');
   console.log('Lang | Status | Size (KB) | MP3 Header | Result');
   console.log('-----|--------|-----------|------------|-------');
@@ -174,7 +173,7 @@ async function runSmokeTest() {
     }
   }
 
-  // 3. Dynamic Backend Synthesis Proxy (13 Languages)
+  // 3. Dynamic Backend Synthesis Proxy (12 Languages)
   console.log('\n3. Testing Dynamic Backend Voice Proxy (POST /api/voice/speak):');
   console.log('Lang | Status | Size (KB) | MP3 Header | Result');
   console.log('-----|--------|-----------|------------|-------');

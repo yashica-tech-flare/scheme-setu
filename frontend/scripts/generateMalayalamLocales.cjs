@@ -3,7 +3,7 @@ const path = require('path');
 
 const localesDir = path.join(__dirname, '..', 'src', 'locales');
 
-// Malayalam (ml), Punjabi (pa), Odia (or), Assamese (as)
+// Malayalam (ml), Punjabi (pa), Odia (or)
 const REMAINING_INDIC = {
   ml: {
     name: 'Malayalam',

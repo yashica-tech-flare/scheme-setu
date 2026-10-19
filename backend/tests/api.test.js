@@ -236,7 +236,7 @@ test('GET /api/voice/status returns voice service status and supported languages
   assert.ok(data.provider, 'Should specify provider');
   assert.ok(Array.isArray(data.supportedLanguages), 'Should return supportedLanguages array');
   assert.ok(Array.isArray(data.disabledLanguages), 'Should return disabledLanguages array');
-  assert.ok(data.supportedCount >= 13, 'Should support at least 13 languages');
+  assert.ok(data.supportedCount >= 12, 'Should support at least 12 languages');
   assert.ok(data.disabledCount >= 8, 'Should include 8 unsupported languages with engine none');
 });
 

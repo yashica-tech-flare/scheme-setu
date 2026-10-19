@@ -56,7 +56,20 @@ for (const filePath in localeModules) {
   }
 }
 
-const savedLanguage = localStorage.getItem('scheme_setu_lang') || 'en';
+// Ensure 'as' is deleted from resources and never loaded
+delete resources.as;
+
+let savedLanguage = 'en';
+try {
+  const stored = localStorage.getItem('scheme_setu_lang');
+  if (stored && stored !== 'as') {
+    savedLanguage = stored;
+  } else if (stored === 'as') {
+    localStorage.setItem('scheme_setu_lang', 'en');
+  }
+} catch (_) {}
+
+const supportedLngs = Object.keys(resources).filter((l) => l !== 'as');
 
 i18n
   .use(initReactI18next)
@@ -64,6 +77,7 @@ i18n
     resources,
     lng: savedLanguage,
     fallbackLng: 'en',
+    supportedLngs,
     defaultNS: 'translation',
     fallbackNS: [
       'common',

@@ -5,7 +5,7 @@
  */
 
 export const FROZEN_LANGUAGES = ['en', 'hi', 'ta', 'mr', 'ur'];
-export const BROKEN_LANGUAGES = ['te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or', 'as'];
+export const BROKEN_LANGUAGES = ['te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or'];
 
 export const LANGUAGE_VOICE_MAP = {
   // Frozen verified languages (ElevenLabs Multilingual v2)
@@ -23,7 +23,6 @@ export const LANGUAGE_VOICE_MAP = {
   ml: { name: 'Malayalam (മലയാളം)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
   pa: { name: 'Punjabi (ਪੰਜਾਬੀ)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
   or: { name: 'Odia (ଓଡ଼ିଆ)', engine: 'sarvam', model: 'bulbul:v3', speaker: 'shubh', status: 'beta' },
-  as: { name: 'Assamese (অসমীয়া)', engine: 'none', model: 'none', speaker: '', status: 'unavailable' },
 
   // Dialects and unsupported languages
   bho: { name: 'Bhojpuri', engine: 'none', model: 'none', status: 'unavailable' },

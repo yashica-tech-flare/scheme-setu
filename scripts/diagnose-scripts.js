@@ -11,8 +11,7 @@ const brokenLangs = {
   kn: { name: 'Kannada', range: [0x0C80, 0x0CFF] },
   ml: { name: 'Malayalam', range: [0x0D00, 0x0D7F] },
   pa: { name: 'Punjabi', range: [0x0A00, 0x0A7F] },
-  or: { name: 'Odia', range: [0x0B00, 0x0B7F] },
-  as: { name: 'Assamese', range: [0x0980, 0x09FF], specificChars: [0x09F0, 0x09F1] }
+  or: { name: 'Odia', range: [0x0B00, 0x0B7F] }
 };
 
 const devanagariRange = [0x0900, 0x097F];
@@ -42,8 +41,6 @@ for (const [code, info] of Object.entries(brokenLangs)) {
     let targetScriptLetters = 0;
     let devanagariLetters = 0;
     let latinLetters = 0;
-    let assameseSpecificCount = 0;
-
     for (const char of text) {
       const codePoint = char.codePointAt(0);
       // Ignore spaces, common punctuation, digits, symbols
@@ -59,9 +56,6 @@ for (const [code, info] of Object.entries(brokenLangs)) {
       if ((codePoint >= 0x0041 && codePoint <= 0x005A) || (codePoint >= 0x0061 && codePoint <= 0x007A)) {
         latinLetters++;
       }
-      if (info.specificChars && info.specificChars.includes(codePoint)) {
-        assameseSpecificCount++;
-      }
     }
 
     const targetPct = letterCount > 0 ? ((targetScriptLetters / letterCount) * 100).toFixed(1) : 0;
@@ -70,9 +64,6 @@ for (const [code, info] of Object.entries(brokenLangs)) {
     if (!isPass) failingSentencesCount++;
 
     let note = '';
-    if (code === 'as') {
-      note = ` (Assamese specific chars ৰ/ৱ: ${assameseSpecificCount})`;
-    }
     if (devanagariLetters > 0) {
       note += ` [WARN: Devanagari chars found: ${devanagariLetters}]`;
     }

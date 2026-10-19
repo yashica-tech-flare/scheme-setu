@@ -597,11 +597,11 @@ router.get('/status', (req, res) => {
   const manifestFound = fs.existsSync(manifestPath);
 
   const supportedLanguages = Object.entries(LANGUAGE_CONFIG)
-    .filter(([code]) => ['en', 'hi', 'ta', 'te', 'bn', 'mr', 'ur', 'gu', 'kn', 'ml', 'pa', 'or', 'as', 'bho', 'raj', 'mag', 'hne', 'bgc'].includes(code))
+    .filter(([code]) => ['en', 'hi', 'ta', 'te', 'bn', 'mr', 'ur', 'gu', 'kn', 'ml', 'pa', 'or', 'bho', 'raj', 'mag', 'hne', 'bgc'].includes(code))
     .map(([code, cfg]) => ({ code, name: cfg.name, quality: cfg.status, provider: cfg.provider }));
 
   const disabledLanguages = Object.entries(LANGUAGE_CONFIG)
-    .filter(([code]) => !['en', 'hi', 'ta', 'te', 'bn', 'mr', 'ur', 'gu', 'kn', 'ml', 'pa', 'or', 'as', 'bho', 'raj', 'mag', 'hne', 'bgc'].includes(code))
+    .filter(([code]) => !['en', 'hi', 'ta', 'te', 'bn', 'mr', 'ur', 'gu', 'kn', 'ml', 'pa', 'or', 'bho', 'raj', 'mag', 'hne', 'bgc'].includes(code))
     .map(([code, cfg]) => ({ code, name: cfg.name, reason: cfg.reason || 'Not supported by ElevenLabs speech synthesis.' }));
 
   res.json({

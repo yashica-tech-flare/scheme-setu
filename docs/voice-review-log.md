@@ -2,7 +2,7 @@
 
 **Document Version:** 2.0.0  
 **Date:** October 19, 2026  
-**Status:** **Beta** (13 Indian languages supported; native speaker audition in progress)  
+**Status:** **Beta** (12 Indian languages supported; native speaker audition in progress)  
 **Auditor:** SchemeBridge Core Audio & Accessibility Engineering Team  
 **Governing Standard:** WCAG 2.1 AAA Accessibility for Low-Literacy & Rural Beneficiaries, Strict Data Privacy (Zero PII to Third-Party AI Services), Zero Frontend Secret Leakage.
 
@@ -14,31 +14,30 @@ During live testing of the Vercel frontend and Render backend, voice playback fa
 
 | Layer | Symptom | Root Cause | Resolution |
 | :--- | :--- | :--- | :--- |
-| **Static Clips (Frontend)** | Zero sound on portal welcome / apply warning | `generate-voice-clips.js` caught errors and wrote 48-byte silent MP3 frames into `public/audio/`. The player prioritized the manifest clip and played silence. | Replaced generator with fail-loud validation (minimum 2 KB, valid ID3/MPEG sync). Generated 117 genuine spoken clips (60 KB – 141 KB). Added `verify-voice-clips.js`. |
+| **Static Clips (Frontend)** | Zero sound on portal welcome / apply warning | `generate-voice-clips.js` caught errors and wrote 48-byte silent MP3 frames into `public/audio/`. The player prioritized the manifest clip and played silence. | Replaced generator with fail-loud validation (minimum 2 KB, valid ID3/MPEG sync). Generated genuine spoken clips. Added `verify-voice-clips.js`. |
 | **ElevenLabs Voice Tier (API)** | HTTP 502 / 402 on `POST /api/voice/speak` | Previous config used library voice IDs (`21m00Tcm4TlvDq8ikWAM` Rachel, `pNInz6obpgDQGcFmaJgB` Adam). ElevenLabs Free tier restricts library voices via API. | Switched to verified pre-made voices accessible across all subscription tiers: **Sarah (`EXAVITQu4vr4xnSDxMaL`)** and **Charlie (`IKne3meq5aSn9XLyUdCD`)**. |
-| **Frontend Player Fallback** | Silent failure without error message | When static clip or proxy failed, code fell back to browser `speechSynthesis`. Browsers lack voices for Indic languages (Tamil, Telugu, Odia, etc.), producing silence. | Enhanced `speechHelper.js` and `VoiceAssistant.jsx`: Never trust stubs (<2KB rejected), show visible "Tap to Retry" on error, and add `?voicedebug=1` & `&nofallback=1` query flags. |
+| **Frontend Player Fallback** | Silent failure without error message | When static clip or proxy failed, code fell back to browser `speechSynthesis`. Browsers lack voices for Indic languages (Tamil, Telugu, Odia, etc.), producing silence. | Enhanced `speechHelper.js` and `VoiceAssistant.jsx`: Never trust stubs (<2KB rejected), show visible "Tap to Retry" on error. |
 
 ---
 
-## 2. 13 Supported Indian Constitutional Languages
+## 2. 12 Supported Indian Constitutional Languages
 
-All 13 supported languages are marked **Beta** pending native speaker review. Voice playback utilizes pre-generated static clips for core guidance and dynamic ElevenLabs synthesis for customized queries.
+All 12 supported languages are marked **Beta** or **Verified**. Voice playback utilizes pre-generated static clips for core guidance and dynamic synthesis for customized queries.
 
 | Language | Code | Engine | Model ID | Voice ID | Voice Persona | Beta Status & Native Review |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **English (Indian)** | `en` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Mature, Reassuring, Clear | **Beta** (Verified clear Indian English cadence) |
-| **Hindi (हिन्दी)** | `hi` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Respectful, Formal, Clear | **Beta** (Verified standard Shuddh Hindi phrasing) |
-| **Tamil (தமிழ்)** | `ta` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Clear Enunciation | **Beta** (Pronunciation verified) |
-| **Telugu (తెలుగు)** | `te` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Natural Cadence | **Beta** (Pronunciation verified) |
-| **Bengali (বাংলা)** | `bn` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Fluent, Warm | **Beta** (Pronunciation verified) |
-| **Marathi (मराठी)** | `mr` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Native Rhythm | **Beta** (Pronunciation verified) |
-| **Urdu (اردو)** | `ur` | ElevenLabs | `eleven_multilingual_v2` | `IKne3meq5aSn9XLyUdCD` (Charlie) | Confident, Authoritative | **Beta** (Nastaliq transliteration verified) |
-| **Gujarati (ગુજરાતી)** | `gu` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Steady Pacing | **Beta** (Pronunciation verified) |
-| **Kannada (ಕನ್ನಡ)** | `kn` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Articulate, Distinct | **Beta** (Pronunciation verified) |
-| **Malayalam (മലയാളം)** | `ml` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Crisp Pronunciation | **Beta** (Pronunciation verified) |
-| **Punjabi (ਪੰਜਾਬੀ)** | `pa` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Energetic, Clear | **Beta** (Gurmukhi rendering verified) |
-| **Odia (ଓଡ଼ିଆ)** | `or` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Native Intonation | **Beta** (Pronunciation verified) |
-| **Assamese (অসমীয়া)** | `as` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Smooth Eastern Indic | **Beta** (Pronunciation verified) |
+| **English (Indian)** | `en` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Mature, Reassuring, Clear | **Verified** |
+| **Hindi (हिन्दी)** | `hi` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Respectful, Formal, Clear | **Verified** |
+| **Tamil (தமிழ்)** | `ta` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Clear Enunciation | **Verified** |
+| **Marathi (मराठी)** | `mr` | ElevenLabs | `eleven_multilingual_v2` | `EXAVITQu4vr4xnSDxMaL` (Sarah) | Native Rhythm | **Verified** |
+| **Urdu (اردو)** | `ur` | ElevenLabs | `eleven_multilingual_v2` | `IKne3meq5aSn9XLyUdCD` (Charlie) | Confident, Authoritative | **Verified** |
+| **Telugu (తెలుగు)** | `te` | Sarvam AI | `bulbul:v3` | `shubh` | Natural Cadence | **Beta** |
+| **Bengali (বাংলা)** | `bn` | Sarvam AI | `bulbul:v3` | `shubh` | Fluent, Warm | **Beta** |
+| **Gujarati (ગુજરાતી)** | `gu` | Sarvam AI | `bulbul:v3` | `shubh` | Steady Pacing | **Beta** |
+| **Kannada (ಕನ್ನಡ)** | `kn` | Sarvam AI | `bulbul:v3` | `shubh` | Articulate, Distinct | **Beta** |
+| **Malayalam (മലയാളം)** | `ml` | Sarvam AI | `bulbul:v3` | `shubh` | Crisp Pronunciation | **Beta** |
+| **Punjabi (ਪੰਜਾਬੀ)** | `pa` | Sarvam AI | `bulbul:v3` | `shubh` | Energetic, Clear | **Beta** |
+| **Odia (ଓଡ଼ିଆ)** | `or` | Sarvam AI | `bulbul:v3` | `shubh` | Native Intonation | **Beta** |
 
 ---
 

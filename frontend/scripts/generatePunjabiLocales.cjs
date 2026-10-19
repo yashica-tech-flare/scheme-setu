@@ -3,7 +3,7 @@ const path = require('path');
 
 const localesDir = path.join(__dirname, '..', 'src', 'locales');
 
-// Punjabi (pa - Gurmukhi), Odia (or - Odia), Assamese (as - Assamese)
+// Punjabi (pa - Gurmukhi), Odia (or - Odia)
 const PACKS = {
   pa: {
     name: 'Punjabi',

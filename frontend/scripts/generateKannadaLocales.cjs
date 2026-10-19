@@ -3,7 +3,7 @@ const path = require('path');
 
 const localesDir = path.join(__dirname, '..', 'src', 'locales');
 
-// We have already written Gujarati (gu). Now let's generate Kannada (kn), Malayalam (ml), Punjabi (pa), Odia (or), Assamese (as).
+// We have already written Gujarati (gu). Now let's generate Kannada (kn), Malayalam (ml), Punjabi (pa), Odia (or).
 const INDIC_EXPANSION = {
   kn: {
     name: 'Kannada',

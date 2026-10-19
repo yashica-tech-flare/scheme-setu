@@ -150,17 +150,6 @@ export const LANGUAGES = [
     region: 'Odisha (OSFDC)'
   },
   {
-    code: 'as',
-    name: 'Assamese',
-    nativeName: 'অসমীয়া',
-    scriptFamily: 'Bengali-Assamese',
-    rtl: false,
-    fontFamily: "'Noto Sans Bengali', sans-serif",
-    status: 'complete',
-    phase: 'All-India',
-    region: 'Assam SC Corporation'
-  },
-  {
     code: 'sa',
     name: 'Sanskrit',
     nativeName: 'संस्कृतम्',

@@ -101,15 +101,5 @@
     "voiceId": "shubh",
     "languageCode": "od-IN",
     "status": "beta"
-  },
-  "as": {
-    "name": "Assamese (অসমীয়া)",
-    "provider": "none",
-    "model": "none",
-    "speaker": "",
-    "voiceId": "",
-    "languageCode": "as",
-    "status": "unavailable",
-    "reason": "Sarvam does not list Assamese; kept unavailable with localized message."
   }
 }

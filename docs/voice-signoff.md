@@ -24,7 +24,6 @@ These 5 languages were confirmed working and signed off on the live site. Their 
 
 These 7 languages have been synthesized using **Sarvam Bulbul v3** (`bulbul:v3`, speaker `shubh`) and verified via automated script purity (>=90%) and round-trip Speech-to-Text via Sarvam Saaras v4 (`saaras:v4`).
 Status is **Beta** awaiting native speaker audition.
-Assamese (`as`) remains **Unavailable** because Sarvam does not support it (Golden Rule: no unverified audio or English/Hindi fallback).
 
 > **Acoustic Notice:** Automation passes technical checks; pronunciation is **NOT VERIFIED** until a native speaker signs off below.
 
@@ -37,7 +36,6 @@ Assamese (`as`) remains **Unavailable** because Sarvam does not support it (Gold
 | **Malayalam (`ml`)** | Sarvam Bulbul v3 (`ml-IN`, Shubh) | `/audio/ml/portal_welcome.*.mp3` | **Beta** | 100.0% | 83.3% | Pending | Pending | — |
 | **Punjabi (`pa`)** | Sarvam Bulbul v3 (`pa-IN`, Shubh) | `/audio/pa/portal_welcome.*.mp3` | **Beta** | 100.0% | 91.7% | Pending | Pending | — |
 | **Odia (`or`)** | Sarvam Bulbul v3 (`od-IN`, Shubh) | `/audio/or/portal_welcome.*.mp3` | **Beta** | 100.0% | 66.7% | Pending | Pending | — |
-| **Assamese (`as`)** | None (Sarvam does not list `as`) | (none) | **Unavailable** | N/A | N/A | N/A | N/A | Disabled (safe mode) |
 
 ---
 
