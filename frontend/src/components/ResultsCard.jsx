@@ -72,6 +72,10 @@ export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectFor
     if (raw.includes('mahila') || raw.includes('msy') || raw.includes('samriddhi')) return 'scheme_msy';
     if (raw.includes('micro') || raw.includes('mcf')) return 'scheme_mcf';
     if (raw.includes('term loan') || raw.includes('tls')) return 'scheme_tls';
+    if (raw.includes('laghu') || raw.includes('lvy') || raw.includes('vyavasay') || raw.includes('vyavsay')) return 'scheme_lvy';
+    if (raw.includes('green') || raw.includes('gbs')) return 'scheme_gbs';
+    if (raw.includes('education') || raw.includes('els')) return 'scheme_els';
+    if (raw.includes('vocational') || raw.includes('voctech') || raw.includes('technical') || raw.includes('vtls') || raw.includes('skill')) return 'scheme_voctech';
     return null;
   };
   const schemeClipId = getSchemeClipId(scheme);
@@ -292,13 +296,52 @@ export default function ResultsCard({ scheme, selectedState = 'ALL', onSelectFor
           </button>
 
           {showDocs && (
-            <div className="px-6 py-3 bg-slate-50 text-xs text-slate-700 space-y-2 animate-fadeIn">
-              {docs.map((doc, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <BookmarkCheck className="w-3.5 h-3.5 text-saffron-600 flex-shrink-0" />
-                  <span>{localizeDocumentName(doc, t)}</span>
-                </div>
-              ))}
+            <div className="px-6 py-3 bg-slate-50 text-xs text-slate-700 space-y-2.5 animate-fadeIn">
+              {docs.map((doc, idx) => {
+                const docId = typeof doc === 'object' ? doc.id : null;
+                const docTitle = localizeDocumentName(doc, t);
+                const isMandatory = typeof doc === 'object' ? doc.mandatory : true;
+                const condition = typeof doc === 'object' ? doc.condition : null;
+                return (
+                  <div key={idx} className="flex items-start justify-between gap-2">
+                    <div className="flex items-start gap-2 flex-1">
+                      <BookmarkCheck className="w-3.5 h-3.5 text-saffron-600 flex-shrink-0 mt-0.5" />
+                      <div className="space-y-0.5">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="font-semibold text-slate-800">{docTitle}</span>
+                          {isMandatory ? (
+                            <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                              {t('guidance.mandatoryBadge', 'Mandatory')}
+                            </span>
+                          ) : (
+                            <span className="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                              {t('guidance.conditionalBadge', 'Conditional')}
+                            </span>
+                          )}
+                        </div>
+                        {condition && (
+                          <p className="text-[11px] text-amber-800 font-medium">
+                            {condition}
+                          </p>
+                        )}
+                        {typeof doc === 'object' && doc.issuer && (
+                          <span className="text-[10px] text-slate-500 block">
+                            {t('guidance.issuer', 'Issuer')}: {doc.issuer}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {docId && (
+                      <VoiceAssistant
+                        variant="mini"
+                        clipId={docId}
+                        textToRead={`${docTitle}. ${typeof doc === 'object' && doc.description ? doc.description : ''} ${typeof doc === 'object' && doc.issuer ? t('guidance.issuer', 'Issuer') + ': ' + doc.issuer : ''}`}
+                        className="flex-shrink-0"
+                      />
+                    )}
+                  </div>
+                );
+              })}
               <div className="pt-2 border-t border-slate-200">
                 <button
                   type="button"

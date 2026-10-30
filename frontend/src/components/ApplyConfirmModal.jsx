@@ -17,8 +17,20 @@ import { api } from '../api/client';
 export default function ApplyConfirmModal({ isOpen, onClose, scheme, targetPortal }) {
   const { t, i18n } = useTranslation();
   const modalRef = useRef(null);
+  const [checkedDocs, setCheckedDocs] = useState({});
 
   const isRtl = i18n.language === 'ur';
+
+  useEffect(() => {
+    if (isOpen) {
+      try {
+        const stored = localStorage.getItem('schemebridge_checklist');
+        if (stored) {
+          setCheckedDocs(JSON.parse(stored));
+        }
+      } catch (_) {}
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -52,6 +64,14 @@ export default function ApplyConfirmModal({ isOpen, onClose, scheme, targetPorta
     'Income Certificate (<= ₹5 Lakh)',
     'Active Bank Passbook with IFSC'
   ];
+
+  const missingMandatoryDocs = docs.filter((d) => {
+    const isMandatory = typeof d === 'object' ? d.mandatory : true;
+    if (!isMandatory) return false;
+    const docId = typeof d === 'object' ? d.id : null;
+    if (docId && checkedDocs[docId]) return false;
+    return true;
+  });
 
   const handleContinue = () => {
     if (!isUrlValid || !targetUrl) {
@@ -151,19 +171,65 @@ export default function ApplyConfirmModal({ isOpen, onClose, scheme, targetPorta
               {t('applyModal.docsReadyTitle', 'Checklist of Documents to Keep Ready')}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              {docs.map((doc, idx) => (
-                <div
-                  key={idx}
-                  className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 mt-1 flex-shrink-0" />
-                  <span className="font-semibold text-slate-800 leading-snug">
-                    {localizeDocumentName(doc, t)}
-                  </span>
-                </div>
-              ))}
+              {docs.map((doc, idx) => {
+                const docId = typeof doc === 'object' ? doc.id : null;
+                const isChecked = docId ? Boolean(checkedDocs[docId]) : false;
+                const isMandatory = typeof doc === 'object' ? doc.mandatory : true;
+                return (
+                  <div
+                    key={idx}
+                    className={`p-2.5 rounded-xl border flex items-start gap-2 ${
+                      isChecked ? 'bg-emerald-50/60 border-emerald-300' : 'bg-slate-50 border-slate-200'
+                    }`}
+                  >
+                    <span
+                      className={`w-2 h-2 rounded-full mt-1 flex-shrink-0 ${
+                        isChecked ? 'bg-emerald-500 ring-2 ring-emerald-200' : 'bg-amber-400'
+                      }`}
+                    />
+                    <div className="flex-1">
+                      <span className="font-semibold text-slate-800 leading-snug block">
+                        {localizeDocumentName(doc, t)}
+                      </span>
+                      <span className="text-[10px] text-slate-500">
+                        {isMandatory
+                          ? (isChecked ? `✓ ${t('guidance.ready', 'Confirmed Ready')}` : `⚠️ ${t('guidance.mandatoryBadge', 'Mandatory')}`)
+                          : t('guidance.conditionalBadge', 'Conditional')}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
+
+          {/* Missing Mandatory Documents Warning */}
+          {missingMandatoryDocs.length > 0 && (
+            <div className="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 flex items-start gap-3 text-xs leading-relaxed animate-fadeIn">
+              <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="space-y-1.5 flex-1">
+                <strong className="block font-bold text-amber-900 text-sm">
+                  {t('applyModal.missingWarningTitle', 'Missing Mandatory Documents Alert')}
+                </strong>
+                <p className="text-amber-900">
+                  {t(
+                    'applyModal.missingMandatoryWarning',
+                    'You have missing mandatory documents. Government portals and channelising agencies may reject your application without these.'
+                  )}
+                </p>
+                <div className="pt-1">
+                  <span className="font-semibold text-amber-950 text-[11px] uppercase tracking-wider block mb-1">
+                    {t('applyModal.missingDocsList', 'Unconfirmed mandatory documents:')}
+                  </span>
+                  <ul className="list-disc list-inside space-y-0.5 text-slate-800 font-medium">
+                    {missingMandatoryDocs.map((doc, idx) => (
+                      <li key={idx}>{localizeDocumentName(doc, t)}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Prominent Free Application & Middlemen Warning */}
           <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 flex items-start gap-3 text-xs leading-relaxed">
@@ -201,9 +267,17 @@ export default function ApplyConfirmModal({ isOpen, onClose, scheme, targetPorta
           <button
             type="button"
             onClick={handleContinue}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className={`w-full sm:w-auto px-6 py-2.5 rounded-xl text-white text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              missingMandatoryDocs.length > 0
+                ? 'bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800'
+                : 'bg-gradient-to-r from-saffron-500 to-saffron-600 hover:from-saffron-600 hover:to-saffron-700'
+            }`}
           >
-            <span>{t('applyModal.continueToPortal', 'Continue to Official Portal')}</span>
+            <span>
+              {missingMandatoryDocs.length > 0
+                ? t('applyModal.proceedAnyway', 'Proceed to Official Portal Anyway')
+                : t('applyModal.continueToPortal', 'Continue to Official Portal')}
+            </span>
             <ExternalLink className="w-4 h-4" />
           </button>
         </div>

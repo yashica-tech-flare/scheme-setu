@@ -149,6 +149,10 @@
     "cancel": "Cancel",
     "continueToPortal": "Continue to Official Portal",
     "invalidUrlAlert": "Security error: Invalid government portal URL.",
-    "defaultPortalName": "PM-SURAJ Official Portal"
+    "defaultPortalName": "PM-SURAJ Official Portal",
+    "missingWarningTitle": "Missing Mandatory Documents Alert",
+    "missingMandatoryWarning": "You have missing mandatory documents. Government portals and channelising agencies may reject your application without these.",
+    "missingDocsList": "Unconfirmed mandatory documents:",
+    "proceedAnyway": "Proceed to Official Portal Anyway"
   }
 }

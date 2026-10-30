@@ -32,20 +32,104 @@
       "retail_services"
     ],
     "requiredDocuments": [
-      "Aadhaar Card (DBT-linked bank account)",
-      "Competent Authority SC Caste Certificate",
-      "Annual Family Income Certificate (≤ ₹5,00,000)",
-      "Active Bank Passbook with IFSC",
-      "SHG Membership Proof / Individual Applicant Photograph",
-      "Basic Trade or Equipment Quotation"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_shg_photo",
+        "title": "SHG Membership Proof / Applicant Photograph",
+        "description": "SHG membership proof or recent photograph of individual applicant.",
+        "issuer": "Self Help Group / Applicant",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_quotation",
+        "title": "Equipment / Trade Quotation",
+        "description": "Price quotation for tools, equipment, or machinery from authorized supplier.",
+        "issuer": "Authorized Equipment Supplier",
+        "mandatory": false,
+        "condition": "Mandatory if purchasing equipment or machinery exceeding ₹20,000"
+      }
     ],
     "documentsRequired": [
-      "Aadhaar Card (DBT-linked bank account)",
-      "Competent Authority SC Caste Certificate",
-      "Annual Family Income Certificate (≤ ₹5,00,000)",
-      "Active Bank Passbook with IFSC",
-      "SHG Membership Proof / Individual Applicant Photograph",
-      "Basic Trade or Equipment Quotation"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_shg_photo",
+        "title": "SHG Membership Proof / Applicant Photograph",
+        "description": "SHG membership proof or recent photograph of individual applicant.",
+        "issuer": "Self Help Group / Applicant",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_quotation",
+        "title": "Equipment / Trade Quotation",
+        "description": "Price quotation for tools, equipment, or machinery from authorized supplier.",
+        "issuer": "Authorized Equipment Supplier",
+        "mandatory": false,
+        "condition": "Mandatory if purchasing equipment or machinery exceeding ₹20,000"
+      }
     ],
     "channelizingAgencies": [
       "SCA",
@@ -121,18 +205,104 @@
       "retail_services"
     ],
     "requiredDocuments": [
-      "Aadhaar Card (Aadhaar linked)",
-      "Competent Authority SC Caste Certificate",
-      "Family Income Certificate (≤ ₹5,00,000/yr)",
-      "Bank Account Statement / Passbook",
-      "Basic Self-Certified Business Activity Note"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_business_note",
+        "title": "Business Activity Note",
+        "description": "Basic description of self-employment trade, estimated costs, and revenue.",
+        "issuer": "Applicant Self-Declaration",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_trade_license",
+        "title": "Trade License / Shop Act Registration",
+        "description": "Municipal trade license or local authority registration for commercial premises.",
+        "issuer": "Municipal Corporation / Gram Panchayat",
+        "mandatory": false,
+        "condition": "Mandatory if operating from fixed commercial premises"
+      }
     ],
     "documentsRequired": [
-      "Aadhaar Card (Aadhaar linked)",
-      "Competent Authority SC Caste Certificate",
-      "Family Income Certificate (≤ ₹5,00,000/yr)",
-      "Bank Account Statement / Passbook",
-      "Basic Self-Certified Business Activity Note"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_business_note",
+        "title": "Business Activity Note",
+        "description": "Basic description of self-employment trade, estimated costs, and revenue.",
+        "issuer": "Applicant Self-Declaration",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_trade_license",
+        "title": "Trade License / Shop Act Registration",
+        "description": "Municipal trade license or local authority registration for commercial premises.",
+        "issuer": "Municipal Corporation / Gram Panchayat",
+        "mandatory": false,
+        "condition": "Mandatory if operating from fixed commercial premises"
+      }
     ],
     "channelizingAgencies": [
       "SCA",
@@ -201,20 +371,120 @@
       "trade"
     ],
     "requiredDocuments": [
-      "Aadhaar Card",
-      "SC Caste Certificate issued by Tehsildar/SDM",
-      "Family Income Certificate (≤ ₹5,00,000)",
-      "Shop & Commercial Establishment Act Registration / Trade License",
-      "Machinery or Equipment Supplier Quotation (GST Invoice)",
-      "Bank Account Statement (last 6 months)"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_quotation",
+        "title": "Equipment / Machinery Quotation",
+        "description": "Official price quotation for machinery or equipment from GST registered supplier.",
+        "issuer": "Authorized Equipment Supplier",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_udyam",
+        "title": "Udyam / MSME Registration",
+        "description": "Online MSME registration certificate for enterprise identification.",
+        "issuer": "Ministry of MSME",
+        "mandatory": false,
+        "condition": "Mandatory if project cost exceeds ₹2 Lakh"
+      },
+      {
+        "id": "doc_land_lease",
+        "title": "Shop / Land Lease Deed or Rent Agreement",
+        "description": "Registered lease deed or rent agreement for commercial/industrial premises.",
+        "issuer": "Sub-Registrar Office / Property Owner",
+        "mandatory": false,
+        "condition": "Mandatory if renting commercial or industrial premises"
+      }
     ],
     "documentsRequired": [
-      "Aadhaar Card",
-      "SC Caste Certificate issued by Tehsildar/SDM",
-      "Family Income Certificate (≤ ₹5,00,000)",
-      "Shop & Commercial Establishment Act Registration / Trade License",
-      "Machinery or Equipment Supplier Quotation (GST Invoice)",
-      "Bank Account Statement (last 6 months)"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_quotation",
+        "title": "Equipment / Machinery Quotation",
+        "description": "Official price quotation for machinery or equipment from GST registered supplier.",
+        "issuer": "Authorized Equipment Supplier",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_udyam",
+        "title": "Udyam / MSME Registration",
+        "description": "Online MSME registration certificate for enterprise identification.",
+        "issuer": "Ministry of MSME",
+        "mandatory": false,
+        "condition": "Mandatory if project cost exceeds ₹2 Lakh"
+      },
+      {
+        "id": "doc_land_lease",
+        "title": "Shop / Land Lease Deed or Rent Agreement",
+        "description": "Registered lease deed or rent agreement for commercial/industrial premises.",
+        "issuer": "Sub-Registrar Office / Property Owner",
+        "mandatory": false,
+        "condition": "Mandatory if renting commercial or industrial premises"
+      }
     ],
     "channelizingAgencies": [
       "SCA",
@@ -291,24 +561,136 @@
       "agriculture"
     ],
     "requiredDocuments": [
-      "Aadhaar Card and PAN Card",
-      "SC Caste Certificate issued by Competent Authority",
-      "Annual Family Income Certificate (≤ ₹5,00,000)",
-      "Bankable Detailed Project Report (DPR) with 3-year cash flow projections",
-      "Land Ownership Document or Registered Lease Agreement",
-      "Itemized Machinery & Equipment Quotations from GST-registered vendors",
-      "Udyam / GSTIN Registration (if already incorporated)",
-      "Bank Statements (last 12 months)"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_dpr",
+        "title": "Detailed Project Report (DPR)",
+        "description": "Bankable project profile with three year cash flow estimates.",
+        "issuer": "Technical Consultant / Chartered Accountant",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_quotation",
+        "title": "Equipment / Machinery Quotation",
+        "description": "Official price quotation for machinery or equipment from GST registered supplier.",
+        "issuer": "Authorized Equipment Supplier",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_land_lease",
+        "title": "Shop / Land Lease Deed or Rent Agreement",
+        "description": "Registered lease deed or rent agreement for commercial/industrial premises.",
+        "issuer": "Sub-Registrar Office / Property Owner",
+        "mandatory": false,
+        "condition": "Mandatory if renting commercial or industrial premises"
+      },
+      {
+        "id": "doc_coborrower",
+        "title": "Co-borrower / Guarantor KYC Documents",
+        "description": "KYC documents and income proofs of co-borrower or third-party guarantor.",
+        "issuer": "Co-borrower / Competent Authority",
+        "mandatory": false,
+        "condition": "Mandatory if loan amount exceeds ₹5 Lakh"
+      }
     ],
     "documentsRequired": [
-      "Aadhaar Card and PAN Card",
-      "SC Caste Certificate issued by Competent Authority",
-      "Annual Family Income Certificate (≤ ₹5,00,000)",
-      "Bankable Detailed Project Report (DPR) with 3-year cash flow projections",
-      "Land Ownership Document or Registered Lease Agreement",
-      "Itemized Machinery & Equipment Quotations from GST-registered vendors",
-      "Udyam / GSTIN Registration (if already incorporated)",
-      "Bank Statements (last 12 months)"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_dpr",
+        "title": "Detailed Project Report (DPR)",
+        "description": "Bankable project profile with three year cash flow estimates.",
+        "issuer": "Technical Consultant / Chartered Accountant",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_quotation",
+        "title": "Equipment / Machinery Quotation",
+        "description": "Official price quotation for machinery or equipment from GST registered supplier.",
+        "issuer": "Authorized Equipment Supplier",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_land_lease",
+        "title": "Shop / Land Lease Deed or Rent Agreement",
+        "description": "Registered lease deed or rent agreement for commercial/industrial premises.",
+        "issuer": "Sub-Registrar Office / Property Owner",
+        "mandatory": false,
+        "condition": "Mandatory if renting commercial or industrial premises"
+      },
+      {
+        "id": "doc_coborrower",
+        "title": "Co-borrower / Guarantor KYC Documents",
+        "description": "KYC documents and income proofs of co-borrower or third-party guarantor.",
+        "issuer": "Co-borrower / Competent Authority",
+        "mandatory": false,
+        "condition": "Mandatory if loan amount exceeds ₹5 Lakh"
+      }
     ],
     "channelizingAgencies": [
       "SCA",
@@ -378,20 +760,120 @@
       "transport"
     ],
     "requiredDocuments": [
-      "Aadhaar Card",
-      "SC Caste Certificate",
-      "Family Income Certificate (≤ ₹5,00,000)",
-      "Vendor Proforma Invoice / Quotations for Certified Green Equipment / E-Vehicles",
-      "Commercial Driver's License or Transport Permit (for e-rickshaw / e-cart)",
-      "Electricity Bill / Site Feasibility for Solar PV installations"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_green_invoice",
+        "title": "Green Equipment Proforma Invoice",
+        "description": "Proforma invoice for certified eco-friendly equipment, solar units, or e-vehicles.",
+        "issuer": "Authorized Green Equipment Supplier",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_transport_permit",
+        "title": "Transport Permit / Commercial Driver's License",
+        "description": "Commercial driver license or route permit for e-rickshaw or e-cart.",
+        "issuer": "Regional Transport Office (RTO)",
+        "mandatory": false,
+        "condition": "Mandatory if purchasing commercial electric transport vehicles"
+      },
+      {
+        "id": "doc_solar_site",
+        "title": "Solar Site Feasibility Report",
+        "description": "Technical site feasibility report and latest electricity bill for solar installations.",
+        "issuer": "DISCOM / Certified Solar Installer",
+        "mandatory": false,
+        "condition": "Mandatory for rooftop solar and decentralized PV installations"
+      }
     ],
     "documentsRequired": [
-      "Aadhaar Card",
-      "SC Caste Certificate",
-      "Family Income Certificate (≤ ₹5,00,000)",
-      "Vendor Proforma Invoice / Quotations for Certified Green Equipment / E-Vehicles",
-      "Commercial Driver's License or Transport Permit (for e-rickshaw / e-cart)",
-      "Electricity Bill / Site Feasibility for Solar PV installations"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_green_invoice",
+        "title": "Green Equipment Proforma Invoice",
+        "description": "Proforma invoice for certified eco-friendly equipment, solar units, or e-vehicles.",
+        "issuer": "Authorized Green Equipment Supplier",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_transport_permit",
+        "title": "Transport Permit / Commercial Driver's License",
+        "description": "Commercial driver license or route permit for e-rickshaw or e-cart.",
+        "issuer": "Regional Transport Office (RTO)",
+        "mandatory": false,
+        "condition": "Mandatory if purchasing commercial electric transport vehicles"
+      },
+      {
+        "id": "doc_solar_site",
+        "title": "Solar Site Feasibility Report",
+        "description": "Technical site feasibility report and latest electricity bill for solar installations.",
+        "issuer": "DISCOM / Certified Solar Installer",
+        "mandatory": false,
+        "condition": "Mandatory for rooftop solar and decentralized PV installations"
+      }
     ],
     "channelizingAgencies": [
       "SCA",
@@ -443,22 +925,136 @@
       "education"
     ],
     "requiredDocuments": [
-      "Student Aadhaar Card & PAN Card",
-      "SC Caste Certificate issued by Competent Authority",
-      "Parent / Family Income Certificate (≤ ₹5,00,000)",
-      "Offer Letter / Confirmed Admission Proof from Recognized Institution",
-      "Official Course Fee Schedule and Hostel Expense Breakdown",
-      "Educational Transcripts (Class 10th, 12th, Graduation Marksheets)",
-      "Co-borrower Parent/Guardian KYC and Bank Statements"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_edu_admission",
+        "title": "Confirmed Admission Letter",
+        "description": "Confirmed admission offer letter from recognized university or college.",
+        "issuer": "Registrar of University or College",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_fee_schedule",
+        "title": "Official Fee Schedule",
+        "description": "Itemized schedule of tuition, examination, and hostel fees on institute letterhead.",
+        "issuer": "University / Institute Finance Office",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_transcripts",
+        "title": "Academic Transcripts & Marksheets",
+        "description": "Certified marks cards of 10th, 12th, degree, and entrance exam scorecards.",
+        "issuer": "Board of Examination / University",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_coborrower",
+        "title": "Co-borrower Parent / Guardian KYC",
+        "description": "Identity proof, address proof, and joint declaration of parent or guardian co-borrower.",
+        "issuer": "Co-borrower / Legal Guardian",
+        "mandatory": true,
+        "condition": null
+      }
     ],
     "documentsRequired": [
-      "Student Aadhaar Card & PAN Card",
-      "SC Caste Certificate issued by Competent Authority",
-      "Parent / Family Income Certificate (≤ ₹5,00,000)",
-      "Offer Letter / Confirmed Admission Proof from Recognized Institution",
-      "Official Course Fee Schedule and Hostel Expense Breakdown",
-      "Educational Transcripts (Class 10th, 12th, Graduation Marksheets)",
-      "Co-borrower Parent/Guardian KYC and Bank Statements"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_edu_admission",
+        "title": "Confirmed Admission Letter",
+        "description": "Confirmed admission offer letter from recognized university or college.",
+        "issuer": "Registrar of University or College",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_fee_schedule",
+        "title": "Official Fee Schedule",
+        "description": "Itemized schedule of tuition, examination, and hostel fees on institute letterhead.",
+        "issuer": "University / Institute Finance Office",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_transcripts",
+        "title": "Academic Transcripts & Marksheets",
+        "description": "Certified marks cards of 10th, 12th, degree, and entrance exam scorecards.",
+        "issuer": "Board of Examination / University",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_coborrower",
+        "title": "Co-borrower Parent / Guardian KYC",
+        "description": "Identity proof, address proof, and joint declaration of parent or guardian co-borrower.",
+        "issuer": "Co-borrower / Legal Guardian",
+        "mandatory": true,
+        "condition": null
+      }
     ],
     "channelizingAgencies": [
       "SCA",
@@ -514,18 +1110,120 @@
       "services"
     ],
     "requiredDocuments": [
-      "Aadhaar Card",
-      "SC Caste Certificate",
-      "Income Certificate (≤ ₹5,00,000)",
-      "Skill Training Admission Proof / NSQF Level Certificate",
-      "Itemized Trade Toolkit Quotation"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_voctech_admission",
+        "title": "Skill Course Admission Proof",
+        "description": "Admission proof or NSQF level enrollment from recognized vocational training institute.",
+        "issuer": "NSDC / State Skill Development Mission / ITI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_fee_schedule",
+        "title": "Official Fee Schedule",
+        "description": "Itemized schedule of tuition, examination, and hostel fees on institute letterhead.",
+        "issuer": "University / Institute Finance Office",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_voctech_toolkit",
+        "title": "Trade Toolkit Quotation",
+        "description": "Itemized quotation from certified supplier for modern trade tools and equipment.",
+        "issuer": "Authorized Tool Supplier",
+        "mandatory": false,
+        "condition": "Mandatory if requesting financial grant for modern vocational toolkit"
+      }
     ],
     "documentsRequired": [
-      "Aadhaar Card",
-      "SC Caste Certificate",
-      "Income Certificate (≤ ₹5,00,000)",
-      "Skill Training Admission Proof / NSQF Level Certificate",
-      "Itemized Trade Toolkit Quotation"
+      {
+        "id": "doc_aadhaar",
+        "title": "Aadhaar Card (DBT-linked)",
+        "description": "Aadhaar linked to direct benefit transfer enabled bank account.",
+        "issuer": "UIDAI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_caste",
+        "title": "SC Caste Certificate",
+        "description": "Valid Scheduled Caste certificate issued by competent authority.",
+        "issuer": "Tehsildar / Sub-Divisional Magistrate (SDM)",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_income",
+        "title": "Family Income Certificate (≤ ₹5,00,000)",
+        "description": "Income proof showing family income is within ₹5 Lakh per year.",
+        "issuer": "Revenue Officer / Tehsildar",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_bank_passbook",
+        "title": "Active Bank Passbook with IFSC",
+        "description": "Active bank account passbook or statement with account number and IFSC code.",
+        "issuer": "Scheduled Commercial Bank / RRB",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_voctech_admission",
+        "title": "Skill Course Admission Proof",
+        "description": "Admission proof or NSQF level enrollment from recognized vocational training institute.",
+        "issuer": "NSDC / State Skill Development Mission / ITI",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_fee_schedule",
+        "title": "Official Fee Schedule",
+        "description": "Itemized schedule of tuition, examination, and hostel fees on institute letterhead.",
+        "issuer": "University / Institute Finance Office",
+        "mandatory": true,
+        "condition": null
+      },
+      {
+        "id": "doc_voctech_toolkit",
+        "title": "Trade Toolkit Quotation",
+        "description": "Itemized quotation from certified supplier for modern trade tools and equipment.",
+        "issuer": "Authorized Tool Supplier",
+        "mandatory": false,
+        "condition": "Mandatory if requesting financial grant for modern vocational toolkit"
+      }
     ],
     "channelizingAgencies": [
       "SCA",

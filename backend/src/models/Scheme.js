@@ -70,12 +70,8 @@ const schemeSchema = new mongoose.Schema({
   applicableFor: [{
     type: String
   }],
-  requiredDocuments: [{
-    type: String
-  }],
-  documentsRequired: [{
-    type: String
-  }],
+  requiredDocuments: [mongoose.Schema.Types.Mixed],
+  documentsRequired: [mongoose.Schema.Types.Mixed],
   channelizingAgencies: [{
     type: String // agency types: "SCA", "PSB", "RRB", "NBFC-MFI"
   }],

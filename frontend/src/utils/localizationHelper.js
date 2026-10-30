@@ -474,7 +474,32 @@ export function localizeMatchReason(reason, t, lang = 'en') {
  */
 export function localizeDocumentName(doc, t) {
   if (!doc) return '';
-  const d = String(doc).toLowerCase();
+
+  if (typeof doc === 'object') {
+    const id = doc.id;
+    if (id === 'doc_caste') return t('guidance.doc1Title', 'Caste Certificate (SC)');
+    if (id === 'doc_income') return t('guidance.doc2Title', 'Family Income Certificate (≤ ₹5L/yr)');
+    if (id === 'doc_aadhaar') return t('guidance.doc3Title', 'Aadhaar Card (DBT-Linked)');
+    if (id === 'doc_bank_passbook') return t('guidance.docBankPassbook', 'Active Bank Passbook with IFSC');
+    if (id === 'doc_dpr') return t('guidance.doc4Title', 'Detailed Project Report (DPR)');
+    if (id === 'doc_quotation') return t('guidance.doc5Title', 'Equipment / Trade Quotation');
+    if (id === 'doc_edu_admission') return t('guidance.doc6Title', 'Admission Letter (Recognized Institution)');
+    if (id === 'doc_fee_schedule') return t('guidance.docFeeSchedule', 'Official Fee Schedule Breakdown');
+    if (id === 'doc_transcripts') return t('guidance.docTranscripts', 'Educational Marksheets & Transcripts');
+    if (id === 'doc_coborrower') return t('guidance.docCoborrower', 'Co-borrower KYC & Guarantee Documents');
+    if (id === 'doc_trade_license') return t('guidance.docTradeLicense', 'Trade License / Shop Act Registration');
+    if (id === 'doc_land_lease') return t('guidance.docLandLease', 'Land / Shop Lease Deed or Rent Agreement');
+    if (id === 'doc_udyam') return t('guidance.docUdyam', 'Udyam / MSME Registration Certificate');
+    if (id === 'doc_green_invoice') return t('guidance.docGreenInvoice', 'Certified Green Equipment Proforma Invoice');
+    if (id === 'doc_transport_permit') return t('guidance.docTransportPermit', "Transport Permit / Commercial Driver's License");
+    if (id === 'doc_solar_site') return t('guidance.docSolarSite', 'Solar Site Feasibility Report');
+    if (id === 'doc_business_note') return t('guidance.docBusinessNote', 'Business Activity Note / Self-Declaration');
+    if (id === 'doc_shg_photo') return t('guidance.docApplicantPhoto', 'Applicant Photograph / SHG Membership Proof');
+    if (id === 'doc_voctech_admission') return t('guidance.docVoctechAdmission', 'Skill Training Admission Proof / NSQF Certificate');
+    if (id === 'doc_voctech_toolkit') return t('guidance.docVoctechToolkit', 'Trade Toolkit Equipment Quotation');
+  }
+
+  const d = (typeof doc === 'object' ? (doc.title || doc.name || doc.id || '') : String(doc)).toLowerCase();
   if (d.includes('caste') || d.includes('जाति') || d.includes('కుల')) {
     return t('guidance.doc1Title', 'Caste Certificate (SC)');
   }
@@ -499,5 +524,24 @@ export function localizeDocumentName(doc, t) {
   if (d.includes('shg') || d.includes('photograph') || d.includes('photo') || d.includes('सदस्यता') || d.includes('సభ్యత్వ')) {
     return t('guidance.docApplicantPhoto', 'Applicant Photograph / SHG Membership Proof');
   }
-  return doc;
+  if (d.includes('permit') || d.includes('license') || d.includes('driving')) {
+    return t('guidance.docTransportPermit', "Transport Permit / Commercial Driver's License");
+  }
+  if (d.includes('solar') || d.includes('electricity') || d.includes('site')) {
+    return t('guidance.docSolarSite', 'Solar Site Feasibility Report');
+  }
+  if (d.includes('udyam') || d.includes('msme') || d.includes('gstin')) {
+    return t('guidance.docUdyam', 'Udyam / MSME Registration');
+  }
+  if (d.includes('lease') || d.includes('rent') || d.includes('land')) {
+    return t('guidance.docLandLease', 'Shop Lease / Rent Agreement');
+  }
+  if (d.includes('transcript') || d.includes('marksheet')) {
+    return t('guidance.docTranscripts', 'Educational Marksheets & Transcripts');
+  }
+  if (d.includes('co-borrower') || d.includes('guarantor')) {
+    return t('guidance.docCoborrower', 'Co-borrower KYC & Guarantee Documents');
+  }
+
+  return typeof doc === 'object' ? (doc.title || doc.name || doc.id || '') : doc;
 }
