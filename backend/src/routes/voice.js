@@ -122,18 +122,25 @@ function sleep(ms) {
  * Maps upstream ElevenLabs HTTP status to stable error codes
  */
 function mapElevenLabsError(status, message) {
+  const isQuota = typeof message === 'string' && (
+    message.toLowerCase().includes('quota') ||
+    message.toLowerCase().includes('credit') ||
+    message.toLowerCase().includes('exceeds your quota')
+  );
+
+  if (isQuota || status === 402 || status === 403) {
+    return {
+      statusCode: 503,
+      code: 'voice_temporarily_unavailable',
+      message: 'ElevenLabs plan quota exceeded. Voice is temporarily unavailable. Please try again.'
+    };
+  }
+
   if (status === 401) {
     return {
       statusCode: 401,
       code: 'voice_key_invalid',
       message: 'ElevenLabs API key is missing, unauthorized, or invalid.'
-    };
-  }
-  if (status === 402 || status === 403) {
-    return {
-      statusCode: 403,
-      code: 'voice_plan_or_voice_not_allowed',
-      message: 'ElevenLabs plan quota exceeded or requested voice is not permitted on this account tier.'
     };
   }
   if (status === 422) {
@@ -150,7 +157,7 @@ function mapElevenLabsError(status, message) {
       message: 'ElevenLabs voice service is busy with high concurrent traffic. Please retry in a few moments.'
     };
   }
-  if (status === 504 || message?.includes('timed out')) {
+  if (status === 504 || (typeof message === 'string' && message.includes('timed out'))) {
     return {
       statusCode: 504,
       code: 'voice_timeout',
@@ -159,8 +166,8 @@ function mapElevenLabsError(status, message) {
   }
   return {
     statusCode: 502,
-    code: 'elevenlabs_error',
-    message: message || 'Upstream ElevenLabs speech synthesis error.'
+    code: 'voice_temporarily_unavailable',
+    message: message || 'Upstream speech synthesis error.'
   };
 }
 
@@ -247,8 +254,11 @@ function synthesizeWithElevenLabs(text, config, retryCount = 0) {
           let errMsg = `ElevenLabs API error HTTP ${res.statusCode}`;
           try {
             const parsed = JSON.parse(bodyBuf.toString());
-            errMsg = parsed.detail?.message || parsed.message || errMsg;
-          } catch (_) {}
+            errMsg = parsed.detail?.message || parsed.detail?.code || parsed.message || errMsg;
+            if (parsed.detail?.code === 'quota_exceeded' || parsed.detail?.type === 'invalid_request') {
+              errMsg = 'quota_exceeded: ' + (parsed.detail?.message || 'quota exceeded');
+            }
+          } catch (_) { }
           reject(mapElevenLabsError(res.statusCode, errMsg));
         }
       });
@@ -330,7 +340,7 @@ function callSingleSarvamTTS(text, config) {
               const audioBuffer = Buffer.from(b64, 'base64');
               return resolve({ audioBuffer, latencyMs });
             }
-          } catch (e) {}
+          } catch (e) { }
         }
         reject(new Error(`Sarvam TTS error HTTP ${res.statusCode}`));
       });
@@ -511,13 +521,43 @@ router.post('/speak', async (req, res) => {
     });
   }
 
-  // 7. Live synthesis with configured provider
+  // 7. Live synthesis with configured provider & runtime fallback in the SAME language
   try {
     let result;
     if (config.provider === 'sarvam') {
       result = await synthesizeWithSarvam(cleanText, config);
     } else {
-      result = await synthesizeWithElevenLabs(cleanText, config);
+      try {
+        result = await synthesizeWithElevenLabs(cleanText, config);
+      } catch (elevenErr) {
+        // Part 2D: Fallback in SAME language to Sarvam Bulbul v3 if available
+        const sarvamSupportedLangs = ['en', 'hi', 'ta', 'mr', 'te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or'];
+        const isQuotaOrServerErr = [401, 402, 403, 429, 500, 502, 503, 504].includes(elevenErr.statusCode) ||
+          elevenErr.code === 'voice_temporarily_unavailable' ||
+          elevenErr.code === 'voice_busy' ||
+          elevenErr.code === 'voice_timeout';
+
+        if (isQuotaOrServerErr && sarvamSupportedLangs.includes(lang) && process.env.SARVAM_API_KEY) {
+          console.warn(`[Voice API] Primary ElevenLabs failed (${elevenErr.code}), attempting fallback to Sarvam Bulbul v3 in same language [${lang}]...`);
+          try {
+            const sarvamConfig = {
+              languageCode: lang,
+              speaker: 'shubh',
+              model: 'bulbul:v3'
+            };
+            result = await synthesizeWithSarvam(cleanText, sarvamConfig);
+          } catch (sarvamErr) {
+            console.error(`[Voice API] Same-language fallback to Sarvam also failed: ${sarvamErr.message}`);
+            throw {
+              statusCode: 503,
+              code: 'voice_temporarily_unavailable',
+              message: 'Voice is temporarily unavailable. Please try again.'
+            };
+          }
+        } else {
+          throw elevenErr;
+        }
+      }
     }
     const { audioBuffer, latencyMs } = result;
     sessionCharactersSynthesized += cleanText.length;
@@ -591,7 +631,7 @@ router.get('/status', (req, res) => {
   let cachedClips = 0;
   try {
     cachedClips = fs.readdirSync(CACHE_DIR).filter(f => f.endsWith('.mp3')).length;
-  } catch (_) {}
+  } catch (_) { }
 
   const manifestPath = path.resolve(__dirname, '../../../frontend/public/audio/audio-manifest.json');
   const manifestFound = fs.existsSync(manifestPath);

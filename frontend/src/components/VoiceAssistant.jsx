@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Mic, Square, AlertCircle, Info, Loader2, Sparkles, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Volume2, VolumeX, Mic, Square, AlertCircle, Info, Loader2, Sparkles, RefreshCw, WifiOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { normaliseVoiceLang } from '../config/voiceConfig';
 import {
@@ -13,23 +13,68 @@ import {
 
 const UNAVAILABLE_MESSAGES = {
   en: 'Voice is not available in this language yet',
-  hi: 'इस भाषा में आवाज अभी उपलब्ध नहीं है',
+  hi: 'इस भाषा में अभी आवाज़ उपलब्ध नहीं है',
   ta: 'இந்த மொழியில் குரல் இன்னும் கிடைக்கவில்லை',
   te: 'ఈ భాషలో వాయిస్ ఇంకా అందుబాటులో లేదు',
-  bn: 'এই ভাষায় ভয়েস এখনও উপলব্ধ নয়',
-  gu: 'આ ભાષામાં અવાજ હજી ઉપલબ્ધ નથી',
+  bn: 'এই ভাষায় এখনও ভয়েস উপলব্ধ নয়',
+  gu: 'આ ભાષામાં હજી અવાજ ઉપલબ્ધ નથી',
   kn: 'ಈ ಭಾಷೆಯಲ್ಲಿ ಧ್ವನಿ ಇನ್ನೂ ಲಭ್ಯವಿಲ್ಲ',
   ml: 'ഈ ഭാഷയിൽ ശബ്ദം ഇതുവരെ ലഭ്യമല്ല',
-  pa: 'ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਅਜੇ ਉਪਲਬਧ ਨਹੀਂ ਹੈ',
+  mr: 'या भाषेत आवाज अद्याप उपलब्ध नाही',
   or: 'ଏହି ଭାଷାରେ ଭଏସ୍ ଏପର୍ଯ୍ୟନ୍ତ ଉପଲବ୍ଧ ନାହିଁ',
-  mr: 'या भाषेत आवाज अजून उपलब्ध नाही',
+  pa: 'ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਆਵਾਜ਼ ਅਜੇ ਉਪਲਬਧ ਨਹੀਂ ਹੈ',
   ur: 'اس زبان میں آواز ابھی دستیاب نہیں ہے'
+};
+
+const TEMPORARILY_UNAVAILABLE_MESSAGES = {
+  en: 'Voice is temporarily unavailable. Please try again.',
+  hi: 'आवाज़ अस्थायी रूप से अनुपलब्ध है। कृपया पुनः प्रयास करें।',
+  ta: 'குரல் தற்காலிகமாக கிடைக்கவில்லை. மீண்டும் முயற்சிக்கவும்.',
+  te: 'వాయిస్ తాత్కాలికంగా అందుబాటులో లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.',
+  bn: 'ভয়েস সাময়িকভাবে অনুপলব্ধ। অনুগ্রহ করে আবার চেষ্টা করুন।',
+  gu: 'અવાજ અસ્થાયી રૂપે અનુપલબ્ધ છે. કૃપા કરીને ફરી પ્રયાસ કરો.',
+  kn: 'ಧ್ವನಿ ತಾತ್ಕಾಲಿಕವಾಗಿ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.',
+  ml: 'ശബ്ദം താൽക്കാലികമായി ലഭ്യമല്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.',
+  mr: 'आवाज तात्पुरता अनुपलब्ध आहे. कृपया पुन्हा प्रयत्न करा.',
+  or: 'ଭଏସ୍ ଅସ୍ଥାୟୀ ଭାବରେ ଅନୁପଲବ୍ଧ। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।',
+  pa: 'ਆਵਾਜ਼ ਅਸਥਾਈ ਤੌਰ ਤੇ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
+  ur: 'آواز عارضی طور پر دستیاب نہیں ہے۔ براہ کرم دوبارہ کوشش کریں۔'
+};
+
+const OFFLINE_MESSAGES = {
+  en: 'Check your internet connection',
+  hi: 'अपना इंटरनेट कनेक्शन जांचें',
+  ta: 'உங்கள் இணைய இணைப்பைச் சரிபார்க்கவும்',
+  te: 'మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేయండి',
+  bn: 'আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন',
+  gu: 'તમારું ઇન્ટરનેટ કનેક્શન તપાસો',
+  kn: 'ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ',
+  ml: 'നിങ്ങളുടെ ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിക്കുക',
+  mr: 'तुमचे इंटरनेट कनेक्शन तपासा',
+  or: 'ଆପଣଙ୍କର ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ଯାଞ୍ଚ କରନ୍ତୁ',
+  pa: 'ਆਪਣਾ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਚੈੱਕ ਕਰੋ',
+  ur: 'اپنا انٹرنیٹ کنکشن چیک کریں'
+};
+
+const TAP_TO_RETRY_MESSAGES = {
+  en: 'Tap to retry',
+  hi: 'पुनः प्रयास करें',
+  ta: 'மீண்டும் முயற்சிக்கவும்',
+  te: 'మళ్లీ ప్రయత్నించండి',
+  bn: 'আবার চেষ্টা করুন',
+  gu: 'ફરી પ્રયાસ કરો',
+  kn: 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ',
+  ml: 'വീണ്ടും ശ്രമിക്കുക',
+  mr: 'पुन्हा प्रयत्न करा',
+  or: 'ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ',
+  pa: 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ',
+  ur: 'دوبارہ کوشش کریں'
 };
 
 /**
  * VoiceAssistant Component
  * Specially crafted for illiterate, low-literacy, and rural beneficiaries.
- * Server-authoritative Hybrid ElevenLabs Voice Engine with strict Golden Rule enforcement.
+ * Hybrid Voice Engine with honest error classification and strict Golden Rule enforcement.
  */
 export default function VoiceAssistant({
   textToRead,
@@ -46,12 +91,12 @@ export default function VoiceAssistant({
   const [isDebouncing, setIsDebouncing] = useState(false);
   const [supported, setSupported] = useState(true);
   const [voiceStatus, setVoiceStatus] = useState({ available: true, status: 'loading' });
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorState, setErrorState] = useState(null); // { type: 'unavailable' | 'temporary' | 'offline', message: string, retries: number }
   const [activeSource, setActiveSource] = useState(null);
+  const retryCountRef = useRef(0);
 
   // Normalize selected language code (e.g., 'te-IN' -> 'te')
   const activeLang = normaliseVoiceLang(customLang || i18n.language) || 'en';
-
   const isVoiceDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('voicedebug') === '1';
 
   // Synchronize voice availability on mount and when selected language changes
@@ -87,8 +132,9 @@ export default function VoiceAssistant({
       setIsPlaying(false);
       setIsLoading(false);
     }
-    setErrorMessage(null);
-  }, [i18n.language, textToRead]);
+    setErrorState(null);
+    retryCountRef.current = 0;
+  }, [i18n.language, textToRead, clipId]);
 
   // Keep isPlaying and activeSource synchronized with active audio playback
   useEffect(() => {
@@ -103,22 +149,75 @@ export default function VoiceAssistant({
     return () => clearInterval(interval);
   }, [isPlaying]);
 
-  // Console-only debug logging when ?voicedebug=1
-  useEffect(() => {
-    if (isVoiceDebug) {
-      console.debug('[VoiceDebug]', {
-        activeLang,
-        engine: voiceStatus.engine,
-        model: voiceStatus.model,
-        speaker: voiceStatus.speaker,
-        source: activeSource || (isLoading ? 'loading' : 'idle'),
-        status: voiceStatus.status,
-        error: errorMessage
-      });
-    }
-  }, [isVoiceDebug, activeLang, voiceStatus, activeSource, isLoading, errorMessage]);
-
   if (!supported) return null;
+
+  const isElevenLabs = voiceStatus.engine === 'elevenlabs';
+  const isSarvam = voiceStatus.engine === 'sarvam';
+  const isBeta = voiceStatus.status === 'beta';
+  const isAvailable = voiceStatus.available && voiceStatus.status !== 'unavailable';
+
+  const listenLabel = label || t('voice_assistant.listen_button', t('common.audioGuideBtn', 'Listen Aloud'));
+  const stopLabel = t('voice_assistant.stop_button', t('common.stopAudio', 'Stop Audio'));
+
+  const unavailableMsg = UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_unavailable', 'Voice is not available in this language yet');
+  const tempUnavailableMsg = TEMPORARILY_UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_temporarily_unavailable', 'Voice is temporarily unavailable. Please try again.');
+  const offlineMsg = OFFLINE_MESSAGES[activeLang] || t('voice_assistant.network_offline', 'Check your internet connection');
+  const tapToRetryMsg = TAP_TO_RETRY_MESSAGES[activeLang] || t('voice_assistant.tapToRetry', 'Tap to retry');
+
+  const executeSpeech = (clickLang) => {
+    speak({
+      text: textToRead,
+      clipId: clipId,
+      langCode: clickLang,
+      onLoading: (loading) => setIsLoading(loading),
+      onStart: () => {
+        setIsLoading(false);
+        setIsPlaying(true);
+        setActiveSource(getActivePlaybackSource());
+        setErrorState(null);
+      },
+      onEnd: () => {
+        setIsLoading(false);
+        setIsPlaying(false);
+        setActiveSource(null);
+      },
+      onError: (err) => {
+        setIsLoading(false);
+        setIsPlaying(false);
+        setActiveSource(null);
+
+        // Honest error classification (Part 2A)
+        if (err?.code === 'network_offline' || (typeof navigator !== 'undefined' && !navigator.onLine)) {
+          setErrorState({
+            type: 'offline',
+            message: offlineMsg
+          });
+        } else if (err?.code === 'voice_unavailable' || !isAvailable) {
+          setErrorState({
+            type: 'unavailable',
+            message: unavailableMsg
+          });
+        } else {
+          // Temporary error (quota, 5xx, timeout, busy)
+          const currentRetries = retryCountRef.current;
+          if (currentRetries < 2) {
+            // Automatic retry (max 2 automatic retries per Part 2A)
+            retryCountRef.current = currentRetries + 1;
+            setTimeout(() => {
+              if (!isPlaying) {
+                executeSpeech(clickLang);
+              }
+            }, 1000);
+          } else {
+            setErrorState({
+              type: 'temporary',
+              message: tempUnavailableMsg
+            });
+          }
+        }
+      }
+    });
+  };
 
   const handleTogglePlay = (e) => {
     if (e) {
@@ -136,83 +235,69 @@ export default function VoiceAssistant({
       return;
     }
 
-    // Read selected language directly at click time to prevent stale closures
+    // Read selected language directly at click time
     const clickLang = normaliseVoiceLang(customLang || i18n.language) || 'en';
     const clickStatus = checkVoiceAvailability(clickLang);
 
     if (!clickStatus.available || clickStatus.status === 'unavailable') {
+      setErrorState({
+        type: 'unavailable',
+        message: unavailableMsg
+      });
       return;
     }
 
-    setErrorMessage(null);
+    setErrorState(null);
     setIsDebouncing(true);
     setTimeout(() => setIsDebouncing(false), 300);
 
-    speak({
-      text: textToRead,
-      clipId: clipId,
-      langCode: clickLang,
-      onLoading: (loading) => setIsLoading(loading),
-      onStart: () => {
-        setIsLoading(false);
-        setIsPlaying(true);
-        setActiveSource(getActivePlaybackSource());
-      },
-      onEnd: () => {
-        setIsLoading(false);
-        setIsPlaying(false);
-        setActiveSource(null);
-      },
-      onError: (err) => {
-        setIsLoading(false);
-        setIsPlaying(false);
-        setActiveSource(null);
-        const localizedFail = UNAVAILABLE_MESSAGES[clickLang] || t('voice_assistant.playback_failed', 'Voice is not available in this language yet');
-        setErrorMessage(err?.message || localizedFail);
-      }
-    });
+    executeSpeech(clickLang);
   };
 
-  const listenLabel = label || t('voice_assistant.listen_button', t('common.audioGuideBtn', 'Listen Aloud'));
-  const stopLabel = t('voice_assistant.stop_button', t('common.stopAudio', 'Stop Audio'));
-  const unavailableMessage = UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_unavailable', 'Voice is not available in this language yet');
-
-  const isElevenLabs = voiceStatus.engine === 'elevenlabs';
-  const isSarvam = voiceStatus.engine === 'sarvam';
-  const isBeta = voiceStatus.status === 'beta';
-  const isAvailable = voiceStatus.available && voiceStatus.status !== 'unavailable';
-
-  // 1. Mini icon-only button (e.g. for individual document checklist items or cards)
+  // ---------------------------------------------------------------------------
+  // Variant 1: Mini icon-only button (Results scheme cards, document cards)
+  // ---------------------------------------------------------------------------
   if (variant === 'mini') {
     if (!isAvailable) {
       return (
-        <button
-          type="button"
-          disabled
-          title={unavailableMessage}
-          className={`p-1.5 rounded-lg opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border border-slate-200 ${className}`}
-          aria-label={unavailableMessage}
-        >
-          <VolumeX className="w-3.5 h-3.5" />
-        </button>
+        <div className="relative inline-block group">
+          <button
+            type="button"
+            disabled
+            title={unavailableMsg}
+            className={`p-1.5 rounded-lg opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border border-slate-200 ${className}`}
+            aria-label={unavailableMsg}
+          >
+            <VolumeX className="w-3.5 h-3.5" />
+          </button>
+          {/* Responsive Tooltip that never overflows screen edges */}
+          <div className="absolute z-50 bottom-full right-0 mb-1.5 hidden group-hover:block w-48 sm:w-56 p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words">
+            {unavailableMsg}
+          </div>
+        </div>
       );
     }
 
-    const buttonTitle = errorMessage
-      ? `${errorMessage} (${t('voice_assistant.tapToRetry', 'Tap to retry')})`
+    const hasTemporaryError = errorState?.type === 'temporary' || errorState?.type === 'offline';
+    const errorTooltip = errorState?.type === 'offline'
+      ? offlineMsg
+      : `${tempUnavailableMsg} (${tapToRetryMsg})`;
+
+    const buttonTitle = hasTemporaryError
+      ? errorTooltip
       : isPlaying
       ? stopLabel
       : `${listenLabel} (${voiceStatus.status === 'beta' ? 'Beta' : 'Voice'})`;
 
     return (
-      <div className="inline-flex items-center gap-1.5">
+      <div className="relative inline-flex items-center gap-1.5 group">
         <button
           type="button"
           onClick={handleTogglePlay}
           title={buttonTitle}
           className={`inline-flex items-center justify-center p-1.5 rounded-lg transition-all focus:outline-none cursor-pointer ${
-            errorMessage
-              ? 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-300'
+            hasTemporaryError
+              ? 'bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300'
               : isLoading
               ? 'bg-amber-100 text-amber-900 border border-amber-300'
               : isPlaying
@@ -225,43 +310,53 @@ export default function VoiceAssistant({
             <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-700" />
           ) : isPlaying ? (
             <Square className="w-3.5 h-3.5 fill-current" />
-          ) : errorMessage ? (
-            <div className="inline-flex items-center gap-1" title={buttonTitle}>
-              <Volume2 className="w-3.5 h-3.5 text-rose-600" />
-              <RefreshCw className="w-2.5 h-2.5 text-rose-500" />
+          ) : hasTemporaryError ? (
+            <div className="inline-flex items-center gap-1">
+              <Volume2 className="w-3.5 h-3.5 text-amber-800" />
+              <RefreshCw className="w-2.5 h-2.5 text-amber-600" />
             </div>
           ) : (
             <Volume2 className="w-3.5 h-3.5 text-amber-700" />
           )}
         </button>
+
         {isBeta && (
           <span className="text-[9px] font-bold px-1 rounded bg-amber-200 text-amber-900 border border-amber-300 select-none">
             Beta
           </span>
         )}
+
+        {/* Bounded, Wrapping Tooltip for Temporary Errors */}
+        {hasTemporaryError && (
+          <div className="absolute z-50 bottom-full right-0 mb-1.5 hidden group-hover:block w-48 sm:w-56 p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words">
+            {errorTooltip}
+          </div>
+        )}
       </div>
     );
   }
 
-  // 2. Compact button variant (e.g. for header or card action)
+  // ---------------------------------------------------------------------------
+  // Variant 2: Compact button (Headers, Guide Header, Guidance Panel Header)
+  // ---------------------------------------------------------------------------
   if (variant === 'button') {
     if (!isAvailable) {
       return (
         <button
           type="button"
           disabled
-          title={unavailableMessage}
+          title={unavailableMsg}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800/60 text-slate-400 border border-slate-700/60 opacity-60 cursor-not-allowed transition-all ${className}`}
-          aria-label={unavailableMessage}
+          aria-label={unavailableMsg}
         >
           <VolumeX className="w-3.5 h-3.5 text-slate-400" />
           <span>{listenLabel}</span>
-          <span className="text-[10px] text-slate-400 hidden lg:inline">({unavailableMessage})</span>
+          <span className="text-[10px] text-slate-400 hidden lg:inline">({unavailableMsg})</span>
         </button>
       );
     }
 
-    if (!errorMessage) {
+    if (!errorState) {
       return (
         <button
           type="button"
@@ -304,31 +399,36 @@ export default function VoiceAssistant({
       );
     }
 
+    // Temporary error state with Retry button (Part 2A)
     return (
-      <div className="inline-flex flex-col items-start gap-1">
+      <div className="inline-flex flex-col items-start gap-1 max-w-[240px] sm:max-w-xs">
         <button
           type="button"
           onClick={handleTogglePlay}
-          title={`${errorMessage} (Tap to retry)`}
-          className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm focus:outline-none cursor-pointer bg-rose-600 hover:bg-rose-700 text-white ${className}`}
+          title={`${errorState.message} (${tapToRetryMsg})`}
+          className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm focus:outline-none cursor-pointer bg-amber-600 hover:bg-amber-700 text-white ${className}`}
           aria-label={isPlaying ? stopLabel : listenLabel}
         >
           <RefreshCw className="w-4 h-4 text-white" />
-          <span>{t('voice_assistant.retry', 'Tap to Retry')}</span>
+          <span>{tapToRetryMsg}</span>
         </button>
-        <span className="text-[10px] text-rose-600 font-medium">
-          {errorMessage}
+        <span className="text-[11px] text-amber-800 font-medium leading-tight whitespace-normal break-words">
+          {errorState.message}
         </span>
       </div>
     );
   }
 
-  // 3. Full prominent banner variant
+  // ---------------------------------------------------------------------------
+  // Variant 3: Banner variant (Home page, full-width section)
+  // ---------------------------------------------------------------------------
+  const hasBannerError = Boolean(errorState);
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl border ${
-        errorMessage
-          ? 'bg-rose-50 border-rose-300'
+        hasBannerError
+          ? 'bg-amber-50 border-amber-300'
           : isPlaying
           ? 'bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-amber-300 shadow-md ring-2 ring-amber-400/40'
           : 'bg-gradient-to-r from-amber-50/80 via-yellow-50/50 to-amber-50/80 border-amber-200/90'
@@ -339,8 +439,8 @@ export default function VoiceAssistant({
         <div className="flex items-start gap-3.5">
           <div
             className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 shadow-sm ${
-              errorMessage
-                ? 'bg-rose-600 text-white'
+              hasBannerError
+                ? 'bg-amber-600 text-white'
                 : isPlaying
                 ? 'bg-amber-600 text-white animate-pulse'
                 : isAvailable
@@ -350,7 +450,7 @@ export default function VoiceAssistant({
           >
             {isLoading ? (
               <Loader2 className="w-6 h-6 animate-spin" />
-            ) : errorMessage ? (
+            ) : hasBannerError ? (
               <RefreshCw className="w-6 h-6" />
             ) : isPlaying ? (
               <Volume2 className="w-6 h-6 animate-pulse" />
@@ -400,17 +500,17 @@ export default function VoiceAssistant({
               {subtitle || t('common.voiceAssistantDesc', 'Specially designed for low-literacy and rural applicants: Tap this button to hear scheme benefits and required documents spoken aloud in your language.')}
             </p>
 
-            {errorMessage && (
-              <div className="mt-2 text-xs font-semibold text-rose-700 flex items-center gap-1.5 bg-rose-100/80 px-2.5 py-1 rounded-lg border border-rose-200">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-                <span>{errorMessage}</span>
+            {hasBannerError && (
+              <div className="mt-2 text-xs font-semibold text-amber-900 flex items-center gap-1.5 bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-300 max-w-lg leading-relaxed whitespace-normal break-words">
+                <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>{errorState.message}</span>
               </div>
             )}
 
             {!isAvailable && (
-              <div className="mt-2 text-[11px] font-semibold text-amber-900 flex items-center gap-1">
-                <AlertCircle className="w-3.5 h-3.5 text-amber-700" />
-                <span>{unavailableMessage}</span>
+              <div className="mt-2 text-[11px] font-semibold text-slate-600 flex items-center gap-1 leading-relaxed whitespace-normal break-words">
+                <AlertCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                <span>{unavailableMsg}</span>
               </div>
             )}
           </div>
@@ -425,8 +525,8 @@ export default function VoiceAssistant({
             className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md focus:outline-none ${
               !isAvailable
                 ? 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-300'
-                : errorMessage
-                ? 'bg-rose-600 hover:bg-rose-700 text-white cursor-pointer'
+                : hasBannerError
+                ? 'bg-amber-600 hover:bg-amber-700 text-white cursor-pointer'
                 : isPlaying
                 ? 'bg-amber-600 hover:bg-amber-700 text-white ring-4 ring-amber-300/50 cursor-pointer'
                 : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white hover:shadow-lg cursor-pointer'
@@ -437,10 +537,10 @@ export default function VoiceAssistant({
                 <Loader2 className="w-4 h-4 animate-spin" />
                 <span>{t('voice_assistant.preparing', 'Preparing voice...')}</span>
               </>
-            ) : errorMessage ? (
+            ) : hasBannerError ? (
               <>
                 <RefreshCw className="w-4 h-4" />
-                <span>{t('voice_assistant.retry', 'Tap to Retry')}</span>
+                <span>{tapToRetryMsg}</span>
               </>
             ) : isPlaying ? (
               <>

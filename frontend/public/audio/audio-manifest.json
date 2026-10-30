@@ -1424,6 +1424,2563 @@
         "generatedAt": "2026-10-19T14:52:19.369Z",
         "text": "ଆବଶ୍ୟକ ଦସ୍ତାବିଜ: ଆଧାର କାର୍ଡ, ଜାତି ପ୍ରମାଣପତ୍ର, ଆୟ ପ୍ରମାଣପତ୍ର ଓ ବ୍ୟାଙ୍କ ପାସବହି।"
       }
+    },
+    "scheme_lvy": {
+      "en": {
+        "clipId": "scheme_lvy",
+        "language": "en",
+        "path": "/audio/en/scheme_lvy.3c883e6f.mp3",
+        "sizeBytes": 100728,
+        "sha256": "3c883e6ff4ffe9222fbede50caf928dfea3b365cbc8ed023ceae6d801299b209",
+        "textHash": "0039dd3f218a14736ef2ad3d92e48add61b57b2a6eb78ff81b7f6355ae72569d",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:21.581Z",
+        "text": "Laghu Vyavasay Yojana provides micro-finance up to five lakh rupees for small business initiatives."
+      },
+      "hi": {
+        "clipId": "scheme_lvy",
+        "language": "hi",
+        "path": "/audio/hi/scheme_lvy.0d9f4ba8.mp3",
+        "sizeBytes": 69381,
+        "sha256": "0d9f4ba80a08a0fed7587b636d7a1d5953d5d8b4c7867d9e5db8d595da32f825",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.533Z"
+      },
+      "ta": {
+        "clipId": "scheme_lvy",
+        "language": "ta",
+        "path": "/audio/ta/scheme_lvy.d4085885.mp3",
+        "sizeBytes": 78994,
+        "sha256": "d4085885e8c51e673bbbbd777e106fac1c42fd43b5738e33c6a259e7d431c137",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.659Z"
+      },
+      "mr": {
+        "clipId": "scheme_lvy",
+        "language": "mr",
+        "path": "/audio/mr/scheme_lvy.09e63bd1.mp3",
+        "sizeBytes": 76068,
+        "sha256": "09e63bd1caa4d5f391df9b3f926c06dd2799c50f13f1f688a8aa96bf68e6827b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.781Z"
+      },
+      "te": {
+        "clipId": "scheme_lvy",
+        "language": "te",
+        "path": "/audio/te/scheme_lvy.267d1504.mp3",
+        "sizeBytes": 78994,
+        "sha256": "267d150421a73683ec0a8cb645087ca564b5ecf2fce8f47f49063dbac8760562",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.926Z"
+      },
+      "bn": {
+        "clipId": "scheme_lvy",
+        "language": "bn",
+        "path": "/audio/bn/scheme_lvy.4237362c.mp3",
+        "sizeBytes": 70635,
+        "sha256": "4237362c366f8424a87c35ca38767de33cb8045c9c00042ae3410a5e273d4b93",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.051Z"
+      },
+      "gu": {
+        "clipId": "scheme_lvy",
+        "language": "gu",
+        "path": "/audio/gu/scheme_lvy.4bc3dcfa.mp3",
+        "sizeBytes": 84427,
+        "sha256": "4bc3dcfa8edfe47ca4f5800c502b48d5a95b2a8fc66487b95455cc39bdfa7d88",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.183Z"
+      },
+      "kn": {
+        "clipId": "scheme_lvy",
+        "language": "kn",
+        "path": "/audio/kn/scheme_lvy.5c31fd3a.mp3",
+        "sizeBytes": 80248,
+        "sha256": "5c31fd3a68899662aa1b7de2b4cea5ec1a65e1f1929f4bbb07c86f98914b0622",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.305Z"
+      },
+      "ml": {
+        "clipId": "scheme_lvy",
+        "language": "ml",
+        "path": "/audio/ml/scheme_lvy.7d1fc441.mp3",
+        "sizeBytes": 77322,
+        "sha256": "7d1fc441d5d8c741f0e517fb0fb20d00fd1b0f0903d2190ad8249114120dbb81",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.425Z"
+      },
+      "pa": {
+        "clipId": "scheme_lvy",
+        "language": "pa",
+        "path": "/audio/pa/scheme_lvy.99c38ef8.mp3",
+        "sizeBytes": 69381,
+        "sha256": "99c38ef875a83ab4be770ff01e1bbb8b74981fa81130c45c6d3d192feabdb790",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.541Z"
+      },
+      "or": {
+        "clipId": "scheme_lvy",
+        "language": "or",
+        "path": "/audio/or/scheme_lvy.db047ee5.mp3",
+        "sizeBytes": 96548,
+        "sha256": "db047ee5bb4d32cb698acd38c0a18830ee1b941452bda5a224d7f13a839bc054",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.664Z"
+      }
+    },
+    "scheme_gbs": {
+      "en": {
+        "clipId": "scheme_gbs",
+        "language": "en",
+        "path": "/audio/en/scheme_gbs.00c52104.mp3",
+        "sizeBytes": 80248,
+        "sha256": "00c52104b3e9afd29d03b8e9998a26053c79892532ad00816bc5558fa826634e",
+        "textHash": "baf71432060a90c9d9f601720f9bac071b45453d8eec5ecb30e5ec6df8079fbf",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:23.919Z",
+        "text": "Green Business Scheme supports eco-friendly enterprises and electric vehicles up to thirty lakh rupees."
+      },
+      "hi": {
+        "clipId": "scheme_gbs",
+        "language": "hi",
+        "path": "/audio/hi/scheme_gbs.0021cff9.mp3",
+        "sizeBytes": 109087,
+        "sha256": "0021cff9c3503b994402869032f61db3e5522602a9090c8dda5d30808b8fd419",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.530Z"
+      },
+      "ta": {
+        "clipId": "scheme_gbs",
+        "language": "ta",
+        "path": "/audio/ta/scheme_gbs.d654593e.mp3",
+        "sizeBytes": 106161,
+        "sha256": "d654593e1c4cb1851d5d03ae8a7ebb743091c345fe01d3313aac5fe008c6156f",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.655Z"
+      },
+      "mr": {
+        "clipId": "scheme_gbs",
+        "language": "mr",
+        "path": "/audio/mr/scheme_gbs.24d48d32.mp3",
+        "sizeBytes": 97802,
+        "sha256": "24d48d3231b0efc0fb8b2e021f35560bd604907d4d2c9772e263024ca52294ce",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.777Z"
+      },
+      "te": {
+        "clipId": "scheme_gbs",
+        "language": "te",
+        "path": "/audio/te/scheme_gbs.9b501e23.mp3",
+        "sizeBytes": 122462,
+        "sha256": "9b501e23279a1b166992becbe827c68d5f6199d3ca4da3e9bc39bef746e06012",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.921Z"
+      },
+      "bn": {
+        "clipId": "scheme_gbs",
+        "language": "bn",
+        "path": "/audio/bn/scheme_gbs.ac85581a.mp3",
+        "sizeBytes": 99474,
+        "sha256": "ac85581a59a4c75f88ac7ee5b95b1cd0a01ac09def979c43d6e2fbb845925aca",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.047Z"
+      },
+      "gu": {
+        "clipId": "scheme_gbs",
+        "language": "gu",
+        "path": "/audio/gu/scheme_gbs.087e74a9.mp3",
+        "sizeBytes": 106161,
+        "sha256": "087e74a941bea4cf3f782cc2489709f9d6c547ce59e5f7e5907b09c1e06206cc",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.178Z"
+      },
+      "kn": {
+        "clipId": "scheme_gbs",
+        "language": "kn",
+        "path": "/audio/kn/scheme_gbs.65427ca1.mp3",
+        "sizeBytes": 125387,
+        "sha256": "65427ca1eafab5310c354d800b212a2112ac0a22ee88eec825dffbbef48baed4",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.301Z"
+      },
+      "ml": {
+        "clipId": "scheme_gbs",
+        "language": "ml",
+        "path": "/audio/ml/scheme_gbs.e564c3d6.mp3",
+        "sizeBytes": 91115,
+        "sha256": "e564c3d64dc86332015eb3b4dd90cad1e79cb3cfd944c29f5e01734bd71a5db6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.421Z"
+      },
+      "pa": {
+        "clipId": "scheme_gbs",
+        "language": "pa",
+        "path": "/audio/pa/scheme_gbs.fb70cac2.mp3",
+        "sizeBytes": 115774,
+        "sha256": "fb70cac2025092d41f26711fb4688268dd67dc01efa7c317d023e43e7137951e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.536Z"
+      },
+      "or": {
+        "clipId": "scheme_gbs",
+        "language": "or",
+        "path": "/audio/or/scheme_gbs.ec8d58a9.mp3",
+        "sizeBytes": 100728,
+        "sha256": "ec8d58a92b87fbe0d3e2616ef54f20d0dcc8d70afdb9cf94a6df562f804578c5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.659Z"
+      }
+    },
+    "scheme_els": {
+      "en": {
+        "clipId": "scheme_els",
+        "language": "en",
+        "path": "/audio/en/scheme_els.aa44f889.mp3",
+        "sizeBytes": 76068,
+        "sha256": "aa44f889a4a735fc1f91e0cf9f2b81fd55702aa074eaff20c39561052a9f286b",
+        "textHash": "ca4bdd109118886418c2fdcbf93196dca276ca89fab6af1042e8e92aeacb029c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:25.492Z",
+        "text": "Education Loan Scheme provides concessional loans up to twenty lakh rupees in India and forty lakh abroad."
+      },
+      "hi": {
+        "clipId": "scheme_els",
+        "language": "hi",
+        "path": "/audio/hi/scheme_els.19b37ba5.mp3",
+        "sizeBytes": 101982,
+        "sha256": "19b37ba577bc788f96ec7989656487f618a730470525534850dc7c5698b9a697",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.526Z"
+      },
+      "ta": {
+        "clipId": "scheme_els",
+        "language": "ta",
+        "path": "/audio/ta/scheme_els.4d8fbcf3.mp3",
+        "sizeBytes": 88607,
+        "sha256": "4d8fbcf3a6bf6bd2db21fa73e0a2324deff92a94c2a44341e323f708dc5a980f",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.651Z"
+      },
+      "mr": {
+        "clipId": "scheme_els",
+        "language": "mr",
+        "path": "/audio/mr/scheme_els.c16cc44f.mp3",
+        "sizeBytes": 91115,
+        "sha256": "c16cc44f880b4caf3dc7b06a6eef9f38624aa7158a2e720879c2565f92cba17a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.773Z"
+      },
+      "te": {
+        "clipId": "scheme_els",
+        "language": "te",
+        "path": "/audio/te/scheme_els.1baf34aa.mp3",
+        "sizeBytes": 112849,
+        "sha256": "1baf34aa1c5f0ac7e000ec0302e798ebcf14a236e437e240e7acb4fb42c8b4a2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.915Z"
+      },
+      "bn": {
+        "clipId": "scheme_els",
+        "language": "bn",
+        "path": "/audio/bn/scheme_els.5b9ac2f4.mp3",
+        "sizeBytes": 96548,
+        "sha256": "5b9ac2f4005a4caf0672cbde0c86a6383b87aed5695dcb1f71c7c10c1dd14903",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.044Z"
+      },
+      "gu": {
+        "clipId": "scheme_els",
+        "language": "gu",
+        "path": "/audio/gu/scheme_els.c3e77e67.mp3",
+        "sizeBytes": 96548,
+        "sha256": "c3e77e67f7079369e388e3a55fea53fd1b8d2a47c5a49d384c6cabc2231afd69",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.172Z"
+      },
+      "kn": {
+        "clipId": "scheme_els",
+        "language": "kn",
+        "path": "/audio/kn/scheme_els.7cb068dd.mp3",
+        "sizeBytes": 121208,
+        "sha256": "7cb068dd03a02ca12fdc6a01f30803852aa585820bb5a216ab7442b149196250",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.296Z"
+      },
+      "ml": {
+        "clipId": "scheme_els",
+        "language": "ml",
+        "path": "/audio/ml/scheme_els.a7adf0f1.mp3",
+        "sizeBytes": 100728,
+        "sha256": "a7adf0f147ba1fb2e95a7ea206188fd425c7feda02b17f02a5c9fe6f9b06b585",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.418Z"
+      },
+      "pa": {
+        "clipId": "scheme_els",
+        "language": "pa",
+        "path": "/audio/pa/scheme_els.08566221.mp3",
+        "sizeBytes": 92369,
+        "sha256": "08566221352b7191fc740157282da4f32447c7cb33d7ec00ac832d08b13e28c1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.531Z"
+      },
+      "or": {
+        "clipId": "scheme_els",
+        "language": "or",
+        "path": "/audio/or/scheme_els.fa9b48cd.mp3",
+        "sizeBytes": 111595,
+        "sha256": "fa9b48cdaf044c80c9fb13a1ee88093893d47786118761e5b5de7d41f5362662",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.655Z"
+      }
+    },
+    "scheme_voctech": {
+      "en": {
+        "clipId": "scheme_voctech",
+        "language": "en",
+        "path": "/audio/en/scheme_voctech.c66c833a.mp3",
+        "sizeBytes": 74814,
+        "sha256": "c66c833ab1dce5e1fe693ad320a7148e3dcd4121298cbc790edfa8cf9d3db199",
+        "textHash": "614264cc174358cfa034844470579ccd7fd3392c32520018e524d843e2df5fa4",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:27.149Z",
+        "text": "Voctech Loan provides up to four lakh rupees for skill certification and trade toolkits."
+      },
+      "hi": {
+        "clipId": "scheme_voctech",
+        "language": "hi",
+        "path": "/audio/hi/scheme_voctech.9c473d41.mp3",
+        "sizeBytes": 82755,
+        "sha256": "9c473d417d44cc594bfab3aea55388a57925026bef1f76ead9588805d2c61ef1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.538Z"
+      },
+      "ta": {
+        "clipId": "scheme_voctech",
+        "language": "ta",
+        "path": "/audio/ta/scheme_voctech.bad3c150.mp3",
+        "sizeBytes": 94040,
+        "sha256": "bad3c150dd9ae42bfc0b3f0881c7328adbd6300d7afd58f53e428652cb602b06",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.666Z"
+      },
+      "mr": {
+        "clipId": "scheme_voctech",
+        "language": "mr",
+        "path": "/audio/mr/scheme_voctech.66251003.mp3",
+        "sizeBytes": 78994,
+        "sha256": "66251003830a6725564f69d656677e6e2d12e315dcc2c9b553f0a3fd14523b30",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.785Z"
+      },
+      "te": {
+        "clipId": "scheme_voctech",
+        "language": "te",
+        "path": "/audio/te/scheme_voctech.f57a9d1b.mp3",
+        "sizeBytes": 101982,
+        "sha256": "f57a9d1b45976e00ddd8e4755f9ee35762e82ae4ae743756b56f6d5ff1cd519a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.931Z"
+      },
+      "bn": {
+        "clipId": "scheme_voctech",
+        "language": "bn",
+        "path": "/audio/bn/scheme_voctech.fce7eb96.mp3",
+        "sizeBytes": 103235,
+        "sha256": "fce7eb96872926bd4d76a60caa5be6b9715d0638fdf8a769e9096218cca6fecc",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.058Z"
+      },
+      "gu": {
+        "clipId": "scheme_voctech",
+        "language": "gu",
+        "path": "/audio/gu/scheme_voctech.1548f9ae.mp3",
+        "sizeBytes": 91115,
+        "sha256": "1548f9ae3cbbeaea7fa0153545f0fcdb2e5e9e4066bafffb8e3b0bc71cfcc8ab",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.188Z"
+      },
+      "kn": {
+        "clipId": "scheme_voctech",
+        "language": "kn",
+        "path": "/audio/kn/scheme_voctech.608e532f.mp3",
+        "sizeBytes": 97802,
+        "sha256": "608e532fbf286ae9b856d30ebb44b6673e603a7235d77b7e8004a2235fbf257a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.310Z"
+      },
+      "ml": {
+        "clipId": "scheme_voctech",
+        "language": "ml",
+        "path": "/audio/ml/scheme_voctech.f6126a8a.mp3",
+        "sizeBytes": 73560,
+        "sha256": "f6126a8a8afde062be746bdafa3032f90632de6f8439d08fa425624a4dba603c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.429Z"
+      },
+      "pa": {
+        "clipId": "scheme_voctech",
+        "language": "pa",
+        "path": "/audio/pa/scheme_voctech.54c435a0.mp3",
+        "sizeBytes": 89861,
+        "sha256": "54c435a04172b7009f5cdf05e0fcbb367babee1c04b99c65e69baac6420ff92b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.546Z"
+      },
+      "or": {
+        "clipId": "scheme_voctech",
+        "language": "or",
+        "path": "/audio/or/scheme_voctech.65808229.mp3",
+        "sizeBytes": 92369,
+        "sha256": "658082291fc978d99e1fa0af975cb38927270f60371562bfc3da3a83782368c6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.670Z"
+      }
+    },
+    "doc_caste": {
+      "en": {
+        "clipId": "doc_caste",
+        "language": "en",
+        "path": "/audio/en/doc_caste.d392f564.mp3",
+        "sizeBytes": 111595,
+        "sha256": "d392f56464432564da8b4bb443c9ad010d4d7a93af32a2b120706bd145836d84",
+        "textHash": "f0e81093e0e3215f30f201aa7a96c5183af1851511de80c35f4dbcb3f972cef5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:29.262Z",
+        "text": "Caste Certificate. Valid Scheduled Caste certificate issued by competent authority. Issuer: Tehsildar or Sub-Divisional Magistrate."
+      },
+      "hi": {
+        "clipId": "doc_caste",
+        "language": "hi",
+        "path": "/audio/hi/doc_caste.5205d68f.mp3",
+        "sizeBytes": 132075,
+        "sha256": "5205d68fbe4beb6d1e98e5d3d006967a5ebf607306b05078980290ef9a4a1593",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.435Z"
+      },
+      "ta": {
+        "clipId": "doc_caste",
+        "language": "ta",
+        "path": "/audio/ta/doc_caste.ed6562d7.mp3",
+        "sizeBytes": 141688,
+        "sha256": "ed6562d7ec4e9cbe19a1f708af62bb5f7109cec53724d48e375dc1119c2092fd",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.562Z"
+      },
+      "mr": {
+        "clipId": "doc_caste",
+        "language": "mr",
+        "path": "/audio/mr/doc_caste.9e49b83b.mp3",
+        "sizeBytes": 163422,
+        "sha256": "9e49b83b6aef8a5162c800877128a1f4dc2c9d4a39b1d13c75066519a7098c25",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.692Z"
+      },
+      "te": {
+        "clipId": "doc_caste",
+        "language": "te",
+        "path": "/audio/te/doc_caste.b33a7f36.mp3",
+        "sizeBytes": 148375,
+        "sha256": "b33a7f36df0c9281d9e17446f56cfcb74ff5e092d9ddf514efeed6f55c229a69",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.814Z"
+      },
+      "bn": {
+        "clipId": "doc_caste",
+        "language": "bn",
+        "path": "/audio/bn/doc_caste.378b0906.mp3",
+        "sizeBytes": 138762,
+        "sha256": "378b0906e9836bb7817dddd3b89102bee355cea3ac12f4beaff9ddd3654772d2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.956Z"
+      },
+      "gu": {
+        "clipId": "doc_caste",
+        "language": "gu",
+        "path": "/audio/gu/doc_caste.231c3277.mp3",
+        "sizeBytes": 170527,
+        "sha256": "231c327752eda06e0133a9466a1b807bff98b55ea19c640966b8711c5bc03a06",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.082Z"
+      },
+      "kn": {
+        "clipId": "doc_caste",
+        "language": "kn",
+        "path": "/audio/kn/doc_caste.f5a8b058.mp3",
+        "sizeBytes": 127895,
+        "sha256": "f5a8b058cf841f09885e818d23fe7b000fdd059e72cc86816dea7fe976da0bf1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.211Z"
+      },
+      "ml": {
+        "clipId": "doc_caste",
+        "language": "ml",
+        "path": "/audio/ml/doc_caste.3c59e641.mp3",
+        "sizeBytes": 170527,
+        "sha256": "3c59e641b7b0e294659b07fbf881160460815bacae179ec8e5dbdb99b47d9116",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.333Z"
+      },
+      "pa": {
+        "clipId": "doc_caste",
+        "language": "pa",
+        "path": "/audio/pa/doc_caste.2d9ac976.mp3",
+        "sizeBytes": 144195,
+        "sha256": "2d9ac97661d7adf4299b0c51fadcb691bcbb4afe86da2d1b7e374898be1c1d7b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.452Z"
+      },
+      "or": {
+        "clipId": "doc_caste",
+        "language": "or",
+        "path": "/audio/or/doc_caste.7d141a74.mp3",
+        "sizeBytes": 157988,
+        "sha256": "7d141a7419dd3fc2bfb228349aa860039d20c543abc965ec7a3bcfce9466c014",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.572Z"
+      }
+    },
+    "doc_income": {
+      "en": {
+        "clipId": "doc_income",
+        "language": "en",
+        "path": "/audio/en/doc_income.f5aa941b.mp3",
+        "sizeBytes": 119954,
+        "sha256": "f5aa941b6c6b8c09af3d651a7a2bac5bc65dccb1fdb074fae99e9c4d762acfa0",
+        "textHash": "623d8af9095d3b9cbe64197c37c18db3678082394ebfd7f0f31bb72c12eeda5e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:32.205Z",
+        "text": "Family Income Certificate. Income proof showing family income is within five lakh rupees per year. Issuer: Revenue Officer or Tehsildar."
+      },
+      "hi": {
+        "clipId": "doc_income",
+        "language": "hi",
+        "path": "/audio/hi/doc_income.8056c5c2.mp3",
+        "sizeBytes": 142942,
+        "sha256": "8056c5c2a076f728c4056e754a1475d26df25935dd9fd3f31158e5ea86b9f0ea",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.468Z"
+      },
+      "ta": {
+        "clipId": "doc_income",
+        "language": "ta",
+        "path": "/audio/ta/doc_income.873a90de.mp3",
+        "sizeBytes": 135000,
+        "sha256": "873a90de2925736e9061ee2a12f72590bceb291c9fdbc6078849e34e72f61126",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.595Z"
+      },
+      "mr": {
+        "clipId": "doc_income",
+        "language": "mr",
+        "path": "/audio/mr/doc_income.4852d940.mp3",
+        "sizeBytes": 135000,
+        "sha256": "4852d940c060fad0344122d3fa465c69d07874a0d61653af1092fc903758c3ba",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.724Z"
+      },
+      "te": {
+        "clipId": "doc_income",
+        "language": "te",
+        "path": "/audio/te/doc_income.aa0fd8f2.mp3",
+        "sizeBytes": 133329,
+        "sha256": "aa0fd8f2e9bcc874bce8e8234f33d1bde1a8c4f32bd1ee160e6e1335e7f6f12c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.845Z"
+      },
+      "bn": {
+        "clipId": "doc_income",
+        "language": "bn",
+        "path": "/audio/bn/doc_income.1f5b309e.mp3",
+        "sizeBytes": 141688,
+        "sha256": "1f5b309e590e8fd08c1bfafc9af885c7ce3b9f99faace5a58dbcf9997bfde2f1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.990Z"
+      },
+      "gu": {
+        "clipId": "doc_income",
+        "language": "gu",
+        "path": "/audio/gu/doc_income.cd271b1b.mp3",
+        "sizeBytes": 123715,
+        "sha256": "cd271b1bcf342d80a9040c79be3d672853ef8f9754a228c5dfa89f30450c1b46",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.116Z"
+      },
+      "kn": {
+        "clipId": "doc_income",
+        "language": "kn",
+        "path": "/audio/kn/doc_income.5529e4c7.mp3",
+        "sizeBytes": 109087,
+        "sha256": "5529e4c7938641bd3cca14638b10b01432f4b6c45b23d687eab2e6c34180def3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.246Z"
+      },
+      "ml": {
+        "clipId": "doc_income",
+        "language": "ml",
+        "path": "/audio/ml/doc_income.46a831b4.mp3",
+        "sizeBytes": 132075,
+        "sha256": "46a831b4df8e4086fc8cf294b2581569aa36d3d05249f2a95371737ab3be78e2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.367Z"
+      },
+      "pa": {
+        "clipId": "doc_income",
+        "language": "pa",
+        "path": "/audio/pa/doc_income.981a4234.mp3",
+        "sizeBytes": 99474,
+        "sha256": "981a4234b535a077152f9cd627d578af2a4e8389bfbd5c99e6ef05ba1f619e5e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.482Z"
+      },
+      "or": {
+        "clipId": "doc_income",
+        "language": "or",
+        "path": "/audio/or/doc_income.32b7fe9a.mp3",
+        "sizeBytes": 119954,
+        "sha256": "32b7fe9a281164b52aff17f1722c7c52ab1a7f6596f49b7ab6e1a50c0dc09ed7",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.603Z"
+      }
+    },
+    "doc_aadhaar": {
+      "en": {
+        "clipId": "doc_aadhaar",
+        "language": "en",
+        "path": "/audio/en/doc_aadhaar.1b33488e.mp3",
+        "sizeBytes": 104907,
+        "sha256": "1b33488e4ab235e52844661f11300dce4c674f6bf2262ee92d752bcb78e35103",
+        "textHash": "13814c26f173c5cf67aaa54d91d20b87aa2315ab50fdbc1b4b172e0f9d1a7fa4",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:34.270Z",
+        "text": "Aadhaar Card. Aadhaar linked to direct benefit transfer enabled bank account. Issuer: Unique Identification Authority of India."
+      },
+      "hi": {
+        "clipId": "doc_aadhaar",
+        "language": "hi",
+        "path": "/audio/hi/doc_aadhaar.67615732.mp3",
+        "sizeBytes": 107415,
+        "sha256": "67615732417dd4256f2e203234695609df81be51843c808c5c38e8d84d718d1e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.416Z"
+      },
+      "ta": {
+        "clipId": "doc_aadhaar",
+        "language": "ta",
+        "path": "/audio/ta/doc_aadhaar.4b507dfb.mp3",
+        "sizeBytes": 138762,
+        "sha256": "4b507dfb5e672aeb03a27c2f10148fd83dff1b3a3607458b0d948090d604f336",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.544Z"
+      },
+      "mr": {
+        "clipId": "doc_aadhaar",
+        "language": "mr",
+        "path": "/audio/mr/doc_aadhaar.b768fdce.mp3",
+        "sizeBytes": 122462,
+        "sha256": "b768fdcee1c5250f8c04e5433f7b720654cddce2125111925d4ebecb6c6e29f5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.673Z"
+      },
+      "te": {
+        "clipId": "doc_aadhaar",
+        "language": "te",
+        "path": "/audio/te/doc_aadhaar.b62e6fa6.mp3",
+        "sizeBytes": 109087,
+        "sha256": "b62e6fa646a2988877e30606b266348384ec3bbce2c93e04331686269f491313",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.797Z"
+      },
+      "bn": {
+        "clipId": "doc_aadhaar",
+        "language": "bn",
+        "path": "/audio/bn/doc_aadhaar.bb5aafa1.mp3",
+        "sizeBytes": 144195,
+        "sha256": "bb5aafa1e2bec03845a1729a60eb4a331a89c72885526de9b4af39efd44d1a33",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.939Z"
+      },
+      "gu": {
+        "clipId": "doc_aadhaar",
+        "language": "gu",
+        "path": "/audio/gu/doc_aadhaar.a9491d5d.mp3",
+        "sizeBytes": 95294,
+        "sha256": "a9491d5d34a0c8e513e0d61fd26764db8f1a9798b010966419903eb39c3f50af",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.062Z"
+      },
+      "kn": {
+        "clipId": "doc_aadhaar",
+        "language": "kn",
+        "path": "/audio/kn/doc_aadhaar.e9b17f47.mp3",
+        "sizeBytes": 119954,
+        "sha256": "e9b17f47e5013b2aa756cf1ba6a8747dd22d26b3a3e001a3c56214e13d707dee",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.195Z"
+      },
+      "ml": {
+        "clipId": "doc_aadhaar",
+        "language": "ml",
+        "path": "/audio/ml/doc_aadhaar.7be02d49.mp3",
+        "sizeBytes": 112849,
+        "sha256": "7be02d49d8a511b5a0ed7d6e2a6b43d00c1b75ef34ec77ed1528433e8357ac35",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.317Z"
+      },
+      "pa": {
+        "clipId": "doc_aadhaar",
+        "language": "pa",
+        "path": "/audio/pa/doc_aadhaar.54466a9e.mp3",
+        "sizeBytes": 106161,
+        "sha256": "54466a9ea87b1f734f986c87afd5668e6857346a0ed927e75d555371f57003d4",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.434Z"
+      },
+      "or": {
+        "clipId": "doc_aadhaar",
+        "language": "or",
+        "path": "/audio/or/doc_aadhaar.0ca73f39.mp3",
+        "sizeBytes": 112849,
+        "sha256": "0ca73f39cc4aae4fc0abcc4db736313f39dd21eb3336252cf387ae1e946dbf96",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.554Z"
+      }
+    },
+    "doc_bank_passbook": {
+      "en": {
+        "clipId": "doc_bank_passbook",
+        "language": "en",
+        "path": "/audio/en/doc_bank_passbook.6b1b0893.mp3",
+        "sizeBytes": 152555,
+        "sha256": "6b1b08933bcecf5db3ad24c6b064e25aff301755fbe71f843a88d24060203c88",
+        "textHash": "67b37420bcd00808793025e6c6592de1fb575804faaa6b712fef3e3d8e2ce379",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:36.873Z",
+        "text": "Bank Passbook. Active bank account passbook or statement with account number and IFSC code. Issuer: Scheduled Commercial Bank or Regional Rural Bank."
+      },
+      "hi": {
+        "clipId": "doc_bank_passbook",
+        "language": "hi",
+        "path": "/audio/hi/doc_bank_passbook.6a4b11e7.mp3",
+        "sizeBytes": 137508,
+        "sha256": "6a4b11e76248935a9994a5caf156f9d7431a23f9d7020cbb4f8a7f427ead3c39",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.425Z"
+      },
+      "ta": {
+        "clipId": "doc_bank_passbook",
+        "language": "ta",
+        "path": "/audio/ta/doc_bank_passbook.e5e96f54.mp3",
+        "sizeBytes": 153809,
+        "sha256": "e5e96f5424845c2b46ffcc05dc953f1afbf6c677ff55ac4ff57d9569a4d9a662",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.551Z"
+      },
+      "mr": {
+        "clipId": "doc_bank_passbook",
+        "language": "mr",
+        "path": "/audio/mr/doc_bank_passbook.a286d94e.mp3",
+        "sizeBytes": 152555,
+        "sha256": "a286d94ef2c0eecd6e88f91cae041cafd4a93ad98e282963c4cbb52620f77f0e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.679Z"
+      },
+      "te": {
+        "clipId": "doc_bank_passbook",
+        "language": "te",
+        "path": "/audio/te/doc_bank_passbook.c3a75716.mp3",
+        "sizeBytes": 179722,
+        "sha256": "c3a75716c3b57a381d77f5322e93c9fcfdcceebbf4d44567d108e02e4c196488",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.804Z"
+      },
+      "bn": {
+        "clipId": "doc_bank_passbook",
+        "language": "bn",
+        "path": "/audio/bn/doc_bank_passbook.6616bdb9.mp3",
+        "sizeBytes": 136254,
+        "sha256": "6616bdb9f36ce20ba79e30bc48d5f2eb62739866958d61e5c488a1aba32d79a2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.945Z"
+      },
+      "gu": {
+        "clipId": "doc_bank_passbook",
+        "language": "gu",
+        "path": "/audio/gu/doc_bank_passbook.8a933b96.mp3",
+        "sizeBytes": 167601,
+        "sha256": "8a933b96aa6f5acc898628e737dfb2df57129d46b3c3d8a550883fb25634e284",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.068Z"
+      },
+      "kn": {
+        "clipId": "doc_bank_passbook",
+        "language": "kn",
+        "path": "/audio/kn/doc_bank_passbook.0c5a4c64.mp3",
+        "sizeBytes": 159242,
+        "sha256": "0c5a4c64e0d70d608b2e85be6c72abf40f1dbfed914098dd6097d5374ac52ddc",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.201Z"
+      },
+      "ml": {
+        "clipId": "doc_bank_passbook",
+        "language": "ml",
+        "path": "/audio/ml/doc_bank_passbook.5e223282.mp3",
+        "sizeBytes": 157988,
+        "sha256": "5e223282e57e5249594b3f3677a1f78302d0907238ab297bdb055fd4dc4585f6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.322Z"
+      },
+      "pa": {
+        "clipId": "doc_bank_passbook",
+        "language": "pa",
+        "path": "/audio/pa/doc_bank_passbook.e475dd70.mp3",
+        "sizeBytes": 132075,
+        "sha256": "e475dd709899c16ddd8f32786208d576d892f0b7f1a5e16cfec9ee2cc17dcb60",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.441Z"
+      },
+      "or": {
+        "clipId": "doc_bank_passbook",
+        "language": "or",
+        "path": "/audio/or/doc_bank_passbook.d6c7a496.mp3",
+        "sizeBytes": 167601,
+        "sha256": "d6c7a496c676cfd37ae1447ad71770a589d5563aa8f0f1453d071181c15c0d53",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.560Z"
+      }
+    },
+    "doc_dpr": {
+      "en": {
+        "clipId": "doc_dpr",
+        "language": "en",
+        "path": "/audio/en/doc_dpr.ca75e5af.mp3",
+        "sizeBytes": 121208,
+        "sha256": "ca75e5af82134224f7db42741d56ba665cc6fe1ec245ceab7b7211f0e86b1250",
+        "textHash": "5d047984773f38e49d9fcdb7bf770677578493aa0b113e51b1e6d1cf7815880c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:39.085Z",
+        "text": "Detailed Project Report. Bankable project profile with three year cash flow estimates. Issuer: Technical Consultant or Chartered Accountant."
+      },
+      "hi": {
+        "clipId": "doc_dpr",
+        "language": "hi",
+        "path": "/audio/hi/doc_dpr.1d5e47b6.mp3",
+        "sizeBytes": 142942,
+        "sha256": "1d5e47b6701d55b6227373c25bfa8347044c2b11b4ba1b03f9e65d9105f5dd81",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.443Z"
+      },
+      "ta": {
+        "clipId": "doc_dpr",
+        "language": "ta",
+        "path": "/audio/ta/doc_dpr.bc3a4927.mp3",
+        "sizeBytes": 153809,
+        "sha256": "bc3a4927dfa0d7bea5d7724c0f24ecbe4d974411fcae53872289563ed040cac1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.574Z"
+      },
+      "mr": {
+        "clipId": "doc_dpr",
+        "language": "mr",
+        "path": "/audio/mr/doc_dpr.062abc84.mp3",
+        "sizeBytes": 153809,
+        "sha256": "062abc845adb222effd3b7cb9e7f24fcc76f7d3e90d945939a883e743b05b3d5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.703Z"
+      },
+      "te": {
+        "clipId": "doc_dpr",
+        "language": "te",
+        "path": "/audio/te/doc_dpr.d7b75617.mp3",
+        "sizeBytes": 144195,
+        "sha256": "d7b75617b842b3c0e6c6b166193e1dbf7c55298f24488a9726654ad9e6ac7e6a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.824Z"
+      },
+      "bn": {
+        "clipId": "doc_dpr",
+        "language": "bn",
+        "path": "/audio/bn/doc_dpr.9cf128fb.mp3",
+        "sizeBytes": 152555,
+        "sha256": "9cf128fbcde7cc3fb66f6c6c5a8ad8a9b4425b03522a9243b1ef96e35ff92c0b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.967Z"
+      },
+      "gu": {
+        "clipId": "doc_dpr",
+        "language": "gu",
+        "path": "/audio/gu/doc_dpr.fe2a5d0a.mp3",
+        "sizeBytes": 159242,
+        "sha256": "fe2a5d0af2ed5970e6495f4fcc6ce7dc2d8f12c85e954c0193763e6b113da008",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.092Z"
+      },
+      "kn": {
+        "clipId": "doc_dpr",
+        "language": "kn",
+        "path": "/audio/kn/doc_dpr.2aeec8ef.mp3",
+        "sizeBytes": 136254,
+        "sha256": "2aeec8efb0edc385c7db6e81263b07ac2c498c31d83990abe31a930a3f49b31d",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.223Z"
+      },
+      "ml": {
+        "clipId": "doc_dpr",
+        "language": "ml",
+        "path": "/audio/ml/doc_dpr.0591d2c1.mp3",
+        "sizeBytes": 175960,
+        "sha256": "0591d2c17c21447ba767e04533191ccdf18d3b1bdccfed881a3c27761bb81144",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.344Z"
+      },
+      "pa": {
+        "clipId": "doc_dpr",
+        "language": "pa",
+        "path": "/audio/pa/doc_dpr.25d260d6.mp3",
+        "sizeBytes": 138762,
+        "sha256": "25d260d686b9b071e44bb3a83147b7fb4d971ecf60d734b80ad7e6b3abd40eeb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.460Z"
+      },
+      "or": {
+        "clipId": "doc_dpr",
+        "language": "or",
+        "path": "/audio/or/doc_dpr.94a9f1d8.mp3",
+        "sizeBytes": 136254,
+        "sha256": "94a9f1d87ab627f7d5600c9d144abb91817c9844c52a12d48e81fb94578a1cf9",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.582Z"
+      }
+    },
+    "doc_quotation": {
+      "en": {
+        "clipId": "doc_quotation",
+        "language": "en",
+        "path": "/audio/en/doc_quotation.844befca.mp3",
+        "sizeBytes": 132075,
+        "sha256": "844befca6463260592d6f6af819f2f9a01d33d4beccca89afc6a93ff97f193dd",
+        "textHash": "76ad2cd97f5cb8de7b7b53b01082abecfaeb2103da126361659ff8b5d6e64a33",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:41.769Z",
+        "text": "Equipment Quotation. Official price quotation for machinery or equipment from GST registered supplier. Issuer: Authorized Equipment Supplier."
+      },
+      "hi": {
+        "clipId": "doc_quotation",
+        "language": "hi",
+        "path": "/audio/hi/doc_quotation.d9756ac2.mp3",
+        "sizeBytes": 133329,
+        "sha256": "d9756ac2286f9ed8a4a8e334ba5e60b7f1ed54599e2f685ccfb810b2e464cec6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.480Z"
+      },
+      "ta": {
+        "clipId": "doc_quotation",
+        "language": "ta",
+        "path": "/audio/ta/doc_quotation.a7110c03.mp3",
+        "sizeBytes": 121208,
+        "sha256": "a7110c03cb652bec39a70734caa5b7e59b9239c72ed1b17761a6b716827a206c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.605Z"
+      },
+      "mr": {
+        "clipId": "doc_quotation",
+        "language": "mr",
+        "path": "/audio/mr/doc_quotation.59754634.mp3",
+        "sizeBytes": 141688,
+        "sha256": "59754634afb0c1b6f236baf63fef4ec58464db060631be32bbf2e2c9add3be6d",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.735Z"
+      },
+      "te": {
+        "clipId": "doc_quotation",
+        "language": "te",
+        "path": "/audio/te/doc_quotation.388b15c9.mp3",
+        "sizeBytes": 107415,
+        "sha256": "388b15c93a05eb1505d16dd92d956f8cb74be313364d634bed2bf6420eb5f36b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.858Z"
+      },
+      "bn": {
+        "clipId": "doc_quotation",
+        "language": "bn",
+        "path": "/audio/bn/doc_quotation.69aa6a76.mp3",
+        "sizeBytes": 140434,
+        "sha256": "69aa6a760833a5039e737b757054f2695c05f78f73bf0a7c1cbbfcfd24260c69",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.002Z"
+      },
+      "gu": {
+        "clipId": "doc_quotation",
+        "language": "gu",
+        "path": "/audio/gu/doc_quotation.add61f10.mp3",
+        "sizeBytes": 155480,
+        "sha256": "add61f10ed34060e9b1d8dac91651d96881accc8740473a4fa07e1fb95d085d6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.128Z"
+      },
+      "kn": {
+        "clipId": "doc_quotation",
+        "language": "kn",
+        "path": "/audio/kn/doc_quotation.8cc5a9f8.mp3",
+        "sizeBytes": 136254,
+        "sha256": "8cc5a9f8b21da84f2cda290f87e42407893d078114cd3121a1eac27c23084bf0",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.257Z"
+      },
+      "ml": {
+        "clipId": "doc_quotation",
+        "language": "ml",
+        "path": "/audio/ml/doc_quotation.970a69b4.mp3",
+        "sizeBytes": 115774,
+        "sha256": "970a69b4babba28ce6ad52a0a9f2060f597837f0ef19168fcb04844474079acf",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.378Z"
+      },
+      "pa": {
+        "clipId": "doc_quotation",
+        "language": "pa",
+        "path": "/audio/pa/doc_quotation.5abec64a.mp3",
+        "sizeBytes": 147121,
+        "sha256": "5abec64a23438b15908ba59814c060dfc6dbc4d99c99d123582bf11ea51cc980",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.492Z"
+      },
+      "or": {
+        "clipId": "doc_quotation",
+        "language": "or",
+        "path": "/audio/or/doc_quotation.f77d265c.mp3",
+        "sizeBytes": 148375,
+        "sha256": "f77d265c65570d0cd911e8c04c58f6bcbacf5c42841571cb3f9d80b1161dcf9a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.616Z"
+      }
+    },
+    "doc_edu_admission": {
+      "en": {
+        "clipId": "doc_edu_admission",
+        "language": "en",
+        "path": "/audio/en/doc_edu_admission.1d6d9c89.mp3",
+        "sizeBytes": 132075,
+        "sha256": "1d6d9c8963479644d089a1df219447673035464b3747562569f9e8f685e241dc",
+        "textHash": "4fd0c654b6dcc8ec6bb467f8e8410ac6cff63c0a138e8e6566ff8fe6439141eb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:44.542Z",
+        "text": "Admission Offer Letter. Confirmed admission proof from recognized university or institute. Issuer: Registrar of Recognized Institution."
+      },
+      "hi": {
+        "clipId": "doc_edu_admission",
+        "language": "hi",
+        "path": "/audio/hi/doc_edu_admission.282c4f07.mp3",
+        "sizeBytes": 130821,
+        "sha256": "282c4f07b40e167b4a9da7b0834cdc71a6afe2f6d9bfdc3b4b315ef337f557fe",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.449Z"
+      },
+      "ta": {
+        "clipId": "doc_edu_admission",
+        "language": "ta",
+        "path": "/audio/ta/doc_edu_admission.40dbc121.mp3",
+        "sizeBytes": 118282,
+        "sha256": "40dbc121c48d4dd9c8b586fdc928fde4d2f88f364a5f1d5f88c4319a4e6fbe2e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.579Z"
+      },
+      "mr": {
+        "clipId": "doc_edu_admission",
+        "language": "mr",
+        "path": "/audio/mr/doc_edu_admission.5c10ad88.mp3",
+        "sizeBytes": 130821,
+        "sha256": "5c10ad88d16603e925d289cd78d9001526229dbec770066bbf7a416685dc8a6a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.708Z"
+      },
+      "te": {
+        "clipId": "doc_edu_admission",
+        "language": "te",
+        "path": "/audio/te/doc_edu_admission.31c0830a.mp3",
+        "sizeBytes": 137508,
+        "sha256": "31c0830a039d99c1427f173a29eba80f8ae75c765c967ec2a7390630e7f614e4",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.829Z"
+      },
+      "bn": {
+        "clipId": "doc_edu_admission",
+        "language": "bn",
+        "path": "/audio/bn/doc_edu_admission.e4146f45.mp3",
+        "sizeBytes": 156734,
+        "sha256": "e4146f456c291dc2efec61d117b9579a00a09bab44ee975e9a23b12db8d238c2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.971Z"
+      },
+      "gu": {
+        "clipId": "doc_edu_admission",
+        "language": "gu",
+        "path": "/audio/gu/doc_edu_admission.bd98e14b.mp3",
+        "sizeBytes": 132075,
+        "sha256": "bd98e14b783a0ac725c2eee8150c0a84e99d8096ddb04dfef7098be1f010d2da",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.098Z"
+      },
+      "kn": {
+        "clipId": "doc_edu_admission",
+        "language": "kn",
+        "path": "/audio/kn/doc_edu_admission.05eb3777.mp3",
+        "sizeBytes": 144195,
+        "sha256": "05eb377794bae9e314674b826225d14db8c8b47f49e7cd153c16338e8dbe1aac",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.229Z"
+      },
+      "ml": {
+        "clipId": "doc_edu_admission",
+        "language": "ml",
+        "path": "/audio/ml/doc_edu_admission.c8cc3704.mp3",
+        "sizeBytes": 125387,
+        "sha256": "c8cc370402570d6b140084fe7a6bd6cbda6507be6a71466e3a201a318dd911af",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.349Z"
+      },
+      "pa": {
+        "clipId": "doc_edu_admission",
+        "language": "pa",
+        "path": "/audio/pa/doc_edu_admission.4fedbc46.mp3",
+        "sizeBytes": 125387,
+        "sha256": "4fedbc46669c47a8facc5209e8151a3a0692e16440ae1a36e0a08fd25141b736",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.464Z"
+      },
+      "or": {
+        "clipId": "doc_edu_admission",
+        "language": "or",
+        "path": "/audio/or/doc_edu_admission.d24e5e8e.mp3",
+        "sizeBytes": 150047,
+        "sha256": "d24e5e8e7ff7c1c96381ef37a0a7b2ff5837b2222337a513a45309ed649e7410",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.588Z"
+      }
+    },
+    "doc_fee_schedule": {
+      "en": {
+        "clipId": "doc_fee_schedule",
+        "language": "en",
+        "path": "/audio/en/doc_fee_schedule.223873d2.mp3",
+        "sizeBytes": 86935,
+        "sha256": "223873d29900f4c5164599effd82ae070130b3e2d4f2a9375f74564b3f68a972",
+        "textHash": "5c8d2587ff7cf5430f561fb4612d7e520e55e47dc6ad8ad073ae445d56152fa0",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:46.393Z",
+        "text": "Course Fee Schedule. Official tuition and living expense breakdown. Issuer: College Finance Office."
+      },
+      "hi": {
+        "clipId": "doc_fee_schedule",
+        "language": "hi",
+        "path": "/audio/hi/doc_fee_schedule.66b19be7.mp3",
+        "sizeBytes": 109087,
+        "sha256": "66b19be7368040bec6951370426a79cb8233b7ca1c6573b7830f4970a231c3ff",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.454Z"
+      },
+      "ta": {
+        "clipId": "doc_fee_schedule",
+        "language": "ta",
+        "path": "/audio/ta/doc_fee_schedule.1f04b2f1.mp3",
+        "sizeBytes": 119954,
+        "sha256": "1f04b2f1bf3581685aad02ff75a6bd3e5ab746b67409fae371318e1261755dcb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.584Z"
+      },
+      "mr": {
+        "clipId": "doc_fee_schedule",
+        "language": "mr",
+        "path": "/audio/mr/doc_fee_schedule.4f490c1c.mp3",
+        "sizeBytes": 126641,
+        "sha256": "4f490c1c8d374f74ba14e3c2c07e3f3d3a12358ce923dbe130810528ee5147ad",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.713Z"
+      },
+      "te": {
+        "clipId": "doc_fee_schedule",
+        "language": "te",
+        "path": "/audio/te/doc_fee_schedule.0d51411c.mp3",
+        "sizeBytes": 129567,
+        "sha256": "0d51411c140c817718a5967f483826a68f2c73cfcc61210434dcfcb3ea4bb735",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.835Z"
+      },
+      "bn": {
+        "clipId": "doc_fee_schedule",
+        "language": "bn",
+        "path": "/audio/bn/doc_fee_schedule.b0938902.mp3",
+        "sizeBytes": 121208,
+        "sha256": "b093890229dcf4ac7652f6429c7f065672692b0561689f95cdfcc6245aaa4469",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.976Z"
+      },
+      "gu": {
+        "clipId": "doc_fee_schedule",
+        "language": "gu",
+        "path": "/audio/gu/doc_fee_schedule.7e37e186.mp3",
+        "sizeBytes": 150047,
+        "sha256": "7e37e1864db50a0f85f84a4a473272fd9368b3eec3274526522dd0b07624bfe3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.103Z"
+      },
+      "kn": {
+        "clipId": "doc_fee_schedule",
+        "language": "kn",
+        "path": "/audio/kn/doc_fee_schedule.0c92fe82.mp3",
+        "sizeBytes": 133329,
+        "sha256": "0c92fe822c5b6ec34d7af24cc04d0cfc2e3728fb9b06f1c7fd5adfcfe2f97409",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.234Z"
+      },
+      "ml": {
+        "clipId": "doc_fee_schedule",
+        "language": "ml",
+        "path": "/audio/ml/doc_fee_schedule.5bab7f34.mp3",
+        "sizeBytes": 109087,
+        "sha256": "5bab7f3461afb5fe71d4d138d91787e2372ca4c5b362595d51e75efed67dad53",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.354Z"
+      },
+      "pa": {
+        "clipId": "doc_fee_schedule",
+        "language": "pa",
+        "path": "/audio/pa/doc_fee_schedule.0754d4e2.mp3",
+        "sizeBytes": 107415,
+        "sha256": "0754d4e2fcab55e462b5dbeb4c9313e60d5df0ae6484aee2c94037c6ffb6d75b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.469Z"
+      },
+      "or": {
+        "clipId": "doc_fee_schedule",
+        "language": "or",
+        "path": "/audio/or/doc_fee_schedule.56a83c9f.mp3",
+        "sizeBytes": 106161,
+        "sha256": "56a83c9f01f55008d5adb65f9294822e549fa30c80c2bbd069a9fddb42659599",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.592Z"
+      }
+    },
+    "doc_transcripts": {
+      "en": {
+        "clipId": "doc_transcripts",
+        "language": "en",
+        "path": "/audio/en/doc_transcripts.6c8a44d3.mp3",
+        "sizeBytes": 112849,
+        "sha256": "6c8a44d39180277f4edb008a3f7d8e8961f96652eaff27b62796c9d0142fad4e",
+        "textHash": "a16115261a5a788800069d4465bf6702ef40835bfaab90077933d01f5890b5bd",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:52.285Z",
+        "text": "Educational Transcripts. Official marksheets of qualifying examinations. Issuer: Board or University."
+      },
+      "hi": {
+        "clipId": "doc_transcripts",
+        "language": "hi",
+        "path": "/audio/hi/doc_transcripts.e9e8ad04.mp3",
+        "sizeBytes": 136254,
+        "sha256": "e9e8ad048f475933b517fbc6cb37ec63477789f202f9dab1db623791d25ac278",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.503Z"
+      },
+      "ta": {
+        "clipId": "doc_transcripts",
+        "language": "ta",
+        "path": "/audio/ta/doc_transcripts.a0c2dc51.mp3",
+        "sizeBytes": 137508,
+        "sha256": "a0c2dc515e99e7c1d39bfab656573750120705f801af51112f6e6fda76523058",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.627Z"
+      },
+      "mr": {
+        "clipId": "doc_transcripts",
+        "language": "mr",
+        "path": "/audio/mr/doc_transcripts.3aa538a3.mp3",
+        "sizeBytes": 125387,
+        "sha256": "3aa538a352b64478d1da3acbe5d474daf09dfad7fd90c8954b800d5cc4aa67a1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.756Z"
+      },
+      "te": {
+        "clipId": "doc_transcripts",
+        "language": "te",
+        "path": "/audio/te/doc_transcripts.dcb3d606.mp3",
+        "sizeBytes": 119954,
+        "sha256": "dcb3d606701c55b0ed3068c36d57335ff68c3c7bb4cc3ccb57c46531c71bc713",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.895Z"
+      },
+      "bn": {
+        "clipId": "doc_transcripts",
+        "language": "bn",
+        "path": "/audio/bn/doc_transcripts.12d2d67c.mp3",
+        "sizeBytes": 142942,
+        "sha256": "12d2d67c0f92c9117dee0193693b72f1de7a0d537dd84abc8e3d0f6b1d8ff0cd",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.026Z"
+      },
+      "gu": {
+        "clipId": "doc_transcripts",
+        "language": "gu",
+        "path": "/audio/gu/doc_transcripts.d777bbb2.mp3",
+        "sizeBytes": 115774,
+        "sha256": "d777bbb2ff5b870365eb156149f52d8059f5cd57fbd6293413543bac93b659e8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.151Z"
+      },
+      "kn": {
+        "clipId": "doc_transcripts",
+        "language": "kn",
+        "path": "/audio/kn/doc_transcripts.664aa806.mp3",
+        "sizeBytes": 112849,
+        "sha256": "664aa806a108610a60e88f86961a0fef48ec44d673aff2a3eefa891aa7bf0554",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.280Z"
+      },
+      "ml": {
+        "clipId": "doc_transcripts",
+        "language": "ml",
+        "path": "/audio/ml/doc_transcripts.1858ba59.mp3",
+        "sizeBytes": 152555,
+        "sha256": "1858ba59aa4140ca96e960d614b5e6f426bdce6004fd5b773c487d0c75b8a793",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.401Z"
+      },
+      "pa": {
+        "clipId": "doc_transcripts",
+        "language": "pa",
+        "path": "/audio/pa/doc_transcripts.dd462ef9.mp3",
+        "sizeBytes": 118282,
+        "sha256": "dd462ef98a0841a53831bfc13d1166058a032425266c7c4f251d6f21eaac7304",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.514Z"
+      },
+      "or": {
+        "clipId": "doc_transcripts",
+        "language": "or",
+        "path": "/audio/or/doc_transcripts.0c3f49be.mp3",
+        "sizeBytes": 117028,
+        "sha256": "0c3f49bed5d72ef17d7456041e7b1afd3880a985df6a2b78a205c55583d312d8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.639Z"
+      }
+    },
+    "doc_coborrower": {
+      "en": {
+        "clipId": "doc_coborrower",
+        "language": "en",
+        "path": "/audio/en/doc_coborrower.8b10b2db.mp3",
+        "sizeBytes": 101982,
+        "sha256": "8b10b2dbae7203e3bc250140d807414c525078b06f828af109075a4496d21f01",
+        "textHash": "66d72161bc6e14966e9a93fdd923908ddb4822e162677a3851d29fabcdea8d72",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:41:57.375Z",
+        "text": "Co-borrower KYC and Statements. Parent or guardian KYC documents and bank statement. Issuer: Bank."
+      },
+      "hi": {
+        "clipId": "doc_coborrower",
+        "language": "hi",
+        "path": "/audio/hi/doc_coborrower.a2534e7c.mp3",
+        "sizeBytes": 115774,
+        "sha256": "a2534e7c9cbfa17fc00c8cadf4508e68f141c2dda5e8da71235e9119baa5be62",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.439Z"
+      },
+      "ta": {
+        "clipId": "doc_coborrower",
+        "language": "ta",
+        "path": "/audio/ta/doc_coborrower.2288422f.mp3",
+        "sizeBytes": 110341,
+        "sha256": "2288422fb7697e065b40195da9eee9739c6749524cd8f2effd156d662ea9bbc3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.568Z"
+      },
+      "mr": {
+        "clipId": "doc_coborrower",
+        "language": "mr",
+        "path": "/audio/mr/doc_coborrower.cf37783d.mp3",
+        "sizeBytes": 125387,
+        "sha256": "cf37783d2aa77f6a58452416de7290c3701cb4a2dc2bb8d0255747de5fd29e06",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.698Z"
+      },
+      "te": {
+        "clipId": "doc_coborrower",
+        "language": "te",
+        "path": "/audio/te/doc_coborrower.ff9f7ae3.mp3",
+        "sizeBytes": 151301,
+        "sha256": "ff9f7ae3dab468b04374f42df666079948c9f1cde475e91da133e01cbf1c669d",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.818Z"
+      },
+      "bn": {
+        "clipId": "doc_coborrower",
+        "language": "bn",
+        "path": "/audio/bn/doc_coborrower.92fc6c82.mp3",
+        "sizeBytes": 123715,
+        "sha256": "92fc6c829102fac8e643bdac2e019876e88d9240caf8333edd8d15470c787614",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.961Z"
+      },
+      "gu": {
+        "clipId": "doc_coborrower",
+        "language": "gu",
+        "path": "/audio/gu/doc_coborrower.8a944648.mp3",
+        "sizeBytes": 109087,
+        "sha256": "8a944648554ea44a8db9818b646ee128888c5febc44aea01203fca9168c4aecb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.087Z"
+      },
+      "kn": {
+        "clipId": "doc_coborrower",
+        "language": "kn",
+        "path": "/audio/kn/doc_coborrower.64cdd260.mp3",
+        "sizeBytes": 123715,
+        "sha256": "64cdd26096a80b1488c98bd875baeaed7db3d8f841162371cdbcde2fca9c0864",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.217Z"
+      },
+      "ml": {
+        "clipId": "doc_coborrower",
+        "language": "ml",
+        "path": "/audio/ml/doc_coborrower.a2fbdc54.mp3",
+        "sizeBytes": 112849,
+        "sha256": "a2fbdc546f1193ccd81dd986b4c5fb36c4aff761eec6f5a86ccf33f12eb497b0",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.338Z"
+      },
+      "pa": {
+        "clipId": "doc_coborrower",
+        "language": "pa",
+        "path": "/audio/pa/doc_coborrower.e6efa534.mp3",
+        "sizeBytes": 127895,
+        "sha256": "e6efa5344416568f301ff93c8d46f3c1469fc7e93952abd8a06de0821bc8d927",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.456Z"
+      },
+      "or": {
+        "clipId": "doc_coborrower",
+        "language": "or",
+        "path": "/audio/or/doc_coborrower.34e0d966.mp3",
+        "sizeBytes": 135000,
+        "sha256": "34e0d9661b63e78e0f592835dd84cc91af20a6eb31e8d14b63fb7a7db9efe381",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.578Z"
+      }
+    },
+    "doc_trade_license": {
+      "en": {
+        "clipId": "doc_trade_license",
+        "language": "en",
+        "path": "/audio/en/doc_trade_license.d3ac9663.mp3",
+        "sizeBytes": 112849,
+        "sha256": "d3ac966397254ef4ffd4d2d2a0d995a2e0d1902379df9de9603f02d202ecc654",
+        "textHash": "9dab6f816775429662b49fe5ab9ba90c346cf7ae587a6544944c9ade4b5ae6a5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:01.805Z",
+        "text": "Trade License or Registration. Commercial establishment registration or trade license. Issuer: Municipal Corporation."
+      },
+      "hi": {
+        "clipId": "doc_trade_license",
+        "language": "hi",
+        "path": "/audio/hi/doc_trade_license.97d6ee9e.mp3",
+        "sizeBytes": 117028,
+        "sha256": "97d6ee9e65ec392f16a6db0ec823d9eab1e4fa428c2dc4387244c336b09acf9c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.498Z"
+      },
+      "ta": {
+        "clipId": "doc_trade_license",
+        "language": "ta",
+        "path": "/audio/ta/doc_trade_license.c2c1de1e.mp3",
+        "sizeBytes": 104907,
+        "sha256": "c2c1de1e1df76e5d770e4e9fad30841ff5e543942b5380edf48c72a1cd841748",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.621Z"
+      },
+      "mr": {
+        "clipId": "doc_trade_license",
+        "language": "mr",
+        "path": "/audio/mr/doc_trade_license.b787a18e.mp3",
+        "sizeBytes": 126641,
+        "sha256": "b787a18ea0242fb22110e73a92a332b8449027bca27e8b6b096c94b7850feccf",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.752Z"
+      },
+      "te": {
+        "clipId": "doc_trade_license",
+        "language": "te",
+        "path": "/audio/te/doc_trade_license.86be2c98.mp3",
+        "sizeBytes": 166347,
+        "sha256": "86be2c98688a3a84f5837554b2ff12cc179d77d86505fb22ee12e9245a407605",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.890Z"
+      },
+      "bn": {
+        "clipId": "doc_trade_license",
+        "language": "bn",
+        "path": "/audio/bn/doc_trade_license.b9079489.mp3",
+        "sizeBytes": 133329,
+        "sha256": "b9079489211184b6ba6f219ed8de26391310859b18728c701572c38d825f79ee",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.019Z"
+      },
+      "gu": {
+        "clipId": "doc_trade_license",
+        "language": "gu",
+        "path": "/audio/gu/doc_trade_license.f069faa7.mp3",
+        "sizeBytes": 160914,
+        "sha256": "f069faa7cf9de5f1d0b107d80dd4d186e7107c4d25b7f49f553db81abc549fbf",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.145Z"
+      },
+      "kn": {
+        "clipId": "doc_trade_license",
+        "language": "kn",
+        "path": "/audio/kn/doc_trade_license.e9b11e89.mp3",
+        "sizeBytes": 112849,
+        "sha256": "e9b11e8986e86bb694dc8b25f72efdcc21996a812e304348aa39555bbf69b7fd",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.276Z"
+      },
+      "ml": {
+        "clipId": "doc_trade_license",
+        "language": "ml",
+        "path": "/audio/ml/doc_trade_license.92dbf0ac.mp3",
+        "sizeBytes": 115774,
+        "sha256": "92dbf0acf509c753804c60f5888ae2a46728471a62eb8a2ff4e6e932ba1727ad",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.395Z"
+      },
+      "pa": {
+        "clipId": "doc_trade_license",
+        "language": "pa",
+        "path": "/audio/pa/doc_trade_license.2b512049.mp3",
+        "sizeBytes": 106161,
+        "sha256": "2b512049da4c754aba99c39e0cdf50b7fed32ff59834a7b115ba7c5b507057c2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.509Z"
+      },
+      "or": {
+        "clipId": "doc_trade_license",
+        "language": "or",
+        "path": "/audio/or/doc_trade_license.406d620f.mp3",
+        "sizeBytes": 136254,
+        "sha256": "406d620fa5aee52c0c800b59aa67861aa6936be68415174676cc4817070c6503",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.634Z"
+      }
+    },
+    "doc_land_lease": {
+      "en": {
+        "clipId": "doc_land_lease",
+        "language": "en",
+        "path": "/audio/en/doc_land_lease.a8cb8435.mp3",
+        "sizeBytes": 122462,
+        "sha256": "a8cb8435ff8b52a6e3d817f0023c6f9ed3cb5210599f558d285d3c30526f5aa2",
+        "textHash": "50075dde55c3a8fd71cea8213200cfda82acf492a3187bc8d3e571e72afd8687",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:04.777Z",
+        "text": "Land Ownership or Lease Deed. Proof of project site ownership or registered lease agreement. Issuer: Sub-Registrar Office."
+      },
+      "hi": {
+        "clipId": "doc_land_lease",
+        "language": "hi",
+        "path": "/audio/hi/doc_land_lease.863431b8.mp3",
+        "sizeBytes": 130821,
+        "sha256": "863431b8dba3f738d4a93fcd493921040ac8b3e4121d320320e6314072906942",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.475Z"
+      },
+      "ta": {
+        "clipId": "doc_land_lease",
+        "language": "ta",
+        "path": "/audio/ta/doc_land_lease.db32b14a.mp3",
+        "sizeBytes": 122462,
+        "sha256": "db32b14a28074d57eabb9f7829a161b4077808596002349431d9f897c5e372fe",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.600Z"
+      },
+      "mr": {
+        "clipId": "doc_land_lease",
+        "language": "mr",
+        "path": "/audio/mr/doc_land_lease.d74ec40e.mp3",
+        "sizeBytes": 148375,
+        "sha256": "d74ec40ed51e23c8bcab862d69d73b9b09d96b26ed35605b544edbe8f29080bb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.728Z"
+      },
+      "te": {
+        "clipId": "doc_land_lease",
+        "language": "te",
+        "path": "/audio/te/doc_land_lease.857f1fe8.mp3",
+        "sizeBytes": 147121,
+        "sha256": "857f1fe8b0e976f6448b53129ce8d007dbe11dd94605b1d08aa066e9ca24deab",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.850Z"
+      },
+      "bn": {
+        "clipId": "doc_land_lease",
+        "language": "bn",
+        "path": "/audio/bn/doc_land_lease.1c184464.mp3",
+        "sizeBytes": 132075,
+        "sha256": "1c1844644ed79e5d26f017016e701db6d51f0c6c949585c7472d65c89bfb303e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.995Z"
+      },
+      "gu": {
+        "clipId": "doc_land_lease",
+        "language": "gu",
+        "path": "/audio/gu/doc_land_lease.423d882d.mp3",
+        "sizeBytes": 152555,
+        "sha256": "423d882d01ba2b792544b9b478063f84efca38e1a06593ccc5879557ac0a1a27",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.121Z"
+      },
+      "kn": {
+        "clipId": "doc_land_lease",
+        "language": "kn",
+        "path": "/audio/kn/doc_land_lease.ea0b55b2.mp3",
+        "sizeBytes": 153809,
+        "sha256": "ea0b55b2a0723b86aab1d7aa5c3e2ac37a837cda1f04a51fabf7e4eb5ba181a8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.252Z"
+      },
+      "ml": {
+        "clipId": "doc_land_lease",
+        "language": "ml",
+        "path": "/audio/ml/doc_land_lease.39c5195e.mp3",
+        "sizeBytes": 167601,
+        "sha256": "39c5195e4792f2da0861222c1a5d2ac9e757c254b35c1f25df58e4477c72e5d8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.373Z"
+      },
+      "pa": {
+        "clipId": "doc_land_lease",
+        "language": "pa",
+        "path": "/audio/pa/doc_land_lease.fd339d85.mp3",
+        "sizeBytes": 150047,
+        "sha256": "fd339d85e775ae2fdf84e5c4ed890108e9444135d342830faead83755da9d77d",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.487Z"
+      },
+      "or": {
+        "clipId": "doc_land_lease",
+        "language": "or",
+        "path": "/audio/or/doc_land_lease.870be08a.mp3",
+        "sizeBytes": 186827,
+        "sha256": "870be08a2c455751d19a913ee59306f7706d5da09fc51a0870ea73ddcaf948e7",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.610Z"
+      }
+    },
+    "doc_udyam": {
+      "en": {
+        "clipId": "doc_udyam",
+        "language": "en",
+        "path": "/audio/en/doc_udyam.29f9f70d.mp3",
+        "sizeBytes": 115774,
+        "sha256": "29f9f70df54d9b8644b3766624143f7850ef0febf77f57823dccad4af9e4ca29",
+        "textHash": "92917582f0a2be8397f7c01924dc2dbbd20d625e89ce53ee956ba2c92d286adb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:07.401Z",
+        "text": "Udyam Registration Certificate. MSME registration certificate with enterprise details. Issuer: Ministry of MSME."
+      },
+      "hi": {
+        "clipId": "doc_udyam",
+        "language": "hi",
+        "path": "/audio/hi/doc_udyam.4aa8feb7.mp3",
+        "sizeBytes": 157988,
+        "sha256": "4aa8feb74cddaa211ccb8986dbc9c0009d0659edcab23eefb2f7221b1bebfc8a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.516Z"
+      },
+      "ta": {
+        "clipId": "doc_udyam",
+        "language": "ta",
+        "path": "/audio/ta/doc_udyam.dd05c1b5.mp3",
+        "sizeBytes": 140434,
+        "sha256": "dd05c1b5589fe267cdf62843c2d2c96f9593de363548e566443c8fd78b5a4289",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.638Z"
+      },
+      "mr": {
+        "clipId": "doc_udyam",
+        "language": "mr",
+        "path": "/audio/mr/doc_udyam.1375a38f.mp3",
+        "sizeBytes": 159242,
+        "sha256": "1375a38f185d52fc8c6b8996a55e4a31a079a6e88cc5a7e836e59e15e4c9bd9a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.768Z"
+      },
+      "te": {
+        "clipId": "doc_udyam",
+        "language": "te",
+        "path": "/audio/te/doc_udyam.b4304d65.mp3",
+        "sizeBytes": 133329,
+        "sha256": "b4304d65464d3a3c45db5eeb45444632fc2bc8b1bb063fdc732d3f9a04c79327",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.908Z"
+      },
+      "bn": {
+        "clipId": "doc_udyam",
+        "language": "bn",
+        "path": "/audio/bn/doc_udyam.0691b915.mp3",
+        "sizeBytes": 141688,
+        "sha256": "0691b915ddd265f5744d09cb52e5b2d8082b0678acd08e27ea1b52cba7fef7cb",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.037Z"
+      },
+      "gu": {
+        "clipId": "doc_udyam",
+        "language": "gu",
+        "path": "/audio/gu/doc_udyam.28d24765.mp3",
+        "sizeBytes": 125387,
+        "sha256": "28d24765faf64a0f59d2de01f11af7572b7eb9b7b62aba0a82900ae7b5290512",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.165Z"
+      },
+      "kn": {
+        "clipId": "doc_udyam",
+        "language": "kn",
+        "path": "/audio/kn/doc_udyam.001c915d.mp3",
+        "sizeBytes": 135000,
+        "sha256": "001c915d88afe9a12a3bc8f05aee4fc043f1e33e61483fa5a9c0ed0ff9474420",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.291Z"
+      },
+      "ml": {
+        "clipId": "doc_udyam",
+        "language": "ml",
+        "path": "/audio/ml/doc_udyam.09c787c0.mp3",
+        "sizeBytes": 133329,
+        "sha256": "09c787c0db4f01fd3670cf93cb2e5d0e49efee69e6d5889eb5d55363892a7c1c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.411Z"
+      },
+      "pa": {
+        "clipId": "doc_udyam",
+        "language": "pa",
+        "path": "/audio/pa/doc_udyam.4b4c44b0.mp3",
+        "sizeBytes": 127895,
+        "sha256": "4b4c44b070856a6476790de59ada38607734857b1fe4365703a3f5162269dc20",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.525Z"
+      },
+      "or": {
+        "clipId": "doc_udyam",
+        "language": "or",
+        "path": "/audio/or/doc_udyam.cad3faa5.mp3",
+        "sizeBytes": 155480,
+        "sha256": "cad3faa5afa1d647603c5a36bb9a709f5dac312088022077077685e8647b1929",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.649Z"
+      }
+    },
+    "doc_green_invoice": {
+      "en": {
+        "clipId": "doc_green_invoice",
+        "language": "en",
+        "path": "/audio/en/doc_green_invoice.5ef31b82.mp3",
+        "sizeBytes": 110341,
+        "sha256": "5ef31b8225e92dc934a287e7bb980140f325427ebfbe09f28137c88937739710",
+        "textHash": "f9dde28430fd329c0a1ff454a728b3dc234afaac806016626567cb2c016fd630",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:09.707Z",
+        "text": "Green Technology Quotation. Price invoice for certified electric vehicles or solar equipment. Issuer: Certified Clean Tech Dealer."
+      },
+      "hi": {
+        "clipId": "doc_green_invoice",
+        "language": "hi",
+        "path": "/audio/hi/doc_green_invoice.55a58697.mp3",
+        "sizeBytes": 142942,
+        "sha256": "55a58697f64c6c5c9cb259fed7ce052e653c98f4c3a36b7fe22ca158a004e018",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.461Z"
+      },
+      "ta": {
+        "clipId": "doc_green_invoice",
+        "language": "ta",
+        "path": "/audio/ta/doc_green_invoice.366ddd0b.mp3",
+        "sizeBytes": 155480,
+        "sha256": "366ddd0bc8da41a070b214c99121d08c2d602da2f3f8a9b9a21e073af7507c05",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.588Z"
+      },
+      "mr": {
+        "clipId": "doc_green_invoice",
+        "language": "mr",
+        "path": "/audio/mr/doc_green_invoice.075d19b0.mp3",
+        "sizeBytes": 133329,
+        "sha256": "075d19b0683836d1af8628180153f005f8a3b39cd64dfede388152463fa652f3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.718Z"
+      },
+      "te": {
+        "clipId": "doc_green_invoice",
+        "language": "te",
+        "path": "/audio/te/doc_green_invoice.62dcb1e7.mp3",
+        "sizeBytes": 144195,
+        "sha256": "62dcb1e7c0604b164bf17d91ac6fbe92588d6b9c3e0929cde3c95bf4e93a06b2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.839Z"
+      },
+      "bn": {
+        "clipId": "doc_green_invoice",
+        "language": "bn",
+        "path": "/audio/bn/doc_green_invoice.999dd2ee.mp3",
+        "sizeBytes": 141688,
+        "sha256": "999dd2ee3d1150da7bd924160fa3d6d809191c0a3a80ff2ce4322f6c8dc8ae27",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.982Z"
+      },
+      "gu": {
+        "clipId": "doc_green_invoice",
+        "language": "gu",
+        "path": "/audio/gu/doc_green_invoice.a7de1f13.mp3",
+        "sizeBytes": 125387,
+        "sha256": "a7de1f1386f0598c74a5341544faa88b9eeec423c7ab2b0629d121031a3e49b5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.110Z"
+      },
+      "kn": {
+        "clipId": "doc_green_invoice",
+        "language": "kn",
+        "path": "/audio/kn/doc_green_invoice.58bbd166.mp3",
+        "sizeBytes": 153809,
+        "sha256": "58bbd1667af1f6e579f2494a03096b8617b7517105b358463355d33518fd02f3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.241Z"
+      },
+      "ml": {
+        "clipId": "doc_green_invoice",
+        "language": "ml",
+        "path": "/audio/ml/doc_green_invoice.2a74eace.mp3",
+        "sizeBytes": 133329,
+        "sha256": "2a74eace121ac6f0b70b2139176264457a5e8d8cd04eb7330d587e6980d83e69",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.359Z"
+      },
+      "pa": {
+        "clipId": "doc_green_invoice",
+        "language": "pa",
+        "path": "/audio/pa/doc_green_invoice.0771fee6.mp3",
+        "sizeBytes": 141688,
+        "sha256": "0771fee621e8e2c9d448d023c9c3520ab15168ae2bdc17927d9e2a1f27becab6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.475Z"
+      },
+      "or": {
+        "clipId": "doc_green_invoice",
+        "language": "or",
+        "path": "/audio/or/doc_green_invoice.50872b63.mp3",
+        "sizeBytes": 155480,
+        "sha256": "50872b63cc3609571510ac228f8b930569db59400112a58c51c830da8cf05640",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.598Z"
+      }
+    },
+    "doc_transport_permit": {
+      "en": {
+        "clipId": "doc_transport_permit",
+        "language": "en",
+        "path": "/audio/en/doc_transport_permit.f9897f52.mp3",
+        "sizeBytes": 101982,
+        "sha256": "f9897f522202232184a967ce36dd596e89855df15045c870403187a6ed6b47a6",
+        "textHash": "88af4711562a4072d7f7441ad3bb23c3eb487482c0d839950b8233cd398980c1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:11.992Z",
+        "text": "Transport Permit or Commercial License. Commercial driving license or transport permit. Issuer: Regional Transport Office."
+      },
+      "hi": {
+        "clipId": "doc_transport_permit",
+        "language": "hi",
+        "path": "/audio/hi/doc_transport_permit.cb01b1f4.mp3",
+        "sizeBytes": 135000,
+        "sha256": "cb01b1f475bf3367a1209e8a8aaa147086f6f9a26ff71671a14319e6fca0dde0",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.511Z"
+      },
+      "ta": {
+        "clipId": "doc_transport_permit",
+        "language": "ta",
+        "path": "/audio/ta/doc_transport_permit.54fb8191.mp3",
+        "sizeBytes": 153809,
+        "sha256": "54fb81914de0929ad8cfbfbe7b1eb356030de6fe766f61e83a600c5d87f433d8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.634Z"
+      },
+      "mr": {
+        "clipId": "doc_transport_permit",
+        "language": "mr",
+        "path": "/audio/mr/doc_transport_permit.bc343934.mp3",
+        "sizeBytes": 132075,
+        "sha256": "bc3439342f7b0f482dbd78cff3cad4ca967370432cb4a282e206413ce2a6630e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.762Z"
+      },
+      "te": {
+        "clipId": "doc_transport_permit",
+        "language": "te",
+        "path": "/audio/te/doc_transport_permit.f2c0313e.mp3",
+        "sizeBytes": 153809,
+        "sha256": "f2c0313ea84e285337ca09313b5ea626817dd378f71e0959d35dc037119db01b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.902Z"
+      },
+      "bn": {
+        "clipId": "doc_transport_permit",
+        "language": "bn",
+        "path": "/audio/bn/doc_transport_permit.fd62ccdf.mp3",
+        "sizeBytes": 133329,
+        "sha256": "fd62ccdfc83200bb1111659d59d6539819605a0e486a38d6849a3e4852c42163",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.032Z"
+      },
+      "gu": {
+        "clipId": "doc_transport_permit",
+        "language": "gu",
+        "path": "/audio/gu/doc_transport_permit.754f3765.mp3",
+        "sizeBytes": 142942,
+        "sha256": "754f3765f2259efc13cb783adbf925cf7f437ee7802b892ded61b54ea7db9419",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.157Z"
+      },
+      "kn": {
+        "clipId": "doc_transport_permit",
+        "language": "kn",
+        "path": "/audio/kn/doc_transport_permit.391c5a9e.mp3",
+        "sizeBytes": 130821,
+        "sha256": "391c5a9ed50400a28741bf65cadebecc2b997b731fcd95cfafa7e1404236cd19",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.287Z"
+      },
+      "ml": {
+        "clipId": "doc_transport_permit",
+        "language": "ml",
+        "path": "/audio/ml/doc_transport_permit.13747e28.mp3",
+        "sizeBytes": 135000,
+        "sha256": "13747e28237d2572ecf10f27a17fb4ea246cf55221187c48ab33c1279f096036",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.407Z"
+      },
+      "pa": {
+        "clipId": "doc_transport_permit",
+        "language": "pa",
+        "path": "/audio/pa/doc_transport_permit.01d21d14.mp3",
+        "sizeBytes": 127895,
+        "sha256": "01d21d142b47340a727c10d84c05cbbf7c4881454265a21bc3146074549377b3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.520Z"
+      },
+      "or": {
+        "clipId": "doc_transport_permit",
+        "language": "or",
+        "path": "/audio/or/doc_transport_permit.58acec5c.mp3",
+        "sizeBytes": 148375,
+        "sha256": "58acec5c97fb29c2706d8e65986eac5dbc6ec0b79413864a8a1ff24a20f16af2",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.644Z"
+      }
+    },
+    "doc_solar_site": {
+      "en": {
+        "clipId": "doc_solar_site",
+        "language": "en",
+        "path": "/audio/en/doc_solar_site.36182155.mp3",
+        "sizeBytes": 141688,
+        "sha256": "36182155af8bd1c7d03421ceca08e2556e305b6465e9f41c17c7326c1a23f2fb",
+        "textHash": "b45feadd8807ea5cf429dc57cca85aefeccc3950dc6f786c5b9bb3f577fbc2e9",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:15.537Z",
+        "text": "Electricity Bill and Site Feasibility. Sanctioned power bill and site feasibility for solar installation. Issuer: State Power DISCOM."
+      },
+      "hi": {
+        "clipId": "doc_solar_site",
+        "language": "hi",
+        "path": "/audio/hi/doc_solar_site.894c2332.mp3",
+        "sizeBytes": 138762,
+        "sha256": "894c233296b643b2eaeea3f53aa63802a346868d96d9db8b8d2ed472ac4eb6fa",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.492Z"
+      },
+      "ta": {
+        "clipId": "doc_solar_site",
+        "language": "ta",
+        "path": "/audio/ta/doc_solar_site.7943ecb1.mp3",
+        "sizeBytes": 126641,
+        "sha256": "7943ecb18f52a2e963cb3ebf7ecc0c52b661967b18d7302c767ec91bb4269412",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.616Z"
+      },
+      "mr": {
+        "clipId": "doc_solar_site",
+        "language": "mr",
+        "path": "/audio/mr/doc_solar_site.195e7505.mp3",
+        "sizeBytes": 145867,
+        "sha256": "195e7505f0b474404df08e763b990ed0dbc9f99de69d93e3512a39bc4e6be29d",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.745Z"
+      },
+      "te": {
+        "clipId": "doc_solar_site",
+        "language": "te",
+        "path": "/audio/te/doc_solar_site.7177fa5b.mp3",
+        "sizeBytes": 157988,
+        "sha256": "7177fa5b6b77f5ad64db749c09c9e68f38d2a119aa62ea94a822478d6840ee5c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.883Z"
+      },
+      "bn": {
+        "clipId": "doc_solar_site",
+        "language": "bn",
+        "path": "/audio/bn/doc_solar_site.3f84dd38.mp3",
+        "sizeBytes": 162168,
+        "sha256": "3f84dd3829b2ef9c586f31b8866aa9e803561e0c368fbb9603cffc40719d2c7f",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.013Z"
+      },
+      "gu": {
+        "clipId": "doc_solar_site",
+        "language": "gu",
+        "path": "/audio/gu/doc_solar_site.80c439f5.mp3",
+        "sizeBytes": 157988,
+        "sha256": "80c439f5616dfeecf9006176aed2bf850f75a5616ab2a11efffc53ca6f6c8e91",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.138Z"
+      },
+      "kn": {
+        "clipId": "doc_solar_site",
+        "language": "kn",
+        "path": "/audio/kn/doc_solar_site.98659893.mp3",
+        "sizeBytes": 175960,
+        "sha256": "98659893a936ebcd4d6e65a8fd8a3b9077179f1fbb0ce062c1d3986abe1c98c3",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.270Z"
+      },
+      "ml": {
+        "clipId": "doc_solar_site",
+        "language": "ml",
+        "path": "/audio/ml/doc_solar_site.27cf0978.mp3",
+        "sizeBytes": 152555,
+        "sha256": "27cf0978b305851b292d6f73f59832d812eee9eca71061e8515eae5032426001",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.391Z"
+      },
+      "pa": {
+        "clipId": "doc_solar_site",
+        "language": "pa",
+        "path": "/audio/pa/doc_solar_site.f3aa0123.mp3",
+        "sizeBytes": 132075,
+        "sha256": "f3aa0123125aee2fd687bc9e1d8449f9988e26f5c5ce1ee339a89085c86f12d8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.503Z"
+      },
+      "or": {
+        "clipId": "doc_solar_site",
+        "language": "or",
+        "path": "/audio/or/doc_solar_site.bab24451.mp3",
+        "sizeBytes": 193515,
+        "sha256": "bab2445113c3560cf3fbadd81ea959128af2c8ddfa1e45d79f9b7cee2798c37e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.629Z"
+      }
+    },
+    "doc_business_note": {
+      "en": {
+        "clipId": "doc_business_note",
+        "language": "en",
+        "path": "/audio/en/doc_business_note.82859b75.mp3",
+        "sizeBytes": 126641,
+        "sha256": "82859b755b4b4d6eb5927d4208ca42915e889f52bbece2ead8a3af296fb8f1e1",
+        "textHash": "b00ee36e031650322a913ac8b80da10733d0974bf761b9e1779b7fde0f41bcaa",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:18.202Z",
+        "text": "Business Activity Note. Applicant self declaration note describing proposed micro enterprise. Issuer: Applicant Self-Declaration."
+      },
+      "hi": {
+        "clipId": "doc_business_note",
+        "language": "hi",
+        "path": "/audio/hi/doc_business_note.051e3311.mp3",
+        "sizeBytes": 141688,
+        "sha256": "051e3311b09782d95ed895e5b09a955d4cf4edb36cc6503a9b2f52e0b32a4c62",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.429Z"
+      },
+      "ta": {
+        "clipId": "doc_business_note",
+        "language": "ta",
+        "path": "/audio/ta/doc_business_note.b16dd8ce.mp3",
+        "sizeBytes": 121208,
+        "sha256": "b16dd8cef409e86bff6f40591581cab8bb4189f93b0c37ab3441e49e060bb468",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.557Z"
+      },
+      "mr": {
+        "clipId": "doc_business_note",
+        "language": "mr",
+        "path": "/audio/mr/doc_business_note.972b898b.mp3",
+        "sizeBytes": 136254,
+        "sha256": "972b898bc7ec6706a091fdac16eef7c9c57a7ab400c6bb97f03ae27cf14ab74a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.685Z"
+      },
+      "te": {
+        "clipId": "doc_business_note",
+        "language": "te",
+        "path": "/audio/te/doc_business_note.7ec7f906.mp3",
+        "sizeBytes": 140434,
+        "sha256": "7ec7f9062226c811bb4b1e8b297d5bb443a7015d910b1fe4513a1fd10da9db3b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.810Z"
+      },
+      "bn": {
+        "clipId": "doc_business_note",
+        "language": "bn",
+        "path": "/audio/bn/doc_business_note.e9c020d5.mp3",
+        "sizeBytes": 167601,
+        "sha256": "e9c020d5feaa653b966e95ef7f1986308ddff7ed105286488339dfea69193112",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.950Z"
+      },
+      "gu": {
+        "clipId": "doc_business_note",
+        "language": "gu",
+        "path": "/audio/gu/doc_business_note.8bd68258.mp3",
+        "sizeBytes": 144195,
+        "sha256": "8bd68258104d468920da55ed7242d67de39d906245f8abbc7f20d6fcb65e6af0",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.075Z"
+      },
+      "kn": {
+        "clipId": "doc_business_note",
+        "language": "kn",
+        "path": "/audio/kn/doc_business_note.926ad898.mp3",
+        "sizeBytes": 166347,
+        "sha256": "926ad8987facfc05aac2a84c2c61b86e6bab753aefed7fec5da703f8bf3455d5",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.207Z"
+      },
+      "ml": {
+        "clipId": "doc_business_note",
+        "language": "ml",
+        "path": "/audio/ml/doc_business_note.7511fa73.mp3",
+        "sizeBytes": 145867,
+        "sha256": "7511fa7368eb8062cfd523d94f82e83ce8a49fb38fa3c3841115119530dc7c4a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.328Z"
+      },
+      "pa": {
+        "clipId": "doc_business_note",
+        "language": "pa",
+        "path": "/audio/pa/doc_business_note.54092708.mp3",
+        "sizeBytes": 151301,
+        "sha256": "54092708fe51aa2f94d2710642ce822d4f18d59be312559f36ba1db3284e652b",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.447Z"
+      },
+      "or": {
+        "clipId": "doc_business_note",
+        "language": "or",
+        "path": "/audio/or/doc_business_note.b96c3e08.mp3",
+        "sizeBytes": 164675,
+        "sha256": "b96c3e08df3c5090f9989c9c294d062aec8e3f9ea3243b0ea84df50b227b4ef8",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.566Z"
+      }
+    },
+    "doc_shg_photo": {
+      "en": {
+        "clipId": "doc_shg_photo",
+        "language": "en",
+        "path": "/audio/en/doc_shg_photo.31adaa77.mp3",
+        "sizeBytes": 100728,
+        "sha256": "31adaa77805b1a3bfa0220644945312633cdff073dba6b3e704b2a11792fec1a",
+        "textHash": "561cf7c970c895a5d36bd862a81a441138f7fee74217b5186e3ca440f3a26be0",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:22.231Z",
+        "text": "Applicant Photo and SHG Proof. Passport photograph and Self Help Group membership proof. Issuer: Self Help Group."
+      },
+      "hi": {
+        "clipId": "doc_shg_photo",
+        "language": "hi",
+        "path": "/audio/hi/doc_shg_photo.7a9e86c2.mp3",
+        "sizeBytes": 127895,
+        "sha256": "7a9e86c21852bc8e5168ca70db97339b5e1e201b2c08e595b16cd35faa990c6c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.487Z"
+      },
+      "ta": {
+        "clipId": "doc_shg_photo",
+        "language": "ta",
+        "path": "/audio/ta/doc_shg_photo.96addcee.mp3",
+        "sizeBytes": 127895,
+        "sha256": "96addcee817a49c15affdc23151951b98d251fe053fb5a637c43346fa679e980",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.610Z"
+      },
+      "mr": {
+        "clipId": "doc_shg_photo",
+        "language": "mr",
+        "path": "/audio/mr/doc_shg_photo.5b7901a3.mp3",
+        "sizeBytes": 118282,
+        "sha256": "5b7901a3a0568a0e82829612c8dd3e338019812ef29ae92c06b38478df9cb162",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.740Z"
+      },
+      "te": {
+        "clipId": "doc_shg_photo",
+        "language": "te",
+        "path": "/audio/te/doc_shg_photo.d89096c1.mp3",
+        "sizeBytes": 145867,
+        "sha256": "d89096c1afd689374d86e8c1ce75615be540d0b7032436c1b846a9d4d4b3be77",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.869Z"
+      },
+      "bn": {
+        "clipId": "doc_shg_photo",
+        "language": "bn",
+        "path": "/audio/bn/doc_shg_photo.f08cbb26.mp3",
+        "sizeBytes": 137508,
+        "sha256": "f08cbb266eb1957cf208b493f2a64f30ad8e2d74afe28158ca7a23e56667f1f6",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.006Z"
+      },
+      "gu": {
+        "clipId": "doc_shg_photo",
+        "language": "gu",
+        "path": "/audio/gu/doc_shg_photo.3f731e9d.mp3",
+        "sizeBytes": 129567,
+        "sha256": "3f731e9d0d410a415202a4a0fdb418c691af40886f7ade11cc8c5c13dc37c30a",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.134Z"
+      },
+      "kn": {
+        "clipId": "doc_shg_photo",
+        "language": "kn",
+        "path": "/audio/kn/doc_shg_photo.c98540a6.mp3",
+        "sizeBytes": 147121,
+        "sha256": "c98540a6033f46b511c2ea18c04bb1135e2cc213101f6aab8306333c92a1b456",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.263Z"
+      },
+      "ml": {
+        "clipId": "doc_shg_photo",
+        "language": "ml",
+        "path": "/audio/ml/doc_shg_photo.45a628e4.mp3",
+        "sizeBytes": 163422,
+        "sha256": "45a628e47e28d5c0f8089ef47c26ba34ff5a0f702e5511de9c462d05ca91ac12",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.384Z"
+      },
+      "pa": {
+        "clipId": "doc_shg_photo",
+        "language": "pa",
+        "path": "/audio/pa/doc_shg_photo.d8dcfabb.mp3",
+        "sizeBytes": 153809,
+        "sha256": "d8dcfabba9b987db89d2359a0d1589217212dd8f0c7168f371fd0a9fc0b257d1",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.498Z"
+      },
+      "or": {
+        "clipId": "doc_shg_photo",
+        "language": "or",
+        "path": "/audio/or/doc_shg_photo.857967ec.mp3",
+        "sizeBytes": 157988,
+        "sha256": "857967ec648ec6381afc6050f405ad2e321af6719086349eea98f529ad278996",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:26.622Z"
+      }
+    },
+    "doc_voctech_admission": {
+      "en": {
+        "clipId": "doc_voctech_admission",
+        "language": "en",
+        "path": "/audio/en/doc_voctech_admission.5beae886.mp3",
+        "sizeBytes": 118282,
+        "sha256": "5beae886f5266d6c49ba8f8c512faa3eaa7e06f89b8e5647eabff1669f0a9465",
+        "textHash": "78cff0e9b94387cdceb78e8517443b10adb130cb054501cb15e1c6ac918e1656",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:27.132Z",
+        "text": "Vocational Admission Proof. Skill training admission proof or NSQF level certificate. Issuer: Accredited Training Centre."
+      },
+      "hi": {
+        "clipId": "doc_voctech_admission",
+        "language": "hi",
+        "path": "/audio/hi/doc_voctech_admission.5974b759.mp3",
+        "sizeBytes": 148375,
+        "sha256": "5974b759148dc9cccbc680fd86f5d6b432a5875795b9326eed832be46f75b17e",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.520Z"
+      },
+      "ta": {
+        "clipId": "doc_voctech_admission",
+        "language": "ta",
+        "path": "/audio/ta/doc_voctech_admission.22123ab8.mp3",
+        "sizeBytes": 136254,
+        "sha256": "22123ab851f11b45bea64a4633286b94c4acb9c8df161120a07ca84367f50f6c",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:56:25.645Z"
+      }
+    },
+    "doc_voctech_toolkit": {
+      "en": {
+        "clipId": "doc_voctech_toolkit",
+        "language": "en",
+        "path": "/audio/en/doc_voctech_toolkit.face1f1b.mp3",
+        "sizeBytes": 117028,
+        "sha256": "face1f1bab8c5e29527e01b33023981ace1df060e622c070b5cd304d11c2b5e8",
+        "textHash": "730662806cabc78429c16432d1c5cb1c4587e52db78f07ac2e7f7997de225ddf",
+        "modelId": "bulbul:v3",
+        "voiceId": "shubh",
+        "generatedAt": "2026-10-30T15:42:29.621Z",
+        "text": "Trade Toolkit Quotation. Cost estimate for vocational toolkit and skill equipment. Issuer: Authorized Tool Supplier."
+      }
     }
-  }
+  },
+  "updatedAt": "2026-10-30T15:56:26.670Z"
 }

@@ -382,6 +382,7 @@ export const speak = async ({
   }
 
   // 2. Pipeline Stage 2: Backend Voice Proxy (POST /api/voice/speak)
+  let proxyError = null;
   if (isVoiceSupported(code)) {
     debugLog(`Calling live backend voice proxy POST /api/voice/speak for [${code}]...`);
     try {
@@ -425,45 +426,49 @@ export const speak = async ({
         return;
       }
     } catch (err) {
+      proxyError = err;
       debugLog('Backend proxy synthesis failed:', err.code || err.message);
     }
   }
 
-  // 3. Pipeline Stage 3: Browser Fallback (STRICTLY BLOCKED FOR 8 REGIONAL LANGUAGES)
-  if (BROKEN_LANGUAGES.includes(code)) {
-    debugLog(`Golden Rule enforced: Browser fallback blocked for [${code}].`);
-    if (onLoading) onLoading(false);
+  // 3. Pipeline Failure Notice & Error Classification (Part 2A Honest Messages)
+  // Golden Rule: Never use browser speechSynthesis; never speak another language.
+  if (onLoading) onLoading(false);
+
+  // Check network connectivity
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
     if (onError) {
       onError({
-        code: 'voice_unavailable',
-        message: 'Voice is not available in this language yet'
+        code: 'network_offline',
+        message: 'Check your internet connection'
       });
     }
     if (onEnd) onEnd();
     return;
   }
 
-  // For frozen languages (en, hi) ONLY
-  const { isNoFallback } = getQueryParams();
-  if (!isNoFallback) {
-    const browserCheck = checkVoiceAvailability(code);
-    if (browserCheck.available && browserCheck.engine === 'browser') {
-      debugLog('Attempting browser speech synthesis fallback for frozen language...');
-      if (onLoading) onLoading(false);
-      playViaBrowserSpeech({ text, langCode: code, onStart, onEnd, onError });
-      return;
+  // Check if language has voice configured
+  if (isVoiceSupported(code)) {
+    // Language is supported (verified or beta), so any failure is temporary (quota, timeout, server 5xx)
+    debugLog(`Voice pipeline temporarily unavailable for supported language [${code}].`);
+    if (onError) {
+      onError({
+        code: 'voice_temporarily_unavailable',
+        message: 'Voice is temporarily unavailable. Please try again.',
+        originalError: proxyError
+      });
+    }
+  } else {
+    // Language has no voice configured
+    debugLog(`Voice is not supported for language [${code}].`);
+    if (onError) {
+      onError({
+        code: 'voice_unavailable',
+        message: 'Voice is not available in this language yet'
+      });
     }
   }
 
-  // 4. Pipeline Stage 4: Visible Failure Notice
-  debugLog(`All voice pipelines exhausted for [${code}].`);
-  if (onLoading) onLoading(false);
-  if (onError) {
-    onError({
-      code: 'voice_unavailable',
-      message: 'Voice is not available in this language yet'
-    });
-  }
   if (onEnd) onEnd();
 };
 
