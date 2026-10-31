@@ -8,8 +8,26 @@ import {
   isSpeechSupported,
   checkVoiceAvailability,
   isSpeaking,
-  getActivePlaybackSource
+  getActivePlaybackSource,
+  loadAudioManifest,
+  isClipAvailable,
+  isRuntimeVoiceHealthy
 } from '../utils/speechHelper';
+
+export const ITEM_NOT_READY_MESSAGES = {
+  en: 'Voice for this item is not ready yet',
+  hi: 'इस आइटम के लिए आवाज़ अभी तैयार नहीं है',
+  ta: 'இந்த உருப்படிக்கான குரல் இன்னும் தயாராகவில்லை',
+  te: 'ఈ అంశానికి వాయిస్ ఇంకా సిద్ధంగా లేదు',
+  bn: 'এই আইটেমের জন্য ভয়েস এখনও প্রস্তুত নয়',
+  gu: 'આ આઇટમ માટે અવાજ હજી તૈયાર નથી',
+  kn: 'ಈ ಅಂಶಕ್ಕೆ ಧ್ವನಿ ಇನ್ನೂ ಸಿದ್ಧವಾಗಿಲ್ಲ',
+  ml: 'ഈ ഇനത്തിനായുള്ള ശബ്ദം ഇതുവരെ തയ്യാറായിട്ടില്ല',
+  mr: 'या घटकासाठी आवाज अद्याप तयार नाही',
+  or: 'ଏହି ଆଇଟମ୍ ପାଇଁ ଭଏସ୍ ଏପର୍ଯ୍ୟନ୍ତ ପ୍ରସ୍ତୁତ ନୁହେଁ',
+  pa: 'ਇਸ ਆਈਟਮ ਲਈ ਆਵਾਜ਼ ਅਜੇ ਤਿਆਰ ਨਹੀਂ ਹੈ',
+  ur: 'اس آئٹم کے لیے آواز ابھی تیار نہیں ہے'
+};
 
 const UNAVAILABLE_MESSAGES = {
   en: 'Voice is not available in this language yet',
@@ -91,9 +109,34 @@ export default function VoiceAssistant({
   const [isDebouncing, setIsDebouncing] = useState(false);
   const [supported, setSupported] = useState(true);
   const [voiceStatus, setVoiceStatus] = useState({ available: true, status: 'loading' });
-  const [errorState, setErrorState] = useState(null); // { type: 'unavailable' | 'temporary' | 'offline', message: string, retries: number }
+  const [errorState, setErrorState] = useState(null); // { type: 'unavailable' | 'temporary' | 'offline' | 'not_ready', message: string, retries: number }
   const [activeSource, setActiveSource] = useState(null);
+  const [manifestReady, setManifestReady] = useState(false);
+  const [tooltipAlign, setTooltipAlign] = useState('center');
   const retryCountRef = useRef(0);
+
+  // Eager load audio manifest on mount to check clip availability
+  useEffect(() => {
+    loadAudioManifest().then(() => setManifestReady(true));
+  }, []);
+
+  const handleTooltipAlign = (e) => {
+    if (!e || !e.currentTarget) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (rect.left < 130) {
+      setTooltipAlign('left');
+    } else if (window.innerWidth - rect.right < 130) {
+      setTooltipAlign('right');
+    } else {
+      setTooltipAlign('center');
+    }
+  };
+
+  const tooltipPosClass = tooltipAlign === 'left'
+    ? 'left-0'
+    : tooltipAlign === 'right'
+    ? 'right-0'
+    : 'left-1/2 -translate-x-1/2';
 
   // Normalize selected language code (e.g., 'te-IN' -> 'te')
   const activeLang = normaliseVoiceLang(customLang || i18n.language) || 'en';
@@ -156,10 +199,17 @@ export default function VoiceAssistant({
   const isBeta = voiceStatus.status === 'beta';
   const isAvailable = voiceStatus.available && voiceStatus.status !== 'unavailable';
 
+  // Missing clip check: if clipId is specified, check manifest availability
+  // If missing and runtime voice route is down or out of credit -> item not ready
+  const hasClip = clipId ? isClipAvailable(clipId, activeLang) : false;
+  const isRuntimeHealthy = isRuntimeVoiceHealthy(activeLang);
+  const isItemNotReady = Boolean(clipId && !hasClip && !isRuntimeHealthy);
+
   const listenLabel = label || t('voice_assistant.listen_button', t('common.audioGuideBtn', 'Listen Aloud'));
   const stopLabel = t('voice_assistant.stop_button', t('common.stopAudio', 'Stop Audio'));
 
   const unavailableMsg = UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_unavailable', 'Voice is not available in this language yet');
+  const itemNotReadyMsg = ITEM_NOT_READY_MESSAGES[activeLang] || t('voice_assistant.item_not_ready', 'Voice for this item is not ready yet');
   const tempUnavailableMsg = TEMPORARILY_UNAVAILABLE_MESSAGES[activeLang] || t('voice_assistant.voice_temporarily_unavailable', 'Voice is temporarily unavailable. Please try again.');
   const offlineMsg = OFFLINE_MESSAGES[activeLang] || t('voice_assistant.network_offline', 'Check your internet connection');
   const tapToRetryMsg = TAP_TO_RETRY_MESSAGES[activeLang] || t('voice_assistant.tapToRetry', 'Tap to retry');
@@ -187,7 +237,12 @@ export default function VoiceAssistant({
         setActiveSource(null);
 
         // Honest error classification (Part 2A)
-        if (err?.code === 'network_offline' || (typeof navigator !== 'undefined' && !navigator.onLine)) {
+        if (err?.code === 'item_not_ready') {
+          setErrorState({
+            type: 'not_ready',
+            message: itemNotReadyMsg
+          });
+        } else if (err?.code === 'network_offline' || (typeof navigator !== 'undefined' && !navigator.onLine)) {
           setErrorState({
             type: 'offline',
             message: offlineMsg
@@ -247,6 +302,14 @@ export default function VoiceAssistant({
       return;
     }
 
+    if (clipId && !isClipAvailable(clipId, clickLang) && !isRuntimeVoiceHealthy(clickLang)) {
+      setErrorState({
+        type: 'not_ready',
+        message: itemNotReadyMsg
+      });
+      return;
+    }
+
     setErrorState(null);
     setIsDebouncing(true);
     setTimeout(() => setIsDebouncing(false), 300);
@@ -260,7 +323,7 @@ export default function VoiceAssistant({
   if (variant === 'mini') {
     if (!isAvailable) {
       return (
-        <div className="relative inline-block group">
+        <div className="relative inline-block group" onMouseEnter={handleTooltipAlign}>
           <button
             type="button"
             disabled
@@ -270,9 +333,29 @@ export default function VoiceAssistant({
           >
             <VolumeX className="w-3.5 h-3.5" />
           </button>
-          {/* Responsive Tooltip that never overflows screen edges */}
-          <div className="absolute z-50 bottom-full right-0 mb-1.5 hidden group-hover:block w-48 sm:w-56 p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words">
+          {/* Responsive Tooltip that never overflows screen edges on 390px or desktop */}
+          <div className={`absolute z-50 bottom-full ${tooltipPosClass} mb-1.5 hidden group-hover:block w-48 sm:w-56 max-w-[calc(100vw-32px)] p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words`}>
             {unavailableMsg}
+          </div>
+        </div>
+      );
+    }
+
+    if (isItemNotReady) {
+      return (
+        <div className="relative inline-block group" onMouseEnter={handleTooltipAlign}>
+          <button
+            type="button"
+            disabled
+            title={itemNotReadyMsg}
+            className={`p-1.5 rounded-lg opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border border-slate-200 ${className}`}
+            aria-label={itemNotReadyMsg}
+          >
+            <VolumeX className="w-3.5 h-3.5" />
+          </button>
+          {/* Disabled missing clip tooltip: no red retry loop */}
+          <div className={`absolute z-50 bottom-full ${tooltipPosClass} mb-1.5 hidden group-hover:block w-48 sm:w-56 max-w-[calc(100vw-32px)] p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words`}>
+            {itemNotReadyMsg}
           </div>
         </div>
       );
@@ -290,7 +373,7 @@ export default function VoiceAssistant({
       : `${listenLabel} (${voiceStatus.status === 'beta' ? 'Beta' : 'Voice'})`;
 
     return (
-      <div className="relative inline-flex items-center gap-1.5 group">
+      <div className="relative inline-flex items-center gap-1.5 group" onMouseEnter={handleTooltipAlign}>
         <button
           type="button"
           onClick={handleTogglePlay}
@@ -328,7 +411,7 @@ export default function VoiceAssistant({
 
         {/* Bounded, Wrapping Tooltip for Temporary Errors */}
         {hasTemporaryError && (
-          <div className="absolute z-50 bottom-full right-0 mb-1.5 hidden group-hover:block w-48 sm:w-56 p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words">
+          <div className={`absolute z-50 bottom-full ${tooltipPosClass} mb-1.5 hidden group-hover:block w-48 sm:w-56 max-w-[calc(100vw-32px)] p-2 bg-slate-900 text-white text-[11px] leading-relaxed rounded-lg shadow-xl border border-slate-700 pointer-events-none whitespace-normal break-words`}>
             {errorTooltip}
           </div>
         )}
@@ -352,6 +435,22 @@ export default function VoiceAssistant({
           <VolumeX className="w-3.5 h-3.5 text-slate-400" />
           <span>{listenLabel}</span>
           <span className="text-[10px] text-slate-400 hidden lg:inline">({unavailableMsg})</span>
+        </button>
+      );
+    }
+
+    if (isItemNotReady) {
+      return (
+        <button
+          type="button"
+          disabled
+          title={itemNotReadyMsg}
+          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800/60 text-slate-400 border border-slate-700/60 opacity-60 cursor-not-allowed transition-all ${className}`}
+          aria-label={itemNotReadyMsg}
+        >
+          <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+          <span>{listenLabel}</span>
+          <span className="text-[10px] text-slate-400 hidden lg:inline">({itemNotReadyMsg})</span>
         </button>
       );
     }
@@ -507,6 +606,13 @@ export default function VoiceAssistant({
               </div>
             )}
 
+            {isItemNotReady && (
+              <div className="mt-2 text-[11px] font-semibold text-slate-600 flex items-center gap-1 leading-relaxed whitespace-normal break-words">
+                <AlertCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                <span>{itemNotReadyMsg}</span>
+              </div>
+            )}
+
             {!isAvailable && (
               <div className="mt-2 text-[11px] font-semibold text-slate-600 flex items-center gap-1 leading-relaxed whitespace-normal break-words">
                 <AlertCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />
@@ -520,10 +626,11 @@ export default function VoiceAssistant({
         <div className="flex-shrink-0 self-end sm:self-center">
           <button
             type="button"
-            disabled={!isAvailable || isLoading}
+            disabled={!isAvailable || isItemNotReady || isLoading}
             onClick={handleTogglePlay}
+            title={!isAvailable ? unavailableMsg : isItemNotReady ? itemNotReadyMsg : ''}
             className={`inline-flex items-center gap-2.5 px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold transition-all shadow-md focus:outline-none ${
-              !isAvailable
+              !isAvailable || isItemNotReady
                 ? 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-300'
                 : hasBannerError
                 ? 'bg-amber-600 hover:bg-amber-700 text-white cursor-pointer'

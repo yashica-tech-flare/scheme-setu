@@ -77,10 +77,26 @@ function getGlobalAudio() {
   return globalAudio;
 }
 
+// In-memory runtime voice health registry (langCode -> boolean)
+// By default, runtime routes are false unless confirmed healthy, to prevent broken calls when credits are exhausted
+const runtimeVoiceHealth = {};
+
+export const isRuntimeVoiceHealthy = (langCode) => {
+  const code = normaliseVoiceLang(langCode);
+  return Boolean(runtimeVoiceHealth[code]);
+};
+
+export const setRuntimeVoiceHealth = (langCode, isHealthy) => {
+  const code = normaliseVoiceLang(langCode);
+  if (code) {
+    runtimeVoiceHealth[code] = Boolean(isHealthy);
+  }
+};
+
 /**
  * Loads pre-generated audio manifest from public directory with no-cache header.
  */
-async function loadAudioManifest() {
+export async function loadAudioManifest() {
   if (manifestCache) return manifestCache;
   if (isManifestLoading) return null;
   isManifestLoading = true;
@@ -100,6 +116,22 @@ async function loadAudioManifest() {
   }
   return manifestCache;
 }
+
+// Automatically eager-load audio manifest when running in browser
+if (typeof window !== 'undefined') {
+  loadAudioManifest();
+}
+
+/**
+ * Checks whether a specific clip is available and valid in the pre-generated manifest.
+ */
+export const isClipAvailable = (clipId, langCode) => {
+  if (!clipId) return false;
+  const code = normaliseVoiceLang(langCode);
+  if (!manifestCache || !manifestCache.clips) return false;
+  const clip = manifestCache.clips[clipId]?.[code];
+  return Boolean(clip && clip.path && (clip.sizeBytes === undefined || clip.sizeBytes >= 2048));
+};
 
 export const isSpeechSupported = () => {
   return typeof window !== 'undefined' && ('speechSynthesis' in window || 'Audio' in window);
@@ -384,10 +416,25 @@ export const speak = async ({
   // 2. Pipeline Stage 2: Backend Voice Proxy (POST /api/voice/speak)
   let proxyError = null;
   if (isVoiceSupported(code)) {
+    // If a clipId was requested but missing, and runtime voice is not known healthy, do not trigger a failing proxy call
+    if (clipId && !isRuntimeVoiceHealthy(code)) {
+      debugLog(`Clip [${clipId}] missing and runtime route not known healthy for [${code}]. Skipping proxy call.`);
+      if (onLoading) onLoading(false);
+      if (onError) {
+        onError({
+          code: 'item_not_ready',
+          message: 'Voice for this item is not ready yet'
+        });
+      }
+      if (onEnd) onEnd();
+      return;
+    }
+
     debugLog(`Calling live backend voice proxy POST /api/voice/speak for [${code}]...`);
     try {
       const result = await api.speakText(text, code);
       if (result && result.blobUrl) {
+        setRuntimeVoiceHealth(code, true);
         currentBlobUrl = result.blobUrl;
         currentPlaybackSource = 'proxy';
         lastVoiceDebugInfo.serverVoice = `${result.headers['x-voice-provider'] || 'sarvam'} / ${result.headers['x-voice-model'] || 'bulbul:v3'}`;
