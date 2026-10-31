@@ -140,11 +140,6 @@ export default function LanguageSwitcher() {
               })
             )}
           </div>
-
-          {/* Phase Notice Footer */}
-          <div className="mt-1 pt-1.5 px-3 border-t border-slate-800 text-[10px] text-slate-400 leading-tight">
-            22 Eighth Schedule Constitutional Languages of India + English
-          </div>
         </div>
       )}
     </div>
