@@ -39,7 +39,7 @@ let globalAudio = null;
 let currentBlobUrl = null;
 let currentPlaybackSource = null; // 'manifest' | 'elevenlabs' | 'browser' | null
 let manifestCache = null;
-let isManifestLoading = false;
+let manifestPromise = null;
 
 // Last debug metrics for ?voicedebug=1 inspection
 let lastVoiceDebugInfo = {
@@ -95,27 +95,34 @@ export const setRuntimeVoiceHealth = (langCode, isHealthy) => {
 
 /**
  * Loads pre-generated audio manifest from public directory with no-cache header.
+ * Uses a single shared Promise so all simultaneous callers await the same fetch.
  */
 export async function loadAudioManifest() {
   if (manifestCache) return manifestCache;
-  if (isManifestLoading) return null;
-  isManifestLoading = true;
-  try {
-    const res = await fetch('/audio/audio-manifest.json', { cache: 'no-cache' });
-    if (res.ok) {
-      const data = await res.json();
-      if (data && data.clips) {
-        manifestCache = data;
-        debugLog('Loaded audio manifest with clips:', Object.keys(data.clips));
+  if (manifestPromise) return manifestPromise;
+
+  manifestPromise = (async () => {
+    try {
+      const res = await fetch('/audio/audio-manifest.json', { cache: 'no-cache' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.clips) {
+          manifestCache = data;
+          debugLog('Loaded audio manifest with clips:', Object.keys(data.clips));
+        }
       }
+    } catch (e) {
+      debugLog('Audio manifest fetch failed:', e.message);
+    } finally {
+      manifestPromise = null;
     }
-  } catch (e) {
-    debugLog('Audio manifest fetch failed:', e.message);
-  } finally {
-    isManifestLoading = false;
-  }
-  return manifestCache;
+    return manifestCache;
+  })();
+
+  return manifestPromise;
 }
+
+export const getAudioManifest = () => manifestCache;
 
 // Automatically eager-load audio manifest when running in browser
 if (typeof window !== 'undefined') {

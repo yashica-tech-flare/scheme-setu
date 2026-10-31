@@ -10,6 +10,7 @@ import {
   isSpeaking,
   getActivePlaybackSource,
   loadAudioManifest,
+  getAudioManifest,
   isClipAvailable,
   isRuntimeVoiceHealthy
 } from '../utils/speechHelper';
@@ -111,13 +112,21 @@ export default function VoiceAssistant({
   const [voiceStatus, setVoiceStatus] = useState({ available: true, status: 'loading' });
   const [errorState, setErrorState] = useState(null); // { type: 'unavailable' | 'temporary' | 'offline' | 'not_ready', message: string, retries: number }
   const [activeSource, setActiveSource] = useState(null);
-  const [manifestReady, setManifestReady] = useState(false);
+  const [manifestReady, setManifestReady] = useState(() => Boolean(getAudioManifest()));
   const [tooltipAlign, setTooltipAlign] = useState('center');
   const retryCountRef = useRef(0);
 
   // Eager load audio manifest on mount to check clip availability
   useEffect(() => {
-    loadAudioManifest().then(() => setManifestReady(true));
+    let mounted = true;
+    loadAudioManifest().then((data) => {
+      if (mounted && data) {
+        setManifestReady(true);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const handleTooltipAlign = (e) => {
@@ -199,11 +208,13 @@ export default function VoiceAssistant({
   const isBeta = voiceStatus.status === 'beta';
   const isAvailable = voiceStatus.available && voiceStatus.status !== 'unavailable';
 
-  // Missing clip check: if clipId is specified, check manifest availability
-  // If missing and runtime voice route is down or out of credit -> item not ready
+  // Missing clip check:
+  // If manifest has not loaded yet, assume ready to prevent premature false "disabled" state on page refresh
+  const manifest = getAudioManifest();
   const hasClip = clipId ? isClipAvailable(clipId, activeLang) : false;
   const isRuntimeHealthy = isRuntimeVoiceHealthy(activeLang);
-  const isItemNotReady = Boolean(clipId && !hasClip && !isRuntimeHealthy);
+  // An item is ONLY marked not ready if the manifest has loaded and the clip is confirmed missing
+  const isItemNotReady = Boolean(manifest && clipId && !hasClip && !isRuntimeHealthy);
 
   const listenLabel = label || t('voice_assistant.listen_button', t('common.audioGuideBtn', 'Listen Aloud'));
   const stopLabel = t('voice_assistant.stop_button', t('common.stopAudio', 'Stop Audio'));
