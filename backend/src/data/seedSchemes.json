@@ -70,7 +70,8 @@
         "description": "SHG membership proof or recent photograph of individual applicant.",
         "issuer": "Self Help Group / Applicant",
         "mandatory": true,
-        "condition": null
+        "condition": null,
+        "verificationStatus": "// TODO verify"
       },
       {
         "id": "doc_quotation",
@@ -243,7 +244,8 @@
         "description": "Basic description of self-employment trade, estimated costs, and revenue.",
         "issuer": "Applicant Self-Declaration",
         "mandatory": true,
-        "condition": null
+        "condition": null,
+        "verificationStatus": "// TODO verify"
       },
       {
         "id": "doc_trade_license",
@@ -251,7 +253,8 @@
         "description": "Municipal trade license or local authority registration for commercial premises.",
         "issuer": "Municipal Corporation / Gram Panchayat",
         "mandatory": false,
-        "condition": "Mandatory if operating from fixed commercial premises"
+        "condition": "Mandatory if operating from fixed commercial premises",
+        "verificationStatus": "// TODO verify"
       }
     ],
     "documentsRequired": [
@@ -417,7 +420,8 @@
         "description": "Online MSME registration certificate for enterprise identification.",
         "issuer": "Ministry of MSME",
         "mandatory": false,
-        "condition": "Mandatory if project cost exceeds ₹2 Lakh"
+        "condition": "Mandatory if project cost exceeds ₹2 Lakh",
+        "verificationStatus": "// TODO verify"
       },
       {
         "id": "doc_land_lease",
@@ -425,7 +429,8 @@
         "description": "Registered lease deed or rent agreement for commercial/industrial premises.",
         "issuer": "Sub-Registrar Office / Property Owner",
         "mandatory": false,
-        "condition": "Mandatory if renting commercial or industrial premises"
+        "condition": "Mandatory if renting commercial or industrial premises",
+        "verificationStatus": "// TODO verify"
       }
     ],
     "documentsRequired": [
@@ -615,7 +620,8 @@
         "description": "Registered lease deed or rent agreement for commercial/industrial premises.",
         "issuer": "Sub-Registrar Office / Property Owner",
         "mandatory": false,
-        "condition": "Mandatory if renting commercial or industrial premises"
+        "condition": "Mandatory if renting commercial or industrial premises",
+        "verificationStatus": "// TODO verify"
       },
       {
         "id": "doc_coborrower",
@@ -623,7 +629,8 @@
         "description": "KYC documents and income proofs of co-borrower or third-party guarantor.",
         "issuer": "Co-borrower / Competent Authority",
         "mandatory": false,
-        "condition": "Mandatory if loan amount exceeds ₹5 Lakh"
+        "condition": "Mandatory if loan amount exceeds ₹5 Lakh",
+        "verificationStatus": "// TODO verify"
       }
     ],
     "documentsRequired": [
@@ -798,7 +805,8 @@
         "description": "Proforma invoice for certified eco-friendly equipment, solar units, or e-vehicles.",
         "issuer": "Authorized Green Equipment Supplier",
         "mandatory": true,
-        "condition": null
+        "condition": null,
+        "verificationStatus": "// TODO verify"
       },
       {
         "id": "doc_transport_permit",
@@ -806,7 +814,8 @@
         "description": "Commercial driver license or route permit for e-rickshaw or e-cart.",
         "issuer": "Regional Transport Office (RTO)",
         "mandatory": false,
-        "condition": "Mandatory if purchasing commercial electric transport vehicles"
+        "condition": "Mandatory if purchasing commercial electric transport vehicles",
+        "verificationStatus": "// TODO verify"
       },
       {
         "id": "doc_solar_site",
@@ -814,7 +823,8 @@
         "description": "Technical site feasibility report and latest electricity bill for solar installations.",
         "issuer": "DISCOM / Certified Solar Installer",
         "mandatory": false,
-        "condition": "Mandatory for rooftop solar and decentralized PV installations"
+        "condition": "Mandatory for rooftop solar and decentralized PV installations",
+        "verificationStatus": "// TODO verify"
       }
     ],
     "documentsRequired": [
@@ -987,7 +997,8 @@
         "description": "Identity proof, address proof, and joint declaration of parent or guardian co-borrower.",
         "issuer": "Co-borrower / Legal Guardian",
         "mandatory": true,
-        "condition": null
+        "condition": null,
+        "verificationStatus": "// TODO verify"
       }
     ],
     "documentsRequired": [
@@ -1164,7 +1175,8 @@
         "description": "Itemized quotation from certified supplier for modern trade tools and equipment.",
         "issuer": "Authorized Tool Supplier",
         "mandatory": false,
-        "condition": "Mandatory if requesting financial grant for modern vocational toolkit"
+        "condition": "Mandatory if requesting financial grant for modern vocational toolkit",
+        "verificationStatus": "// TODO verify"
       }
     ],
     "documentsRequired": [
