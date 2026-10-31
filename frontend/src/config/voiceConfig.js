@@ -8,11 +8,11 @@ export const FROZEN_LANGUAGES = ['en', 'hi', 'ta', 'mr', 'ur'];
 export const BROKEN_LANGUAGES = ['te', 'bn', 'gu', 'kn', 'ml', 'pa', 'or'];
 
 export const LANGUAGE_VOICE_MAP = {
-  // Frozen verified languages (ElevenLabs Multilingual v2)
-  en: { name: 'English', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
-  hi: { name: 'Hindi (हिन्दी)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
-  ta: { name: 'Tamil (தமிழ்)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
-  mr: { name: 'Marathi (मराठी)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
+  // Hybrid verified & beta languages (mixed ElevenLabs baseline + Sarvam Bulbul v3)
+  en: { name: 'English', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'beta' },
+  hi: { name: 'Hindi (हिन्दी)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'beta' },
+  ta: { name: 'Tamil (தமிழ்)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'beta' },
+  mr: { name: 'Marathi (मराठी)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'beta' },
   ur: { name: 'Urdu (اردو)', engine: 'elevenlabs', model: 'eleven_multilingual_v2', status: 'verified' },
 
   // 7 Sarvam Bulbul v3 regional languages (Beta)

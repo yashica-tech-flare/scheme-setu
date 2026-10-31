@@ -664,4 +664,80 @@ router.get('/status', (req, res) => {
   });
 });
 
+/**
+ * GET /api/voice/usage
+ * Diagnostic endpoint for checking ElevenLabs credit / subscription quota.
+ * Strictly NEVER exposes any secret API keys.
+ */
+router.get('/usage', async (req, res) => {
+  const elevenKey = process.env.ELEVENLABS_API_KEY;
+  if (!elevenKey) {
+    return res.json({
+      configured: false,
+      provider: 'elevenlabs',
+      message: 'ElevenLabs key not configured on backend.'
+    });
+  }
+
+  try {
+    const usageData = await new Promise((resolve, reject) => {
+      const request = https.request({
+        hostname: 'api.elevenlabs.io',
+        path: '/v1/user/subscription',
+        method: 'GET',
+        headers: { 'xi-api-key': elevenKey },
+        timeout: 10000
+      }, (resp) => {
+        let raw = '';
+        resp.on('data', chunk => raw += chunk);
+        resp.on('end', () => {
+          if (resp.statusCode === 200) {
+            try {
+              const parsed = JSON.parse(raw);
+              return resolve({
+                status: 200,
+                tier: parsed.tier || 'free',
+                characterCount: parsed.character_count || 0,
+                characterLimit: parsed.character_limit || 0,
+                charactersRemaining: Math.max(0, (parsed.character_limit || 0) - (parsed.character_count || 0)),
+                resetDate: parsed.next_character_count_reset_unix
+                  ? new Date(parsed.next_character_count_reset_unix * 1000).toISOString()
+                  : null
+              });
+            } catch (err) {
+              return reject(new Error('Failed to parse ElevenLabs subscription response'));
+            }
+          } else {
+            resolve({
+              status: resp.statusCode,
+              error: 'quota_exhausted_or_invalid',
+              message: `ElevenLabs returned HTTP ${resp.statusCode}`
+            });
+          }
+        });
+      });
+
+      request.on('timeout', () => {
+        request.destroy();
+        reject(new Error('ElevenLabs usage check timed out'));
+      });
+      request.on('error', err => reject(err));
+      request.end();
+    });
+
+    res.json({
+      configured: true,
+      provider: 'elevenlabs',
+      ...usageData
+    });
+  } catch (err) {
+    res.status(502).json({
+      configured: true,
+      provider: 'elevenlabs',
+      error: 'check_failed',
+      message: err.message
+    });
+  }
+});
+
 module.exports = router;
