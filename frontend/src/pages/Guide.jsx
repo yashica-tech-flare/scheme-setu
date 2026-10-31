@@ -232,7 +232,7 @@ export default function Guide() {
           </div>
           <h4 className="text-xl font-bold">{t('guidance.grievanceHelpdeskHeading', 'Need assistance with channel partner branches?')}</h4>
           <p className="text-xs text-slate-300">
-            {t('guidance.grievanceHelpdeskContact', 'Toll-Free National Helpline: 1800-11-2001 | Email: helpdesk@nsfdc.nic.in | Portal: nsfdc.nic.in')}
+            {t('guidance.grievanceHelpdeskContact', 'Email: helpdesk@nsfdc.nic.in | Portal: nsfdc.nic.in')}
           </p>
         </div>
 

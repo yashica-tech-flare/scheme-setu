@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PartnerMap from '../components/PartnerMap';
@@ -63,11 +63,6 @@ export default function PartnerLocator() {
         <p className="text-sm text-slate-600 max-w-2xl">
           Locate approved State Channelising Agencies (SCAs), Public Sector Banks (PSBs), Regional Rural Banks (RRBs), and NBFC-MFIs nearest to you. High NPA or depleted fund branches are automatically excluded.
         </p>
-        {backendStatus === 'fallback' && (
-          <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 max-w-2xl">
-            <strong>Note:</strong> The live backend is waking up from sleep (Render free tier). Partner data shown is from our verified offline seed store — all 35 partner branches are accurate and functional.
-          </p>
-        )}
       </div>
 
       {/* Main Interactive Partner Map */}

@@ -28,10 +28,6 @@ export default function Navbar() {
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
           {t('nav.nationalPortal')} • NSFDC & NBCFDC Concessional Windows
         </span>
-        <span className="flex items-center gap-1.5 text-saffron-400 font-semibold">
-          <PhoneCall className="w-3 h-3" />
-          {t('nav.helpdesk')}
-        </span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -278,7 +278,7 @@ export default function GuidancePanel({ scheme, partner, inGuidePage = false }) 
             {t('guidance.slipNote', 'This self-check verification slip is generated for the applicant\'s personal preparation. Final eligibility, original document verification, and loan sanction are governed solely by the designated Channelising Agency (SCA/Bank). SchemeBridge does not store, transmit, or record any personal identification data or Aadhaar numbers.')}
           </p>
           <p className="text-slate-500">
-            National SC Grievance & Helpdesk Toll-Free: 1800-11-2001 | Portal: nsfdc.nic.in / pmsuraj.dosje.gov.in
+            Portal: nsfdc.nic.in / pmsuraj.dosje.gov.in
           </p>
         </div>
       </div>
